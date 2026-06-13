@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_group_collection_full_extended",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/strategy_group_full_extended"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/list_metadata"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "operator": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "default": "OR"
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "geofence_segment_id",
+          "geofence_segment_factual_id"
+        ],
+        "properties": {
+          "geofence_segment_id": {
+            "type": "integer"
+          },
+          "geofence_segment_factual_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "available only when extended"
+          },
+          "status": {
+            "type": "boolean",
+            "description": "available only when extended"
+          },
+          "updated_on": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "available only when extended"
+          }
+        }
+      }
+    }
+  }
+}

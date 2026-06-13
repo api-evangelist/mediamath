@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "day_part",
+  "type": "object",
+  "required": [
+    "start_hour",
+    "end_hour",
+    "days"
+  ],
+  "properties": {
+    "user_time": {
+      "type": "boolean",
+      "default": true
+    },
+    "start_hour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23,
+      "example": 1
+    },
+    "end_hour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23,
+      "example": 5
+    },
+    "days": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "M",
+          "T",
+          "W",
+          "R",
+          "F",
+          "S",
+          "U"
+        ]
+      },
+      "example": [
+        "M",
+        "T",
+        "W",
+        "S",
+        "U"
+      ]
+    }
+  }
+}

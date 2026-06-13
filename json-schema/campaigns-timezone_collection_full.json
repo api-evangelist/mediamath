@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "timezone_collection_full",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/timezone_full"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/list_metadata"
+    }
+  }
+}

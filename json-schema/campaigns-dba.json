@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "dba",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "description": "campaign id"
+      },
+      "dynamic_budget_allocation_applied": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true
+      },
+      "dynamic_budget_allocation_available": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

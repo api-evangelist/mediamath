@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "targeting_segment_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "targeting_vendor_id": {
+          "type": "integer"
+        },
+        "parent_targeting_segment_id": {
+          "type": "integer",
+          "nullable": true
+        },
+        "objective_id": {
+          "type": "integer",
+          "nullable": true
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "uniques": {
+          "type": "integer",
+          "nullable": true
+        },
+        "external_code": {
+          "type": "string",
+          "maxLength": 48,
+          "nullable": true
+        },
+        "wholesale_cpm": {
+          "type": "number",
+          "format": "double",
+          "nullable": true
+        },
+        "retail_cpm": {
+          "type": "number",
+          "format": "double",
+          "nullable": true
+        },
+        "buyable": {
+          "type": "boolean",
+          "default": true
+        },
+        "tag": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "full_path": {
+          "type": "string"
+        },
+        "child_count": {
+          "type": "integer",
+          "nullable": true
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "new_strategy_plan_response_extended",
+  "type": "object",
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "campaign_start_date": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "campaign_end_date": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "campaign_zone_name": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "$ref": "#/components/schemas/new_strategy_plan_full_response_extended"
+        }
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        }
+      }
+    }
+  }
+}

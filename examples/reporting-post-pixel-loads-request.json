@@ -1,0 +1,42 @@
+{
+  "fields": [
+    "campaign_id",
+    "impressions"
+  ],
+  "filters": [
+    {
+      "field": "organization_id",
+      "op": "=",
+      "value": 123456
+    },
+    {
+      "field": "agency_id",
+      "value": [
+        123456,
+        789012
+      ]
+    },
+    {
+      "field": "advertiser_id",
+      "value": 123456
+    },
+    {
+      "field": "campaign_name",
+      "op": "=~",
+      "value": "Test Campaign"
+    }
+  ],
+  "order": [
+    {
+      "desc": false,
+      "field": "agg_timestamp",
+      "nulls_last": true
+    }
+  ],
+  "pagination": {
+    "page_index": 0,
+    "page_size": 100
+  },
+  "rollup": "by_day",
+  "time_window": "current_day"
+}

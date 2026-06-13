@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_full",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/campaign_base"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "advertiser_id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "locked_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "nullable": true
+        },
+        "v3_usage": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "duration": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/campaign_duration"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "initial_start_date": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          ]
+        },
+        "goals": {
+          "$ref": "#/components/schemas/campaign_goals"
+        },
+        "budget": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/campaign_budget"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "flights": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/campaign_budget_flights"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "frequency": {
+          "$ref": "#/components/schemas/campaign_frequency"
+        },
+        "inventory": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/campaign_inventory"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "effective_ads_txt_verified": {
+                  "type": "string",
+                  "minLength": 1,
+                  "enum": [
+                    "ANY",
+                    "AUTHORIZED_ONLY",
+                    "AUTHORIZED_DIRECT_ONLY",
+                    "NONE"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "site_lists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/campaign_site_list"
+          }
+        },
+        "custom_brain_selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/campaign_custom_brain_selection"
+          }
+        },
+        "strategies": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "strategies_list": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "distinct_strategy_goal_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "spend",
+                  "reach",
+                  "cpc",
+                  "cpe",
+                  "cpa",
+                  "roi",
+                  "ctr",
+                  "vcr",
+                  "viewability_rate",
+                  "vcpm",
+                  "cpcv"
+                ]
+              }
+            }
+          }
+        },
+        "strategy_groups": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "strategy_groups_list": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

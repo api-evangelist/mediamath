@@ -1,0 +1,2733 @@
+openapi: 3.0.3
+components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The request is not valid
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: The requested resource could not be found
+    ServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: An error occurred
+    Unauthorized:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: Unauthorized
+  schemas:
+    Error:
+      example:
+        error_code: BadRequest
+        message: 'field does not exist in this dataset: campaign_id_test'
+        request_id: 74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs
+      properties:
+        error_code:
+          type: string
+        message:
+          type: string
+        request_id:
+          type: string
+      type: object
+    StreamingResponse:
+      description: >-
+        Documentation available at
+        https://apidocs.mediamath.com/docs/reporting-api-v2
+      example: >-
+        {"fields":[{"name":"agg_timestamp"},{"name":"campaign_id"},{"name":"impressions"}],"total_items_count":14}
+
+        {"campaign_id":1,"impressions":93283,"agg_timestamp":"2023-07-27T12:00:00Z"}
+
+        {"campaign_id":2,"impressions":474,"agg_timestamp":"2023-07-27T12:00:00Z"}
+
+        {"meta":{}}
+
+        {"campaign_id":3,"impressions":45775,"agg_timestamp":"2023-07-27T12:00:00Z"}
+      title: Streaming Response
+      type: string
+  securitySchemes:
+    Auth0:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+          scopes:
+            offline_access: for refresh tokens
+          tokenUrl: https://auth.mediamath.com/oauth/token
+      type: oauth2
+info:
+  contact:
+    email: developers@mediamath.com
+    name: Support
+    url: https://mediamathsupport.force.com/
+  description: >
+    OpenAPI 3.0 spec of the Reporting API.
+
+
+    <!-- theme: info -->
+
+    > ### Beta datasets
+
+    >
+
+    > Datasets marked as **(beta)** are subject to change or removal without
+    prior notice, and are offered as is with no support.
+  title: Reporting API V2
+  version: 1.0.0
+paths:
+  /all-dimensions-and-metrics:
+    post:
+      description: "\nStandard performance metrics in campaign currency and broken out by our widest array of dimensions.\nAvailable in custom date ranges or intervals with the option to aggregate by day, week, or month.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`|`by_day`, `by_week`, `by_month`|\n|`ads_txt_type`<br>Ads.txt Type|Any|Any|\n|`ads_txt_verified`<br>Ads.txt Verified|Any|Any|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`app_id`<br>|Any|Any|\n|`app_name`<br>|Any|Any|\n|`app_store`<br>|Any|Any|\n|`auction_type`<br>|Any|Any|\n|`bid_price_impact`<br>|Any|Any|\n|`browser`<br>|Any|Any|\n|`browser_version`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`channel_type`<br>|Any|Any|\n|`city_id`<br>|Any|Any|\n|`city_name`<br>|Any|Any|\n|`concept_id`<br>|Any|Any|\n|`concept_name`<br>|Any|Any|\n|`conn_speed_id`<br>Connection Speed|Any|Any|\n|`conn_speed_name`<br>|Any|Any|\n|`content_title`<br>|Any|Any|\n|`country_id`<br>|Any|Any|\n|`country_name`<br>|Any|Any|\n|`creative_id`<br>|Any|Any|\n|`creative_is_native`<br>|Any|Any|\n|`creative_name`<br>|Any|Any|\n|`creative_size`<br>|Any|Any|\n|`creative_tpas_placement_id`<br>|Any|Any|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`device_make`<br>|Any|Any|\n|`device_model`<br>|Any|Any|\n|`dma_id`<br>|Any|Any|\n|`dma_name`<br>|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`flight_id`<br>|Any|Any|\n|`form_factor`<br>Device Type|Any|Any|\n|`inventory_browser_type`<br>|Any|Any|\n|`inventory_market_type`<br>|Any|Any|\n|`isp_id`<br>|Any|Any|\n|`isp_name`<br>|Any|Any|\n|`media_name`<br>|Any|Any|\n|`mm_buying_modality`<br>Buying Modality|Any|Any|\n|`openrtb_device_type`<br>OpenRTB Device Type|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`os_type`<br>OS Type|Any|Any|\n|`os_version`<br>OS Version|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`postal_code_id`<br>|Any|Any|\n|`postal_code_name`<br>|Any|Any|\n|`primary_seller_id`<br>|Any|Any|\n|`primary_seller_name`<br>|Any|Any|\n|`prisma_campaign_id`<br>|Any|Any|\n|`prisma_campaign_name`<br>|Any|Any|\n|`prisma_client_product_estimate`<br>|Any|Any|\n|`prisma_io_number`<br>|Any|Any|\n|`publisher_id`<br>|Any|Any|\n|`publisher_name`<br>|Any|Any|\n|`region_id`<br>|Any|Any|\n|`region_name`<br>|Any|Any|\n|`site_domain`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|`video_placement`<br>|Any|Any|\n|`video_skippability`<br>|Any|Any|\n|**Metrics**|\n|`calculated_impressions`<br>|Any|Any|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`in_view`<br>In View Impressions|Any|Any|\n|`in_view_100_percent`<br>100% In View Impressions|Any|Any|\n|`in_view_15_seconds`<br>In View - 15 Seconds|Any|Any|\n|`in_view_15_seconds_rate`<br>In View 15 Seconds Rate|Any|Any|\n|`in_view_5_seconds`<br>In View - 5 Seconds|Any|Any|\n|`in_view_5_seconds_rate`<br>In View 5 Seconds Rate|Any|Any|\n|`in_view_q1`<br>|Any|Any|\n|`in_view_q2`<br>|Any|Any|\n|`in_view_q3`<br>|Any|Any|\n|`in_view_q4`<br>|Any|Any|\n|`measurability_rate`<br>Measurability Rate|Any|Any|\n|`measurable`<br>Measurable Impressions|Any|Any|\n|`media_cost_non_watermark_usd`<br>Non-Watermark Media Cost (USD)|Any|Any|\n|`media_cost_watermark_usd`<br>Watermark Media Cost (USD)|Any|Any|\n|`non_watermark_impressions`<br>Non-Watermark Impressions|Any|Any|\n|`post_click_aov`<br>Post-Click AOV|Any|Any|\n|`post_click_aov_usd`<br>(USD) Post-Click AOV|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_click_revenue`<br>Post-Click Revenue|Any|Any|\n|`post_click_revenue_usd`<br>(USD) Post-Click Revenue|Any|Any|\n|`post_click_total_spend_roi`<br>Post-Click Total Spend ROI|Any|Any|\n|`post_view_aov`<br>Post-View AOV|Any|Any|\n|`post_view_aov_usd`<br>(USD) Post-View AOV|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`post_view_revenue`<br>Post-View Revenue|Any|Any|\n|`post_view_revenue_usd`<br>(USD) Post-View Revenue|Any|Any|\n|`post_view_total_spend_roi`<br>Post-View Total Spend ROI|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_aov`<br>Total AOV|Any|Any|\n|`total_aov_usd`<br>(USD) Total AOV|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_revenue`<br>|Any|Any|\n|`total_revenue_usd`<br>(USD) Total Revenue|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpa_usd`<br>(USD) Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpc_usd`<br>(USD) Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpcv_usd`<br>(USD) Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_cpm_usd`<br>(USD) Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pc_cpa_usd`<br>(USD) Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`total_spend_pv_cpa_usd`<br>(USD) Total Spend PV CPA|Any|Any|\n|`total_spend_roi`<br>Total Spend ROI|Any|Any|\n|`total_spend_usd`<br>(USD) Total Spend|Any|Any|\n|`total_spend_vcpm`<br>Total Spend vCPM |Any|Any|\n|`total_spend_vcpm_usd`<br>(USD) Total Spend vCPM |Any|Any|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_complete_rate_impression_based`<br>100% Completed Rate - Impressions Based|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_first_quartile_rate_impression_based`<br>25% Completed Rate - Impressions Based|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_midpoint_rate_impression_based`<br>50% Completed Rate - Impressions Based|Any|Any|\n|`video_mute`<br>Mute|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_third_quartile_rate_impression_based`<br>75% Completed Rate - Impressions Based|Any|Any|\n|`video_unmute`<br>Unmute|Any|Any|\n|`viewability_rate`<br>Viewability Rate|Any|Any|\n|`viewability_rate_100_percent`<br>100% In View Rate|Any|Any|\n|`watermark_impressions`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_days`, `yesterday`, `month_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n3 years\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_day
+              time_window: current_day
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: All Dimensions and Metrics
+      tags:
+        - Datasets
+  /brain-feature-summary:
+    post:
+      description: "\nBrain Feature Summary Report\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`yesterday`, `last_X_days`, `month_to_date`|`by_day`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`feature`<br>|Any|Any|\n|`index`<br>|Any|Any|\n|`model_goal`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`position`<br>|Any|Any|\n|**Metrics**|\n\n### Pageable\nYes\n\n### Time Windows\n`yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`by_day`\n\n\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_day
+              time_window: last_7_days
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Brain Feature Summary
+      tags:
+        - Datasets
+  /brain-feature-value:
+    post:
+      description: "\nBrain Feature Value Report\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`yesterday`, `last_X_days`, `month_to_date`|`by_day`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`bid_impact`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`feature`<br>|Any|Any|\n|`feature_report_type`<br>|Any|Any|\n|`feature_value`<br>|Any|Any|\n|`index`<br>|Any|Any|\n|`is_numeric`<br>|Any|Any|\n|`mean`<br>|Any|Any|\n|`model_goal`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`position`<br>|Any|Any|\n|**Metrics**|\n\n### Pageable\nYes\n\n### Time Windows\n`yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`by_day`\n\n\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_day
+              time_window: last_7_days
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Brain Feature Value
+      tags:
+        - Datasets
+  /day-part:
+    post:
+      description: "\nStandard performance metrics broken out by time of day and day of week. Available in standard intervals.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`day_part_id`<br>Day Part ID|Any|Any|\n|`day_part_name`<br>Day Part in the User's Timezone|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|`week_day_id`<br>Weekday ID|Any|Any|\n|`week_day_name`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_mute`<br>Mute|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_unmute`<br>Unmute|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n1 year and CTD\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_day
+              time_window: current_day
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Day Part
+      tags:
+        - Datasets
+  /deals:
+    post:
+      description: "\n\nMetrics that describe the path from a matched bid opportunity (biddable) to a delivered impression (win) for private marketplace deals. \nThe data is stored in UTC timezone and is available by hour.\n\n**NOTE: this dataset requires the use of filter `organization_id` with exactly 1 value, and `deal_id` with at least 1 value.**\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `last_X_days`, `yesterday`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|**Metrics**|\n|`bid_rate`<br>|Any|Any|\n|`biddables`<br>|Any|Any|\n|`bids`<br>|Any|Any|\n|`matches`<br>|Any|Any|\n|`win_rate`<br>|Any|Any|\n|`wins`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`all`, `by_hour`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n1 year\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_hour
+              time_window: current_day
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Deals
+      tags:
+        - Datasets
+  /performance:
+    post:
+      description: "\nStandard Aggregated Performance Report in Campaign Currency\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`concept_id`<br>|Any|Any|\n|`concept_name`<br>|Any|Any|\n|`creative_id`<br>|Any|Any|\n|`creative_is_native`<br>|Any|Any|\n|`creative_name`<br>|Any|Any|\n|`creative_size`<br>|Any|Any|\n|`creative_tpas_placement_id`<br>|Any|Any|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`flight_id`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`prisma_campaign_id`<br>|Any|Any|\n|`prisma_campaign_name`<br>|Any|Any|\n|`prisma_client_product_estimate`<br>|Any|Any|\n|`prisma_io_number`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`in_view`<br>In View Impressions|Any|Any|\n|`in_view_100_percent`<br>100% In View Impressions|Any|Any|\n|`in_view_15_seconds`<br>|Any|Any|\n|`in_view_15_seconds_rate`<br>|Any|Any|\n|`in_view_5_seconds`<br>|Any|Any|\n|`in_view_5_seconds_rate`<br>|Any|Any|\n|`in_view_q1`<br>|Any|Any|\n|`in_view_q2`<br>|Any|Any|\n|`in_view_q3`<br>|Any|Any|\n|`in_view_q4`<br>|Any|Any|\n|`measurability_rate`<br>Measurability Rate|Any|Any|\n|`measurable`<br>Measurable Impressions|Any|Any|\n|`post_click_aov`<br>Post-Click AOV|Any|Any|\n|`post_click_aov_usd`<br>(USD) Post-Click AOV|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_click_revenue`<br>Post-Click Revenue|Any|Any|\n|`post_click_revenue_usd`<br>|Any|Any|\n|`post_click_total_spend_roi`<br>Post-Click Total Spend ROI|Any|Any|\n|`post_view_aov`<br>Post-View AOV|Any|Any|\n|`post_view_aov_usd`<br>(USD) Post-View AOV|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`post_view_revenue`<br>Post-View Revenue|Any|Any|\n|`post_view_revenue_usd`<br>(USD) Post-View Revenue|Any|Any|\n|`post_view_total_spend_roi`<br>Post-View Total Spend ROI|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_aov`<br>Total AOV|Any|Any|\n|`total_aov_usd`<br>(USD) Total AOV|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_revenue`<br>|Any|Any|\n|`total_revenue_usd`<br>|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpa_usd`<br>(USD) Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpc_usd`<br>(USD) Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpcv_usd`<br>(USD) Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_cpm_usd`<br>(USD) Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pc_cpa_usd`<br>(USD) Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`total_spend_pv_cpa_usd`<br>(USD) Total Spend PV CPA|Any|Any|\n|`total_spend_roi`<br>Total Spend ROI|Any|Any|\n|`total_spend_usd`<br>|Any|Any|\n|`total_spend_vcpm`<br>Total Spend vCPM|Any|Any|\n|`total_spend_vcpm_usd`<br>(USD) Total Spend vCPM|Any|Any|\n|`uniques`<br>|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`all`, `by_day`, `by_week`, `by_month`|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_complete_rate_impression_based`<br>VCR (Impression Based)|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_first_quartile_rate_impression_based`<br>25% Completed Rate - Impressions Based|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_midpoint_rate_impression_based`<br>50% Completed Rate - Impressions Based|Any|Any|\n|`video_mute`<br>|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_third_quartile_rate_impression_based`<br>75% Completed Rate - Impressions Based|Any|Any|\n|`video_unmute`<br>|Any|Any|\n|`viewability_rate`<br>Viewability Rate|Any|Any|\n|`viewability_rate_100_percent`<br>100% In View Rate|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_days`, `yesterday`, `month_to_date`, `campaign_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\nSince 2013\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_day
+              time_window: current_day
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Performance
+      tags:
+        - Datasets
+  /performance-hourly:
+    post:
+      description: "\nStandard Aggregated Performance Report in Campaign Currency\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`flight_id`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`prisma_campaign_id`<br>|Any|Any|\n|`prisma_campaign_name`<br>|Any|Any|\n|`prisma_client_product_estimate`<br>|Any|Any|\n|`prisma_io_number`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`in_view`<br>In View Impressions|Any|Any|\n|`in_view_100_percent`<br>100% In View Impressions|Any|Any|\n|`in_view_15_seconds`<br>|Any|Any|\n|`in_view_15_seconds_rate`<br>|Any|Any|\n|`in_view_5_seconds`<br>|Any|Any|\n|`in_view_5_seconds_rate`<br>|Any|Any|\n|`measurability_rate`<br>Measurability Rate|Any|Any|\n|`measurable`<br>Measurable Impressions|Any|Any|\n|`post_click_aov`<br>Post-Click AOV|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_click_revenue`<br>Post-Click Revenue|Any|Any|\n|`post_click_revenue_usd`<br>|Any|Any|\n|`post_click_total_spend_roi`<br>Post-Click Total Spend ROI|Any|Any|\n|`post_view_aov`<br>Post-View AOV|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`post_view_revenue`<br>Post-View Revenue|Any|Any|\n|`post_view_total_spend_roi`<br>Post-View Total Spend ROI|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_aov`<br>Total AOV|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_revenue`<br>|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`total_spend_roi`<br>Total Spend ROI|Any|Any|\n|`total_spend_usd`<br>|Any|Any|\n|`total_spend_vcpm`<br>Total Spend vCPM |Any|Any|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_complete_rate_impression_based`<br>VCR (Impression Based)|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_first_quartile_rate_impression_based`<br>25% Completed Rate - Impressions Based|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_midpoint_rate_impression_based`<br>50% Completed Rate - Impressions Based|Any|Any|\n|`video_mute`<br>|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_third_quartile_rate_impression_based`<br>75% Completed Rate - Impressions Based|Any|Any|\n|`video_unmute`<br>|Any|Any|\n|`viewability_rate`<br>Viewability Rate|Any|Any|\n|`viewability_rate_100_percent`<br>100% In View Rate|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_hours`, `last_X_days`, `yesterday`, `month_to_date`\n\n### Rollups\n`all`, `by_hour`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n90 days\n### Time Zones\n`UTC`, `campaign`\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_hour
+              time_window: current_day
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Performance Hourly
+      tags:
+        - Datasets
+  /pixel-loads:
+    post:
+      description: "\nLoads and Uniques metrics for `data` and `event` pixels, broken out by referrer and referrer rank, available by day.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`pixel_cost_cpm`<br>|Any|Any|\n|`pixel_cost_cpts`<br>|Any|Any|\n|`pixel_cost_pct_cpm`<br>|Any|Any|\n|`pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`pixel_currency`<br>|Any|Any|\n|`pixel_currency_fixed`<br>|Any|Any|\n|`pixel_eligible`<br>|Any|Any|\n|`pixel_external_identifier`<br>|Any|Any|\n|`pixel_id`<br>|Any|Any|\n|`pixel_name`<br>|Any|Any|\n|`pixel_pricing`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_execution_by`<br>|Any|Any|\n|`pixel_provider_id`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_provider_tax`<br>|Any|Any|\n|`pixel_provider_status`<br>|Any|Any|\n|`pixel_provider_taxonomy_file`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_provider_vendor_id`<br>|Any|Any|\n|`pixel_rmx_conversion_minutes`<br>|Any|Any|\n|`pixel_rmx_conversion_type`<br>|Any|Any|\n|`pixel_rmx_friendly`<br>|Any|Any|\n|`pixel_rmx_merit`<br>|Any|Any|\n|`pixel_rmx_pc_window_minutes`<br>|Any|Any|\n|`pixel_rmx_pv_window_minutes`<br>|Any|Any|\n|`pixel_segment_op`<br>|Any|Any|\n|`pixel_status`<br>|Any|Any|\n|`pixel_tag_type`<br>|Any|Any|\n|`pixel_tags`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`provider_id`<br>|Any|Any|\n|`referrer`<br>|Any|Any|\n|`referrer_rank`<br>|Any|Any|\n|**Metrics**|\n|`loads`<br>|Any|Any|\n|`uniques`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n90 days\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_day
+              time_window: current_day
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Pixel Loads
+      tags:
+        - Datasets
+  /reach-frequency:
+    post:
+      description: "\nBasic performance metrics as well as the \"uniques\" metric, broken out by frequency of ad exposure.  Available in standard intervals.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`frequency`<br>number of impressions seen by a unique user|Any|Any|\n|`frequency_bin`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`uniques`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`yesterday`, `last_7_days`, `last_14_days`, `last_30_days`, `last_60_days`, `last_90_days`\n\n### Rollups\n`all`\n\n\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: campaign_id
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: all
+              time_window: last_7_days
+            schema:
+              properties:
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+                - time_window
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Reach and Frequency
+      tags:
+        - Datasets
+  /win-loss:
+    post:
+      description: "\nMetrics describe the auction before a win or even a bid has taken place.  Broken out by strategy, exchange, and deal dimensions and available by hour.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`average_bid_amount_cpm`<br>|Any|Any|\n|`average_win_amount_cpm`<br>|Any|Any|\n|`bid_rate`<br>|Any|Any|\n|`bids`<br>|Any|Any|\n|`matched_bid_opportunities`<br>|Any|Any|\n|`max_bid_amount_cpm`<br>|Any|Any|\n|`max_win_amount_cpm`<br>|Any|Any|\n|`min_bid_amount_cpm`<br>|Any|Any|\n|`min_win_amount_cpm`<br>|Any|Any|\n|`pacing_matched_bid_opportunities`<br>|Any|Any|\n|`total_bid_amount_cpm`<br>|Any|Any|\n|`total_win_amount_cpm`<br>|Any|Any|\n|`win_rate`<br>|Any|Any|\n|`wins`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`all`, `by_hour`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n1 year\n"
+      requestBody:
+        content:
+          application/json:
+            example:
+              fields:
+                - campaign_id
+                - impressions
+              filters:
+                - field: organization_id
+                  op: '='
+                  value: 123456
+                - field: agency_id
+                  value:
+                    - 123456
+                    - 789012
+                - field: advertiser_id
+                  value: 123456
+                - field: campaign_name
+                  op: '=~'
+                  value: Test Campaign
+              order:
+                - desc: false
+                  field: agg_timestamp
+                  nulls_last: true
+              pagination:
+                page_index: 0
+                page_size: 100
+              rollup: by_hour
+              time_window: current_day
+            schema:
+              oneOf:
+                - required:
+                    - time_window
+                  title: Time Window
+                - required:
+                    - start_time
+                  title: Date Range
+              properties:
+                end_time:
+                  format: date-time
+                  nullable: true
+                  type: string
+                fields:
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                  uniqueItems: true
+                filters:
+                  items:
+                    properties:
+                      field:
+                        type: string
+                      filters:
+                        items:
+                          properties:
+                            field:
+                              type: string
+                            filters:
+                              description: >-
+                                An array of filters. Required if `op` is `and`
+                                or `or`.
+                              items:
+                                type: object
+                              type: array
+                            op:
+                              default: '='
+                              description: |-
+                                * `=`: Equals or contains if `value` is an array
+                                * `!=`: Not equals
+                                * `>`: Greater than
+                                * `>=`: Greater than or equals
+                                * `<`: Less than
+                                * `<=`: Less than or equals
+                                * `=~`: Text contains (case-insensitive)
+                                * `and`: All filters must match
+                                * `or`: At least one filter must match
+                                * `isNull`: Is null
+                                * `isNotNull`: Is not null
+                              type: string
+                            value:
+                              anyOf:
+                                - anyOf:
+                                    - type: integer
+                                    - type: number
+                                    - type: string
+                                    - type: boolean
+                                - items:
+                                    anyOf:
+                                      - type: integer
+                                      - type: number
+                                      - type: string
+                                      - type: boolean
+                                  type: array
+                          type: object
+                        minItems: 2
+                        nullable: true
+                        type: array
+                      op:
+                        default: '='
+                        description: |-
+                          * `=`: Equals or contains if `value` is an array
+                          * `!=`: Not equals
+                          * `>`: Greater than
+                          * `>=`: Greater than or equals
+                          * `<`: Less than
+                          * `<=`: Less than or equals
+                          * `=~`: Text contains (case-insensitive)
+                          * `and`: All filters must match
+                          * `or`: At least one filter must match
+                          * `isNull`: Is null
+                          * `isNotNull`: Is not null
+                        type: string
+                      value:
+                        anyOf:
+                          - anyOf:
+                              - type: integer
+                              - type: number
+                              - type: string
+                              - type: boolean
+                          - items:
+                              anyOf:
+                                - type: integer
+                                - type: number
+                                - type: string
+                                - type: boolean
+                            type: array
+                    type: object
+                  minItems: 1
+                  type: array
+                full_entities:
+                  items:
+                    type: string
+                  minItems: 1
+                  nullable: true
+                  type: array
+                  uniqueItems: true
+                max_results:
+                  description: >-
+                    Maximum number of results to return. Only applicable for
+                    streaming responses. No limit if absent or `null`.
+                  minimum: 1
+                  nullable: true
+                  type: integer
+                order:
+                  items:
+                    properties:
+                      desc:
+                        default: false
+                        type: boolean
+                      field:
+                        type: string
+                      nulls_last:
+                        default: false
+                        type: boolean
+                    required:
+                      - field
+                    type: object
+                  type: array
+                pagination:
+                  description: >-
+                    Streaming response if absent or `null`, Paginated response
+                    otherwise
+                  nullable: true
+                  properties:
+                    page_index:
+                      minimum: 0
+                      type: integer
+                    page_size:
+                      maximum: 10000
+                      minimum: 1
+                      type: integer
+                  type: object
+                rollup:
+                  type: string
+                start_time:
+                  format: date-time
+                  type: string
+                time_window:
+                  type: string
+                time_zone:
+                  description: >-
+                    **Only in supported datasets:** `campaign`, `UTC` or a time
+                    zone name defined in https://www.iana.org/time-zones
+                  type: string
+              required:
+                - fields
+                - filters
+                - rollup
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                meta:
+                  items_count: 3
+                  page_index: 0
+                  status: OK
+                  total_items_count: 3
+                  total_pages: 1
+                results:
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 1
+                    impressions: 93283
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 2
+                    impressions: 474
+                  - agg_timestamp: '2023-07-27T12:00:00Z'
+                    campaign_id: 3
+                    impressions: 45775
+              schema:
+                properties:
+                  meta:
+                    properties:
+                      items_count:
+                        minimum: 0
+                        type: integer
+                      page_index:
+                        minimum: 0
+                        type: integer
+                      status:
+                        enum:
+                          - OK
+                        type: string
+                      total_items_count:
+                        minimum: 0
+                        type: integer
+                      total_pages:
+                        minimum: 0
+                        type: integer
+                    type: object
+                  results:
+                    items:
+                      type: object
+                    type: array
+                type: object
+            application/jsonl:
+              schema:
+                $ref: '#/components/schemas/StreamingResponse'
+          description: JSON for Paginated, JSONL for Streaming
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The request is not valid
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: An error occurred
+      summary: Win/Loss
+      tags:
+        - Datasets
+security:
+  - Auth0:
+      - offline_access
+servers:
+  - description: Live Server
+    url: https://api.mediamath.com/reporting/v2
+tags:
+  - name: Common
+  - name: Datasets

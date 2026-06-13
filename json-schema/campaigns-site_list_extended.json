@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "site_list_extended",
+  "type": "object",
+  "properties": {
+    "site_list_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "boolean",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "restriction": {
+      "type": "string",
+      "enum": [
+        "INCLUDE",
+        "EXCLUDE"
+      ],
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "sites_count": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "sites_count_domain": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "sites_count_app": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "sites_count_primary_seller_id": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "content_updated_on": {
+      "type": "string",
+      "format": "date-time",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "assigned": {
+      "type": "boolean",
+      "readOnly": true
+    }
+  },
+  "required": [
+    "site_list_id",
+    "assigned"
+  ]
+}

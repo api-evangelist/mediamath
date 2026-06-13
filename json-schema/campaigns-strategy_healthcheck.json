@@ -1,0 +1,192 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_healthcheck",
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "warning",
+        "fail"
+      ]
+    },
+    "organization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "activity_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        }
+      }
+    },
+    "contract": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "nullable": true,
+          "description": "Null when the organization has no contract on file."
+        },
+        "expiration_date": {
+          "type": "string",
+          "format": "date-time",
+          "nullable": true,
+          "description": "effective_end_date of the contract surfaced by the check; null when no contract was found."
+        },
+        "activity_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        }
+      }
+    },
+    "agency": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "activity_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        }
+      }
+    },
+    "advertiser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "activity_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        }
+      }
+    },
+    "campaign": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "activity_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "start_end_date_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "budget_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "remaining_budget": {
+          "type": "number",
+          "nullable": true,
+          "description": "Remaining budget (total_budget \u2212 spend_to_date) on the campaign's relevant budget flight; null when no active flight exists."
+        },
+        "currency_code": {
+          "type": "string",
+          "nullable": true,
+          "description": "Currency of `remaining_budget`, inherited from the relevant budget flight; null when no active flight exists."
+        }
+      }
+    },
+    "strategy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "activity_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "use_campaign_start": {
+          "type": "boolean"
+        },
+        "use_campaign_end": {
+          "type": "boolean"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "start_end_date_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "budget_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "remaining_budget": {
+          "type": "number",
+          "nullable": true,
+          "description": "Strategy budget minus spend-to-date; null when no strategy-level budget cap is set."
+        },
+        "currency_code": {
+          "type": "string",
+          "nullable": true,
+          "description": "Currency of `remaining_budget`, inherited from the parent campaign; null when no strategy-level cap is set."
+        },
+        "inventory_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "day_parts_check": {
+          "$ref": "#/components/schemas/healthcheck_result"
+        },
+        "next_active_window_start": {
+          "type": "string",
+          "format": "date-time",
+          "nullable": true,
+          "description": "UTC time the next active daypart window will open. Populated only when\nday_parts_check is `warning` (currently outside every active window); null\notherwise (including when no dayparting is configured).\n"
+        }
+      }
+    },
+    "creative": {
+      "type": "object",
+      "description": "Collective creative diagnostics. A strategy has many creatives via the\nstrategy_concepts \u2192 concepts \u2192 atomic_creatives path, so there is no single\ncreative to point at \u2014 only the two pass/fail outcomes.\n",
+      "properties": {
+        "activity_check": {
+          "description": "pass if \u22651 attached creative is active and within its start/end date window.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/healthcheck_result"
+            }
+          ]
+        },
+        "approval_check": {
+          "description": "pass if \u22651 attached creative has at least one APPROVED row in creative_approvals.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/healthcheck_result"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

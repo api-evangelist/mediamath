@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "new_strategy_group_response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/components/schemas/new_strategy_group_full"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        }
+      }
+    }
+  }
+}

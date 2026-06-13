@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "inventory_base",
+  "type": "object",
+  "anyOf": [
+    {
+      "properties": {
+        "supply_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "run_on_all_exchanges": {
+          "type": "boolean"
+        },
+        "run_on_all_pmp": {
+          "type": "boolean"
+        },
+        "deal_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "deal_group_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "site_list_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ]
+}

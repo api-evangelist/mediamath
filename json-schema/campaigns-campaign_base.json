@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_base",
+  "type": "object",
+  "properties": {
+    "archived": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "boolean",
+      "default": true
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "service_type": {
+      "type": "string",
+      "enum": [
+        "SELF",
+        "MANAGED"
+      ]
+    },
+    "io_name": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "io_reference_num": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "is_programmatic_guaranteed": {
+      "type": "boolean"
+    },
+    "political": {
+      "type": "boolean",
+      "default": false
+    },
+    "source_campaign_id": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 7
+    },
+    "zone_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "viewability": {
+      "$ref": "#/components/schemas/campaign_viewability"
+    },
+    "identity": {
+      "$ref": "#/components/schemas/campaign_identity"
+    },
+    "ad_server": {
+      "$ref": "#/components/schemas/campaign_ad_server"
+    },
+    "pacing": {
+      "$ref": "#/components/schemas/campaign_pacing"
+    },
+    "attribution": {
+      "$ref": "#/components/schemas/campaign_attribution"
+    },
+    "vendor_contracts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/vendor_contract_base"
+      }
+    },
+    "mfa_avoidance": {
+      "type": "string",
+      "enum": [
+        "INHERIT",
+        "ALLOW_ALL",
+        "EXCLUDE_MFA"
+      ]
+    },
+    "targeting_identity_level": {
+      "type": "string",
+      "enum": [
+        "INHERIT",
+        "INDIVIDUAL",
+        "HOUSEHOLD"
+      ],
+      "default": "INHERIT"
+    }
+  }
+}

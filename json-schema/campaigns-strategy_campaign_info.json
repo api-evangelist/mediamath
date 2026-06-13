@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_campaign_info",
+  "type": "object",
+  "properties": {
+    "campaign_name": {
+      "type": "string",
+      "readOnly": true
+    },
+    "campaign_start_date": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "campaign_end_date": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "campaign_zone_name": {
+      "type": "string",
+      "readOnly": true
+    },
+    "campaign_service_type": {
+      "type": "string",
+      "readOnly": true
+    },
+    "campaign_goal_type": {
+      "type": "string",
+      "readOnly": true
+    },
+    "campaign_goal_value": {
+      "type": "number",
+      "format": "float",
+      "readOnly": true
+    },
+    "campaign_merit_pixel_id": {
+      "type": "integer",
+      "nullable": true,
+      "readOnly": true
+    },
+    "viewability": {
+      "type": "object",
+      "readOnly": true,
+      "properties": {
+        "sample_rate": {
+          "type": "number",
+          "format": "float",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "readOnly": true,
+          "example": "AUTO_TAG"
+        },
+        "vendor_id": {
+          "type": "integer",
+          "readOnly": true
+        }
+      }
+    }
+  }
+}

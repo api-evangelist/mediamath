@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pixel_providers_full_response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "taxonomy_file": {
+            "type": "string"
+          },
+          "created_on": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updated_on": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "agency_id": {
+            "type": "integer"
+          },
+          "execution_by": {
+            "type": "string"
+          },
+          "vendor_id": {
+            "type": "integer"
+          },
+          "provider_tax": {
+            "type": "number"
+          },
+          "entity_type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/list_metadata"
+    }
+  }
+}

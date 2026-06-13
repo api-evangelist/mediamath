@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_frequency",
+  "type": "object",
+  "properties": {
+    "frequency_type": {
+      "type": "string",
+      "enum": [
+        "even",
+        "asap",
+        "no-limit",
+        "t1-optimized",
+        "frequency_goal"
+      ]
+    },
+    "frequency_interval": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "hour",
+        "day",
+        "week",
+        "month",
+        "not-applicable"
+      ],
+      "default": "not-applicable",
+      "nullable": true
+    },
+    "frequency_amount": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 10
+    },
+    "use_mm_freq": {
+      "type": "boolean",
+      "deprecated": true,
+      "default": false
+    },
+    "frequency_optimization": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

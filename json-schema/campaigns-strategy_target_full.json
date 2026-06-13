@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_target_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "strategy_id": {
+          "type": "integer"
+        },
+        "target_dimension_id": {
+          "type": "integer"
+        },
+        "exclude": {
+          "type": "boolean",
+          "default": false
+        },
+        "active": {
+          "type": "boolean",
+          "default": true
+        },
+        "target_op": {
+          "type": "string",
+          "enum": [
+            "AND",
+            "OR"
+          ]
+        }
+      }
+    }
+  ]
+}

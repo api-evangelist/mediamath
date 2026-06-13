@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "agency",
+  "type": "object",
+  "properties": {
+    "ads_txt_verified": {
+      "type": "string",
+      "enum": [
+        "ANY",
+        "AUTHORIZED_ONLY",
+        "AUTHORIZED_DIRECT_ONLY",
+        "NONE"
+      ]
+    },
+    "allow_x_adv_optimization": {
+      "type": "boolean"
+    },
+    "allow_x_adv_pixels": {
+      "type": "boolean"
+    },
+    "dmp_enabled": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "inherits"
+      ]
+    },
+    "eligible_for_data_sharing": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "logo": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "mfa_avoidance": {
+      "type": "string",
+      "enum": [
+        "INHERIT",
+        "ALLOW_ALL",
+        "EXCLUDE_MFA"
+      ]
+    }
+  }
+}

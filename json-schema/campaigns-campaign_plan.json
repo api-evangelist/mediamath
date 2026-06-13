@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_plan",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/campaign_plan_update"
+    },
+    {
+      "$ref": "#/components/schemas/campaign_plan_create"
+    },
+    {
+      "$ref": "#/components/schemas/campaign_plan_common"
+    }
+  ]
+}

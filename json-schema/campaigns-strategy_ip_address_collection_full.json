@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_ip_address_collection_full",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/strategy_ip_address_full"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/list_metadata"
+    }
+  }
+}

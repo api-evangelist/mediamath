@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "vendor_contract",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/vendor_contract_base"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    }
+  ]
+}

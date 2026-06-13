@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "supply_source_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "rtb_type": {
+      "type": "string",
+      "enum": [
+        "STANDARD",
+        "MARKETPLACE"
+      ],
+      "description": "available only when extended",
+      "readOnly": true
+    }
+  },
+  "required": [
+    "supply_source_id"
+  ]
+}

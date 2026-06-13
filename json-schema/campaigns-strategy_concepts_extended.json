@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_concepts_extended",
+  "type": "object",
+  "properties": {
+    "weighting": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "BUDGET",
+        "IMPRESSION"
+      ]
+    },
+    "creative_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "concept_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 24
+          },
+          "percent": {
+            "type": "number",
+            "format": "float",
+            "description": "Sum of all percents provided inside group must be equal to 100",
+            "minimum": 0,
+            "maximum": 100,
+            "exclusiveMinimum": false
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "available only when extended",
+            "readOnly": true
+          },
+          "status": {
+            "type": "boolean",
+            "description": "available only when extended",
+            "readOnly": true
+          },
+          "created_on": {
+            "type": "string",
+            "format": "date-time",
+            "description": "available only when extended",
+            "nullable": true,
+            "readOnly": true
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "available only when extended",
+            "nullable": true,
+            "readOnly": true
+          },
+          "assigned_creatives_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "available only when extended",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "concept_id",
+          "percent"
+        ]
+      }
+    }
+  }
+}

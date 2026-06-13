@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "site_list_assignment_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "site_list_id": {
+          "type": "integer"
+        },
+        "entity_id": {
+          "type": "integer"
+        },
+        "associated_campaign_id": {
+          "type": "integer"
+        },
+        "collection": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

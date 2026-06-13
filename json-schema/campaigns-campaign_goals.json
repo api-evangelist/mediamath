@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_goals",
+  "type": "object",
+  "properties": {
+    "goal_type": {
+      "type": "string",
+      "enum": [
+        "spend",
+        "reach",
+        "cpc",
+        "cpe",
+        "cpa",
+        "roi",
+        "ctr",
+        "vcr",
+        "viewability_rate",
+        "vcpm",
+        "cpcv"
+      ]
+    },
+    "goal_alert": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 999.99
+    },
+    "goal_value": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0.0001,
+      "maximum": 9999999.9999
+    },
+    "goal_category": {
+      "type": "string",
+      "enum": [
+        "audience",
+        "engagement",
+        "response"
+      ],
+      "nullable": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_plan_duration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "use_campaign_start": {
+      "type": "boolean"
+    },
+    "use_campaign_end": {
+      "type": "boolean"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
+    }
+  }
+}

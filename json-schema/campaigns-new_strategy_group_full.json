@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "new_strategy_group_full",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/new_strategy_group_base"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "readOnly": true
+        },
+        "campaign_id": {
+          "type": "integer",
+          "format": "int32",
+          "readOnly": true
+        },
+        "strategy_count": {
+          "type": "integer",
+          "format": "int64",
+          "readOnly": true,
+          "description": "Number of strategies attached to this group. Always present.",
+          "example": 3
+        },
+        "strategies": {
+          "type": "array",
+          "readOnly": true,
+          "description": "Attached strategies. Only present when ?with=strategies is set.",
+          "items": {
+            "$ref": "#/components/schemas/new_strategy_group_strategy_embed"
+          }
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    }
+  ]
+}

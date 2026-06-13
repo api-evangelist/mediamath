@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_plan_common",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "object",
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "total_budget": {
+          "type": "number",
+          "format": "float",
+          "minimum": 1,
+          "maximum": 99999999999999.98
+        },
+        "currency_code": {
+          "type": "string"
+        }
+      }
+    },
+    "zone_name": {
+      "type": "string"
+    }
+  }
+}

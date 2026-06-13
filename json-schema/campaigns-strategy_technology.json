@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "operator": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "default": "OR"
+    },
+    "code": {
+      "type": "string",
+      "enum": [
+        "BSER",
+        "CSPD",
+        "DVCE",
+        "ISPX",
+        "OSXX",
+        "INVT",
+        "VPSZ",
+        "VLIN",
+        "VCON",
+        "VAUD",
+        "VSKP",
+        "VPLC",
+        "DVMD",
+        "BRLG",
+        "IPTA",
+        "HYPL"
+      ]
+    },
+    "target_value_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 77
+    }
+  },
+  "required": [
+    "code",
+    "target_value_id"
+  ]
+}

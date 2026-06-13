@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "target_value_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "parent_value_id": {
+          "type": "integer",
+          "nullable": true
+        },
+        "target_dimension_id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string",
+          "nullable": true
+        },
+        "value": {
+          "type": "integer"
+        },
+        "code": {
+          "type": "string",
+          "nullable": true
+        },
+        "is_targetable": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  ]
+}

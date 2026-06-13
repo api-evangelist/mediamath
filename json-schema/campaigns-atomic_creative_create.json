@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "atomic_creative_create",
+  "type": "object",
+  "properties": {
+    "width": {
+      "type": "integer",
+      "format": "int32",
+      "example": 80
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "height": {
+      "type": "integer",
+      "format": "int32",
+      "example": 90
+    },
+    "creative_import_file_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 5
+    },
+    "file_type": {
+      "type": "string",
+      "enum": [
+        "swf",
+        "gif",
+        "html5",
+        "jpg",
+        "jpeg",
+        "tiff",
+        "tif",
+        "png",
+        "unknown",
+        "vast"
+      ],
+      "default": "unknown"
+    },
+    "is_multi_creative": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_sound": {
+      "type": "boolean",
+      "default": false
+    },
+    "rich_media": {
+      "type": "boolean",
+      "default": false
+    },
+    "rich_media_provider": {
+      "type": "string"
+    },
+    "built": {
+      "type": "boolean",
+      "default": false
+    },
+    "build_date": {
+      "type": "string"
+    },
+    "built_by_user_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 99,
+      "readOnly": true
+    },
+    "build_errors": {
+      "type": "string"
+    },
+    "external_identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "expand": {
+      "type": "string"
+    },
+    "expansion_trigger": {
+      "type": "string",
+      "enum": [
+        "AUTOMATIC",
+        "MOUSEOVER",
+        "CLICK"
+      ],
+      "default": "MOUSEOVER"
+    },
+    "tpas_ad_tag": {
+      "type": "string"
+    },
+    "edited_tag": {
+      "type": "string"
+    },
+    "click_through_url": {
+      "type": "string",
+      "maxLength": 2048,
+      "format": "uri",
+      "nullable": true
+    },
+    "concept_id": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 7
+    },
+    "status": {
+      "type": "boolean",
+      "default": true
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_mraid": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_https": {
+      "type": "boolean",
+      "default": false
+    },
+    "t1as": {
+      "type": "boolean",
+      "default": false
+    },
+    "start_date": {
+      "type": "string",
+      "nullable": true
+    },
+    "end_date": {
+      "type": "string",
+      "nullable": true
+    },
+    "vast_version": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 9.9,
+      "nullable": true
+    },
+    "is_audio": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "expansion_direction": {
+      "type": "string",
+      "maxLength": 19,
+      "default": "NONRESTRICTED"
+    },
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "display",
+        "video",
+        "mobile"
+      ],
+      "default": "display"
+    },
+    "ad_server_type": {
+      "type": "string",
+      "enum": [
+        "ADOCADO",
+        "ATLAS",
+        "DART",
+        "DOUBLECLICK",
+        "EYEWONDER",
+        "FLASHTALKING",
+        "MEDIAFORGE",
+        "MEDIAMIND",
+        "MEDIAPLEX",
+        "OTHER",
+        "POINTROLL",
+        "SIZMEK",
+        "TERMINALONE",
+        "TRUEFFECT",
+        "YIELD_MANAGER"
+      ]
+    },
+    "ad_format": {
+      "type": "string",
+      "enum": [
+        "DISPLAY",
+        "MOBILE",
+        "EXPANDABLE",
+        "FBX",
+        "COMPONENT"
+      ],
+      "default": "DISPLAY"
+    },
+    "tpas_ad_tag_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "click_url": {
+      "format": "uri",
+      "type": "string",
+      "maxLength": 10000,
+      "nullable": true
+    },
+    "sizmek_tag_status": {
+      "type": "string",
+      "default": "NOT_USED"
+    },
+    "sizmek_creative_status": {
+      "type": "string",
+      "default": "NOT_USED"
+    },
+    "advertiser_id": {
+      "type": "integer",
+      "minimum": 1,
+      "format": "int32"
+    },
+    "tag": {
+      "type": "string"
+    },
+    "tag_type": {
+      "type": "string",
+      "enum": [
+        "IFRAME_SCRIPT_NOSCRIPT",
+        "IFRAME_SCRIPT",
+        "IFRAME_NOSCRIPT",
+        "IFRAME_IMG",
+        "SCRIPT_NOSCRIPT",
+        "SCRIPT",
+        "NOSCRIPT",
+        "IFRAME",
+        "IMG",
+        "VIDEO"
+      ]
+    }
+  },
+  "required": [
+    "width",
+    "height",
+    "advertiser_id",
+    "name"
+  ]
+}

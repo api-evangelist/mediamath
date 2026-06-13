@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "new_strategy_group_create",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/new_strategy_group_base"
+    },
+    {
+      "type": "object",
+      "required": [
+        "campaign_id",
+        "name"
+      ],
+      "properties": {
+        "campaign_id": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "example": 100
+        }
+      }
+    }
+  ]
+}

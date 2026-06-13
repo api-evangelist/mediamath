@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "permission_flags",
+  "type": "object",
+  "properties": {
+    "create": {
+      "type": "boolean"
+    },
+    "read": {
+      "type": "boolean"
+    },
+    "update": {
+      "type": "boolean"
+    },
+    "delete": {
+      "type": "boolean"
+    },
+    "inherited_from": {
+      "type": "string"
+    }
+  }
+}

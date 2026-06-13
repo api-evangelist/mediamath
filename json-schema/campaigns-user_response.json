@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "user_response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/user_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "entity_type": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "link_ldap": {
+              "type": "boolean"
+            },
+            "link_saml": {
+              "type": "boolean"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "mobile": {
+              "type": "string"
+            },
+            "fax": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "view_organizations": {
+              "type": "boolean"
+            },
+            "edit_campaigns": {
+              "type": "boolean"
+            },
+            "edit_margins_and_performance": {
+              "type": "boolean"
+            },
+            "creator_id": {
+              "type": "integer"
+            },
+            "created_on": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "updated_on": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "last_login_on": {
+              "type": "string",
+              "nullable": true
+            },
+            "access_internal_fees": {
+              "type": "boolean"
+            },
+            "view_segments": {
+              "type": "boolean"
+            },
+            "edit_segments": {
+              "type": "boolean"
+            },
+            "view_data_definition": {
+              "type": "boolean"
+            },
+            "edit_data_definition": {
+              "type": "boolean"
+            },
+            "view_dmp_reports": {
+              "type": "boolean"
+            },
+            "email": {
+              "type": "string"
+            },
+            "roles": {
+              "$ref": "#/components/schemas/roles"
+            },
+            "permissions": {
+              "$ref": "#/components/schemas/user_permissions"
+            }
+          }
+        }
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "attachment_base",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1
+    },
+    "entity_type": {
+      "type": "string",
+      "minLength": 1,
+      "readOnly": true
+    },
+    "target_id": {
+      "type": "number",
+      "minimum": 0
+    },
+    "strategy_id": {
+      "type": "number",
+      "minimum": 1
+    },
+    "restriction": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "INCLUDE",
+        "EXCLUDE"
+      ]
+    },
+    "operator": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "OR",
+        "AND"
+      ]
+    },
+    "created_on": {
+      "type": "string",
+      "readOnly": true
+    },
+    "updated_on": {
+      "type": "string",
+      "readOnly": true
+    },
+    "version": {
+      "type": "number",
+      "readOnly": true
+    },
+    "or_better": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "entity_type",
+    "target_id",
+    "strategy_id",
+    "restriction",
+    "operator",
+    "created_on",
+    "updated_on",
+    "version"
+  ]
+}

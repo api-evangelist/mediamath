@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_plan_inventory",
+  "type": "object",
+  "properties": {
+    "run_on_all_pmp": {
+      "type": "boolean"
+    },
+    "run_on_all_exchanges": {
+      "type": "boolean"
+    },
+    "site_restriction_transparent_urls": {
+      "type": "boolean"
+    },
+    "domain_restrictions": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/domain_restriction"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/domain_restriction"
+          }
+        }
+      }
+    },
+    "site_lists": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/site_list"
+      }
+    },
+    "deals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/deal"
+      }
+    },
+    "deal_groups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/deal_group"
+      }
+    },
+    "supply_sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/supply_source"
+      }
+    }
+  },
+  "required": [
+    "run_on_all_pmp",
+    "run_on_all_exchanges"
+  ]
+}

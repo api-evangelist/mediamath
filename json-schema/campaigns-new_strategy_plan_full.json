@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "new_strategy_plan_full",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/strategy_plan_details"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "zone_name": {
+          "type": "string",
+          "example": "America/New_York"
+        },
+        "campaign_service_type": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "duration": {
+          "$ref": "#/components/schemas/strategy_plan_duration"
+        },
+        "budget": {
+          "$ref": "#/components/schemas/strategy_plan_budget"
+        },
+        "goals": {
+          "$ref": "#/components/schemas/strategy_plan_goals"
+        },
+        "frequency": {
+          "$ref": "#/components/schemas/strategy_plan_frequency"
+        },
+        "inventory": {
+          "$ref": "#/components/schemas/strategy_plan_inventory"
+        },
+        "targeting": {
+          "$ref": "#/components/schemas/strategy_plan_targeting"
+        },
+        "creatives": {
+          "$ref": "#/components/schemas/strategy_plan_creatives"
+        }
+      }
+    }
+  ],
+  "description": "New Strategy Plan"
+}

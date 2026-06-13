@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_details",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "archived": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_programmatic_guaranteed": {
+      "type": "boolean",
+      "default": false,
+      "readOnly": true
+    },
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "DISPLAY",
+        "VIDEO"
+      ]
+    },
+    "use_optimization": {
+      "type": "boolean"
+    },
+    "ads_txt_verified": {
+      "type": "string",
+      "enum": [
+        "ANY",
+        "AUTHORIZED_ONLY",
+        "AUTHORIZED_DIRECT_ONLY",
+        "NONE"
+      ],
+      "nullable": true
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "REM",
+        "GBO",
+        "AUD"
+      ]
+    },
+    "feature_compatibility": {
+      "type": "string",
+      "maxLength": 1024,
+      "nullable": true
+    },
+    "device_graph_only": {
+      "type": "boolean"
+    },
+    "mfa_avoidance": {
+      "type": "string",
+      "enum": [
+        "INHERIT",
+        "ALLOW_ALL",
+        "EXCLUDE_MFA"
+      ]
+    },
+    "zone_name": {
+      "type": "string",
+      "example": "America/New_York",
+      "readOnly": true
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  }
+}

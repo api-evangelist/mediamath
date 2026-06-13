@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_day_part_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "strategy_id": {
+          "type": "integer"
+        },
+        "user_time": {
+          "type": "boolean",
+          "default": true
+        },
+        "status": {
+          "type": "boolean",
+          "nullable": true
+        },
+        "start_hour": {
+          "type": "integer"
+        },
+        "end_hour": {
+          "type": "integer"
+        },
+        "days": {
+          "type": "string",
+          "maxLength": 7,
+          "default": "MTWRFSU"
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    }
+  ]
+}

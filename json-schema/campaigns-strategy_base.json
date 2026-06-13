@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_base",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/strategy_details"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "$ref": "#/components/schemas/strategy_duration"
+        },
+        "budget": {
+          "$ref": "#/components/schemas/strategy_budget"
+        },
+        "frequency": {
+          "$ref": "#/components/schemas/strategy_frequency"
+        },
+        "concepts": {
+          "$ref": "#/components/schemas/strategy_concepts"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        "strategy_group_id": {
+          "type": "integer",
+          "format": "int64",
+          "minimum": 1,
+          "maximum": 9223372036854776000,
+          "nullable": true,
+          "example": 1,
+          "description": "ID of the strategy group this strategy belongs to (one-to-one). Must reference a strategy_groups row whose campaign_id matches this strategy's campaign_id. Pass null to clear the assignment."
+        }
+      }
+    }
+  ]
+}

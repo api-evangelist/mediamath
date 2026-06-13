@@ -1,0 +1,3678 @@
+{
+  "vocabulary": "MediaMath API Vocabulary",
+  "version": "1.0",
+  "source": "https://apidocs.mediamath.com/",
+  "terms": [
+    {
+      "term": "advertiser_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "user_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "advertiser_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "user_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "advertiser_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "ad_server_id",
+        "data_sharing_enabled",
+        "dmp_enabled",
+        "domain",
+        "external_id",
+        "frequency_interval",
+        "frequency_type",
+        "frequency_amount",
+        "minimize_multi_ads",
+        "name",
+        "status",
+        "vertical_id",
+        "ads_txt_verified",
+        "political",
+        "connected_id_type",
+        "mfa_avoidance",
+        "attribution_level",
+        "targeting_identity_level",
+        "advertiser_brain",
+        "vendor_attributions"
+      ]
+    },
+    {
+      "term": "user_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "title",
+        "active",
+        "language",
+        "zone_name"
+      ]
+    },
+    {
+      "term": "attachment_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "target_id",
+        "strategy_id",
+        "restriction",
+        "operator",
+        "or_better"
+      ]
+    },
+    {
+      "term": "attachment_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "target_id",
+        "version",
+        "strategy_id",
+        "restriction",
+        "operator",
+        "or_better"
+      ]
+    },
+    {
+      "term": "attachment_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "entity_type",
+        "target_id",
+        "strategy_id",
+        "restriction",
+        "operator",
+        "created_on",
+        "updated_on",
+        "version",
+        "or_better"
+      ]
+    },
+    {
+      "term": "target_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "parent_id",
+        "name",
+        "factual_id",
+        "mediamath_organization_id",
+        "target_inet",
+        "visible",
+        "visible_overridden",
+        "bidder_frequency",
+        "dimension_code"
+      ]
+    },
+    {
+      "term": "target_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "target_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "parent_id",
+        "name",
+        "factual_id",
+        "mediamath_organization_id",
+        "target_inet",
+        "visible",
+        "visible_overridden",
+        "bidder_frequency",
+        "dimension_code",
+        "version"
+      ]
+    },
+    {
+      "term": "advertiser_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "user_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "user_settings_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "user",
+        "status"
+      ]
+    },
+    {
+      "term": "user_settings_update_request",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "settings"
+      ]
+    },
+    {
+      "term": "agency_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "agency_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "ads_txt_verified",
+        "allow_x_adv_optimization",
+        "allow_x_adv_pixels",
+        "dmp_enabled",
+        "eligible_for_data_sharing",
+        "name",
+        "status",
+        "logo",
+        "mfa_avoidance"
+      ]
+    },
+    {
+      "term": "agency_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "pixel_bundle_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "provider_id",
+        "name",
+        "cost_pct_cpm",
+        "eligible",
+        "tags",
+        "cost_cpm",
+        "external_identifier",
+        "tag_type",
+        "pricing",
+        "cost_cpts",
+        "segment_op",
+        "rmx_friendly",
+        "rmx_merit",
+        "rmx_pc_window_minutes",
+        "rmx_pv_window_minutes",
+        "rmx_conversion_type",
+        "rmx_conversion_minutes",
+        "currency",
+        "revenue",
+        "currency_fixed",
+        "status",
+        "event_urls",
+        "contianer_tags"
+      ]
+    },
+    {
+      "term": "pixel_bundle_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "creative_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "creative_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "atomic_creative_id",
+        "tag",
+        "tag_type",
+        "inner_tag"
+      ]
+    },
+    {
+      "term": "organization_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "org_type",
+        "status",
+        "website",
+        "facebook",
+        "linkedin",
+        "twitter",
+        "allow_x_agency_pixels",
+        "allow_byo_price",
+        "opt_out_connected_id",
+        "opt_out_connected_id_mathid",
+        "override_suspicious_traffic_filter",
+        "restrict_targeting_to_same_device_id",
+        "restrict_targeting_to_deterministic_id",
+        "suspicious_traffic_filter_level",
+        "use_ads_txt",
+        "use_evidon_optout",
+        "eligible_for_data_sharing",
+        "holding_org_id",
+        "service_provider_ccpa",
+        "mfa_avoidance",
+        "mm_contact_name",
+        "adx_seat_account_id",
+        "connected_id_type",
+        "contact_name",
+        "address_1",
+        "address_2",
+        "city",
+        "state",
+        "zip",
+        "country",
+        "phone",
+        "currency_code",
+        "billing_country_code",
+        "dmp_enabled",
+        "seats",
+        "mcp_enabled",
+        "mcp_access_level",
+        "inf_business_unit",
+        "environment"
+      ]
+    },
+    {
+      "term": "exchange_seat",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "supply_source_id",
+        "seat_identifier",
+        "bill_media_to_client",
+        "rmx_exchange_cost_unit",
+        "rmx_exchange_cost_cpm",
+        "rmx_exchange_cost_pct",
+        "status"
+      ]
+    },
+    {
+      "term": "organization_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "organization_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "organization_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "list_metadata",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "status",
+        "count",
+        "total_count",
+        "offset",
+        "next_page",
+        "prev_page"
+      ]
+    },
+    {
+      "term": "error_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "errors",
+        "meta"
+      ]
+    },
+    {
+      "term": "day_part",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "user_time",
+        "start_hour",
+        "end_hour",
+        "days"
+      ]
+    },
+    {
+      "term": "entity_group_list_item",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "organization_count",
+        "agency_count",
+        "advertiser_count",
+        "ec_count",
+        "preview"
+      ]
+    },
+    {
+      "term": "entity_group",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "version",
+        "name",
+        "created_on",
+        "updated_on",
+        "organizations",
+        "agencies",
+        "advertisers"
+      ]
+    },
+    {
+      "term": "entity_group_entity",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name"
+      ]
+    },
+    {
+      "term": "entity_group_agency",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "entity_group_advertiser",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "enterprise_control",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "Type of constraint_value depends of field and constraint type. It's array for constraint types one_of, not and between. Default value is consistent with constraint value (can be array or one value).",
+      "properties": []
+    },
+    {
+      "term": "forecast",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "duration_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "start_date",
+        "end_date"
+      ]
+    },
+    {
+      "term": "frequency_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "frequency_type",
+        "frequency_amount",
+        "frequency_interval"
+      ]
+    },
+    {
+      "term": "forecast_request",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "forecast_date",
+        "forecast_result"
+      ]
+    },
+    {
+      "term": "targeting_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "audience",
+        "contextual",
+        "my_data",
+        "location",
+        "technology",
+        "day_parts"
+      ]
+    },
+    {
+      "term": "audience_target",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "audience_segment_ids"
+      ]
+    },
+    {
+      "term": "target_dimension_include",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "code",
+        "operator",
+        "target_value_ids"
+      ]
+    },
+    {
+      "term": "target_dimension_exclude",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "code",
+        "operator",
+        "target_value_ids"
+      ]
+    },
+    {
+      "term": "inventory_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "domain_restriction",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "domain",
+        "target_type"
+      ]
+    },
+    {
+      "term": "targeting_postal_codes",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "restriction",
+        "codes"
+      ]
+    },
+    {
+      "term": "targeting_ip_addresses",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "restriction",
+        "codes"
+      ]
+    },
+    {
+      "term": "location_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "strategy_id",
+        "strategy_target_id",
+        "strategy_target_exclude",
+        "strategy_target_active",
+        "strategy_target_operator",
+        "strategy_target_value_id",
+        "target_dimension_code",
+        "target_dimension_name",
+        "target_value_id",
+        "target_value_name",
+        "target_value_value",
+        "target_value_code",
+        "strategy_count"
+      ]
+    },
+    {
+      "term": "campaign_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "archived",
+        "status",
+        "name",
+        "service_type",
+        "io_name",
+        "io_reference_num",
+        "is_programmatic_guaranteed",
+        "political",
+        "source_campaign_id",
+        "zone_name",
+        "viewability",
+        "identity",
+        "ad_server",
+        "pacing",
+        "attribution",
+        "vendor_contracts",
+        "mfa_avoidance",
+        "targeting_identity_level"
+      ]
+    },
+    {
+      "term": "campaign_identity",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "device_graph_only",
+        "bid_min_devices",
+        "connected_id_type"
+      ]
+    },
+    {
+      "term": "campaign_ad_server",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "ad_server_id",
+        "ad_server_username",
+        "ad_server_password",
+        "use_default_ad_server",
+        "ad_server_fee"
+      ]
+    },
+    {
+      "term": "campaign_duration",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "Duration of campaigns must not exceed 36 months",
+      "properties": [
+        "start_date",
+        "end_date"
+      ]
+    },
+    {
+      "term": "campaign_goals",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "goal_type",
+        "goal_alert",
+        "goal_value",
+        "goal_category"
+      ]
+    },
+    {
+      "term": "campaign_budget",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "total_budget",
+        "total_impression_budget",
+        "currency_code",
+        "margin_pct",
+        "dynamic_budget_allocation_type",
+        "dynamic_budget_allocation_applied",
+        "dynamic_budget_allocation_available"
+      ]
+    },
+    {
+      "term": "campaign_frequency",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "frequency_type",
+        "frequency_interval",
+        "frequency_amount",
+        "use_mm_freq",
+        "frequency_optimization"
+      ]
+    },
+    {
+      "term": "campaign_pacing",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "pacing_alert",
+        "impression_cap_automatic",
+        "impression_cap_amount",
+        "impression_cap_type",
+        "spend_cap_type",
+        "spend_cap_amount",
+        "spend_cap_automatic",
+        "brain_intraday_pacing",
+        "spend_pace_ahead",
+        "impression_pace_ahead"
+      ]
+    },
+    {
+      "term": "campaign_inventory",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "ads_txt_verified",
+        "minimize_multi_ads",
+        "override_suspicious_traffic_filter",
+        "suspicious_traffic_filter_level",
+        "dcs_data_is_campaign_level",
+        "restrict_targeting_to_deterministic_id",
+        "restrict_targeting_to_same_device_id"
+      ]
+    },
+    {
+      "term": "campaign_attribution",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "has_custom_attribution",
+        "custom_attribution_source",
+        "pc_window_minutes",
+        "pv_window_minutes",
+        "pv_pct",
+        "merit_pixel_id",
+        "conversion_type",
+        "conversion_variable_minutes"
+      ]
+    },
+    {
+      "term": "campaign_budget_flights",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "start_date",
+        "end_date",
+        "total_budget",
+        "total_impression_budget",
+        "is_relevant"
+      ]
+    },
+    {
+      "term": "vendor_contract",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "vendor_contract_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "vendor_id",
+        "use_mm_contract",
+        "price",
+        "rate_card_type"
+      ]
+    },
+    {
+      "term": "campaign_viewability",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "vendor_id",
+        "type",
+        "sample_rate"
+      ]
+    },
+    {
+      "term": "campaign_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "campaign_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "campaign_bulk",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "marketplace_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "marketplace_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "marketplace_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "created_on",
+        "updated_on",
+        "name",
+        "supply_type",
+        "status",
+        "rtb_enabled",
+        "strategy_id",
+        "code",
+        "bidder_exchange_identifier",
+        "rtb_type",
+        "has_display",
+        "has_mobile_display",
+        "has_video",
+        "has_mobile_video",
+        "requires_creative_audit",
+        "has_desktop_video",
+        "has_connected_tv",
+        "mma_free",
+        "private",
+        "mkt_sell_price",
+        "mkt_sell_price_currency_code",
+        "permission_organizations",
+        "permission_agencies"
+      ]
+    },
+    {
+      "term": "marketplace_full_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_template_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "global",
+        "organization_id",
+        "agency_id",
+        "advertiser_id",
+        "name",
+        "descriptiom",
+        "creator_id",
+        "created_on",
+        "updated_on"
+      ]
+    },
+    {
+      "term": "single_metadata",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "status"
+      ]
+    },
+    {
+      "term": "strategy_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_full_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_full_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_details",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "description",
+        "status",
+        "archived",
+        "is_programmatic_guaranteed",
+        "media_type",
+        "use_optimization",
+        "ads_txt_verified",
+        "type",
+        "feature_compatibility",
+        "device_graph_only",
+        "mfa_avoidance",
+        "zone_name",
+        "created_on",
+        "updated_on"
+      ]
+    },
+    {
+      "term": "strategy_pacing",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "impression_pacing_type",
+        "impression_pacing_amount",
+        "impression_pacing_interval",
+        "pacing_type",
+        "pacing_amount",
+        "pacing_interval",
+        "pacing_optimization_type",
+        "pacing_optimization_amount",
+        "use_dba_strategy_pacing",
+        "use_dba_strategy_pacing_after_date"
+      ]
+    },
+    {
+      "term": "strategy_goals",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "goal_type",
+        "goal_value",
+        "min_bid",
+        "max_bid",
+        "roi_target",
+        "bid_min_devices",
+        "bid_aggressiveness",
+        "bid_price_is_media_only",
+        "max_bid_wm",
+        "use_bid_shading",
+        "flat_rate_cpm"
+      ]
+    },
+    {
+      "term": "strategy_frequency",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "frequency_type",
+        "frequency_interval",
+        "frequency_amount",
+        "frequency_optimization"
+      ]
+    },
+    {
+      "term": "strategy_duration",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "Duration of strategy must not exceed 36 months",
+      "properties": [
+        "use_campaign_start",
+        "use_campaign_end",
+        "start_date",
+        "end_date"
+      ]
+    },
+    {
+      "term": "strategy_budget",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "budget",
+        "currency_code",
+        "margin_pct"
+      ]
+    },
+    {
+      "term": "strategy_concepts",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "weighting",
+        "creative_groups"
+      ]
+    },
+    {
+      "term": "strategy_concepts_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "weighting",
+        "creative_groups"
+      ]
+    },
+    {
+      "term": "strategy_inventory",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "supply_type",
+        "run_on_all_pmp",
+        "run_on_all_exchanges",
+        "site_restriction_transparent_urls",
+        "domain_restrictions",
+        "site_lists",
+        "campaign_site_lists",
+        "deals",
+        "deal_groups",
+        "supply_sources"
+      ]
+    },
+    {
+      "term": "strategy_inventory_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "run_on_all_pmp",
+        "run_on_all_exchanges",
+        "site_restriction_transparent_urls",
+        "domain_restrictions",
+        "site_lists",
+        "campaign_site_lists",
+        "deals",
+        "deal_groups",
+        "supply_sources"
+      ]
+    },
+    {
+      "term": "supply_source",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "supply_source_id"
+      ]
+    },
+    {
+      "term": "supply_source_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "supply_source_id",
+        "name",
+        "rtb_type"
+      ]
+    },
+    {
+      "term": "site_list",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "site_list_id",
+        "assigned"
+      ]
+    },
+    {
+      "term": "site_list_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "site_list_id",
+        "name",
+        "status",
+        "restriction",
+        "sites_count",
+        "sites_count_domain",
+        "sites_count_app",
+        "sites_count_primary_seller_id",
+        "content_updated_on",
+        "assigned"
+      ]
+    },
+    {
+      "term": "deal",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "deal_id"
+      ]
+    },
+    {
+      "term": "deal_group",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "deal_group_id"
+      ]
+    },
+    {
+      "term": "strategy_targeting",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_targeting_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_technology",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "code",
+        "target_value_id"
+      ]
+    },
+    {
+      "term": "strategy_technology_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "code",
+        "target_value_id",
+        "name",
+        "target_value"
+      ]
+    },
+    {
+      "term": "strategy_my_data",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "pixels"
+      ]
+    },
+    {
+      "term": "strategy_my_data_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "pixels"
+      ]
+    },
+    {
+      "term": "strategy_geofence",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "segments"
+      ]
+    },
+    {
+      "term": "strategy_geofence_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "segments"
+      ]
+    },
+    {
+      "term": "strategy_location",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "target_value_id",
+        "code"
+      ]
+    },
+    {
+      "term": "strategy_location_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "target_value_id",
+        "name",
+        "full_path",
+        "code",
+        "provider_code",
+        "target_value"
+      ]
+    },
+    {
+      "term": "strategy_audience_segment",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "audience_segment_id",
+        "user_cpm"
+      ]
+    },
+    {
+      "term": "strategy_audience_segment_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "audience_segment_id",
+        "audience_segment_name",
+        "cpm",
+        "user_cpm",
+        "currency_code",
+        "full_path",
+        "size",
+        "vendor_id",
+        "vendor_name",
+        "code"
+      ]
+    },
+    {
+      "term": "strategy_contextual_segment",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "targeting_segment_id",
+        "user_cpm"
+      ]
+    },
+    {
+      "term": "strategy_contextual_segment_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "targeting_segment_id",
+        "targeting_segment_name",
+        "full_path",
+        "vendor_id",
+        "vendor_name",
+        "objective_type_id",
+        "objective_type_name",
+        "retail_cpm",
+        "user_cpm",
+        "currency_code",
+        "external_code"
+      ]
+    },
+    {
+      "term": "atomic_creative_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "width",
+        "name",
+        "height",
+        "creative_import_file_id",
+        "file_type",
+        "is_multi_creative",
+        "has_sound",
+        "rich_media",
+        "rich_media_provider",
+        "built",
+        "build_date",
+        "built_by_user_id",
+        "build_errors",
+        "external_identifier",
+        "expand",
+        "expansion_trigger",
+        "tpas_ad_tag",
+        "edited_tag",
+        "click_through_url",
+        "concept_id",
+        "status",
+        "archived",
+        "is_mraid",
+        "is_https",
+        "t1as",
+        "start_date",
+        "end_date",
+        "vast_version",
+        "is_audio",
+        "expansion_direction",
+        "media_type",
+        "ad_server_type",
+        "ad_format",
+        "tpas_ad_tag_name",
+        "click_url",
+        "sizmek_tag_status",
+        "sizmek_creative_status",
+        "advertiser_id",
+        "tag",
+        "tag_type"
+      ]
+    },
+    {
+      "term": "atomic_creative_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "version",
+        "external_identifier",
+        "width",
+        "height",
+        "concept_id",
+        "status",
+        "archived",
+        "is_mraid",
+        "is_https",
+        "t1as",
+        "start_date",
+        "end_date",
+        "vast_version",
+        "is_audio",
+        "expansion_direction",
+        "expansion_trigger",
+        "media_type",
+        "ad_server_type",
+        "ad_format",
+        "tpas_ad_tag",
+        "tpas_ad_tag_name",
+        "click_through_url",
+        "click_url",
+        "edited_tag",
+        "tag",
+        "built_by_user_id",
+        "tag_type"
+      ]
+    },
+    {
+      "term": "atomic_creative_vendor",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "vendor_ids"
+      ]
+    },
+    {
+      "term": "atomic_creative_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "version",
+        "entity_type",
+        "advertiser_id",
+        "concept_id",
+        "concept_name",
+        "name",
+        "width",
+        "height",
+        "creative_import_file_id",
+        "file_type",
+        "is_https",
+        "is_multi_creative",
+        "has_sound",
+        "rich_media",
+        "rich_media_provider",
+        "status",
+        "archived",
+        "built",
+        "build_date",
+        "built_by_user_id",
+        "build_errors",
+        "created_on",
+        "last_modified",
+        "external_identifier",
+        "tpas_ad_tag_name",
+        "updated_on",
+        "expand",
+        "click_url",
+        "ad_format",
+        "expansion_direction",
+        "expansion_trigger",
+        "ad_server_type",
+        "t1as",
+        "tpas_ad_tag",
+        "edited_tag",
+        "click_through_url",
+        "rejected_reason",
+        "approval_status",
+        "start_date",
+        "end_date",
+        "media_type",
+        "is_mraid",
+        "vast_version",
+        "sizmek_tag_status",
+        "sizmek_creative_status",
+        "last_payload_modified",
+        "is_audio",
+        "tag",
+        "tag_type"
+      ]
+    },
+    {
+      "term": "currency_rate_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "ad_server_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "site_list_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "timezone_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_deal_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_day_part_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_group_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_group_full_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_ip_address_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_concept_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "targeting_segment_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_target_value_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_target_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "target_value_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_plan_target_value_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_plan_target_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "contract_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "organization_id",
+        "effective_start_date",
+        "effective_end_date",
+        "platform_monthly_min",
+        "platform_access_fee_pct",
+        "platform_access_fee_cpm",
+        "platform_access_fee_fixed",
+        "managed_service_fee_pct",
+        "managed_service_fee_cpm",
+        "managed_service_fee_fixed",
+        "optimization_fee_pct",
+        "optimization_fee_cpm",
+        "optimization_fee_fixed",
+        "pmp_optimization_off_unit",
+        "pmp_optimization_off_fee_pct",
+        "pmp_optimization_off_fee_cpm",
+        "pmp_optimization_on_unit",
+        "pmp_optimization_on_fee_pct",
+        "pmp_optimization_on_fee_cpm",
+        "dmp_fee_unit",
+        "dmp_fee_pct",
+        "dmp_fee_cpm",
+        "dmp_fee_cpts",
+        "signals_fee_unit",
+        "signals_fee_pct",
+        "signals_fee_cpm",
+        "t1_apps_fee_unit",
+        "t1_apps_fee_pct",
+        "t1_apps_fee_cpm",
+        "contract_number",
+        "spend_cap",
+        "platform_access_fee_unit",
+        "managed_service_fee_unit",
+        "optimization_fee_unit",
+        "profit_share_fee_pct",
+        "exclude_agency_margin",
+        "t1_as_fee_cpm",
+        "evidon_privacy_cost_cpm",
+        "peer39_channel_fee_cpm",
+        "peer39_custom_fee_cpm",
+        "peer39_safety_fee_cpm",
+        "peer39_quality_fee_cpm",
+        "fbx_dynamic_cpm",
+        "t1_vads_fee_cpm",
+        "adaptive_segment_cpm",
+        "external_media_tracking_cpm",
+        "currency_code",
+        "t1_html5_fee_cpm",
+        "viewability_display_sample",
+        "viewability_display_all_imps",
+        "viewability_video_sample",
+        "viewability_video_all_imps",
+        "standard_segment_cpm",
+        "connected_id_cost",
+        "financing_cost",
+        "audience_verification_cost",
+        "programmatic_guaranteed_platform_access_fee_cpm",
+        "programmatic_guaranteed_platform_access_fee_pct",
+        "programmatic_guaranteed_platform_access_fee_unit",
+        "media_enablement_fee_cpm",
+        "media_enablement_fee_pct",
+        "media_enablement_fee_unit",
+        "source_platform_access_fee_cpm",
+        "source_platform_access_fee_pct",
+        "source_platform_access_fee_unit",
+        "country_tax_withholding_fee_cpm",
+        "country_tax_withholding_fee_pct",
+        "country_tax_withholding_fee_unit",
+        "partnership_rebate_fee_cpm",
+        "partnership_rebate_fee_pct",
+        "partnership_rebate_fee_unit",
+        "cross_device_fee_cpm",
+        "dba_optimization_fee_cpm",
+        "dba_optimization_fee_pct",
+        "dba_optimization_fee_unit",
+        "audio_video_platform_access_fee_cpm",
+        "audio_video_platform_access_fee_pct",
+        "audio_video_platform_access_fee_unit",
+        "created_on",
+        "updated_on",
+        "mfa_fee_cpm"
+      ]
+    },
+    {
+      "term": "contract_base_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "sidekick_usage_log_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "entity_type",
+        "created_on",
+        "user_id",
+        "organization_id",
+        "request_id",
+        "route_module",
+        "route_full_path",
+        "route_entity_type",
+        "route_entity_id",
+        "route_parent_id",
+        "prompt",
+        "chat_history_len",
+        "response",
+        "stop_reason",
+        "model",
+        "input_tokens",
+        "output_tokens",
+        "input_cost_usd",
+        "output_cost_usd",
+        "total_cost_usd",
+        "tool_rounds",
+        "tool_call_count",
+        "tool_calls",
+        "error_code",
+        "duration_ms"
+      ]
+    },
+    {
+      "term": "sidekick_usage_log_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "organization_id",
+        "request_id",
+        "route_module",
+        "route_full_path",
+        "route_entity_type",
+        "route_entity_id",
+        "route_parent_id",
+        "prompt",
+        "chat_history_len",
+        "response",
+        "stop_reason",
+        "model",
+        "input_tokens",
+        "output_tokens",
+        "input_cost_usd",
+        "output_cost_usd",
+        "total_cost_usd",
+        "tool_rounds",
+        "tool_call_count",
+        "tool_calls",
+        "error_code",
+        "duration_ms"
+      ]
+    },
+    {
+      "term": "advertiser_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "advertiser_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "advertiser_response_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "advertiser_response_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "agency_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "agency_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "agency_response_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "agency_response_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "agency_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "pixel_bundle_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "pixel_bundle_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "pixel_type",
+        "advertiser_id",
+        "agency_id"
+      ]
+    },
+    {
+      "term": "pixel_bundle_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "organization_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "exchange_seat_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data"
+      ]
+    },
+    {
+      "term": "permission_flags",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "create",
+        "read",
+        "update",
+        "delete",
+        "inherited_from"
+      ]
+    },
+    {
+      "term": "permission_organization",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "settings_organization",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "settings",
+        "entity"
+      ]
+    },
+    {
+      "term": "settings_organization_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "settings"
+      ]
+    },
+    {
+      "term": "campaign_plan_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "version"
+      ]
+    },
+    {
+      "term": "campaign_plan_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "advertiser_id",
+        "created_on",
+        "updated_on"
+      ]
+    },
+    {
+      "term": "campaign_plan_common",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "version",
+        "duration",
+        "budget",
+        "zone_name"
+      ]
+    },
+    {
+      "term": "campaign_plan",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_plan_details",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "feature_compatibility",
+        "device_graph_only"
+      ]
+    },
+    {
+      "term": "strategy_plan_duration",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "use_campaign_start",
+        "use_campaign_end",
+        "start_date",
+        "end_date"
+      ]
+    },
+    {
+      "term": "strategy_plan_budget",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "budget",
+        "currency_code"
+      ]
+    },
+    {
+      "term": "strategy_plan_goals",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "goal_type",
+        "goal_value",
+        "min_bid",
+        "max_bid",
+        "roi_target",
+        "bid_min_devices",
+        "bid_aggressiveness",
+        "bid_price_is_media_only",
+        "max_bid_wm",
+        "use_bid_shading"
+      ]
+    },
+    {
+      "term": "strategy_plan_frequency",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "frequency_type",
+        "frequency_interval",
+        "frequency_amount",
+        "frequency_optimization"
+      ]
+    },
+    {
+      "term": "strategy_plan_inventory",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "run_on_all_pmp",
+        "run_on_all_exchanges",
+        "site_restriction_transparent_urls",
+        "domain_restrictions",
+        "site_lists",
+        "deals",
+        "deal_groups",
+        "supply_sources"
+      ]
+    },
+    {
+      "term": "strategy_plan_targeting",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_plan_creatives",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "ad_expandable",
+        "ad_formats",
+        "ad_sizes"
+      ]
+    },
+    {
+      "term": "new_strategy_plan_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "New Strategy Plan",
+      "properties": []
+    },
+    {
+      "term": "new_strategy_plan_full_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "new_strategy_plan_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "targeting_postal_codes_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "restriction",
+        "count"
+      ]
+    },
+    {
+      "term": "targeting_ip_addresses_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "restriction",
+        "count"
+      ]
+    },
+    {
+      "term": "strategy_plan_targeting_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "new_strategy_plan_full_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "New Strategy Plan (extended)",
+      "properties": []
+    },
+    {
+      "term": "new_strategy_plan_full_response_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "new_strategy_plan_response_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "new_strategy_plan_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "new_strategy_plan_collection_full_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_plan_target_value_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_plan_target_value_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_campaign_info",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "campaign_name",
+        "campaign_start_date",
+        "campaign_end_date",
+        "campaign_zone_name",
+        "campaign_service_type",
+        "campaign_goal_type",
+        "campaign_goal_value",
+        "campaign_merit_pixel_id",
+        "viewability"
+      ]
+    },
+    {
+      "term": "strategy_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_segment_group",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "segment_groups"
+      ]
+    },
+    {
+      "term": "strategy_segment_group_exclude",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "segment_groups"
+      ]
+    },
+    {
+      "term": "targeting_recency_element_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "pixel_id",
+        "from_hour",
+        "to_hour"
+      ]
+    },
+    {
+      "term": "strategy_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_segment_group_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "segment_groups"
+      ]
+    },
+    {
+      "term": "strategy_segment_group_exclude_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "segment_groups"
+      ]
+    },
+    {
+      "term": "strategy_collection_full_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "targeting_recency_element_request",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "pixel_id",
+        "from_hour",
+        "to_hour"
+      ]
+    },
+    {
+      "term": "strategy_targeting_request",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "targeting"
+      ]
+    },
+    {
+      "term": "strategy_create_request",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "healthcheck_result",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "result",
+        "message"
+      ]
+    },
+    {
+      "term": "strategy_healthcheck",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "result",
+        "organization",
+        "contract",
+        "agency",
+        "advertiser",
+        "campaign",
+        "strategy",
+        "creative"
+      ]
+    },
+    {
+      "term": "targeting_friendly_name",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "friendly_name",
+        "vendor_id",
+        "vendor_name",
+        "target_id",
+        "dimension_id",
+        "dimension_code",
+        "tuple"
+      ]
+    },
+    {
+      "term": "strategy_forecast_query",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "expression",
+        "freqCap",
+        "freqDur",
+        "maxSpend",
+        "maxCPM"
+      ]
+    },
+    {
+      "term": "strategy_targeting_expression",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "expression"
+      ]
+    },
+    {
+      "term": "strategy_targeting_request_for_bulk",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "targeting"
+      ]
+    },
+    {
+      "term": "campaign_budget_flights_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "start_date",
+        "end_date",
+        "total_budget",
+        "total_impression_budget"
+      ]
+    },
+    {
+      "term": "campaign_site_list",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "version",
+        "status",
+        "organization_id",
+        "created_on",
+        "updated_on",
+        "restriction",
+        "filename",
+        "campaign_id",
+        "assigned",
+        "sites_count",
+        "sites_count_app",
+        "sites_count_domain",
+        "sites_count_primary_seller_id"
+      ]
+    },
+    {
+      "term": "campaign_custom_brain_selection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "version",
+        "campaign_id",
+        "selection_id",
+        "selection_type",
+        "active",
+        "enable_mm_audiences_in_brain",
+        "is_retired",
+        "full_path",
+        "owner_name",
+        "selection_name",
+        "child_count",
+        "parent_audience_segment_id",
+        "retail_cpm",
+        "uniques",
+        "wholesale_cpm"
+      ]
+    },
+    {
+      "term": "campaign_full_with_inherited",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "campaign_full-2",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "campaign_full_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "campaign_full_extended-2",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "campaign_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "campaign_with",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "advertiser",
+        "agency"
+      ]
+    },
+    {
+      "term": "campaign_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "campaign_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "campaign_goals_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "budget_flight_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "budget_flight_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "version",
+        "campaign_id",
+        "start_date",
+        "end_date",
+        "total_budget",
+        "is_relevant",
+        "created_on",
+        "updated_on",
+        "zone_name",
+        "currency_code",
+        "total_impression_budget"
+      ]
+    },
+    {
+      "term": "budget_flight_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "campaign_dba_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "campaign_dba_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "dba",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "contextual_segment_short",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "full_path",
+        "cpm",
+        "user_cpm",
+        "segment_objective_name",
+        "uniques"
+      ]
+    },
+    {
+      "term": "audience_segments_group",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "operator",
+        "segments"
+      ]
+    },
+    {
+      "term": "audience_segment_short",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "full_path",
+        "cpm",
+        "user_cpm",
+        "uniques",
+        "code"
+      ]
+    },
+    {
+      "term": "roles",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "Possible values:\n- 2: \"admin\", \n- 3: \"manager\", \n- 4: \"reporter\", \n- 5: \"internal\", \n- 6: \"agency\" ,\n- 7: \"edit_data_definition\", \n- 8: \"view_data_definition\", \n- 9: \"edit_segments\", \n- 10: \"view_segments\", \n- 11: \"edit_campaigns\", \n- 13: \"edit_margins_and_performance\", \n- 14: \"view_organizations\", \n- 15: \"view_dmp_reports\", \n- 16: \"manage_contracts\", \n- 17: \"view_contracts\".\nSome values can't be used with each other, for example 3 and 4. For more information use \"/roles\" request.\n",
+      "properties": []
+    },
+    {
+      "term": "user_permission",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    {
+      "term": "user_permissions",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "available only when extended",
+      "properties": [
+        "organizations",
+        "agencies",
+        "advertisers"
+      ]
+    },
+    {
+      "term": "user_permission_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "permissions"
+      ]
+    },
+    {
+      "term": "user_permissions_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "permission_agency",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_advertiser",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_campaign",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_strategy",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_list",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "organizations",
+        "agencies",
+        "advertisers",
+        "campaigns",
+        "strategies"
+      ]
+    },
+    {
+      "term": "permission_v2_flags",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "type",
+        "role",
+        "scope",
+        "view_segments",
+        "view_organizations",
+        "edit_margins_and_performance",
+        "access_internal_fees",
+        "edit_segments",
+        "edit_campaigns",
+        "view_data_definition",
+        "view_dmp_reports",
+        "edit_data_definition"
+      ]
+    },
+    {
+      "term": "permission_v2_organization",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_v2_agency",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_v2_advertiser",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_v2_object",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "flags",
+        "entities"
+      ]
+    },
+    {
+      "term": "permission",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "create",
+        "read",
+        "update",
+        "delete",
+        "propogate"
+      ]
+    },
+    {
+      "term": "permission_user_output",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "entity_type",
+        "username",
+        "active",
+        "version",
+        "title",
+        "first_name",
+        "last_name",
+        "link_ldap",
+        "link_saml",
+        "phone",
+        "mobile",
+        "fax",
+        "type",
+        "role",
+        "scope",
+        "view_organizations",
+        "edit_campaigns",
+        "edit_margins_and_performance",
+        "labs_enable_rmx",
+        "creator_id",
+        "created_on",
+        "updated_on",
+        "last_login_on",
+        "access_internal_fees",
+        "view_segments",
+        "edit_segments",
+        "view_data_definition",
+        "edit_data_definition",
+        "view_dmp_reports",
+        "email",
+        "permissions",
+        "roles",
+        "language",
+        "zone_name"
+      ]
+    },
+    {
+      "term": "permission_campaign_with_user",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "permission_strategy_with_user",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "atomic_creative_response_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "version",
+        "entity_type",
+        "advertiser_id",
+        "advertiser_name",
+        "concept_id",
+        "concept_name",
+        "name",
+        "width",
+        "height",
+        "creative_import_file_id",
+        "file_type",
+        "is_https",
+        "is_multi_creative",
+        "has_sound",
+        "rich_media",
+        "rich_media_provider",
+        "status",
+        "archived",
+        "built",
+        "build_date",
+        "built_by_user_id",
+        "build_errors",
+        "created_on",
+        "last_modified",
+        "external_identifier",
+        "tpas_ad_tag_name",
+        "updated_on",
+        "expand",
+        "click_url",
+        "ad_format",
+        "expansion_direction",
+        "expansion_trigger",
+        "ad_server_type",
+        "t1as",
+        "tpas_ad_tag",
+        "edited_tag",
+        "click_through_url",
+        "rejected_reason",
+        "approval_status",
+        "start_date",
+        "end_date",
+        "media_type",
+        "is_mraid",
+        "vast_version",
+        "sizmek_tag_status",
+        "sizmek_creative_status",
+        "last_payload_modified",
+        "is_audio",
+        "tag",
+        "tag_type",
+        "targeted_strategies",
+        "atomic_creative_ssl_validators",
+        "vendors",
+        "creative_assets",
+        "inner_tag"
+      ]
+    },
+    {
+      "term": "atomic_creative_healthcheck_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "AdxOpenAuction",
+        "AtomicCreativeID",
+        "Freakout",
+        "MicrosoftAdExchange",
+        "AdxDeals",
+        "MoPubDirect",
+        "RightMediaExchange",
+        "BrightrollForDisplay",
+        "AppNexus",
+        "EntityType",
+        "NetStatus",
+        "CreativeName",
+        "AdvertiserID",
+        "AdvertiserName"
+      ]
+    },
+    {
+      "term": "concepts_collection_short",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "entity_type"
+      ]
+    },
+    {
+      "term": "concept_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "version"
+      ]
+    },
+    {
+      "term": "concept_common",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "status",
+        "archived"
+      ]
+    },
+    {
+      "term": "concept_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "advertiser_id"
+      ]
+    },
+    {
+      "term": "concept_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "bulk_errors",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "search_result",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "entity_type",
+        "name"
+      ]
+    },
+    {
+      "term": "contextual_segment_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "contextual_segment_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "contextual_segment_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "cpm",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "currency_code",
+        "value"
+      ]
+    },
+    {
+      "term": "audience_vendor",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "version",
+        "vendor_id",
+        "mma_free_cm",
+        "created_on",
+        "updated_on",
+        "provides_batch_segments",
+        "campaign_brain_enabled",
+        "pin_top_search",
+        "bidder_code",
+        "namespace_code"
+      ]
+    },
+    {
+      "term": "path_audience_segment",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "name",
+        "version",
+        "parent_audience_segment_id",
+        "full_path",
+        "uniques",
+        "retail_cpm",
+        "audience_vendor_id",
+        "code",
+        "buyable",
+        "child_count",
+        "wholesale_cpm",
+        "type",
+        "taxonomy_id",
+        "created_on",
+        "updated_on",
+        "audience_vendor"
+      ]
+    },
+    {
+      "term": "path_audience_segments_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "control_integer",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "constraint_values",
+        "default_values"
+      ]
+    },
+    {
+      "term": "control_integer_array",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "constraint_values",
+        "default_values"
+      ]
+    },
+    {
+      "term": "control_decimal",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "constraint_values",
+        "default_values"
+      ]
+    },
+    {
+      "term": "control_decimal_array",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "constraint_values",
+        "default_values"
+      ]
+    },
+    {
+      "term": "control_string",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "constraint_values",
+        "default_values"
+      ]
+    },
+    {
+      "term": "control_string_array",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "constraint_values",
+        "default_values"
+      ]
+    },
+    {
+      "term": "control_boolean",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "constraint_values",
+        "default_values"
+      ]
+    },
+    {
+      "term": "supply_source_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "vendor_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "vendor_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "version",
+        "name",
+        "adx_approved",
+        "adx_declaration_required",
+        "adx_vendor_identifier",
+        "mm_contract_available",
+        "rate_card_price",
+        "rate_card_type",
+        "wholesale_price",
+        "is_eligible",
+        "created_on",
+        "updated_on",
+        "description",
+        "vendor_type",
+        "code",
+        "adx_ssl_approved",
+        "adx_video_ssl_approved",
+        "adx_video_approved",
+        "auto_tag_display",
+        "provider_tax",
+        "set_by"
+      ]
+    },
+    {
+      "term": "vendor_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "currency_rate_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "currency_rate_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "ad_server_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "ad_server_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "site_list_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "site_list_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "site_list_assignment_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "site_list_assignment_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "site_list_assignment_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "timezone_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "timezone_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "targeting_segment_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "targeting_segment_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "targeting_segment_objective_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_deal_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_deal_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_day_part_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_day_part_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_group_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_group_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_group_collection_full_extended",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "new_strategy_group_strategy_embed",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "Minimal strategy shape used as the embed value for ?with=strategies.",
+      "properties": [
+        "id",
+        "entity_type",
+        "name"
+      ]
+    },
+    {
+      "term": "new_strategy_group_list_item",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "id",
+        "entity_type",
+        "name",
+        "campaign_id",
+        "strategy_count",
+        "strategies"
+      ]
+    },
+    {
+      "term": "new_strategy_group_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "new_strategy_group_base",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "description",
+        "spend_cap_type",
+        "spend_cap_amount",
+        "impression_cap_type",
+        "impression_cap_amount",
+        "external_identifier"
+      ]
+    },
+    {
+      "term": "new_strategy_group_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "new_strategy_group_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "new_strategy_group_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "new_strategy_group_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "new_strategy_group_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_ip_address_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_ip_address_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_concept_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_concept_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_target_value_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_target_value_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_postal_code_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "strategy_postal_code_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": []
+    },
+    {
+      "term": "strategy_postal_code_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "contract_collection",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "contract_collection_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "segment_group_create",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "type",
+        "organization_id",
+        "status",
+        "segment_subgroup"
+      ]
+    },
+    {
+      "term": "segment_group_update",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "name",
+        "type",
+        "organization_id",
+        "status",
+        "segment_subgroup"
+      ]
+    },
+    {
+      "term": "pixel_providers_response",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "pixel_providers_response_full",
+      "source": "campaigns",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "data",
+        "meta"
+      ]
+    },
+    {
+      "term": "Error",
+      "source": "reporting",
+      "type": "schema",
+      "description": "",
+      "properties": [
+        "error_code",
+        "message",
+        "request_id"
+      ]
+    },
+    {
+      "term": "StreamingResponse",
+      "source": "reporting",
+      "type": "schema",
+      "description": "Documentation available at https://apidocs.mediamath.com/docs/reporting-api-v2",
+      "properties": []
+    }
+  ]
+}

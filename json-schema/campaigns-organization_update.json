@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "organization_update",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/organization_base"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "terminated": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2
+        }
+      }
+    }
+  ]
+}

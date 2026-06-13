@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "frequency_base",
+  "required": [
+    "frequency_type",
+    "frequency_interval"
+  ],
+  "properties": {
+    "frequency_type": {
+      "type": "string",
+      "enum": [
+        "no-limit",
+        "asap",
+        "even"
+      ],
+      "description": "If no-limit is selected, then frequency_amount is not required and frequency_interval must be not-applicable"
+    },
+    "frequency_amount": {
+      "type": "integer"
+    },
+    "frequency_interval": {
+      "type": "string",
+      "enum": [
+        "not-applicable",
+        "hour",
+        "day",
+        "week",
+        "month"
+      ]
+    }
+  }
+}

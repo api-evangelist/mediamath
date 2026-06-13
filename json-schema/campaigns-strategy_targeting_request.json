@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_targeting_request",
+  "type": "object",
+  "properties": {
+    "targeting": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/strategy_targeting"
+        },
+        {
+          "properties": {
+            "language_codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ip_addresses": {
+              "$ref": "#/components/schemas/targeting_ip_addresses"
+            },
+            "postal_codes": {
+              "$ref": "#/components/schemas/targeting_postal_codes"
+            },
+            "recency": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/targeting_recency_element_request"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "agency_response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/agency_response_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "inherited_mfa_avoidance": {
+              "type": "string",
+              "description": "available if mfa_avoidance = INHERIT",
+              "enum": [
+                "INHERIT",
+                "ALLOW_ALL",
+                "EXCLUDE_MFA"
+              ]
+            },
+            "inherited_mfa_from": {
+              "type": "string",
+              "description": "available if mfa_avoidance = INHERIT",
+              "enum": [
+                "Organization",
+                "Agency"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "meta": {
+      "$ref": "#/components/schemas/single_metadata"
+    }
+  }
+}

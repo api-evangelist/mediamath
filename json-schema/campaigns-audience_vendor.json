@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "audience_vendor",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "vendor_id": {
+      "type": "integer"
+    },
+    "mma_free_cm": {
+      "type": "boolean"
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "provides_batch_segments": {
+      "type": "boolean"
+    },
+    "campaign_brain_enabled": {
+      "type": "boolean"
+    },
+    "pin_top_search": {
+      "type": "boolean"
+    },
+    "bidder_code": {
+      "type": "string"
+    },
+    "namespace_code": {
+      "type": "string"
+    }
+  }
+}

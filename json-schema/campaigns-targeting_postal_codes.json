@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "targeting_postal_codes",
+  "type": "object",
+  "properties": {
+    "restriction": {
+      "type": "string",
+      "example": "INCLUDE"
+    },
+    "codes": {
+      "writeOnly": true,
+      "type": "array",
+      "maxItems": 100000,
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "us-14392",
+        "us-24981",
+        "us-25632",
+        "us-16191",
+        "us-48574",
+        "us14392",
+        "us24981",
+        "us25632",
+        "us16191",
+        "us48574",
+        "14392",
+        "24981",
+        "25632",
+        "16191",
+        "48574"
+      ]
+    }
+  }
+}

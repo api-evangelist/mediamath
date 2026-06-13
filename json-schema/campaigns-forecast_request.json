@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "forecast_request",
+  "type": "object",
+  "required": [
+    "forecast_date",
+    "forecast_result"
+  ],
+  "properties": {
+    "forecast_date": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2050-01-01T16:00:00.000Z"
+    },
+    "forecast_result": {
+      "$ref": "#/components/schemas/forecast"
+    }
+  },
+  "nullable": true
+}

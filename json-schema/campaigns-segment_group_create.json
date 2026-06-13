@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "segment_group_create",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "CONTEXTUAL",
+        "AUDIENCE"
+      ]
+    },
+    "organization_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 1234
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "segment_subgroup": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "segment_operator": {
+            "type": "string",
+            "enum": [
+              "AND",
+              "OR"
+            ]
+          },
+          "segment_members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "segment_id",
+                "segment_type"
+              ],
+              "properties": {
+                "segment_id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 6
+                },
+                "segment_type": {
+                  "type": "string",
+                  "enum": [
+                    "CONTEXTUAL",
+                    "3P"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "segment_operator",
+          "segment_members"
+        ]
+      }
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "organization_id",
+    "status",
+    "segment_subgroup"
+  ]
+}

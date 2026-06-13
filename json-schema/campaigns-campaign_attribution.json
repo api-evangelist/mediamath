@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_attribution",
+  "type": "object",
+  "properties": {
+    "has_custom_attribution": {
+      "type": "boolean",
+      "default": false
+    },
+    "custom_attribution_source": {
+      "type": "string",
+      "enum": [
+        "3rd Party Attribution",
+        "T1 MTA via Neustar"
+      ],
+      "nullable": true
+    },
+    "pc_window_minutes": {
+      "type": "integer",
+      "format": "int32",
+      "example": 5
+    },
+    "pv_window_minutes": {
+      "type": "integer",
+      "format": "int32",
+      "example": 6
+    },
+    "pv_pct": {
+      "type": "number",
+      "format": "float",
+      "default": 100,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "merit_pixel_id": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 17,
+      "description": "Will be deprecated soon. \nIf `merit_pixel_id` is set while create or updated then `merit_pixels` will be synchronized with it. \nIf `merit_pixels` is set while create or updated then `merit_pixel_id` will be synchronized with it. \nSet up (update) both fields at the same time is not supported.\n"
+    },
+    "conversion_type": {
+      "type": "string",
+      "enum": [
+        "every",
+        "variable"
+      ],
+      "default": "variable"
+    },
+    "conversion_variable_minutes": {
+      "type": "integer",
+      "default": 1,
+      "format": "int32",
+      "example": 1,
+      "description": "Deduplication window in minutes. Must be 1 or greater when conversion_type is variable. To attribute all merit events without a deduplication window, use conversion_type: every (in which case this value is ignored)."
+    }
+  }
+}

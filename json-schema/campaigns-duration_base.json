@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "duration_base",
+  "type": "object",
+  "properties": {
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "start_date can not be in the past",
+      "nullable": true
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "end_date must be between 1 and 30 days away from start_date",
+      "nullable": true
+    }
+  },
+  "required": [
+    "start_date",
+    "end_date"
+  ]
+}

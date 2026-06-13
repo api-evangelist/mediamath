@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_bulk",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/campaign_base"
+    },
+    {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "format": "int32",
+          "example": 67
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1
+        },
+        "goals": {
+          "$ref": "#/components/schemas/campaign_goals"
+        },
+        "duration": {
+          "$ref": "#/components/schemas/campaign_duration"
+        },
+        "budget": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/campaign_budget"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "flights": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/campaign_budget_flights"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "frequency": {
+          "$ref": "#/components/schemas/campaign_frequency"
+        },
+        "inventory": {
+          "$ref": "#/components/schemas/campaign_inventory"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "settings_organization",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "attribute3"
+          },
+          "value": {
+            "type": "string",
+            "example": "value3"
+          }
+        }
+      }
+    },
+    "entity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "settings_total": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

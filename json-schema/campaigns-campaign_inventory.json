@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_inventory",
+  "type": "object",
+  "properties": {
+    "ads_txt_verified": {
+      "type": "string",
+      "enum": [
+        "ANY",
+        "AUTHORIZED_ONLY",
+        "AUTHORIZED_DIRECT_ONLY",
+        "NONE"
+      ],
+      "nullable": true
+    },
+    "minimize_multi_ads": {
+      "type": "boolean",
+      "default": false
+    },
+    "override_suspicious_traffic_filter": {
+      "type": "boolean",
+      "default": false
+    },
+    "suspicious_traffic_filter_level": {
+      "type": "integer",
+      "default": 25,
+      "minimum": 0,
+      "maximum": 100
+    },
+    "dcs_data_is_campaign_level": {
+      "type": "boolean",
+      "default": false
+    },
+    "restrict_targeting_to_deterministic_id": {
+      "deprecated": true,
+      "type": "boolean",
+      "default": true
+    },
+    "restrict_targeting_to_same_device_id": {
+      "type": "boolean"
+    }
+  }
+}

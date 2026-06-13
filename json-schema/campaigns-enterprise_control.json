@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "enterprise_control",
+  "type": "object",
+  "description": "Type of constraint_value depends of field and constraint type. It's array for constraint types one_of, not and between. Default value is consistent with constraint value (can be array or one value).",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "constraint_type": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/control_integer"
+            }
+          ],
+          "description": "Possible for constraint types \"eq\", \"ne\""
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/control_integer_array"
+            }
+          ],
+          "description": "Possible for constraint types \"one_of\", \"not\", \"at_least\""
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/control_decimal"
+            }
+          ],
+          "description": "Possible for constraint types \"eq\", \"ne\", \"gt\", \"gte\", \"lt\", \"lte\""
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/control_decimal_array"
+            }
+          ],
+          "description": "Possible for constraint type \"between\""
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/control_string"
+            }
+          ],
+          "description": "Possible for constraint types \"eq\", \"ne\""
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/control_string_array"
+            }
+          ],
+          "description": "Possible for constraint types \"one_of\", \"not\", \"at_least\""
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/control_boolean"
+            }
+          ],
+          "description": "Possible for constraint types \"eq\", \"ne\""
+        }
+      ]
+    }
+  ]
+}

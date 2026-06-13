@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "vendor_contract_base",
+  "type": "object",
+  "required": [
+    "vendor_id"
+  ],
+  "properties": {
+    "vendor_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 23
+    },
+    "use_mm_contract": {
+      "type": "boolean"
+    },
+    "price": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "rate_card_type": {
+      "type": "string",
+      "nullable": true,
+      "deprecated": true,
+      "enum": [
+        "CPM",
+        "FIXED"
+      ]
+    }
+  }
+}

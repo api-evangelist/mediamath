@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "attachment_create",
+  "type": "object",
+  "properties": {
+    "target_id": {
+      "type": "number",
+      "minimum": 1,
+      "format": "int32",
+      "example": 8
+    },
+    "strategy_id": {
+      "type": "number",
+      "minimum": 0,
+      "format": "int32",
+      "example": 332
+    },
+    "restriction": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "INCLUDE",
+        "EXCLUDE"
+      ]
+    },
+    "operator": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "OR",
+        "AND"
+      ]
+    },
+    "or_better": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "target_id",
+    "strategy_id",
+    "restriction",
+    "operator"
+  ]
+}

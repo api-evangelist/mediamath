@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "audience_segment_id": {
+      "type": "integer"
+    },
+    "audience_segment_name": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "cpm": {
+      "type": "number",
+      "readOnly": true,
+      "description": "available only when extended"
+    },
+    "user_cpm": {
+      "type": "number",
+      "readOnly": true,
+      "description": "available only when extended"
+    },
+    "currency_code": {
+      "type": "string",
+      "readOnly": true,
+      "description": "available only when extended"
+    },
+    "full_path": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "size": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "vendor_id": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "vendor_name": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "code": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    }
+  },
+  "required": [
+    "audience_segment_id"
+  ]
+}

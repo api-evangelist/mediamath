@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "sidekick_usage_log_create",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "integer",
+      "format": "int32",
+      "nullable": true
+    },
+    "request_id": {
+      "type": "string",
+      "maxLength": 64,
+      "nullable": true
+    },
+    "route_module": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "route_full_path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "route_entity_type": {
+      "type": "string",
+      "maxLength": 64,
+      "nullable": true
+    },
+    "route_entity_id": {
+      "type": "string",
+      "maxLength": 64,
+      "nullable": true
+    },
+    "route_parent_id": {
+      "type": "string",
+      "maxLength": 64,
+      "nullable": true
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 16000
+    },
+    "chat_history_len": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "response": {
+      "type": "string",
+      "maxLength": 32000,
+      "nullable": true
+    },
+    "stop_reason": {
+      "type": "string",
+      "maxLength": 32,
+      "nullable": true
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "input_tokens": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 10000000
+    },
+    "output_tokens": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 10000000
+    },
+    "input_cost_usd": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 999999.999999
+    },
+    "output_cost_usd": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 999999.999999
+    },
+    "total_cost_usd": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 999999.999999
+    },
+    "tool_rounds": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "tool_call_count": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "tool_calls": {
+      "type": "array",
+      "nullable": true,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "input": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "is_error": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "error_code": {
+      "type": "string",
+      "maxLength": 64,
+      "nullable": true
+    },
+    "duration_ms": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 600000,
+      "nullable": true
+    }
+  },
+  "required": [
+    "route_module",
+    "route_full_path",
+    "prompt",
+    "model"
+  ]
+}

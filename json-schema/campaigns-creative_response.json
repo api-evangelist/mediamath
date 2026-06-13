@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "creative_response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/components/schemas/creative_base"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        }
+      }
+    }
+  }
+}

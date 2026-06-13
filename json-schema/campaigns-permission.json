@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "permission",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "create": {
+      "type": "boolean"
+    },
+    "read": {
+      "type": "boolean"
+    },
+    "update": {
+      "type": "boolean"
+    },
+    "delete": {
+      "type": "boolean"
+    },
+    "propogate": {
+      "type": "boolean"
+    }
+  }
+}

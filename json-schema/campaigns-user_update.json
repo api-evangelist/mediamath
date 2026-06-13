@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "user_update",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/user_base"
+    },
+    {
+      "type": "object",
+      "required": [
+        "first_name",
+        "last_name",
+        "roles"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "roles": {
+          "$ref": "#/components/schemas/roles"
+        },
+        "password": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 30,
+          "description": "new password for user"
+        }
+      }
+    }
+  ]
+}

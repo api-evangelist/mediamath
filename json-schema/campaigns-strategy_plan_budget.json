@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_plan_budget",
+  "type": "object",
+  "properties": {
+    "budget": {
+      "type": "number",
+      "format": "float",
+      "description": "Must be a valid float between 1 and 10000000 USD or its equivalent in other currency.",
+      "nullable": true
+    },
+    "currency_code": {
+      "type": "string"
+    }
+  }
+}

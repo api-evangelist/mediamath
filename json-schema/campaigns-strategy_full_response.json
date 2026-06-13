@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_full_response",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/strategy_full"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "campaign_id": {
+          "type": "integer"
+        },
+        "targeting": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/strategy_targeting"
+            },
+            {
+              "properties": {
+                "language_codes": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "ip_addresses": {
+                  "$ref": "#/components/schemas/targeting_ip_addresses_response"
+                },
+                "postal_codes": {
+                  "$ref": "#/components/schemas/targeting_postal_codes_response"
+                },
+                "recency": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/targeting_recency_element_response"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

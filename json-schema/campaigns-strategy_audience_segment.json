@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_audience_segment",
+  "type": "object",
+  "properties": {
+    "audience_segment_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 24
+    },
+    "user_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true,
+      "description": "user_cpm is stored in the currency of the campaign and will not fluctuate with daily exchange rates."
+    }
+  },
+  "required": [
+    "audience_segment_id"
+  ]
+}

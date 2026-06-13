@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "target_dimension_include",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY"
+    },
+    "operator": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR"
+      ]
+    },
+    "target_value_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32",
+        "example": 33
+      }
+    }
+  },
+  "required": [
+    "code",
+    "operator",
+    "target_value_ids"
+  ]
+}

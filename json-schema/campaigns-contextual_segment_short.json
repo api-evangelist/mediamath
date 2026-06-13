@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "contextual_segment_short",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 3
+    },
+    "name": {
+      "type": "string"
+    },
+    "full_path": {
+      "type": "string"
+    },
+    "cpm": {
+      "type": "number",
+      "format": "double"
+    },
+    "user_cpm": {
+      "type": "number",
+      "format": "double",
+      "nullable": true
+    },
+    "segment_objective_name": {
+      "type": "string"
+    },
+    "uniques": {
+      "type": "integer",
+      "format": "int32",
+      "example": 12345,
+      "nullable": true
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Error",
+  "example": {
+    "error_code": "BadRequest",
+    "message": "field does not exist in this dataset: campaign_id_test",
+    "request_id": "74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs"
+  },
+  "properties": {
+    "error_code": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

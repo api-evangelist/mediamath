@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy template response",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "global": {
+      "type": "boolean"
+    },
+    "organization_id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "agency_id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "advertiser_id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "example": "strategy template test"
+    },
+    "descriptiom": {
+      "type": "string",
+      "minLength": 1,
+      "example": "this is a strategy template"
+    },
+    "creator_id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "nullable": true
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "nullable": true
+    }
+  }
+}

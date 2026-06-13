@@ -1,0 +1,450 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "contract_base",
+  "type": "object",
+  "properties": {
+    "organization_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 34
+    },
+    "effective_start_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_end_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "platform_monthly_min": {
+      "type": "number",
+      "format": "float"
+    },
+    "platform_access_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "platform_access_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "platform_access_fee_fixed": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "managed_service_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "managed_service_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "managed_service_fee_fixed": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "optimization_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "optimization_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "optimization_fee_fixed": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "pmp_optimization_off_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "pmp_optimization_off_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "pmp_optimization_off_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "pmp_optimization_on_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "pmp_optimization_on_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "pmp_optimization_on_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "dmp_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "CPTS"
+      ],
+      "nullable": true
+    },
+    "dmp_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "dmp_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "dmp_fee_cpts": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "signals_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM"
+      ],
+      "nullable": true
+    },
+    "signals_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "signals_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "t1_apps_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM"
+      ],
+      "nullable": true
+    },
+    "t1_apps_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "t1_apps_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "contract_number": {
+      "type": "integer",
+      "readOnly": true
+    },
+    "spend_cap": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "platform_access_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "FIXED",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "managed_service_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "FIXED",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "optimization_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "FIXED",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "profit_share_fee_pct": {
+      "type": "number",
+      "format": "float"
+    },
+    "exclude_agency_margin": {
+      "type": "boolean",
+      "default": false
+    },
+    "t1_as_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0.05
+    },
+    "evidon_privacy_cost_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0.02
+    },
+    "peer39_channel_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "peer39_custom_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "peer39_safety_fee_cpm": {
+      "type": "number",
+      "format": "float"
+    },
+    "peer39_quality_fee_cpm": {
+      "type": "number",
+      "format": "float"
+    },
+    "fbx_dynamic_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0.3
+    },
+    "t1_vads_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0.25
+    },
+    "adaptive_segment_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0
+    },
+    "external_media_tracking_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0
+    },
+    "currency_code": {
+      "type": "string",
+      "maxLength": 3,
+      "minLength": 3
+    },
+    "t1_html5_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0.05
+    },
+    "viewability_display_sample": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "viewability_display_all_imps": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "viewability_video_sample": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "viewability_video_all_imps": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "standard_segment_cpm": {
+      "type": "number",
+      "format": "float",
+      "default": 0.1
+    },
+    "connected_id_cost": {
+      "type": "number",
+      "format": "float",
+      "default": 0
+    },
+    "financing_cost": {
+      "type": "number",
+      "format": "float",
+      "default": 0
+    },
+    "audience_verification_cost": {
+      "type": "number",
+      "format": "float",
+      "default": 0.25
+    },
+    "programmatic_guaranteed_platform_access_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "programmatic_guaranteed_platform_access_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "programmatic_guaranteed_platform_access_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "media_enablement_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "media_enablement_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "media_enablement_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM",
+        "PCT_CLEAR"
+      ]
+    },
+    "source_platform_access_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "source_platform_access_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "source_platform_access_fee_unit": {
+      "type": "string",
+      "enum": [
+        "PCT_TOTAL_COST",
+        "CPM"
+      ]
+    },
+    "country_tax_withholding_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "country_tax_withholding_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "country_tax_withholding_fee_unit": {
+      "type": "string",
+      "enum": [
+        "CPM",
+        "PCT_CLEAR",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "partnership_rebate_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "partnership_rebate_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "partnership_rebate_fee_unit": {
+      "type": "string",
+      "enum": [
+        "CPM",
+        "PCT_CLEAR",
+        "PCT_NET_TOTAL_SPEND"
+      ]
+    },
+    "cross_device_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "dba_optimization_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "dba_optimization_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "dba_optimization_fee_unit": {
+      "type": "string",
+      "enum": [
+        "CPM",
+        "PCT_MEDIA"
+      ]
+    },
+    "audio_video_platform_access_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "audio_video_platform_access_fee_pct": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "audio_video_platform_access_fee_unit": {
+      "type": "string",
+      "enum": [
+        "CPM",
+        "PCT_TOTAL_COST"
+      ]
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "mfa_fee_cpm": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    }
+  }
+}

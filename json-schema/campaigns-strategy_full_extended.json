@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_full_extended",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/strategy_details"
+    },
+    {
+      "$ref": "#/components/schemas/strategy_campaign_info"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "version": {
+          "type": "integer"
+        },
+        "advertiser_id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "strategy_group_name": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Name of the strategy group this strategy belongs to. Available only when extended=true and the strategy is assigned to a strategy group.",
+          "example": "My Strategy Group"
+        },
+        "duration": {
+          "$ref": "#/components/schemas/strategy_duration"
+        },
+        "budget": {
+          "$ref": "#/components/schemas/strategy_budget"
+        },
+        "pacing": {
+          "$ref": "#/components/schemas/strategy_pacing"
+        },
+        "goals": {
+          "$ref": "#/components/schemas/strategy_goals"
+        },
+        "frequency": {
+          "$ref": "#/components/schemas/strategy_frequency"
+        },
+        "inventory": {
+          "$ref": "#/components/schemas/strategy_inventory_extended"
+        },
+        "targeting": {
+          "$ref": "#/components/schemas/strategy_targeting_extended"
+        },
+        "concepts": {
+          "$ref": "#/components/schemas/strategy_concepts_extended"
+        }
+      }
+    }
+  ]
+}

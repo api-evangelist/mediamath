@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "entity_group_agency",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/entity_group_entity"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "organization": {
+          "$ref": "#/components/schemas/entity_group_entity"
+        }
+      }
+    }
+  ]
+}

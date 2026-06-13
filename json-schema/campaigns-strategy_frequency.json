@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_frequency",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "frequency_type": {
+      "type": "string",
+      "enum": [
+        "even",
+        "asap",
+        "no-limit",
+        "t1-optimized",
+        "frequency_goal"
+      ],
+      "default": "no-limit"
+    },
+    "frequency_interval": {
+      "type": "string",
+      "enum": [
+        "hour",
+        "day",
+        "week",
+        "month",
+        "not-applicable"
+      ],
+      "nullable": true,
+      "default": "not-applicable"
+    },
+    "frequency_amount": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 345
+    },
+    "frequency_optimization": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

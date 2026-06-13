@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "domain_restriction",
+  "type": "object",
+  "required": [
+    "domain",
+    "target_type"
+  ],
+  "properties": {
+    "domain": {
+      "type": "string",
+      "example": "www.mediamath.com"
+    },
+    "target_type": {
+      "type": "string",
+      "enum": [
+        "DOMAIN",
+        "APP"
+      ]
+    }
+  }
+}

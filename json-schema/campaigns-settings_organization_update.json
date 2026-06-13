@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "settings_organization_update",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "attribute3"
+          },
+          "value": {
+            "type": "string",
+            "example": "value3",
+            "nullable": true,
+            "description": "Setting with `value = null` will be removed."
+          }
+        }
+      }
+    }
+  }
+}

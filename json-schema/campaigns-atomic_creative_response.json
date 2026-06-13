@@ -1,0 +1,202 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "atomic_creative_response",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "entity_type": {
+      "type": "string"
+    },
+    "advertiser_id": {
+      "type": "integer"
+    },
+    "concept_id": {
+      "type": "integer"
+    },
+    "concept_name": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "creative_import_file_id": {
+      "type": "integer"
+    },
+    "file_type": {
+      "type": "string"
+    },
+    "is_https": {
+      "type": "boolean"
+    },
+    "is_multi_creative": {
+      "type": "boolean"
+    },
+    "has_sound": {
+      "type": "boolean"
+    },
+    "rich_media": {
+      "type": "boolean"
+    },
+    "rich_media_provider": {
+      "type": "string"
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "archived": {
+      "type": "boolean"
+    },
+    "built": {
+      "type": "boolean"
+    },
+    "build_date": {
+      "type": "string"
+    },
+    "built_by_user_id": {
+      "type": "integer",
+      "nullable": true
+    },
+    "build_errors": {
+      "type": "string"
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "last_modified": {
+      "type": "string"
+    },
+    "external_identifier": {
+      "type": "string"
+    },
+    "tpas_ad_tag_name": {
+      "type": "string"
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "expand": {
+      "type": "string"
+    },
+    "click_url": {
+      "type": "string"
+    },
+    "ad_format": {
+      "type": "string"
+    },
+    "expansion_direction": {
+      "type": "string",
+      "maxLength": 19,
+      "default": "NONRESTRICTED"
+    },
+    "expansion_trigger": {
+      "type": "string",
+      "enum": [
+        "AUTOMATIC",
+        "MOUSEOVER",
+        "CLICK"
+      ],
+      "default": "MOUSEOVER"
+    },
+    "ad_server_type": {
+      "type": "string"
+    },
+    "t1as": {
+      "type": "boolean"
+    },
+    "tpas_ad_tag": {
+      "type": "string"
+    },
+    "edited_tag": {
+      "type": "string"
+    },
+    "click_through_url": {
+      "type": "string"
+    },
+    "rejected_reason": {
+      "type": "string"
+    },
+    "approval_status": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string"
+    },
+    "end_date": {
+      "type": "string"
+    },
+    "media_type": {
+      "type": "string"
+    },
+    "is_mraid": {
+      "type": "boolean"
+    },
+    "vast_version": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 9.9,
+      "nullable": true
+    },
+    "sizmek_tag_status": {
+      "type": "string"
+    },
+    "sizmek_creative_status": {
+      "type": "string"
+    },
+    "last_payload_modified": {
+      "type": "string"
+    },
+    "is_audio": {
+      "type": "boolean"
+    },
+    "tag": {
+      "type": "string"
+    },
+    "tag_type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "entity_type",
+    "advertiser_id",
+    "name",
+    "width",
+    "height",
+    "file_type",
+    "is_https",
+    "is_multi_creative",
+    "has_sound",
+    "rich_media",
+    "built",
+    "created_on",
+    "last_modified",
+    "tpas_ad_tag_name",
+    "updated_on",
+    "ad_format",
+    "expansion_trigger",
+    "expansion_direction",
+    "t1as",
+    "approval_status",
+    "media_type",
+    "is_mraid",
+    "sizmek_tag_status",
+    "sizmek_creative_status"
+  ]
+}

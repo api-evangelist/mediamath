@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "targeting_segment_id": {
+      "type": "integer"
+    },
+    "targeting_segment_name": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "full_path": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "vendor_id": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "vendor_name": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "objective_type_id": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "objective_type_name": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "retail_cpm": {
+      "type": "number",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "user_cpm": {
+      "type": "number",
+      "readOnly": true,
+      "description": "available only when extended"
+    },
+    "currency_code": {
+      "type": "string",
+      "readOnly": true,
+      "description": "available only when extended"
+    },
+    "external_code": {
+      "type": "string",
+      "readOnly": true,
+      "description": "available only when extended"
+    }
+  },
+  "required": [
+    "targeting_segment_id"
+  ]
+}

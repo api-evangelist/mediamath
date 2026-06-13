@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "advertiser_collection_full",
+  "type": "object",
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/advertiser_base"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "ad_server_fee": {
+              "type": "number"
+            },
+            "agency_id": {
+              "type": "integer"
+            },
+            "created_on": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "entity_type": {
+              "type": "string"
+            },
+            "updated_on": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "version": {
+              "type": "integer"
+            },
+            "effective_ads_txt_verified": {
+              "type": "string"
+            },
+            "allow_x_strat_optimization": {
+              "type": "boolean",
+              "deprecated": true
+            },
+            "billing_contact_id": {
+              "type": "integer",
+              "minimum": 1,
+              "deprecated": true
+            },
+            "sales_contact_id": {
+              "type": "integer",
+              "nullable": true,
+              "minimum": 1,
+              "deprecated": true
+            },
+            "agency": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "entity_type": {
+                  "type": "string"
+                },
+                "rel": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "meta": {
+      "$ref": "#/components/schemas/list_metadata"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "healthcheck_result",
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "warning",
+        "fail"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "description": "Will be returned for all statuses."
+    }
+  }
+}

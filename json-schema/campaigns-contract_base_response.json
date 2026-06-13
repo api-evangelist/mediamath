@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "contract_base_response",
+  "type": "object",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 4
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "example": 44
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/contract_base"
+    }
+  ]
+}

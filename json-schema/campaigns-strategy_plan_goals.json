@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_plan_goals",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "goal_type": {
+      "type": "string",
+      "enum": [
+        "spend",
+        "reach",
+        "cpc",
+        "cpe",
+        "cpa",
+        "roi",
+        "ctr",
+        "vcr",
+        "viewability_rate",
+        "vcpm",
+        "cpcv",
+        ""
+      ]
+    },
+    "goal_value": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 999999999.9999
+    },
+    "min_bid": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 9999999.99
+    },
+    "max_bid": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0.01,
+      "maximum": 9999999.99
+    },
+    "roi_target": {
+      "type": "number",
+      "format": "double",
+      "minimum": 0,
+      "maximum": 999999999.99,
+      "nullable": true
+    },
+    "bid_min_devices": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 1
+    },
+    "bid_aggressiveness": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "bid_price_is_media_only": {
+      "type": "boolean"
+    },
+    "max_bid_wm": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 9999999.99,
+      "nullable": true
+    },
+    "use_bid_shading": {
+      "type": "boolean"
+    }
+  }
+}

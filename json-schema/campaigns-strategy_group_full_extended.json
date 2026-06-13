@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_group_full_extended",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "strategy_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

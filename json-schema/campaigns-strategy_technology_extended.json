@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "enum": [
+        "BSER",
+        "CSPD",
+        "DVCE",
+        "ISPX",
+        "OSXX",
+        "INVT",
+        "VPSZ",
+        "VLIN",
+        "VCON",
+        "VAUD",
+        "VSKP",
+        "VPLC",
+        "DVMD",
+        "BRLG",
+        "IPTA",
+        "HYPL"
+      ]
+    },
+    "target_value_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string",
+      "description": "available only when extended",
+      "readOnly": true
+    },
+    "target_value": {
+      "type": "integer",
+      "description": "available only when extended",
+      "readOnly": true
+    }
+  },
+  "required": [
+    "code",
+    "target_value_id"
+  ]
+}

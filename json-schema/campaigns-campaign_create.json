@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_create",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/campaign_base"
+    },
+    {
+      "type": "object",
+      "required": [
+        "advertiser_id",
+        "name",
+        "service_type",
+        "budget",
+        "goals"
+      ],
+      "properties": {
+        "advertiser_id": {
+          "type": "integer",
+          "minimum": 1,
+          "format": "int32",
+          "example": 8
+        },
+        "goals": {
+          "$ref": "#/components/schemas/campaign_goals_create"
+        },
+        "budget": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/campaign_budget"
+            },
+            {
+              "required": [
+                "currency_code",
+                "flights"
+              ],
+              "properties": {
+                "flights": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "$ref": "#/components/schemas/campaign_budget_flights_create"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "frequency": {
+          "$ref": "#/components/schemas/campaign_frequency"
+        },
+        "inventory": {
+          "$ref": "#/components/schemas/campaign_inventory"
+        },
+        "site_lists": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "assigned"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int32",
+                "example": 55
+              },
+              "assigned": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "custom_brain_selections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "selection_id": {
+                "type": "integer",
+                "format": "int32",
+                "example": 23
+              },
+              "selection_type": {
+                "enum": [
+                  "Audience Target",
+                  "Data Pixel",
+                  "Event Pixel",
+                  "Segment",
+                  "Dynamic"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

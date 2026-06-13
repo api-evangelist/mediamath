@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "exchange_seat_extended",
+  "type": "object",
+  "properties": {
+    "data": {
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/exchange_seat"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "created_on": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            },
+            "updated_on": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}

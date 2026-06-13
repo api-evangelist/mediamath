@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "agency_create",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/agency_base"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "organization_id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 17,
+          "minimum": 1
+        }
+      },
+      "required": [
+        "organization_id",
+        "name"
+      ]
+    }
+  ]
+}

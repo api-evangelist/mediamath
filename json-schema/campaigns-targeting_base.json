@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "targeting_base",
+  "type": "object",
+  "properties": {
+    "audience": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/audience_target"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/audience_target"
+          }
+        }
+      }
+    },
+    "contextual": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/target_dimension_include"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/target_dimension_exclude"
+          }
+        }
+      }
+    },
+    "my_data": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "object",
+          "properties": {
+            "pixel_bundle_ids": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "example": 88
+              }
+            },
+            "operator": {
+              "type": "string",
+              "enum": [
+                "AND",
+                "OR"
+              ]
+            }
+          }
+        },
+        "exclude": {
+          "type": "object",
+          "properties": {
+            "pixel_bundle_ids": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "example": 32
+              }
+            }
+          }
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/target_dimension_include"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/target_dimension_exclude"
+          }
+        }
+      }
+    },
+    "technology": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/target_dimension_include"
+          }
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/target_dimension_exclude"
+          }
+        }
+      }
+    },
+    "day_parts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/day_part"
+      }
+    }
+  }
+}

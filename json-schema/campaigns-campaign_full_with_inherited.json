@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_full_with_inherited",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/campaign_full"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "inherited_mfa_avoidance": {
+          "type": "string",
+          "description": "available if mfa_avoidance = INHERIT",
+          "enum": [
+            "INHERIT",
+            "ALLOW_ALL",
+            "EXCLUDE_MFA"
+          ]
+        },
+        "inherited_mfa_from": {
+          "type": "string",
+          "description": "available if mfa_avoidance = INHERIT",
+          "enum": [
+            "Organization",
+            "Agency",
+            "Advertiser",
+            "Campaign"
+          ]
+        },
+        "inherited_targeting_identity_level": {
+          "type": "string",
+          "description": "available if targeting_identity_level = INHERIT",
+          "enum": [
+            "INDIVIDUAL",
+            "HOUSEHOLD"
+          ]
+        }
+      }
+    }
+  ]
+}

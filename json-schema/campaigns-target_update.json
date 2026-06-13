@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "target_update",
+  "type": "object",
+  "properties": {
+    "parent_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 5
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "factual_id": {
+      "type": "string"
+    },
+    "mediamath_organization_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 55
+    },
+    "target_inet": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visible": {
+      "type": "boolean"
+    },
+    "visible_overridden": {
+      "type": "boolean"
+    },
+    "bidder_frequency": {
+      "type": "integer",
+      "format": "int32",
+      "example": 3
+    },
+    "dimension_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "integer",
+      "format": "int32",
+      "example": 2
+    }
+  }
+}

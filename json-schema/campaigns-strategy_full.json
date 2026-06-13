@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_full",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/strategy_base"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2
+        },
+        "goals": {
+          "$ref": "#/components/schemas/strategy_goals"
+        },
+        "pacing": {
+          "$ref": "#/components/schemas/strategy_pacing"
+        },
+        "inventory": {
+          "$ref": "#/components/schemas/strategy_inventory"
+        }
+      }
+    }
+  ]
+}

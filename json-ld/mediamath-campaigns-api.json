@@ -1,0 +1,419 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "api": "https://schema.org/WebAPI",
+    "name": "schema:name",
+    "description": "schema:description",
+    "version": "schema:version",
+    "url": "schema:url",
+    "operations": "schema:hasPart"
+  },
+  "@type": "schema:WebAPI",
+  "name": "Campaigns API",
+  "description": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+  "version": "3.0.1807",
+  "url": "https://apidocs.mediamath.com/apis/campaigns-api/openapi",
+  "operationCount": 197,
+  "operations": [
+    {
+      "@type": "schema:Action",
+      "identifier": "list-attachments",
+      "name": "Get a List of Attachments",
+      "description": "Get a list of attachments. Attachments can be queried and sorted by fields: \n- `id`, \n- `target_id`,\n- `strategy_id`,\n- `restriction`,\n- `operator`,\n- `created_on`,\n- `updated_on`,\n- `version`,\n- `or_better`.\n",
+      "httpMethod": "GET",
+      "path": "/attachments"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-attachment",
+      "name": "Create an Attachment",
+      "description": "Create an attachment",
+      "httpMethod": "POST",
+      "path": "/attachments"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-attachments-legacy",
+      "name": "(Legacy) Get a List of Attachments",
+      "description": "Get a list of attachments",
+      "httpMethod": "GET",
+      "path": "/attachment"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-attachment-legacy",
+      "name": "(Legacy) Create an Attachment",
+      "description": "Create an attachment",
+      "httpMethod": "POST",
+      "path": "/attachment"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-attachment",
+      "name": "Get an Attachment",
+      "description": "Get an attachment by ID",
+      "httpMethod": "GET",
+      "path": "/attachments/{attachment_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-attachment",
+      "name": "Update an Attachment",
+      "description": "Update an attachment by ID",
+      "httpMethod": "POST",
+      "path": "/attachments/{attachment_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "delete-attachment",
+      "name": "Delete an Attachment",
+      "description": "Delete an attachment by ID",
+      "httpMethod": "DELETE",
+      "path": "/attachments/{attachment_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-attachment-legacy",
+      "name": "(Legacy) Get an Attachment",
+      "description": "Get an attachment by ID",
+      "httpMethod": "GET",
+      "path": "/attachment/{attachment_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-attachment-legacy",
+      "name": "(Legacy) Update an Attachment",
+      "description": "Update an attachment by ID",
+      "httpMethod": "PUT",
+      "path": "/attachment/{attachment_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "delete-attachment-legacy",
+      "name": "(Legacy) Delete an Attachment",
+      "description": "Delete an attachment by ID",
+      "httpMethod": "DELETE",
+      "path": "/attachment/{attachment_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-targets-legacy",
+      "name": "(Legacy) List Targets",
+      "description": "Get a list of targets",
+      "httpMethod": "GET",
+      "path": "/target"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-target-legacy",
+      "name": "(Legacy) Create a Target",
+      "description": "Create a target",
+      "httpMethod": "POST",
+      "path": "/target"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-target-legacy",
+      "name": "(Legacy) Get a Target",
+      "description": "Get a target by ID",
+      "httpMethod": "GET",
+      "path": "/target/{target_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-target-legacy",
+      "name": "(Legacy) Update a Target",
+      "description": "Update a target by ID",
+      "httpMethod": "POST",
+      "path": "/target/{target_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "delete-target-legacy",
+      "name": "(Legacy) Delete a Target",
+      "description": "Delete a target by ID",
+      "httpMethod": "DELETE",
+      "path": "/target/{target_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "put-update-target-legacy",
+      "name": "(Legacy) Update a Target",
+      "description": "Update a target by ID",
+      "httpMethod": "PUT",
+      "path": "/target/{target_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-targets",
+      "name": "List targets",
+      "description": "Get a list of targets",
+      "httpMethod": "GET",
+      "path": "/targets"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-target",
+      "name": "Create a Target",
+      "description": "Create a target",
+      "httpMethod": "POST",
+      "path": "/targets"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-target",
+      "name": "Get a Target",
+      "description": "Get a target by ID",
+      "httpMethod": "GET",
+      "path": "/targets/{target_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-target",
+      "name": "Update a Target",
+      "description": "Update a target by ID",
+      "httpMethod": "POST",
+      "path": "/targets/{target_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "delete-target",
+      "name": "Delete a Target",
+      "description": "Delete a target by ID",
+      "httpMethod": "DELETE",
+      "path": "/targets/{target_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-target-paths-legacy",
+      "name": "List Target paths",
+      "description": "Get a list of target paths",
+      "httpMethod": "GET",
+      "path": "/target-path"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-advertisers",
+      "name": "List Advertisers",
+      "description": "Get a list of advertisers",
+      "httpMethod": "GET",
+      "path": "/advertisers"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-advertiser",
+      "name": "Create an Advertiser",
+      "description": "Create an advertiser",
+      "httpMethod": "POST",
+      "path": "/advertisers"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-advertiser",
+      "name": "Get an Advertiser",
+      "description": "Get an advertiser by ID",
+      "httpMethod": "GET",
+      "path": "/advertisers/{advertiser_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-advertiser",
+      "name": "Update an Advertiser",
+      "description": "Update an advertiser by ID",
+      "httpMethod": "POST",
+      "path": "/advertisers/{advertiser_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "advertiser-audit-log",
+      "name": "Advertiser Audit Log",
+      "description": "Get a list changes to this advertiser",
+      "httpMethod": "GET",
+      "path": "/advertisers/{advertiser_id}/history"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-agencies",
+      "name": "List Agencies",
+      "description": "Get a list of agencies",
+      "httpMethod": "GET",
+      "path": "/agencies"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-agency",
+      "name": "Create an Agency",
+      "description": "Create an agency",
+      "httpMethod": "POST",
+      "path": "/agencies"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-agency",
+      "name": "Get an Agency",
+      "description": "Get an agency by ID",
+      "httpMethod": "GET",
+      "path": "/agencies/{agency_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-agency",
+      "name": "Update an Agency",
+      "description": "Update an agency by ID",
+      "httpMethod": "POST",
+      "path": "/agencies/{agency_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "agency-audit-log",
+      "name": "Agency Audit Log",
+      "description": "Get a list of changes to this agency",
+      "httpMethod": "GET",
+      "path": "/agencies/{agency_id}/history"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-creative",
+      "name": "Get a Creative",
+      "description": "Get a creative by ID",
+      "httpMethod": "GET",
+      "path": "/creatives/{creative_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "preview-creative-assets",
+      "name": "Preview creative assets before uploading",
+      "description": "This endpoint allows you to preview creative assets before they are permanently uploaded to the system. \nIt validates the files and metadata, returning a preview of what will be created without actually \nstoring the creatives. This is useful for verifying that your files and metadata are correct before \ncommitting to the upload.\n",
+      "httpMethod": "POST",
+      "path": "/creative_draft"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "upload-creative-assets",
+      "name": "Creative assets upload",
+      "description": "Upload creative assets to the system and create atomic creatives. This endpoint processes the uploaded \nfiles and metadata, validates them, and stores them permanently in the system. Once uploaded, the \ncreatives can be associated with campaigns and strategies.\n",
+      "httpMethod": "POST",
+      "path": "/creative_upload"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-pixel-bundle",
+      "name": "Create a Pixel Bundle",
+      "description": "Create a pixel bundle",
+      "httpMethod": "POST",
+      "path": "/pixel_bundles"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-pixel-bundles",
+      "name": "List Pixel Bundles",
+      "description": "Get a list of pixel bundles",
+      "httpMethod": "GET",
+      "path": "/pixel_bundles"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-pixel-bundle",
+      "name": "Update a Pixel Bundle",
+      "description": "Update a pixel bundle by ID",
+      "httpMethod": "POST",
+      "path": "/pixel_bundles/{pixel_bundle_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-pixel-bundle",
+      "name": "Get a Pixel Bundle",
+      "description": "Get a pixel bundle by ID",
+      "httpMethod": "GET",
+      "path": "/pixel_bundles/{pixel_bundle_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "pixel-bundle-audit-log",
+      "name": "Pixel Bundle Audit Log",
+      "description": "Get a list changes to this pixel bundle",
+      "httpMethod": "GET",
+      "path": "/pixel_bundles/{pixel_bundle_id}/history"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "healthcheck",
+      "name": "Health Check",
+      "description": "Health endpoint to check availability",
+      "httpMethod": "GET",
+      "path": "/healthcheck"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-organizations",
+      "name": "List Organizations",
+      "description": "Get a list of organizations",
+      "httpMethod": "GET",
+      "path": "/organizations"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "create-organization",
+      "name": "Create an Organization",
+      "description": "Create an organization",
+      "httpMethod": "POST",
+      "path": "/organizations"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "get-organization",
+      "name": "Get an Organization",
+      "description": "Get an organization by ID",
+      "httpMethod": "GET",
+      "path": "/organizations/{organization_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-organization",
+      "name": "Update an Organization",
+      "description": "Update an organization by ID",
+      "httpMethod": "POST",
+      "path": "/organizations/{organization_id}"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "organization-audit-log",
+      "name": "Organization Audit Log",
+      "description": "Get a list of changes to this organization",
+      "httpMethod": "GET",
+      "path": "/organizations/{organization_id}/history"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "organization-audit-log-bulk",
+      "name": "Bulk Organization Audit Log",
+      "description": "Get a list of changes to these organizations",
+      "httpMethod": "POST",
+      "path": "/audit_log/organizations"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-user-permissions-organization",
+      "name": "List User Permissions for an Organization",
+      "description": "List user permissions for an organization",
+      "httpMethod": "GET",
+      "path": "/organizations/{organization_id}/permissions"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "list-settings-organization",
+      "name": "List Settings for an Organization",
+      "description": "List settings for an organization",
+      "httpMethod": "GET",
+      "path": "/organizations/{organization_id}/settings"
+    },
+    {
+      "@type": "schema:Action",
+      "identifier": "update-settings-organization",
+      "name": "Update Settings for an Organization",
+      "description": "Update settings for an organization",
+      "httpMethod": "POST",
+      "path": "/organizations/{organization_id}/settings"
+    }
+  ]
+}

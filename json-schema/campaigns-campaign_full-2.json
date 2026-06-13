@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/components/schemas/campaign_full_with_inherited"
+    },
+    "meta": {
+      "$ref": "#/components/schemas/single_metadata"
+    }
+  }
+}

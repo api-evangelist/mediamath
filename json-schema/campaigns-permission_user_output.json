@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "permission_user_output",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "entity_type": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "link_ldap": {
+      "type": "boolean"
+    },
+    "link_saml": {
+      "type": "boolean"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "view_organizations": {
+      "type": "boolean"
+    },
+    "edit_campaigns": {
+      "type": "boolean"
+    },
+    "edit_margins_and_performance": {
+      "type": "boolean"
+    },
+    "labs_enable_rmx": {
+      "type": "boolean"
+    },
+    "creator_id": {
+      "type": "integer"
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "last_login_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "nullable": true
+    },
+    "access_internal_fees": {
+      "type": "boolean"
+    },
+    "view_segments": {
+      "type": "boolean"
+    },
+    "edit_segments": {
+      "type": "boolean"
+    },
+    "view_data_definition": {
+      "type": "boolean"
+    },
+    "edit_data_definition": {
+      "type": "boolean"
+    },
+    "view_dmp_reports": {
+      "type": "boolean"
+    },
+    "email": {
+      "type": "string"
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "organizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/permission"
+          }
+        },
+        "agencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/permission"
+          }
+        },
+        "advertisers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/permission"
+          }
+        }
+      }
+    },
+    "roles": {
+      "$ref": "#/components/schemas/roles"
+    },
+    "language": {
+      "type": "string"
+    },
+    "zone_name": {
+      "type": "string"
+    }
+  }
+}

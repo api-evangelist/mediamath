@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_concepts",
+  "type": "object",
+  "properties": {
+    "weighting": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "BUDGET",
+        "IMPRESSION"
+      ]
+    },
+    "creative_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "concept_id": {
+            "type": "integer"
+          },
+          "percent": {
+            "type": "number",
+            "format": "float",
+            "description": "Sum of all percents provided inside group must be equal to 100",
+            "minimum": 0,
+            "maximum": 100,
+            "exclusiveMinimum": false
+          }
+        },
+        "required": [
+          "concept_id",
+          "percent"
+        ]
+      }
+    }
+  }
+}

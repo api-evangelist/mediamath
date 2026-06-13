@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "strategy_id": {
+      "type": "number"
+    },
+    "strategy_target_id": {
+      "type": "number"
+    },
+    "strategy_target_exclude": {
+      "type": "boolean"
+    },
+    "strategy_target_active": {
+      "type": "boolean"
+    },
+    "strategy_target_operator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategy_target_value_id": {
+      "type": "number"
+    },
+    "target_dimension_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_dimension_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_value_id": {
+      "type": "number"
+    },
+    "target_value_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_value_value": {
+      "type": "number"
+    },
+    "target_value_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategy_count": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "strategy_id",
+    "strategy_target_id",
+    "strategy_target_exclude",
+    "strategy_target_active",
+    "strategy_target_operator",
+    "strategy_target_value_id",
+    "target_dimension_code",
+    "target_dimension_name",
+    "target_value_id",
+    "target_value_name",
+    "target_value_value",
+    "target_value_code",
+    "strategy_count"
+  ],
+  "x-examples": {
+    "example-1": {
+      "strategy_id": 65,
+      "strategy_target_exclude": false,
+      "strategy_target_active": true,
+      "strategy_target_operator": "OR",
+      "target_dimension_code": "REGN",
+      "target_dimension_name": "nameface REGN",
+      "target_value_id": 18,
+      "target_value_name": "target values item",
+      "target_value_value": 123123,
+      "target_value_code": "Target Value 1",
+      "strategy_count": 2
+    }
+  }
+}

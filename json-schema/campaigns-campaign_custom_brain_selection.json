@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_custom_brain_selection",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "campaign_id": {
+      "type": "integer"
+    },
+    "selection_id": {
+      "type": "integer"
+    },
+    "selection_type": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "enable_mm_audiences_in_brain": {
+      "type": "boolean"
+    },
+    "is_retired": {
+      "type": "boolean"
+    },
+    "full_path": {
+      "type": "string"
+    },
+    "owner_name": {
+      "type": "string"
+    },
+    "selection_name": {
+      "type": "string"
+    },
+    "child_count": {
+      "type": "integer"
+    },
+    "parent_audience_segment_id": {
+      "type": "integer"
+    },
+    "retail_cpm": {
+      "type": "number",
+      "format": "float"
+    },
+    "uniques": {
+      "type": "integer"
+    },
+    "wholesale_cpm": {
+      "type": "number",
+      "format": "float"
+    }
+  }
+}

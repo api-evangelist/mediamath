@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "organization_base",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "The name of the organization with whom the contract is held.\nThis can be an agency holding company, agency, advertiser, network, or other media or data buying entity.\n"
+    },
+    "org_type": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "buyer",
+          "partner"
+        ]
+      },
+      "description": "The `org_type` field is an array that specifies the type of organization."
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "website": {
+      "type": "string",
+      "maxLength": 512,
+      "nullable": true
+    },
+    "facebook": {
+      "type": "string",
+      "maxLength": 512,
+      "nullable": true
+    },
+    "linkedin": {
+      "type": "string",
+      "maxLength": 512,
+      "nullable": true
+    },
+    "twitter": {
+      "type": "string",
+      "maxLength": 512,
+      "nullable": true
+    },
+    "allow_x_agency_pixels": {
+      "type": "boolean",
+      "description": "This field enables the Data Co-op functionality across all the Advertisers under this organization.\nCross-Advertiser Pixel Targeting allows Advertisers to target other Advertiser Event Pixels within their Agency and any other similarly enabled Agency under the same Organization.\n"
+    },
+    "allow_byo_price": {
+      "type": "boolean"
+    },
+    "opt_out_connected_id": {
+      "type": "boolean"
+    },
+    "opt_out_connected_id_mathid": {
+      "type": "boolean"
+    },
+    "override_suspicious_traffic_filter": {
+      "type": "boolean",
+      "description": "Set flag to 'on\u2019 to be able to override default org wide suspicious traffic filter level."
+    },
+    "restrict_targeting_to_same_device_id": {
+      "type": "boolean"
+    },
+    "restrict_targeting_to_deterministic_id": {
+      "type": "boolean"
+    },
+    "suspicious_traffic_filter_level": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Specify an organization-wide level of suspicious traffic filtering to use. See the Knowledge Base for additional details about this feature. This setting will only take affect if the organization's override_suspicious_traffic_filter property is set to 'on'.\nIf override_suspicious_traffic_filter is enabled and suspicious_traffic_filter_level is set to 0, all fraud and suspicious traffic will be filtered.\n"
+    },
+    "use_ads_txt": {
+      "type": "boolean"
+    },
+    "use_evidon_optout": {
+      "type": "boolean",
+      "nullable": true,
+      "description": "Set flag to 'on\u2019 to show an opt out button on the organization's ads (additional CPM fee will apply when on)."
+    },
+    "eligible_for_data_sharing": {
+      "type": "boolean"
+    },
+    "holding_org_id": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 8
+    },
+    "service_provider_ccpa": {
+      "type": "boolean"
+    },
+    "mfa_avoidance": {
+      "type": "string",
+      "enum": [
+        "ALLOW_ALL",
+        "EXCLUDE_MFA"
+      ]
+    },
+    "mm_contact_name": {
+      "type": "string",
+      "maxLength": 64,
+      "description": "This is the name of the primary internal MediaMath contact of the Organization."
+    },
+    "adx_seat_account_id": {
+      "type": "integer",
+      "minimum": 1,
+      "format": "int64",
+      "maximum": 9223372036854776000,
+      "example": 1,
+      "description": "Passed to ADX upon creative registration so ADX knows which seat we're registering under."
+    },
+    "connected_id_type": {
+      "type": "string",
+      "enum": [
+        "DETERMINISTIC_FIRST"
+      ]
+    },
+    "contact_name": {
+      "type": "string",
+      "maxLength": 64,
+      "description": "This is the primary contact at the organization regarding contract issues."
+    },
+    "address_1": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "The primary address line, typically includes street address and number."
+    },
+    "address_2": {
+      "type": "string",
+      "maxLength": 256,
+      "nullable": true,
+      "description": "The secondary address line, used for additional information such as apartment, suite, or unit number."
+    },
+    "city": {
+      "type": "string",
+      "maxLength": 32,
+      "description": "The city of the address."
+    },
+    "state": {
+      "type": "string",
+      "maxLength": 2,
+      "description": "The state of the address, represented as a 2-character code."
+    },
+    "zip": {
+      "type": "string",
+      "maxLength": 10,
+      "description": "The postal or ZIP code for the address."
+    },
+    "country": {
+      "type": "string",
+      "maxLength": 2,
+      "description": "The country of the address, represented as a 2-character ISO country code."
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 24,
+      "description": "The phone number associated with the address, including country code if applicable."
+    },
+    "currency_code": {
+      "type": "string",
+      "maxLength": 3,
+      "description": "Currency code for the campaign budget and spend, as well as billing."
+    },
+    "billing_country_code": {
+      "type": "string",
+      "description": "Country code that is used for billing purposes."
+    },
+    "dmp_enabled": {
+      "type": "string",
+      "enum": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    "seats": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/exchange_seat"
+      },
+      "nullable": true
+    },
+    "mcp_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Controls whether the organization is permitted to access the platform via MCP (Model Context Protocol) tooling."
+    },
+    "mcp_access_level": {
+      "type": "string",
+      "enum": [
+        "read_only",
+        "read_write"
+      ],
+      "description": "Determines the scope of MCP access for the organization. 'read_only' permits read/query operations only. 'read_write' permits all operations including create and update."
+    },
+    "inf_business_unit": {
+      "type": "string",
+      "description": "Available only for internal users.",
+      "nullable": true
+    },
+    "environment": {
+      "type": "string",
+      "description": "Available only for internal users.",
+      "nullable": true
+    }
+  }
+}

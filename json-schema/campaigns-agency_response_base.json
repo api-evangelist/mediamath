@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "agency_response_base",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/agency_base"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "entity_type": {
+          "type": "string"
+        },
+        "organization_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "version": {
+          "type": "integer"
+        },
+        "sales_contact_id": {
+          "type": "integer",
+          "deprecated": true
+        },
+        "billing_contact_id": {
+          "type": "integer",
+          "deprecated": true
+        },
+        "traffic_contact_id": {
+          "type": "integer",
+          "deprecated": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_plan_targeting",
+  "allOf": [
+    {
+      "properties": {
+        "fold_position": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ABOVE",
+              "BELOW",
+              "UNCATEGORIZED"
+            ]
+          },
+          "nullable": true
+        },
+        "audience": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "operator": {
+                    "type": "string",
+                    "enum": [
+                      "AND",
+                      "OR"
+                    ]
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/strategy_audience_segment"
+                    }
+                  }
+                }
+              }
+            },
+            "exclude": {
+              "type": "object",
+              "properties": {
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "AND",
+                    "OR"
+                  ]
+                },
+                "segments": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/strategy_audience_segment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "contextual": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "operator": {
+                    "type": "string",
+                    "enum": [
+                      "AND",
+                      "OR"
+                    ]
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/strategy_contextual_segment"
+                    }
+                  }
+                }
+              }
+            },
+            "exclude": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "AND",
+                    "OR"
+                  ]
+                },
+                "segments": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/strategy_contextual_segment"
+                  }
+                }
+              },
+              "required": [
+                "segments"
+              ]
+            }
+          }
+        },
+        "postal_codes": {
+          "$ref": "#/components/schemas/targeting_postal_codes"
+        },
+        "geofence": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "$ref": "#/components/schemas/strategy_geofence"
+            },
+            "exclude": {
+              "$ref": "#/components/schemas/strategy_geofence"
+            }
+          }
+        },
+        "my_data": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "$ref": "#/components/schemas/strategy_my_data"
+            },
+            "exclude": {
+              "$ref": "#/components/schemas/strategy_my_data"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_location"
+              }
+            },
+            "exclude": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_location"
+              }
+            }
+          }
+        },
+        "technology": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_technology"
+              }
+            },
+            "exclude": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_technology"
+              }
+            }
+          }
+        },
+        "ip_addresses": {
+          "$ref": "#/components/schemas/targeting_ip_addresses"
+        },
+        "day_parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/day_part"
+          }
+        },
+        "recency": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pixel_id": {
+                "type": "integer",
+                "format": "int32",
+                "example": 67
+              },
+              "from_hour": {
+                "type": "integer",
+                "format": "int32",
+                "example": 5
+              },
+              "to_hour": {
+                "type": "integer",
+                "format": "int32",
+                "example": 7
+              }
+            },
+            "required": [
+              "pixel_id",
+              "from_hour",
+              "to_hour"
+            ]
+          }
+        },
+        "language_codes": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "type": "object"
+}

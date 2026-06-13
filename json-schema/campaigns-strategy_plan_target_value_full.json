@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_plan_target_value_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "strategy_target": {
+          "$ref": "#/components/schemas/strategy_plan_target_full"
+        },
+        "target_value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/target_value_full"
+          }
+        }
+      }
+    }
+  ]
+}

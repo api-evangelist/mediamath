@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pagination metadata",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "example": "success",
+      "description": "The status of the response, indicating success or failure."
+    },
+    "count": {
+      "type": "integer",
+      "example": 10,
+      "description": "The number of items returned in the current response."
+    },
+    "total_count": {
+      "type": "integer",
+      "example": 100,
+      "description": "The total number of items available in the dataset."
+    },
+    "offset": {
+      "type": "integer",
+      "example": 0,
+      "description": "The offset from the start of the dataset, used for pagination."
+    },
+    "next_page": {
+      "type": "string",
+      "description": "The URL to fetch the next page of results."
+    },
+    "prev_page": {
+      "type": "string",
+      "description": "The URL to fetch the previous page of results."
+    }
+  },
+  "required": [
+    "status",
+    "count"
+  ]
+}

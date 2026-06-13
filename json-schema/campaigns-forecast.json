@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "forecast",
+  "type": "object",
+  "nullable": true,
+  "required": [
+    "data",
+    "meta"
+  ],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": [
+        "errors",
+        "flags",
+        "opps",
+        "pricing",
+        "uniques"
+      ],
+      "properties": {
+        "errors": {
+          "type": "string",
+          "nullable": true,
+          "example": null,
+          "description": "When forecast is successful this value is null"
+        },
+        "flags": {
+          "type": "string",
+          "nullable": true,
+          "example": null,
+          "description": "When forecast is successful this value is null"
+        },
+        "opps": {
+          "type": "integer",
+          "example": 216000
+        },
+        "pricing": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "impressions": {
+                "type": "integer"
+              },
+              "price": {
+                "type": "string",
+                "example": "7.665749"
+              },
+              "spend": {
+                "type": "string",
+                "example": "352816.151476"
+              },
+              "uniques": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "impressions",
+              "price",
+              "spend",
+              "uniques"
+            ]
+          }
+        },
+        "uniques": {
+          "type": "integer",
+          "example": 156270
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "success"
+          ],
+          "example": "success"
+        }
+      }
+    }
+  }
+}

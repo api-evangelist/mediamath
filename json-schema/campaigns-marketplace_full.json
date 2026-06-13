@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "marketplace_full",
+  "type": "object",
+  "properties": {
+    "created_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supply_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "rtb_enabled": {
+      "type": "boolean"
+    },
+    "strategy_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 5
+    },
+    "code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bidder_exchange_identifier": {
+      "type": "integer",
+      "format": "int32",
+      "example": 8
+    },
+    "rtb_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "has_display": {
+      "type": "boolean"
+    },
+    "has_mobile_display": {
+      "type": "boolean"
+    },
+    "has_video": {
+      "type": "boolean"
+    },
+    "has_mobile_video": {
+      "type": "boolean"
+    },
+    "requires_creative_audit": {
+      "type": "boolean"
+    },
+    "has_desktop_video": {
+      "type": "boolean"
+    },
+    "has_connected_tv": {
+      "type": "boolean"
+    },
+    "mma_free": {
+      "type": "boolean"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "mkt_sell_price": {
+      "type": "number",
+      "format": "float",
+      "minimum": -1,
+      "nullable": true
+    },
+    "mkt_sell_price_currency_code": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "example": "USD",
+      "nullable": true
+    },
+    "permission_organizations": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32",
+        "example": 7
+      }
+    },
+    "permission_agencies": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32",
+        "example": 9
+      }
+    }
+  }
+}

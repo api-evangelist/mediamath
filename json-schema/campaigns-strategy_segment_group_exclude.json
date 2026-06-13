@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_segment_group_exclude",
+  "type": "object",
+  "properties": {
+    "segment_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "segment_group_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 98
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "segment_groups"
+  ]
+}

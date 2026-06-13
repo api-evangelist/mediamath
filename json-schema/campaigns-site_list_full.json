@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "site_list_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 126
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "organization_id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 16
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "restriction": {
+          "type": "string",
+          "enum": [
+            "INCLUDE",
+            "EXCLUDE"
+          ]
+        },
+        "filename": {
+          "type": "string",
+          "maxLength": 255,
+          "nullable": true,
+          "example": "test_site_list.csv"
+        },
+        "content_updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "sites_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "nullable": true
+        },
+        "sites_count_domain": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "nullable": true
+        },
+        "sites_count_app": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2,
+          "nullable": true
+        },
+        "sites_count_primary_seller_id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 3,
+          "nullable": true
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "audience_target",
+  "type": "object",
+  "properties": {
+    "operator": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR"
+      ]
+    },
+    "audience_segment_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32",
+        "example": 32
+      }
+    }
+  }
+}

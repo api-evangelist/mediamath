@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "advertiser",
+  "type": "object",
+  "properties": {
+    "ad_server_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 126
+    },
+    "data_sharing_enabled": {
+      "type": "boolean"
+    },
+    "dmp_enabled": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "inherits"
+      ]
+    },
+    "domain": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "external_id": {
+      "type": "string",
+      "maxLength": 255,
+      "nullable": true
+    },
+    "frequency_interval": {
+      "type": "string",
+      "nullable": true,
+      "enum": [
+        "hour",
+        "day",
+        "week",
+        "month",
+        "not-applicable"
+      ],
+      "default": "not-applicable"
+    },
+    "frequency_type": {
+      "type": "string",
+      "nullable": true,
+      "enum": [
+        "no-limit",
+        "asap",
+        "even"
+      ],
+      "default": "no-limit"
+    },
+    "frequency_amount": {
+      "type": "integer",
+      "nullable": true,
+      "format": "int32",
+      "example": 3
+    },
+    "minimize_multi_ads": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "vertical_id": {
+      "type": "integer",
+      "format": "int32",
+      "example": 433
+    },
+    "ads_txt_verified": {
+      "type": "string",
+      "nullable": true,
+      "enum": [
+        "ANY",
+        "AUTHORIZED_ONLY",
+        "AUTHORIZED_DIRECT_ONLY",
+        "NONE"
+      ]
+    },
+    "political": {
+      "type": "boolean"
+    },
+    "connected_id_type": {
+      "type": "string",
+      "enum": [
+        "DETERMINISTIC_FIRST"
+      ]
+    },
+    "mfa_avoidance": {
+      "type": "string",
+      "enum": [
+        "INHERIT",
+        "ALLOW_ALL",
+        "EXCLUDE_MFA"
+      ]
+    },
+    "attribution_level": {
+      "type": "string",
+      "enum": [
+        "INDIVIDUAL",
+        "HOUSEHOLD"
+      ],
+      "default": "INDIVIDUAL"
+    },
+    "targeting_identity_level": {
+      "type": "string",
+      "enum": [
+        "INDIVIDUAL",
+        "HOUSEHOLD"
+      ],
+      "default": "INDIVIDUAL"
+    },
+    "advertiser_brain": {
+      "type": "boolean",
+      "default": true
+    },
+    "vendor_attributions": {
+      "type": "array",
+      "nullable": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "vendor_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 18
+          },
+          "impression_pixel": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

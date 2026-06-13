@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "marketplace_full_response",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 33
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/marketplace_full"
+    }
+  ]
+}

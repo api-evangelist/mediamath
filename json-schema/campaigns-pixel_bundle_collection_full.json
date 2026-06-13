@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pixel_bundle_collection_full",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/pixel_bundle_response"
+        }
+      ]
+    },
+    "meta": {
+      "$ref": "#/components/schemas/list_metadata"
+    }
+  }
+}

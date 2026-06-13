@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "new_strategy_group_list_item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "entity_type": {
+      "type": "string",
+      "example": "strategy_group"
+    },
+    "name": {
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "strategy_count": {
+      "type": "integer",
+      "format": "int64",
+      "readOnly": true,
+      "description": "Number of strategies attached to this group. Always present.",
+      "example": 3
+    },
+    "strategies": {
+      "type": "array",
+      "readOnly": true,
+      "description": "Attached strategies. Only present when ?with=strategies is set.",
+      "items": {
+        "$ref": "#/components/schemas/new_strategy_group_strategy_embed"
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "path_audience_segment",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "parent_audience_segment_id": {
+      "type": "integer",
+      "nullable": true
+    },
+    "full_path": {
+      "type": "string"
+    },
+    "uniques": {
+      "type": "integer"
+    },
+    "retail_cpm": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cpm"
+      }
+    },
+    "audience_vendor_id": {
+      "type": "integer"
+    },
+    "code": {
+      "type": "string",
+      "nullable": true
+    },
+    "buyable": {
+      "type": "boolean"
+    },
+    "child_count": {
+      "type": "integer"
+    },
+    "wholesale_cpm": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/cpm"
+      }
+    },
+    "type": {
+      "type": "string"
+    },
+    "taxonomy_id": {
+      "type": "integer"
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "audience_vendor": {
+      "description": "available with parameter `with=audience_vendor`",
+      "type": "object",
+      "nullable": true,
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/audience_vendor"
+        }
+      ]
+    }
+  }
+}

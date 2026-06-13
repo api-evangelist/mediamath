@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "contextual_segment_full",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parent_targeting_segment_id": {
+          "type": "integer",
+          "nullable": true
+        },
+        "full_path": {
+          "type": "string"
+        },
+        "cpm": {
+          "type": "number",
+          "format": "double"
+        },
+        "targeting_vendor_id": {
+          "type": "integer"
+        },
+        "vendor_name": {
+          "type": "string"
+        },
+        "external_code": {
+          "type": "string"
+        },
+        "segment_objective_name": {
+          "type": "string"
+        },
+        "segment_objective_id": {
+          "type": "integer"
+        },
+        "buyable": {
+          "type": "boolean"
+        },
+        "has_children": {
+          "type": "boolean"
+        }
+      }
+    }
+  ]
+}

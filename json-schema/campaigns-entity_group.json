@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "entity_group",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "created_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "organizations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/entity_group_entity"
+      }
+    },
+    "agencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/entity_group_agency"
+      }
+    },
+    "advertisers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/entity_group_advertiser"
+      }
+    }
+  }
+}

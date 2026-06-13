@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "supply_source_response",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "supply_type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "rtb_enabled": {
+          "type": "boolean"
+        },
+        "mm_safe": {
+          "type": "boolean"
+        },
+        "pixel_tag": {
+          "type": "string"
+        },
+        "distribute": {
+          "type": "boolean"
+        },
+        "use_pool": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "string"
+        },
+        "is_proservice": {
+          "type": "boolean"
+        },
+        "default_seat_identifier": {
+          "type": "string"
+        },
+        "seat_enabled": {
+          "type": "boolean"
+        },
+        "bidder_exchange_identifier": {
+          "type": "integer"
+        },
+        "pmp_enabled": {
+          "type": "boolean"
+        },
+        "rtb_type": {
+          "type": "string"
+        },
+        "parent_supply_id": {
+          "type": "integer"
+        },
+        "has_display": {
+          "type": "boolean"
+        },
+        "has_mobile_display": {
+          "type": "boolean"
+        },
+        "has_video": {
+          "type": "boolean"
+        },
+        "has_mobile_video": {
+          "type": "boolean"
+        },
+        "requires_creative_audit": {
+          "type": "boolean"
+        },
+        "has_desktop_video": {
+          "type": "boolean"
+        },
+        "has_connected_tv": {
+          "type": "boolean"
+        },
+        "attribution_group": {
+          "type": "string"
+        },
+        "fraud_filter": {
+          "type": "boolean"
+        },
+        "mma_free": {
+          "type": "boolean"
+        },
+        "private": {
+          "type": "boolean"
+        },
+        "mkt_sell_price": {
+          "type": "number",
+          "nullable": true
+        },
+        "mkt_sell_price_currency_code": {
+          "type": "string",
+          "nullable": true
+        }
+      }
+    }
+  ]
+}

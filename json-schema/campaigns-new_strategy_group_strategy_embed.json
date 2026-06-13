@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "new_strategy_group_strategy_embed",
+  "type": "object",
+  "description": "Minimal strategy shape used as the embed value for ?with=strategies.",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "entity_type": {
+      "type": "string",
+      "example": "strategy"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

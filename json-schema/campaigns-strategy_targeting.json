@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "strategy_targeting",
+  "allOf": [
+    {
+      "properties": {
+        "fold_position": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ABOVE",
+              "BELOW",
+              "UNCATEGORIZED",
+              "HEADER",
+              "FOOTER",
+              "SIDEBAR",
+              "FULLSCREEN"
+            ]
+          },
+          "nullable": true
+        },
+        "audience": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "operator": {
+                    "type": "string",
+                    "enum": [
+                      "AND",
+                      "OR"
+                    ],
+                    "default": "OR"
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/strategy_audience_segment"
+                    }
+                  }
+                }
+              }
+            },
+            "exclude": {
+              "type": "object",
+              "properties": {
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "AND",
+                    "OR"
+                  ],
+                  "default": "OR"
+                },
+                "segments": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/strategy_audience_segment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "contextual": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "operator": {
+                    "type": "string",
+                    "enum": [
+                      "AND",
+                      "OR"
+                    ],
+                    "default": "OR"
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/strategy_contextual_segment"
+                    }
+                  }
+                }
+              }
+            },
+            "exclude": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "AND",
+                    "OR"
+                  ],
+                  "default": "OR"
+                },
+                "segments": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/strategy_contextual_segment"
+                  }
+                }
+              },
+              "required": [
+                "segments"
+              ]
+            }
+          }
+        },
+        "audience_groups": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_segment_group"
+              }
+            },
+            "exclude": {
+              "type": "object",
+              "items": {
+                "$ref": "#/components/schemas/strategy_segment_group_exclude"
+              }
+            }
+          }
+        },
+        "contextual_groups": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_segment_group"
+              }
+            },
+            "exclude": {
+              "type": "object",
+              "items": {
+                "$ref": "#/components/schemas/strategy_segment_group_exclude"
+              }
+            }
+          }
+        },
+        "geofence": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "$ref": "#/components/schemas/strategy_geofence"
+            },
+            "exclude": {
+              "$ref": "#/components/schemas/strategy_geofence"
+            }
+          }
+        },
+        "my_data": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "$ref": "#/components/schemas/strategy_my_data"
+            },
+            "exclude": {
+              "$ref": "#/components/schemas/strategy_my_data"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_location"
+              }
+            },
+            "exclude": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_location"
+              }
+            }
+          }
+        },
+        "technology": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_technology"
+              }
+            },
+            "exclude": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/strategy_technology"
+              }
+            }
+          }
+        },
+        "day_parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/day_part"
+          }
+        }
+      }
+    }
+  ],
+  "type": "object"
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "concept_full",
+  "type": "object",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "created_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_on": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "entity_type": {
+          "type": "string"
+        },
+        "atomic_creative_list": {
+          "type": "array",
+          "example": [
+            123,
+            124
+          ],
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nullable": true
+        },
+        "media_type_list": {
+          "type": "array",
+          "example": [
+            "audio",
+            "display",
+            "native",
+            "video"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "audio",
+              "display",
+              "native",
+              "video"
+            ]
+          },
+          "nullable": true
+        },
+        "strategy_list": {
+          "type": "array",
+          "example": [
+            456,
+            457
+          ],
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nullable": true
+        },
+        "advertiser_name": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/concept_update"
+    },
+    {
+      "$ref": "#/components/schemas/concept_common"
+    },
+    {
+      "$ref": "#/components/schemas/concept_create"
+    }
+  ]
+}

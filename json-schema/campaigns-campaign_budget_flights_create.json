@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_budget_flights_create",
+  "type": "object",
+  "properties": {
+    "start_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The latest end date of flight must be no more than 36 months after the earliest start date"
+    },
+    "total_budget": {
+      "type": "number",
+      "format": "float"
+    },
+    "total_impression_budget": {
+      "nullable": true,
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9223372036854776000,
+      "example": 12345
+    }
+  },
+  "required": [
+    "start_date",
+    "end_date",
+    "total_budget"
+  ]
+}

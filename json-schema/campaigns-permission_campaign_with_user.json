@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "permission_campaign_with_user",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "permission": {
+          "$ref": "#/components/schemas/permission_flags"
+        }
+      }
+    },
+    {
+      "$ref": "#/components/schemas/permission_user_output"
+    }
+  ]
+}

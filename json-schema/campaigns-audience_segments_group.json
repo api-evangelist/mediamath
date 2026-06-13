@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "audience_segments_group",
+  "type": "object",
+  "properties": {
+    "operator": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR"
+      ]
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "audience_segment_id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 88
+          },
+          "user_cpm": {
+            "type": "number",
+            "format": "double",
+            "minimum": 0,
+            "description": "if provided value will be used instead of segment cpm (value in USD)."
+          }
+        }
+      }
+    }
+  }
+}

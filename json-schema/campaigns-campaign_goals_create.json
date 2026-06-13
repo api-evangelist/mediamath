@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "campaign_goals_create",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/campaign_goals"
+    },
+    {
+      "required": [
+        "goal_type",
+        "goal_value"
+      ]
+    }
+  ]
+}

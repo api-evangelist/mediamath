@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "roles",
+  "type": "array",
+  "example": [
+    4,
+    6
+  ],
+  "description": "Possible values:\n- 2: \"admin\", \n- 3: \"manager\", \n- 4: \"reporter\", \n- 5: \"internal\", \n- 6: \"agency\" ,\n- 7: \"edit_data_definition\", \n- 8: \"view_data_definition\", \n- 9: \"edit_segments\", \n- 10: \"view_segments\", \n- 11: \"edit_campaigns\", \n- 13: \"edit_margins_and_performance\", \n- 14: \"view_organizations\", \n- 15: \"view_dmp_reports\", \n- 16: \"manage_contracts\", \n- 17: \"view_contracts\".\nSome values can't be used with each other, for example 3 and 4. For more information use \"/roles\" request.\n",
+  "items": {
+    "type": "integer",
+    "format": "int16",
+    "minimum": 1,
+    "maximum": 32767
+  }
+}
