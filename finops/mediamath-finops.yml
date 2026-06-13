@@ -1,0 +1,56 @@
+name: MediaMath API FinOps
+description: Financial operations considerations for MediaMath (by Infillion) DSP API usage. MediaMath does not charge separately for API calls; API access costs are bundled with DSP platform usage, media spend, and managed service agreements. Cost drivers are primarily media spend volume, data volume, and managed service fees.
+url: https://infillion.com/contact/
+cost_model: Bundled with DSP platform usage and media spend
+pricing_transparency: Private / Negotiated
+public_pricing: false
+cost_drivers:
+  - name: Media Spend
+    description: Primary cost driver. MediaMath typically charges a platform fee or DSP fee as a percentage of managed media spend. Exact percentage varies by contract, volume commitments, and service level.
+    type: Percentage of Spend
+    public_rate: false
+    notes: Contact MediaMath/Infillion sales for current rate cards. Industry typical DSP fees range from 5-20% of media spend depending on volume and contract terms.
+  - name: Managed Service Fees
+    description: For advertisers and agencies using MediaMath's managed service offering, additional fees apply for strategy, optimization, and account management services.
+    type: Fixed / Negotiated
+    public_rate: false
+  - name: Data Fees
+    description: Use of third-party audience data segments sourced through the MediaMath data marketplace incurs additional CPM-based data costs passed through to the buyer.
+    type: CPM (cost per mille)
+    public_rate: false
+  - name: Log-Level Data Service
+    description: Access to raw event-level log data (Log-Level Data Service) may have separate data egress or service fees depending on volume and contract.
+    type: Volume-based
+    public_rate: false
+  - name: Server-to-Server Data Distribution
+    description: Audience data onboarding via S2S has default quotas of 20 files/hour and 5 GB/day per integration. Exceeding these limits may require contract expansion.
+    type: Volume-based
+    quota:
+      files_per_hour: 20
+      gb_per_day: 5
+      max_file_size_gb: 4
+      data_retention_days: 60
+  - name: Audience Onboarding Batch API
+    description: Batch audience event ingestion is limited to 50,000 requests per API key per day. Higher volumes require negotiation with MediaMath.
+    type: Volume-based
+    quota:
+      daily_requests_per_key: 50000
+optimization_recommendations:
+  - Monitor media spend pacing through the Reporting API V2 to avoid overspend and ensure budget efficiency.
+  - Use the Custom Bid Router (BYOA) to implement value-based bidding that maximizes ROI per impression rather than volume.
+  - Leverage log-level data to identify underperforming creatives, placements, or audience segments and reallocate budget proactively.
+  - Batch audience segment uploads during off-peak hours to stay within S2S data distribution quotas.
+  - Regularly audit active campaigns via Campaign Management API to pause or archive non-performing line items and avoid wasted spend.
+  - Use the Reporting API's rollup and filtering capabilities to identify high-cost-per-action strategies and adjust targeting or bids accordingly.
+  - Negotiate volume discounts with MediaMath for large-scale spend commitments to reduce effective platform fee percentage.
+contacts:
+  - type: Sales
+    url: https://infillion.com/contact/
+    description: For pricing, contract negotiation, and API access provisioning
+  - type: Support
+    url: https://support.infillion.com/s/submit-a-case
+    description: For technical support, rate limit increases, and quota expansion requests
+notes:
+  - MediaMath was acquired by Infillion; all commercial terms are managed through Infillion
+  - API credentials (Client ID + API Key) are issued as part of the platform onboarding process
+  - No self-serve free tier or trial API access is publicly advertised as of 2026-06-13

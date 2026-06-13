@@ -1,0 +1,81 @@
+name: MediaMath API Rate Limits
+description: MediaMath APIs implement rate limiting and throttling using a token bucket algorithm to ensure platform stability and fair resource allocation across all users. Limits are enforced per-user and per-IP across 5 production pods. When limits are exceeded, HTTP 429 Too Many Requests is returned.
+url: https://apidocs.mediamath.com/guides/api-rate-limiting
+algorithm: Token Bucket (continuous refill, cluster-wide enforcement across 5 pods)
+limits:
+  - scope: Per-User Sustained Rate
+    safe_limit: 40
+    maximum: 50
+    unit: requests per second
+    description: Sustained request rate for authenticated users. Safe limit is 80% of theoretical maximum to account for variance across production pods.
+  - scope: Per-User Burst Capacity
+    safe_limit: 200
+    maximum: 250
+    unit: requests
+    description: Instantaneous burst capacity available after an idle period of 5 or more seconds. Allows rapid sending of queued requests before sustained rate limit applies.
+    condition: Idle period >= 5 seconds
+  - scope: Concurrent Writes
+    safe_limit: 150
+    maximum: 150
+    unit: concurrent requests
+    description: Maximum number of simultaneous write operations (POST, PUT, PATCH, DELETE) allowed per user at any given time.
+    methods:
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+  - scope: Per-IP Unauthenticated
+    safe_limit: 80
+    maximum: 100
+    unit: requests per second
+    description: Rate limit applied to unauthenticated requests by IP address.
+  - scope: Audience Onboarding Real-Time
+    safe_limit: 1000
+    maximum: 1000
+    unit: requests per second
+    description: Rate limit for real-time server-side pixel event ingestion endpoint.
+    endpoint: https://pixel-s2s.mathtag.com/event/img
+  - scope: Audience Onboarding Batch
+    safe_limit: 10
+    maximum: 10
+    unit: requests per second
+    description: Rate limit for batch audience event ingestion.
+    endpoint: https://ingest-default.prod.octane.mediamath.com/v1/events
+    additional:
+      concurrent: 5
+      daily: 50000
+      unit: requests per API key per day
+  - scope: Server-to-Server Data Distribution
+    safe_limit: 20
+    maximum: 20
+    unit: files per hour
+    description: Default file upload quota for server-to-server audience data distribution.
+    additional:
+      daily_data_limit: 5 GB per day per integration
+      max_file_size: 4 GB (gzipped)
+      max_line_length: 8000 characters
+      data_retention: 60 days
+error_responses:
+  - status: 429
+    name: Too Many Requests
+    description: Returned when per-user or per-IP rate or concurrency limits are exceeded. Response includes error details and per-pod enforcement values.
+    retry: Use Retry-After header value with exponential backoff and jitter
+  - status: 503
+    name: Service Unavailable
+    description: Indicates system-wide overload rather than user-specific throttling. Implement exponential backoff before retrying.
+response_headers:
+  - name: X-RateLimit-Remaining
+    description: Available tokens remaining in the current token bucket
+  - name: X-RateLimit-Reset
+    description: Unix timestamp indicating when the next token becomes available
+  - name: X-Concurrency-Remaining
+    description: Number of available concurrent write operation slots
+  - name: Retry-After
+    description: Suggested wait duration in seconds (includes jitter to prevent thundering herd)
+best_practices:
+  - Implement exponential backoff with jitter on 429 and 503 responses
+  - Batch write operations where possible to reduce concurrent request count
+  - Monitor X-RateLimit-Remaining header to proactively pace requests
+  - Maintain sustained request rate at 20-30 req/s to stay well within safe limits
+  - Wait for idle periods to leverage burst capacity for batched work
+  - Use streaming responses for large Reporting API queries to avoid timeouts

@@ -1,0 +1,171 @@
+aid: mediamath
+name: MediaMath
+description: MediaMath (by Infillion) is a programmatic advertising DSP with REST APIs for managing campaigns, targeting, bidding strategies, creative trafficking, audience segments, and performance analytics. The platform provides an API-first composable architecture supporting campaign management, reporting, audience onboarding, marketplaces access, and custom bidding algorithms.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Programmatic Advertising
+  - DSP
+  - Demand-Side Platform
+  - Campaign Management
+  - Ad Tech
+  - Bidding
+  - Audience Segments
+  - Creative Management
+  - Reporting
+  - Analytics
+apis:
+  - name: MediaMath Campaigns V2.0 API
+    description: REST API for programmatically creating, viewing, and updating all campaign-related entities within the MediaMath Platform, including advertisers, campaigns, strategies, creatives, and targeting parameters.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://apidocs.mediamath.com/docs/api/YXBpOjMyMzMyMTI4-campaigns-v2-0-api-reference
+    baseURL: https://api.mediamath.com
+    tags:
+      - Campaign Management
+      - Campaigns
+      - Strategies
+      - Creatives
+      - Targeting
+    properties:
+      - type: Documentation
+        url: https://apidocs.mediamath.com/docs/api/YXBpOjMyMzMyMTI4-campaigns-v2-0-api-reference
+      - type: Authentication
+        url: https://apidocs.mediamath.com/guides
+      - type: Plans
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+      - type: RateLimits
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+      - type: FinOps
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+  - name: MediaMath Reporting API V2
+    description: Flexible reporting API providing access to human- and machine-readable performance reports. Supports multiple datasets, custom field selection, time windowing, filtering, sorting, pagination, and streaming responses via POST requests.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://apidocs.mediamath.com/apis/reporting-api
+    baseURL: https://api.mediamath.com/reporting/v2
+    tags:
+      - Reporting
+      - Analytics
+      - Performance
+      - Data
+    properties:
+      - type: Documentation
+        url: https://apidocs.mediamath.com/apis/reporting-api
+      - type: Authentication
+        url: https://apidocs.mediamath.com/guides
+      - type: Plans
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+      - type: RateLimits
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+      - type: FinOps
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+  - name: MediaMath Marketplaces API V2.0
+    description: API for leveraging PMP Direct and Exchange supply sources, enabling programmatic access to private marketplace deals and exchange inventory within the MediaMath Platform.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://apidocs.mediamath.com/apis/marketplaces-api/marketplaces
+    baseURL: https://api.mediamath.com
+    tags:
+      - Marketplaces
+      - PMP
+      - Exchange
+      - Supply
+      - Inventory
+    properties:
+      - type: Documentation
+        url: https://apidocs.mediamath.com/apis/marketplaces-api/marketplaces
+      - type: Authentication
+        url: https://apidocs.mediamath.com/guides
+      - type: Plans
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+      - type: RateLimits
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+      - type: FinOps
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+  - name: MediaMath Bring Your Own Algorithm (BYOA) API
+    description: API for applying custom bidding algorithms within the MediaMath platform brain, including Campaign Settings configuration and Custom Bid Router for external algorithm invocation during bid opportunities.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://apidocs.mediamath.com/apis/byoa-api/campaign-settings
+    baseURL: https://api.mediamath.com
+    tags:
+      - Bidding
+      - Custom Algorithms
+      - BYOA
+      - Optimization
+    properties:
+      - type: Documentation
+        url: https://apidocs.mediamath.com/apis/byoa-api/campaign-settings
+      - type: Authentication
+        url: https://apidocs.mediamath.com/guides
+      - type: Plans
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+      - type: RateLimits
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+      - type: FinOps
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+  - name: MediaMath Audience Onboarding API
+    description: API for ingesting audience event data into the MediaMath Platform via real-time server-side pixel events and batch event uploads. Supports UUID, mobile advertising IDs, and CTV device IDs for cross-device audience building and segment management.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://apidocs.mediamath.com/guides/audience-onboarding
+    baseURL: https://ingest-default.prod.octane.mediamath.com
+    tags:
+      - Audience
+      - Segments
+      - Data Onboarding
+      - Identity
+      - Events
+    properties:
+      - type: Documentation
+        url: https://apidocs.mediamath.com/guides/audience-onboarding
+      - type: Authentication
+        url: https://apidocs.mediamath.com/guides
+      - type: Plans
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+      - type: RateLimits
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+      - type: FinOps
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+  - name: MediaMath Server-to-Server Data Distribution API
+    description: API for syncing audience segment data through server-to-server data distribution, supporting UUID-to-segment mappings, SFTP file transfer, and processing log access with Basic Authentication.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://apidocs.mediamath.com/guides/server-to-server
+    baseURL: https://s2s-api.datasvc.mediamath.com
+    tags:
+      - Audience
+      - Data Distribution
+      - Server-to-Server
+      - Segments
+    properties:
+      - type: Documentation
+        url: https://apidocs.mediamath.com/guides/server-to-server
+      - type: Authentication
+        url: https://apidocs.mediamath.com/guides
+      - type: Plans
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+      - type: RateLimits
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+      - type: FinOps
+        url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+common:
+  - type: Plans
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+  - type: FinOps
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/
+  - type: Authentication
+    url: https://apidocs.mediamath.com/guides
+  - type: Blog
+    url: https://devblog.mediamath.com/
+  - type: Support
+    url: https://support.infillion.com/s/submit-a-case
+  - type: Login
+    url: https://platform.mediamath.com/
+  - type: Academy
+    url: https://academy.mediamath.com/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

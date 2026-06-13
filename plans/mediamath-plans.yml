@@ -1,0 +1,40 @@
+name: MediaMath API Plans
+description: MediaMath (by Infillion) does not publicly publish tiered self-serve pricing for its DSP APIs. Access to the platform and its APIs is granted through a negotiated enterprise agreement with Infillion/MediaMath. API access is bundled with platform usage and ad spend commitments. The following represents the known access model based on public documentation.
+url: https://apidocs.mediamath.com/guides
+plans:
+  - name: Enterprise / Managed Service
+    description: Full platform access with managed service support. MediaMath works with brands and agencies on custom contracts that include access to all REST APIs (Campaign Management, Reporting, Marketplaces, BYOA), log-level data, and audience onboarding. Pricing is based on media spend percentage or managed service fees negotiated with the MediaMath sales team.
+    type: Enterprise
+    access: Private
+    contact: https://infillion.com/contact/
+    features:
+      - Campaign Management API (Campaigns V2.0)
+      - Reporting API V2 (performance datasets, streaming)
+      - Marketplaces API (PMP Direct, Exchange)
+      - Bring Your Own Algorithm (BYOA) API
+      - Audience Onboarding API (real-time + batch)
+      - Server-to-Server Data Distribution
+      - Log-Level Data Service
+      - Infillion Agent Connector (MCP) - closed beta
+      - XGraph identity spine
+      - Multi-channel activation (video, CTV, display, audio, DOOH)
+      - Third-party measurement integrations
+      - Dedicated support
+  - name: Self-Serve / API Access
+    description: Self-serve access to MediaMath platform APIs for technically sophisticated advertisers and agencies. Requires a MediaMath Partners account, OAuth2 credentials (Client ID and API Key), and agreement to platform terms. API rate limits apply as documented.
+    type: Commercial
+    access: Private
+    contact: https://support.infillion.com/s/submit-a-case
+    features:
+      - Campaign Management API (Campaigns V2.0)
+      - Reporting API V2
+      - Marketplaces API
+      - Audience Onboarding API
+      - Server-to-Server Data Distribution
+      - OAuth2 authentication (Client ID + API Key)
+      - JWT token-based API access
+notes:
+  - MediaMath does not publicly list API-specific pricing tiers
+  - Pricing is typically bundled with DSP platform usage and media spend
+  - Contact MediaMath sales or support to obtain API credentials and pricing
+  - The Infillion Agent Connector (MCP integration) is in closed beta as of 2026
