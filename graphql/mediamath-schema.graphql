@@ -1,0 +1,1093 @@
+"""
+MediaMath (Infillion) TerminalOne GraphQL Schema
+Conceptual schema derived from the MediaMath REST API surface.
+Covers campaign management, reporting, marketplaces, audience onboarding,
+and server-to-server data distribution.
+"""
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar Decimal
+scalar URL
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────────────────────────────────────
+
+enum EntityStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+  PENDING
+}
+
+enum CampaignGoal {
+  REACH
+  AWARENESS
+  CONSIDERATION
+  CONVERSION
+  RETARGETING
+  BRANDING
+}
+
+enum BiddingStrategy {
+  CPM
+  CPC
+  CPA
+  CPE
+  VCPM
+  CPCV
+}
+
+enum FrequencyCapType {
+  HOURLY
+  DAILY
+  WEEKLY
+  MONTHLY
+  LIFETIME
+}
+
+enum CreativeType {
+  DISPLAY
+  VIDEO
+  NATIVE
+  AUDIO
+  CONNECTED_TV
+  DIGITAL_OUT_OF_HOME
+}
+
+enum SupplyType {
+  OPEN_EXCHANGE
+  PMP
+  PMP_DIRECT
+  PROGRAMMATIC_GUARANTEED
+}
+
+enum InventoryType {
+  DISPLAY
+  VIDEO
+  MOBILE
+  CONNECTED_TV
+  AUDIO
+  NATIVE
+}
+
+enum TargetingDimension {
+  GEO
+  AUDIENCE
+  DEMOGRAPHIC
+  CONTEXTUAL
+  DEVICE
+  DAYPART
+  KEYWORD
+  BRAND_SAFETY
+}
+
+enum DeviceType {
+  DESKTOP
+  MOBILE
+  TABLET
+  CONNECTED_TV
+  DIGITAL_OUT_OF_HOME
+  AUDIO
+}
+
+enum ReportDimension {
+  CAMPAIGN
+  STRATEGY
+  ADVERTISER
+  MARKETER
+  CREATIVE
+  SITE
+  SUPPLY_SOURCE
+  EXCHANGE
+  DEAL
+  AUDIENCE_SEGMENT
+  GEO_COUNTRY
+  GEO_REGION
+  GEO_CITY
+  DEVICE
+  BROWSER
+  OS
+  DATE
+  HOUR
+}
+
+enum ReportMetric {
+  IMPRESSIONS
+  CLICKS
+  CTR
+  SPEND
+  CPM
+  CPC
+  CONVERSIONS
+  CVR
+  CPA
+  VIEWABLE_IMPRESSIONS
+  VIEWABILITY_RATE
+  VIDEO_COMPLETIONS
+  VIDEO_COMPLETION_RATE
+  REACH
+  FREQUENCY
+}
+
+enum ReportFormat {
+  JSON
+  CSV
+  TSV
+}
+
+enum DealStatus {
+  ACTIVE
+  PAUSED
+  EXPIRED
+  PENDING_APPROVAL
+}
+
+enum AudienceSegmentType {
+  FIRST_PARTY
+  THIRD_PARTY
+  CONTEXTUAL
+  RETARGETING
+  LOOKALIKE
+}
+
+enum IdentifierType {
+  UUID
+  MAID_IDFA
+  MAID_GAID
+  CTV_DEVICE_ID
+  HASHED_EMAIL
+  HASHED_PHONE
+}
+
+enum BidAlgorithmType {
+  CUSTOM
+  PLATFORM_DEFAULT
+  EXTERNAL_ROUTER
+}
+
+enum PacingType {
+  ASAP
+  EVEN
+  FRONTLOADED
+}
+
+enum AttributionModel {
+  LAST_TOUCH
+  FIRST_TOUCH
+  LINEAR
+  TIME_DECAY
+  DATA_DRIVEN
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Core Entity Types
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""An organization (agency or brand) that manages advertisers and campaigns."""
+type Organization {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  address: Address
+  contactEmail: String
+  contactPhone: String
+  website: URL
+  currency: String!
+  timezone: String!
+  marketers: [Marketer!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A marketer (client/brand) within an organization."""
+type Marketer {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  organization: Organization!
+  advertisers: [Advertiser!]!
+  budgets: [MarketerBudget!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An advertiser that runs campaigns."""
+type Advertiser {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  marketer: Marketer!
+  domain: String
+  iabCategoryCode: String
+  campaigns: [Campaign!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A campaign grouping strategies under shared budget and flight dates."""
+type Campaign {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  advertiser: Advertiser!
+  goal: CampaignGoal!
+  budget: CampaignBudget!
+  flightDates: DateRange!
+  frequency: FrequencyCap
+  attributionModel: AttributionModel
+  strategies: [Strategy!]!
+  performance: PerformanceSummary
+  tags: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A strategy (line item) within a campaign."""
+type Strategy {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  campaign: Campaign!
+  biddingStrategy: BiddingStrategy!
+  bidAmount: Decimal
+  maxBid: Decimal
+  budget: StrategyBudget!
+  pacing: PacingType!
+  flightDates: DateRange!
+  frequency: FrequencyCap
+  targeting: TargetingProfile!
+  supplyTargeting: SupplyTargeting!
+  creatives: [StrategyCreative!]!
+  audienceSegments: [AudienceSegmentTarget!]!
+  deals: [Deal!]!
+  bidAlgorithm: BidAlgorithm
+  performance: PerformanceSummary
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A creative asset associated with a strategy."""
+type Creative {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  advertiser: Advertiser!
+  type: CreativeType!
+  width: Int
+  height: Int
+  duration: Int
+  clickThroughUrl: URL
+  previewUrl: URL
+  assetUrl: URL
+  thirdPartyTags: [ThirdPartyTag!]!
+  strategies: [Strategy!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A join between a strategy and creative with weighting."""
+type StrategyCreative {
+  id: ID!
+  strategy: Strategy!
+  creative: Creative!
+  weight: Int
+  startDate: Date
+  endDate: Date
+}
+
+"""A supply source (exchange or publisher)."""
+type SupplySource {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  type: SupplyType!
+  inventoryTypes: [InventoryType!]!
+  domain: String
+  exchange: Exchange
+  deals: [Deal!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An ad exchange connector."""
+type Exchange {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  supplySources: [SupplySource!]!
+  deals: [Deal!]!
+}
+
+"""A private marketplace deal or programmatic guaranteed deal."""
+type Deal {
+  id: ID!
+  name: String!
+  status: DealStatus!
+  dealId: String!
+  supplySource: SupplySource!
+  exchange: Exchange
+  type: SupplyType!
+  cpmFloor: Decimal
+  startDate: Date
+  endDate: Date
+  inventoryType: InventoryType
+  strategies: [Strategy!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An audience segment used for targeting."""
+type AudienceSegment {
+  id: ID!
+  name: String!
+  status: EntityStatus!
+  type: AudienceSegmentType!
+  provider: String
+  description: String
+  uniques: Int
+  cpm: Decimal
+  expirationDays: Int
+  subSegments: [AudienceSegment!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Audience segment target assignment within a strategy."""
+type AudienceSegmentTarget {
+  id: ID!
+  segment: AudienceSegment!
+  strategy: Strategy!
+  include: Boolean!
+}
+
+"""Custom bid algorithm configuration."""
+type BidAlgorithm {
+  id: ID!
+  name: String!
+  type: BidAlgorithmType!
+  strategy: Strategy!
+  externalEndpoint: URL
+  parameters: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Third-party measurement or tracking tag on a creative."""
+type ThirdPartyTag {
+  id: ID!
+  name: String!
+  tag: String!
+  eventType: String
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Value Object / Supporting Types
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""Physical or billing address."""
+type Address {
+  street1: String
+  street2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String!
+}
+
+"""Campaign-level budget configuration."""
+type CampaignBudget {
+  totalAmount: Decimal!
+  currency: String!
+  dailyCap: Decimal
+  impressionCap: Int
+}
+
+"""Strategy-level budget configuration."""
+type StrategyBudget {
+  totalAmount: Decimal
+  currency: String!
+  dailyCap: Decimal
+  impressionCap: Int
+}
+
+"""Marketer-level budget configuration."""
+type MarketerBudget {
+  id: ID!
+  marketer: Marketer!
+  amount: Decimal!
+  currency: String!
+  startDate: Date!
+  endDate: Date!
+}
+
+"""Flight date range."""
+type DateRange {
+  startDate: Date!
+  endDate: Date
+}
+
+"""Frequency cap configuration."""
+type FrequencyCap {
+  type: FrequencyCapType!
+  maxImpressions: Int!
+}
+
+"""Aggregated performance metrics."""
+type PerformanceSummary {
+  impressions: Int
+  clicks: Int
+  spend: Decimal
+  conversions: Int
+  ctr: Decimal
+  cpm: Decimal
+  cpc: Decimal
+  cpa: Decimal
+  viewableImpressions: Int
+  viewabilityRate: Decimal
+  videoCompletions: Int
+  videoCompletionRate: Decimal
+  reach: Int
+  frequency: Decimal
+}
+
+"""Geo-targeting specification."""
+type GeoTarget {
+  id: ID!
+  country: String!
+  regions: [String!]!
+  cities: [String!]!
+  postalCodes: [String!]!
+  dmas: [String!]!
+  include: Boolean!
+}
+
+"""Device targeting specification."""
+type DeviceTarget {
+  deviceTypes: [DeviceType!]!
+  browsers: [String!]!
+  operatingSystems: [String!]!
+  include: Boolean!
+}
+
+"""Daypart targeting specification."""
+type DaypartTarget {
+  days: [Int!]!
+  hours: [Int!]!
+  timezone: String!
+  include: Boolean!
+}
+
+"""Contextual targeting specification."""
+type ContextualTarget {
+  keywords: [String!]!
+  categories: [String!]!
+  include: Boolean!
+}
+
+"""Full targeting profile for a strategy."""
+type TargetingProfile {
+  geo: GeoTarget
+  device: DeviceTarget
+  daypart: DaypartTarget
+  contextual: ContextualTarget
+  brandSafetyCategories: [String!]!
+  viewabilityThreshold: Decimal
+}
+
+"""Supply targeting configuration for a strategy."""
+type SupplyTargeting {
+  includedSupplySources: [SupplySource!]!
+  excludedSupplySources: [SupplySource!]!
+  includedExchanges: [Exchange!]!
+  excludedExchanges: [Exchange!]!
+  inventoryTypes: [InventoryType!]!
+  dealPriority: Boolean
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reporting Types
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""A reporting request configuration."""
+type ReportRequest {
+  id: ID!
+  name: String
+  dimensions: [ReportDimension!]!
+  metrics: [ReportMetric!]!
+  filters: [ReportFilter!]!
+  dateRange: DateRange!
+  format: ReportFormat!
+  status: ReportStatus!
+  resultUrl: URL
+  createdAt: DateTime!
+  completedAt: DateTime
+}
+
+"""Status of an asynchronous report job."""
+type ReportStatus {
+  state: ReportState!
+  progress: Int
+  errorMessage: String
+}
+
+enum ReportState {
+  QUEUED
+  RUNNING
+  COMPLETE
+  FAILED
+}
+
+"""A filter applied to a report."""
+type ReportFilter {
+  dimension: ReportDimension!
+  operator: FilterOperator!
+  values: [String!]!
+}
+
+enum FilterOperator {
+  EQUALS
+  NOT_EQUALS
+  IN
+  NOT_IN
+  CONTAINS
+  STARTS_WITH
+  GREATER_THAN
+  LESS_THAN
+}
+
+"""A single row of report data."""
+type ReportRow {
+  dimensions: JSON!
+  metrics: JSON!
+}
+
+"""Paginated report result."""
+type ReportResult {
+  request: ReportRequest!
+  rows: [ReportRow!]!
+  totalRows: Int!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Audience Onboarding Types
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""An audience data ingestion job."""
+type AudienceIngestionJob {
+  id: ID!
+  marketer: Marketer!
+  segment: AudienceSegment!
+  identifierType: IdentifierType!
+  status: IngestionStatus!
+  recordCount: Int
+  successCount: Int
+  errorCount: Int
+  sourceFile: String
+  startedAt: DateTime
+  completedAt: DateTime
+  createdAt: DateTime!
+}
+
+enum IngestionStatus {
+  PENDING
+  PROCESSING
+  COMPLETE
+  FAILED
+  CANCELLED
+}
+
+"""A pixel event for real-time audience data collection."""
+type PixelEvent {
+  id: ID!
+  marketer: Marketer!
+  segment: AudienceSegment!
+  identifierType: IdentifierType!
+  identifierValue: String!
+  eventTimestamp: DateTime!
+  properties: JSON
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Pagination / Connection Types
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""Pagination metadata."""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  totalCount: Int!
+  page: Int!
+  pageSize: Int!
+}
+
+"""Paginated list of campaigns."""
+type CampaignConnection {
+  edges: [CampaignEdge!]!
+  pageInfo: PageInfo!
+}
+
+type CampaignEdge {
+  node: Campaign!
+  cursor: String!
+}
+
+"""Paginated list of strategies."""
+type StrategyConnection {
+  edges: [StrategyEdge!]!
+  pageInfo: PageInfo!
+}
+
+type StrategyEdge {
+  node: Strategy!
+  cursor: String!
+}
+
+"""Paginated list of creatives."""
+type CreativeConnection {
+  edges: [CreativeEdge!]!
+  pageInfo: PageInfo!
+}
+
+type CreativeEdge {
+  node: Creative!
+  cursor: String!
+}
+
+"""Paginated list of audience segments."""
+type AudienceSegmentConnection {
+  edges: [AudienceSegmentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type AudienceSegmentEdge {
+  node: AudienceSegment!
+  cursor: String!
+}
+
+"""Paginated list of deals."""
+type DealConnection {
+  edges: [DealEdge!]!
+  pageInfo: PageInfo!
+}
+
+type DealEdge {
+  node: Deal!
+  cursor: String!
+}
+
+"""Paginated list of supply sources."""
+type SupplySourceConnection {
+  edges: [SupplySourceEdge!]!
+  pageInfo: PageInfo!
+}
+
+type SupplySourceEdge {
+  node: SupplySource!
+  cursor: String!
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────────────────────────────────────
+
+input PaginationInput {
+  page: Int
+  pageSize: Int
+  cursor: String
+}
+
+input SortInput {
+  field: String!
+  order: SortOrder!
+}
+
+input DateRangeInput {
+  startDate: Date!
+  endDate: Date
+}
+
+input CampaignBudgetInput {
+  totalAmount: Decimal!
+  currency: String!
+  dailyCap: Decimal
+  impressionCap: Int
+}
+
+input StrategyBudgetInput {
+  totalAmount: Decimal
+  currency: String!
+  dailyCap: Decimal
+  impressionCap: Int
+}
+
+input FrequencyCapInput {
+  type: FrequencyCapType!
+  maxImpressions: Int!
+}
+
+input GeoTargetInput {
+  country: String!
+  regions: [String!]
+  cities: [String!]
+  postalCodes: [String!]
+  dmas: [String!]
+  include: Boolean!
+}
+
+input DeviceTargetInput {
+  deviceTypes: [DeviceType!]
+  browsers: [String!]
+  operatingSystems: [String!]
+  include: Boolean!
+}
+
+input DaypartTargetInput {
+  days: [Int!]!
+  hours: [Int!]!
+  timezone: String!
+  include: Boolean!
+}
+
+input ContextualTargetInput {
+  keywords: [String!]
+  categories: [String!]
+  include: Boolean!
+}
+
+input TargetingProfileInput {
+  geo: GeoTargetInput
+  device: DeviceTargetInput
+  daypart: DaypartTargetInput
+  contextual: ContextualTargetInput
+  brandSafetyCategories: [String!]
+  viewabilityThreshold: Decimal
+}
+
+input CreateCampaignInput {
+  name: String!
+  advertiserId: ID!
+  goal: CampaignGoal!
+  budget: CampaignBudgetInput!
+  flightDates: DateRangeInput!
+  frequency: FrequencyCapInput
+  attributionModel: AttributionModel
+  tags: [String!]
+}
+
+input UpdateCampaignInput {
+  name: String
+  goal: CampaignGoal
+  budget: CampaignBudgetInput
+  flightDates: DateRangeInput
+  frequency: FrequencyCapInput
+  attributionModel: AttributionModel
+  status: EntityStatus
+  tags: [String!]
+}
+
+input CreateStrategyInput {
+  name: String!
+  campaignId: ID!
+  biddingStrategy: BiddingStrategy!
+  bidAmount: Decimal
+  maxBid: Decimal
+  budget: StrategyBudgetInput!
+  pacing: PacingType!
+  flightDates: DateRangeInput!
+  frequency: FrequencyCapInput
+  targeting: TargetingProfileInput
+}
+
+input UpdateStrategyInput {
+  name: String
+  biddingStrategy: BiddingStrategy
+  bidAmount: Decimal
+  maxBid: Decimal
+  budget: StrategyBudgetInput
+  pacing: PacingType
+  flightDates: DateRangeInput
+  frequency: FrequencyCapInput
+  targeting: TargetingProfileInput
+  status: EntityStatus
+}
+
+input CreateCreativeInput {
+  name: String!
+  advertiserId: ID!
+  type: CreativeType!
+  width: Int
+  height: Int
+  duration: Int
+  clickThroughUrl: URL
+  assetUrl: URL
+}
+
+input UpdateCreativeInput {
+  name: String
+  clickThroughUrl: URL
+  status: EntityStatus
+}
+
+input CreateDealInput {
+  name: String!
+  dealId: String!
+  supplySourceId: ID!
+  type: SupplyType!
+  cpmFloor: Decimal
+  startDate: Date
+  endDate: Date
+  inventoryType: InventoryType
+}
+
+input UpdateDealInput {
+  name: String
+  cpmFloor: Decimal
+  startDate: Date
+  endDate: Date
+  status: DealStatus
+}
+
+input CreateAudienceSegmentInput {
+  name: String!
+  type: AudienceSegmentType!
+  marketerId: ID!
+  description: String
+  expirationDays: Int
+}
+
+input UpdateAudienceSegmentInput {
+  name: String
+  description: String
+  expirationDays: Int
+  status: EntityStatus
+}
+
+input ReportRequestInput {
+  dimensions: [ReportDimension!]!
+  metrics: [ReportMetric!]!
+  dateRange: DateRangeInput!
+  filters: [ReportFilterInput!]
+  format: ReportFormat
+  name: String
+}
+
+input ReportFilterInput {
+  dimension: ReportDimension!
+  operator: FilterOperator!
+  values: [String!]!
+}
+
+input CampaignFilterInput {
+  advertiserId: ID
+  status: EntityStatus
+  goalType: CampaignGoal
+  dateRange: DateRangeInput
+  search: String
+}
+
+input StrategyFilterInput {
+  campaignId: ID
+  status: EntityStatus
+  biddingStrategy: BiddingStrategy
+  search: String
+}
+
+input CreativeFilterInput {
+  advertiserId: ID
+  type: CreativeType
+  status: EntityStatus
+  search: String
+}
+
+input AudienceSegmentFilterInput {
+  type: AudienceSegmentType
+  provider: String
+  status: EntityStatus
+  search: String
+}
+
+input DealFilterInput {
+  supplySourceId: ID
+  type: SupplyType
+  status: DealStatus
+  search: String
+}
+
+input AudienceIngestionInput {
+  marketerId: ID!
+  segmentId: ID!
+  identifierType: IdentifierType!
+  sourceFile: String!
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Mutation Payload Types
+# ─────────────────────────────────────────────────────────────────────────────
+
+type CampaignPayload {
+  campaign: Campaign
+  errors: [UserError!]!
+}
+
+type StrategyPayload {
+  strategy: Strategy
+  errors: [UserError!]!
+}
+
+type CreativePayload {
+  creative: Creative
+  errors: [UserError!]!
+}
+
+type DealPayload {
+  deal: Deal
+  errors: [UserError!]!
+}
+
+type AudienceSegmentPayload {
+  segment: AudienceSegment
+  errors: [UserError!]!
+}
+
+type AudienceIngestionPayload {
+  job: AudienceIngestionJob
+  errors: [UserError!]!
+}
+
+type DeletePayload {
+  id: ID!
+  success: Boolean!
+  errors: [UserError!]!
+}
+
+type ReportRequestPayload {
+  request: ReportRequest
+  errors: [UserError!]!
+}
+
+"""Structured mutation error."""
+type UserError {
+  field: String
+  message: String!
+  code: String
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Root Query
+# ─────────────────────────────────────────────────────────────────────────────
+
+type Query {
+  # Organization & hierarchy
+  organization(id: ID!): Organization
+  organizations(pagination: PaginationInput, sort: SortInput): [Organization!]!
+
+  marketer(id: ID!): Marketer
+  marketers(organizationId: ID, pagination: PaginationInput, sort: SortInput): [Marketer!]!
+
+  advertiser(id: ID!): Advertiser
+  advertisers(marketerId: ID, pagination: PaginationInput, sort: SortInput): [Advertiser!]!
+
+  # Campaign management
+  campaign(id: ID!): Campaign
+  campaigns(filter: CampaignFilterInput, pagination: PaginationInput, sort: SortInput): CampaignConnection!
+
+  strategy(id: ID!): Strategy
+  strategies(filter: StrategyFilterInput, pagination: PaginationInput, sort: SortInput): StrategyConnection!
+
+  creative(id: ID!): Creative
+  creatives(filter: CreativeFilterInput, pagination: PaginationInput, sort: SortInput): CreativeConnection!
+
+  # Supply & marketplace
+  supplySource(id: ID!): SupplySource
+  supplySources(type: SupplyType, pagination: PaginationInput, sort: SortInput): SupplySourceConnection!
+
+  exchange(id: ID!): Exchange
+  exchanges(pagination: PaginationInput): [Exchange!]!
+
+  deal(id: ID!): Deal
+  deals(filter: DealFilterInput, pagination: PaginationInput, sort: SortInput): DealConnection!
+
+  # Audience
+  audienceSegment(id: ID!): AudienceSegment
+  audienceSegments(filter: AudienceSegmentFilterInput, pagination: PaginationInput, sort: SortInput): AudienceSegmentConnection!
+
+  audienceIngestionJob(id: ID!): AudienceIngestionJob
+  audienceIngestionJobs(marketerId: ID, status: IngestionStatus, pagination: PaginationInput): [AudienceIngestionJob!]!
+
+  # Reporting
+  reportRequest(id: ID!): ReportRequest
+  reportRequests(pagination: PaginationInput): [ReportRequest!]!
+  reportResult(requestId: ID!, pagination: PaginationInput): ReportResult
+
+  # Bid algorithms
+  bidAlgorithm(id: ID!): BidAlgorithm
+  bidAlgorithms(strategyId: ID, type: BidAlgorithmType): [BidAlgorithm!]!
+
+  # Performance
+  campaignPerformance(campaignId: ID!, dateRange: DateRangeInput!): PerformanceSummary
+  strategyPerformance(strategyId: ID!, dateRange: DateRangeInput!): PerformanceSummary
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Root Mutation
+# ─────────────────────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Campaign management
+  createCampaign(input: CreateCampaignInput!): CampaignPayload!
+  updateCampaign(id: ID!, input: UpdateCampaignInput!): CampaignPayload!
+  deleteCampaign(id: ID!): DeletePayload!
+  activateCampaign(id: ID!): CampaignPayload!
+  pauseCampaign(id: ID!): CampaignPayload!
+
+  # Strategy management
+  createStrategy(input: CreateStrategyInput!): StrategyPayload!
+  updateStrategy(id: ID!, input: UpdateStrategyInput!): StrategyPayload!
+  deleteStrategy(id: ID!): DeletePayload!
+  activateStrategy(id: ID!): StrategyPayload!
+  pauseStrategy(id: ID!): StrategyPayload!
+
+  # Creative management
+  createCreative(input: CreateCreativeInput!): CreativePayload!
+  updateCreative(id: ID!, input: UpdateCreativeInput!): CreativePayload!
+  deleteCreative(id: ID!): DeletePayload!
+  attachCreativeToStrategy(strategyId: ID!, creativeId: ID!, weight: Int): StrategyPayload!
+  detachCreativeFromStrategy(strategyId: ID!, creativeId: ID!): StrategyPayload!
+
+  # Deal management
+  createDeal(input: CreateDealInput!): DealPayload!
+  updateDeal(id: ID!, input: UpdateDealInput!): DealPayload!
+  deleteDeal(id: ID!): DeletePayload!
+  attachDealToStrategy(strategyId: ID!, dealId: ID!): StrategyPayload!
+  detachDealFromStrategy(strategyId: ID!, dealId: ID!): StrategyPayload!
+
+  # Audience segment management
+  createAudienceSegment(input: CreateAudienceSegmentInput!): AudienceSegmentPayload!
+  updateAudienceSegment(id: ID!, input: UpdateAudienceSegmentInput!): AudienceSegmentPayload!
+  deleteAudienceSegment(id: ID!): DeletePayload!
+  attachSegmentToStrategy(strategyId: ID!, segmentId: ID!, include: Boolean!): StrategyPayload!
+  detachSegmentFromStrategy(strategyId: ID!, segmentId: ID!): StrategyPayload!
+
+  # Audience onboarding
+  createAudienceIngestionJob(input: AudienceIngestionInput!): AudienceIngestionPayload!
+  cancelAudienceIngestionJob(id: ID!): AudienceIngestionPayload!
+
+  # Reporting
+  createReportRequest(input: ReportRequestInput!): ReportRequestPayload!
+  deleteReportRequest(id: ID!): DeletePayload!
+}
