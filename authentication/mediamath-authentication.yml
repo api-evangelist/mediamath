@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/campaigns-api-openapi.yaml, openapi/reporting-api-openapi.yaml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: Auth0
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+    scopes: 2
+  sources:
+  - openapi/campaigns-api-openapi.yaml
+  - openapi/reporting-api-openapi.yaml
