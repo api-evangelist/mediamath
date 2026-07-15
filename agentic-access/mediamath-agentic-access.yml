@@ -1,0 +1,3215 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/campaigns-api-openapi.yaml, openapi/reporting-api-openapi.yaml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 207
+  by_action_class:
+    connected: 119
+    acting: 88
+  by_consequence:
+    read: 119
+    write: 88
+  human_in_the_loop_required: 0
+operations:
+- path: /attachments
+  method: get
+  operationId: list-attachments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachments
+  method: post
+  operationId: create-attachment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachment
+  method: get
+  operationId: list-attachments-legacy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachment
+  method: post
+  operationId: create-attachment-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachments/{attachment_id}
+  method: get
+  operationId: get-attachment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachments/{attachment_id}
+  method: post
+  operationId: update-attachment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachments/{attachment_id}
+  method: delete
+  operationId: delete-attachment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachment/{attachment_id}
+  method: get
+  operationId: get-attachment-legacy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachment/{attachment_id}
+  method: put
+  operationId: update-attachment-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /attachment/{attachment_id}
+  method: delete
+  operationId: delete-attachment-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /target
+  method: get
+  operationId: list-targets-legacy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /target
+  method: post
+  operationId: create-target-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /target/{target_id}
+  method: get
+  operationId: get-target-legacy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /target/{target_id}
+  method: post
+  operationId: update-target-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /target/{target_id}
+  method: delete
+  operationId: delete-target-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /target/{target_id}
+  method: put
+  operationId: put-update-target-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /targets
+  method: get
+  operationId: list-targets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /targets
+  method: post
+  operationId: create-target
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /targets/{target_id}
+  method: get
+  operationId: get-target
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /targets/{target_id}
+  method: post
+  operationId: update-target
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /targets/{target_id}
+  method: delete
+  operationId: delete-target
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /target-path
+  method: get
+  operationId: list-target-paths-legacy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /advertisers
+  method: get
+  operationId: list-advertisers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /advertisers
+  method: post
+  operationId: create-advertiser
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /advertisers/{advertiser_id}
+  method: get
+  operationId: get-advertiser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /advertisers/{advertiser_id}
+  method: post
+  operationId: update-advertiser
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /advertisers/{advertiser_id}/history
+  method: get
+  operationId: advertiser-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /agencies
+  method: get
+  operationId: list-agencies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /agencies
+  method: post
+  operationId: create-agency
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /agencies/{agency_id}
+  method: get
+  operationId: get-agency
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /agencies/{agency_id}
+  method: post
+  operationId: update-agency
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /agencies/{agency_id}/history
+  method: get
+  operationId: agency-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /creatives/{creative_id}
+  method: get
+  operationId: get-creative
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /creative_draft
+  method: post
+  operationId: preview-creative-assets
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /creative_upload
+  method: post
+  operationId: upload-creative-assets
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /pixel_bundles
+  method: post
+  operationId: create-pixel-bundle
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /pixel_bundles
+  method: get
+  operationId: list-pixel-bundles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /pixel_bundles/{pixel_bundle_id}
+  method: post
+  operationId: update-pixel-bundle
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /pixel_bundles/{pixel_bundle_id}
+  method: get
+  operationId: get-pixel-bundle
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /pixel_bundles/{pixel_bundle_id}/history
+  method: get
+  operationId: pixel-bundle-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /healthcheck
+  method: get
+  operationId: healthcheck
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations
+  method: get
+  operationId: list-organizations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations
+  method: post
+  operationId: create-organization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations/{organization_id}
+  method: get
+  operationId: get-organization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations/{organization_id}
+  method: post
+  operationId: update-organization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations/{organization_id}/history
+  method: get
+  operationId: organization-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /audit_log/organizations
+  method: post
+  operationId: organization-audit-log-bulk
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations/{organization_id}/permissions
+  method: get
+  operationId: list-user-permissions-organization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations/{organization_id}/settings
+  method: get
+  operationId: list-settings-organization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /organizations/{organization_id}/settings
+  method: post
+  operationId: update-settings-organization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaign_plans
+  method: get
+  operationId: list-campaign-plans
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaign_plans
+  method: post
+  operationId: create-campaign-plan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaign_plans/{campaign_plan_id}
+  method: get
+  operationId: get-campaign-plan
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaign_plans/{campaign_plan_id}
+  method: post
+  operationId: update-campaign-plan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plans/forecast
+  method: post
+  operationId: post-ephemeral-new-strategy-plan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plans/{strategy_plan_id}/forecast
+  method: post
+  operationId: run-and-update-forecast
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plans/{strategy_plan_id}
+  method: get
+  operationId: get-new-strategy-plan
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plans/{strategy_plan_id}
+  method: post
+  operationId: update-new-strategy-plan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plans/{strategy_plan_id}
+  method: delete
+  operationId: delete-new-strategy-plan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plans
+  method: get
+  operationId: list-new-strategy-plans
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plans
+  method: post
+  operationId: create-new-strategy-plan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_plan_target_values
+  method: get
+  operationId: list-new-strategy-plan-target-values
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /advertisers/{advertiser_id}/pixel_targeting_advertisers
+  method: get
+  operationId: list-advertisers-pixel-x-advertisers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies
+  method: post
+  operationId: create-strategy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies
+  method: get
+  operationId: list-strategies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}
+  method: post
+  operationId: update-strategy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}
+  method: get
+  operationId: get-strategy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}/copy
+  method: post
+  operationId: post-copy-strategy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}/healthcheck
+  method: get
+  operationId: get-strategy-healthcheck
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}/friendly_names
+  method: get
+  operationId: get-strategy-friendly-names
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}/forecast_query
+  method: get
+  operationId: get-strategy-forecast-query
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}/targeting_expression
+  method: get
+  operationId: get-strategy-targeting-expression
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}/history
+  method: get
+  operationId: strategy-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /bulk_update/strategies
+  method: post
+  operationId: bulk-update-strategies
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /bulk_update/budget_flights
+  method: post
+  operationId: bulk-update-budget-flights
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /targeting
+  method: post
+  operationId: add-view-targeting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /bulk_update/campaigns
+  method: post
+  operationId: bulk-update-campaigns
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}
+  method: get
+  operationId: get-campaign
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}
+  method: post
+  operationId: update-campaign
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns
+  method: get
+  operationId: list-campaigns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns
+  method: post
+  operationId: create-campaign
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}/history
+  method: get
+  operationId: campaign-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}/budget_flights
+  method: get
+  operationId: list-budget-flights
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}/budget_flights/history
+  method: get
+  operationId: campaign-budget-flights-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}/dynamic_budget_allocation
+  method: post
+  operationId: update-dba-single-legacy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}/copy
+  method: post
+  operationId: copy-campaign
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaign_dba
+  method: post
+  operationId: update-dba
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /contextual_segments/cpm_estimate
+  method: post
+  operationId: contextual-segments-cpm-estimate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /targeting_segments/frequently_used
+  method: get
+  operationId: get-targeting-segments-frequently-used
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /audience_segments/frequently_used
+  method: get
+  operationId: get-audience-segments-frequently-used
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /audience_segments/cpm_estimate
+  method: post
+  operationId: audience-segments-cpm-estimate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /vendor_contracts
+  method: get
+  operationId: list-vendor-contracts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_templates
+  method: post
+  operationId: create-strategy-template
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_templates
+  method: get
+  operationId: list-strategy-template
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /marketplaces/{marketplace_id}
+  method: get
+  operationId: get-marketplace
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /marketplaces/{marketplace_id}
+  method: post
+  operationId: update-marketplace
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /marketplaces
+  method: get
+  operationId: list-marketplaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /marketplaces
+  method: post
+  operationId: create-marketplace
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_templates/{strategy_template_id}
+  method: post
+  operationId: update-strategy-template
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_templates/{strategy_template_id}
+  method: get
+  operationId: get-strategy-template
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_templates/{strategy_template_id}
+  method: delete
+  operationId: delete-strategy-template
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /users
+  method: get
+  operationId: list-users
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /users
+  method: post
+  operationId: create-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /users/{user_id}
+  method: get
+  operationId: get-user
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /users/{user_id}
+  method: post
+  operationId: update-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /users/{user_id}/history
+  method: get
+  operationId: user-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /users/{user_id}/settings
+  method: get
+  operationId: get-user-settings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /users/{user_id}/settings
+  method: post
+  operationId: update-user-settings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /users/{user_id}/permissions
+  method: post
+  operationId: update-permissions-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}
+  method: get
+  operationId: list-user-permissions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}
+  method: post
+  operationId: list-user-permissions-filtered
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}/organizations
+  method: get
+  operationId: list-user-permissions-organizations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}/agencies
+  method: get
+  operationId: list-user-permissions-agencies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}/advertisers
+  method: get
+  operationId: list-user-permissions-advertisers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}/campaigns
+  method: get
+  operationId: list-user-permissions-campaigns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}/strategies
+  method: get
+  operationId: list-user-permissions-strategies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}/v2format
+  method: get
+  operationId: list-user-permissions-v2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /permissions/{user_id}/v2format
+  method: post
+  operationId: list-user-permissions-v2-filtered
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /roles
+  method: get
+  operationId: list-roles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /agencies/{agency_id}/permissions
+  method: get
+  operationId: list-user-permissions-agency
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /advertisers/{advertiser_id}/permissions
+  method: get
+  operationId: list-user-permissions-advertiser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /campaigns/{campaign_id}/permissions
+  method: get
+  operationId: list-user-permissions-campaign
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategies/{strategy_id}/permissions
+  method: get
+  operationId: list-user-permissions-strategy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /atomic_creatives
+  method: get
+  operationId: list-atomic-creatives
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /atomic_creatives
+  method: post
+  operationId: post-atomic_creatives
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /atomic_creatives/{atomic_creative_id}
+  method: get
+  operationId: get-atomic-creative
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /atomic_creatives/{atomic_creative_id}
+  method: post
+  operationId: post-atomic_creatives-atomic_creative_id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /atomic_creatives/{atomic_creative_id}/history
+  method: get
+  operationId: atomic-creative-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /atomic_creatives/healthcheck
+  method: get
+  operationId: atomic-creatives-healthcheck
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /concepts
+  method: get
+  operationId: list-concepts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /concepts
+  method: post
+  operationId: create-concept
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /concepts/{concept_id}
+  method: get
+  operationId: get-concept
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /concepts/{concept_id}
+  method: post
+  operationId: update-concept
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /concepts/{concept_id}/history
+  method: get
+  operationId: concepts-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /bulk_update/concepts
+  method: post
+  operationId: bulk-update-concepts
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /bulk_update/atomic_creatives
+  method: post
+  operationId: bulk-update-atomic-creatives
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /audit_log/agencies
+  method: post
+  operationId: agency-audit-log-bulk
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /audit_log/advertisers
+  method: post
+  operationId: advertiser-audit-log-bulk
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /audit_log/campaigns
+  method: post
+  operationId: campaign-audit-log-bulk
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /audit_log/strategies
+  method: post
+  operationId: strategy-audit-log-bulk
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /search
+  method: get
+  operationId: search-entities
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /target_values
+  method: get
+  operationId: list-target-values
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /technology_target_values
+  method: get
+  operationId: list-technology-target-values
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /path_targeting_segments
+  method: get
+  operationId: list-contextual-segments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /path_audience_segments
+  method: get
+  operationId: list-path-audience-segments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /verticals
+  method: get
+  operationId: list-verticals
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /audience_vendors
+  method: get
+  operationId: list-audience-vendors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /audience_vendors
+  method: post
+  operationId: create-audience-vendor
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /audience_vendors/{audience_vendor_id}
+  method: get
+  operationId: get-audience-vendor
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /audience_vendors/{audience_vendor_id}
+  method: post
+  operationId: update-audience-vendor
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /entity_groups
+  method: get
+  operationId: list-entity-groups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /entity_groups/{entity_group_id}
+  method: get
+  operationId: get-entity-group
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /entity_groups/{entity_group_id}/controls/{entity_type}
+  method: get
+  operationId: get-entity-group-controls-entity-type
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /entity_groups/{entity_group_id}/history
+  method: get
+  operationId: entity-group-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /supply_sources
+  method: get
+  operationId: list-supply-sources
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /supply_sources/{supply_source_id}
+  method: get
+  operationId: get-supply-source
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /vendors
+  method: get
+  operationId: list-vendors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /vendors/{vendor_id}
+  method: get
+  operationId: get-vendor
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /currency_rates
+  method: get
+  operationId: list-currency-rates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /ad_servers
+  method: get
+  operationId: list-ad-servers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /site_lists
+  method: get
+  operationId: list-site-lists
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /site_lists/{site_list_id}
+  method: get
+  operationId: get-site-list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /site_lists/upload
+  method: post
+  operationId: upload-create-site-lists
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /site_lists/{site_list_id}/upload
+  method: post
+  operationId: upload-update-site-lists
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /site_lists/{site_list_id}/download.csv
+  method: get
+  operationId: download-site-lists
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /site_lists/{site_list_id}/assignments
+  method: get
+  operationId: get-site-list-assignments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /timezones
+  method: get
+  operationId: list-timezones
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /targeting_segments
+  method: get
+  operationId: list-targeting-segments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /targeting_segment_objectives
+  method: get
+  operationId: list-targeting-segment-objectives
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /targeting_segment_objectives/{objective_id}
+  method: get
+  operationId: get-targeting-segment-objective
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_deals
+  method: get
+  operationId: list-strategy-deals
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_day_parts
+  method: get
+  operationId: list-strategy-day-parts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_groups
+  method: get
+  operationId: list-strategy-groups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_groups
+  method: get
+  operationId: list-new-strategy-groups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_groups
+  method: post
+  operationId: create-new-strategy-group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_groups/{strategy_group_id}
+  method: get
+  operationId: get-new-strategy-group
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_groups/{strategy_group_id}
+  method: post
+  operationId: update-new-strategy-group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_groups/{strategy_group_id}
+  method: delete
+  operationId: delete-new-strategy-group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /new_strategy_groups/{strategy_group_id}/history
+  method: get
+  operationId: new-strategy-group-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_ip_addresses
+  method: get
+  operationId: list-strategy-ip-addresses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_ip_addresses/{strategy_id}/download.csv
+  method: get
+  operationId: download-strategy-ip-addresses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_concepts
+  method: get
+  operationId: list-strategy-concepts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_target_values
+  method: get
+  operationId: list-strategy-target-values
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_postal_codes
+  method: get
+  operationId: list-strategy-postal-codes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /strategy_postal_codes/{strategy_id}/download.csv
+  method: get
+  operationId: download-strategy-postal-codes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /contracts
+  method: post
+  operationId: create-contract
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /contracts
+  method: get
+  operationId: list-contracts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /contracts/{contract_id}
+  method: post
+  operationId: update-contract
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /contracts/{contract_id}
+  method: get
+  operationId: get-contract
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /contracts/{contract_id}/history
+  method: get
+  operationId: contract-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /segment_groups
+  method: post
+  operationId: create-segment-group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /segment_groups
+  method: get
+  operationId: list-segment-groups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /segment_groups/{segment_group_id}
+  method: post
+  operationId: update-segment-group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - manage:services
+    - offline_access
+- path: /segment_groups/{segment_group_id}
+  method: get
+  operationId: get-segment-group
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /segment_groups/{segment_group_id}/history
+  method: get
+  operationId: segment-groups-audit-log
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /segment_groups/{segment_group_id}/assignments
+  method: get
+  operationId: get-segment-group-assignments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /pixel_providers
+  method: get
+  operationId: list-pixel-providers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - manage:services
+    - offline_access
+- path: /all-dimensions-and-metrics
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /brain-feature-summary
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /brain-feature-value
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /day-part
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /deals
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /performance
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /performance-hourly
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /pixel-loads
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /reach-frequency
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
+- path: /win-loss
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - offline_access
