@@ -1,0 +1,999 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Organizations API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Organizations
+  description: Organizations
+paths:
+  /organizations:
+    get:
+      operationId: list-organizations
+      summary: List Organizations
+      description: Get a list of organizations
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List organizations response
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/organization_collection'
+                - $ref: '#/components/schemas/organization_response'
+              examples:
+                example:
+                  summary: Example response with three organizations
+                  value:
+                    data:
+                    - id: 100000
+                      name: Organization One
+                      entity_type: organization
+                    - id: 100001
+                      name: Organization Two
+                      entity_type: organization
+                    - id: 100002
+                      name: Organization Three
+                      entity_type: organization
+                    meta:
+                      count: 3
+                      total_count: 100
+                      offset: 0
+                      status: success
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-organization
+      summary: Create an Organization
+      description: Create an organization
+      tags:
+      - Organizations
+      responses:
+        '201':
+          description: Organization created response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organization_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/organization_create'
+  /organizations/{organization_id}:
+    get:
+      operationId: get-organization
+      summary: Get an Organization
+      description: Get an organization by ID
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the organization
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: Organization response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organization_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-organization
+      summary: Update an Organization
+      description: Update an organization by ID
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the organization to update
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: Organization updated response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organization_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/organization_update'
+  /organizations/{organization_id}/history:
+    get:
+      operationId: organization-audit-log
+      summary: Organization Audit Log
+      description: Get a list of changes to this organization
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: organization_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the organization
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /audit_log/organizations:
+    post:
+      operationId: organization-audit-log-bulk
+      summary: Bulk Organization Audit Log
+      description: Get a list of changes to these organizations
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log_bulk'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/id_list'
+  /organizations/{organization_id}/permissions:
+    get:
+      operationId: list-user-permissions-organization
+      summary: List User Permissions for an Organization
+      description: List user permissions for an organization
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: organization_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the organization
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission_organization'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /organizations/{organization_id}/settings:
+    get:
+      operationId: list-settings-organization
+      summary: List Settings for an Organization
+      description: List settings for an organization
+      tags:
+      - Organizations
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the organization
+      responses:
+        '200':
+          description: List organization settings response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/settings_organization'
+                  meta:
+                    $ref: '#/components/schemas/single_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-settings-organization
+      summary: Update Settings for an Organization
+      description: Update settings for an organization
+      tags:
+      - Organizations
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the organization
+      responses:
+        '200':
+          description: Organization settings updated response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/settings_organization'
+                  meta:
+                    $ref: '#/components/schemas/single_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/organization_update-2'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    permission_flags:
+      type: object
+      properties:
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+        inherited_from:
+          type: string
+    organization_base:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: 'The name of the organization with whom the contract is held.
+
+            This can be an agency holding company, agency, advertiser, network, or other media or data buying entity.
+
+            '
+        org_type:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - buyer
+            - partner
+          description: The `org_type` field is an array that specifies the type of organization.
+        status:
+          type: boolean
+        website:
+          type: string
+          maxLength: 512
+          nullable: true
+        facebook:
+          type: string
+          maxLength: 512
+          nullable: true
+        linkedin:
+          type: string
+          maxLength: 512
+          nullable: true
+        twitter:
+          type: string
+          maxLength: 512
+          nullable: true
+        allow_x_agency_pixels:
+          type: boolean
+          description: 'This field enables the Data Co-op functionality across all the Advertisers under this organization.
+
+            Cross-Advertiser Pixel Targeting allows Advertisers to target other Advertiser Event Pixels within their Agency and any other similarly enabled Agency under the same Organization.
+
+            '
+        allow_byo_price:
+          type: boolean
+        opt_out_connected_id:
+          type: boolean
+        opt_out_connected_id_mathid:
+          type: boolean
+        override_suspicious_traffic_filter:
+          type: boolean
+          description: Set flag to 'on’ to be able to override default org wide suspicious traffic filter level.
+        restrict_targeting_to_same_device_id:
+          type: boolean
+        restrict_targeting_to_deterministic_id:
+          type: boolean
+        suspicious_traffic_filter_level:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: 'Specify an organization-wide level of suspicious traffic filtering to use. See the Knowledge Base for additional details about this feature. This setting will only take affect if the organization''s override_suspicious_traffic_filter property is set to ''on''.
+
+            If override_suspicious_traffic_filter is enabled and suspicious_traffic_filter_level is set to 0, all fraud and suspicious traffic will be filtered.
+
+            '
+        use_ads_txt:
+          type: boolean
+        use_evidon_optout:
+          type: boolean
+          nullable: true
+          description: Set flag to 'on’ to show an opt out button on the organization's ads (additional CPM fee will apply when on).
+        eligible_for_data_sharing:
+          type: boolean
+        holding_org_id:
+          type: integer
+          nullable: true
+          format: int32
+          example: 8
+        service_provider_ccpa:
+          type: boolean
+        mfa_avoidance:
+          type: string
+          enum:
+          - ALLOW_ALL
+          - EXCLUDE_MFA
+        mm_contact_name:
+          type: string
+          maxLength: 64
+          description: This is the name of the primary internal MediaMath contact of the Organization.
+        adx_seat_account_id:
+          type: integer
+          minimum: 1
+          format: int64
+          maximum: 9223372036854776000
+          example: 1
+          description: Passed to ADX upon creative registration so ADX knows which seat we're registering under.
+        connected_id_type:
+          type: string
+          enum:
+          - DETERMINISTIC_FIRST
+        contact_name:
+          type: string
+          maxLength: 64
+          description: This is the primary contact at the organization regarding contract issues.
+        address_1:
+          type: string
+          maxLength: 256
+          description: The primary address line, typically includes street address and number.
+        address_2:
+          type: string
+          maxLength: 256
+          nullable: true
+          description: The secondary address line, used for additional information such as apartment, suite, or unit number.
+        city:
+          type: string
+          maxLength: 32
+          description: The city of the address.
+        state:
+          type: string
+          maxLength: 2
+          description: The state of the address, represented as a 2-character code.
+        zip:
+          type: string
+          maxLength: 10
+          description: The postal or ZIP code for the address.
+        country:
+          type: string
+          maxLength: 2
+          description: The country of the address, represented as a 2-character ISO country code.
+        phone:
+          type: string
+          maxLength: 24
+          description: The phone number associated with the address, including country code if applicable.
+        currency_code:
+          type: string
+          maxLength: 3
+          description: Currency code for the campaign budget and spend, as well as billing.
+        billing_country_code:
+          type: string
+          description: Country code that is used for billing purposes.
+        dmp_enabled:
+          type: string
+          enum:
+          - enabled
+          - disabled
+        seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/exchange_seat'
+          nullable: true
+        mcp_enabled:
+          type: boolean
+          default: false
+          description: Controls whether the organization is permitted to access the platform via MCP (Model Context Protocol) tooling.
+        mcp_access_level:
+          type: string
+          enum:
+          - read_only
+          - read_write
+          description: Determines the scope of MCP access for the organization. 'read_only' permits read/query operations only. 'read_write' permits all operations including create and update.
+        inf_business_unit:
+          type: string
+          description: Available only for internal users.
+          nullable: true
+        environment:
+          type: string
+          description: Available only for internal users.
+          nullable: true
+    organization_update:
+      title: organization_update
+      allOf:
+      - $ref: '#/components/schemas/organization_base'
+      - type: object
+        properties:
+          terminated:
+            type: boolean
+          version:
+            type: integer
+            format: int32
+            example: 2
+    settings_organization_update:
+      type: object
+      properties:
+        settings:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                example: attribute3
+              value:
+                type: string
+                example: value3
+                nullable: true
+                description: Setting with `value = null` will be removed.
+    exchange_seat_extended:
+      title: exchange_seat_extended
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/exchange_seat'
+          - type: object
+            properties:
+              id:
+                type: integer
+              version:
+                type: integer
+              created_on:
+                type: string
+                format: date-time
+                readOnly: true
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    organization_collection:
+      title: organization_collection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    settings_organization:
+      type: object
+      properties:
+        settings:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                example: attribute3
+              value:
+                type: string
+                example: value3
+        entity:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            settings_total:
+              type: integer
+            type:
+              type: string
+    organization_create:
+      title: organization_create
+      allOf:
+      - $ref: '#/components/schemas/organization_base'
+      - type: object
+        required:
+        - name
+        - status
+        - mm_contact_name
+        - adx_seat_account_id
+        - connected_id_type
+        - contact_name
+        - address_1
+        - city
+        - state
+        - zip
+        - country
+        - phone
+        - currency_code
+        - billing_country_code
+        - dmp_enabled
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    permission_organization:
+      allOf:
+      - type: object
+        properties:
+          organization_id:
+            type: integer
+      - $ref: '#/components/schemas/permission_flags'
+    organization_response:
+      title: organization_response
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/organization_base'
+          - type: object
+            properties:
+              id:
+                type: integer
+              created_on:
+                type: string
+                format: date-time
+                readOnly: true
+              entity_type:
+                type: string
+              terminated:
+                type: boolean
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
+              version:
+                type: integer
+              seats:
+                type: array
+                items:
+                  $ref: '#/components/schemas/exchange_seat_extended'
+                nullable: true
+            required:
+            - name
+            - status
+            - mm_contact_name
+            - adx_seat_account_id
+            - connected_id_type
+            - contact_name
+            - address_1
+            - city
+            - state
+            - zip
+            - country
+            - phone
+            - currency_code
+            - billing_country_code
+            - dmp_enabled
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    exchange_seat:
+      title: exchange_seat
+      type: object
+      required:
+      - supply_source_id
+      - seat_identifier
+      properties:
+        supply_source_id:
+          type: integer
+          format: int32
+          example: 5
+        seat_identifier:
+          type: string
+        bill_media_to_client:
+          type: boolean
+          default: true
+          nullable: true
+        rmx_exchange_cost_unit:
+          type: string
+          default: PCT_MEDIA
+          nullable: true
+        rmx_exchange_cost_cpm:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 9999999.99
+          nullable: true
+        rmx_exchange_cost_pct:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          nullable: true
+        status:
+          type: boolean
+          default: true
+          nullable: true
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  requestBodies:
+    organization_update-2:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/settings_organization_update'
+    id_list:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: array
+                example:
+                - 8
+                - 98
+                - 7
+                minItems: 1
+                items:
+                  type: integer
+                  format: int32
+            required:
+            - id
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    audit_log_bulk:
+      description: Audit log bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    tool_name:
+                      type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

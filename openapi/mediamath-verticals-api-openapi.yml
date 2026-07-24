@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Verticals API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Verticals
+  description: Verticals
+paths:
+  /verticals:
+    get:
+      operationId: list-verticals
+      summary: List Verticals
+      description: Get all verticals
+      tags:
+      - Verticals
+      responses:
+        '200':
+          description: List verticals response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 123
+                        name:
+                          type: string
+                          example: Vertical Name
+                        entity_type:
+                          type: string
+                          example: vertical
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                      count:
+                        type: integer
+                        example: 100
+                      total_count:
+                        type: integer
+                        example: 12011
+                      offset:
+                        type: integer
+                        example: 0
+                      next_page:
+                        type: string
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+components:
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

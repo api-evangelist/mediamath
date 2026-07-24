@@ -1,0 +1,446 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Campaign Plans API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Campaign Plans
+  description: Campaign Plans
+paths:
+  /campaign_plans:
+    get:
+      operationId: list-campaign-plans
+      summary: List Campaign Plans
+      description: Get a list of campaign plans
+      tags:
+      - Campaign Plans
+      responses:
+        '200':
+          description: List campaign plans response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/campaign_plan'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-campaign-plan
+      summary: Create Campaign Plan
+      description: Create a campaign plan
+      tags:
+      - Campaign Plans
+      responses:
+        '201':
+          description: Campaign plan created response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/campaign_plan'
+                  meta:
+                    $ref: '#/components/schemas/single_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 256
+                advertiser_id:
+                  type: integer
+                  format: int32
+                  example: 256
+                duration:
+                  type: object
+                  properties:
+                    start_date:
+                      type: string
+                      format: date-time
+                    end_date:
+                      type: string
+                      format: date-time
+                  required:
+                  - start_date
+                  - end_date
+                budget:
+                  type: object
+                  properties:
+                    total_budget:
+                      type: number
+                      format: float
+                      minimum: 1
+                      maximum: 99999999999999.98
+                    currency_code:
+                      type: string
+                      maxLength: 3
+                  required:
+                  - total_budget
+                  - currency_code
+                zone_name:
+                  type: string
+              required:
+              - name
+              - advertiser_id
+              - duration
+              - budget
+              - zone_name
+            examples:
+              Example:
+                value:
+                  advertiser_id: 190
+                  name: valid campaign plan
+                  duration:
+                    start_date: '2050-01-01T10:00:00Z'
+                    end_date: '2050-01-10T23:59:00Z'
+                  budget:
+                    currency_code: USD
+                    total_budget: 100
+                  zone_name: America/New_York
+  /campaign_plans/{campaign_plan_id}:
+    get:
+      operationId: get-campaign-plan
+      summary: Get a Campaign Plan
+      description: Get a campaign plan by ID
+      parameters:
+      - in: path
+        name: campaign_plan_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the campaign plan
+      tags:
+      - Campaign Plans
+      responses:
+        '200':
+          description: Campaign plan response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/campaign_plan'
+                  meta:
+                    $ref: '#/components/schemas/single_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-campaign-plan
+      summary: Update a Campaign Plan
+      description: Update a campaign plan by ID
+      parameters:
+      - in: path
+        name: campaign_plan_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the campaign plan object to update
+      tags:
+      - Campaign Plans
+      responses:
+        '200':
+          description: Campaign plane updated response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/campaign_plan'
+                  meta:
+                    $ref: '#/components/schemas/single_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 256
+                duration:
+                  type: object
+                  properties:
+                    start_date:
+                      type: string
+                      format: date-time
+                      description: start_date can not be in the past
+                    end_date:
+                      type: string
+                      format: date-time
+                      description: end_date must be between 1 and 30 days away from start_date
+                  required:
+                  - start_date
+                  - end_date
+                budget:
+                  type: object
+                  properties:
+                    total_budget:
+                      type: number
+                      format: float
+                      minimum: 1
+                      maximum: 99999999999999.98
+                    currency_code:
+                      type: string
+                      maxLength: 3
+                  required:
+                  - total_budget
+                  - currency_code
+                zone_name:
+                  type: string
+                version:
+                  type: integer
+                  format: int32
+                  example: 2
+              required:
+              - name
+              - duration
+              - budget
+              - zone_name
+            examples:
+              Example:
+                value:
+                  name: valid campaign plan
+                  duration:
+                    start_date: '2050-01-01T10:00:00Z'
+                    end_date: '2050-01-10T23:59:00Z'
+                  budget:
+                    currency_code: USD
+                    total_budget: 100
+                  zone_name: America/New_York
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    campaign_plan:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/campaign_plan_update'
+      - $ref: '#/components/schemas/campaign_plan_create'
+      - $ref: '#/components/schemas/campaign_plan_common'
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    campaign_plan_common:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: integer
+        duration:
+          type: object
+          properties:
+            start_date:
+              type: string
+              format: date-time
+            end_date:
+              type: string
+              format: date-time
+        budget:
+          type: object
+          properties:
+            total_budget:
+              type: number
+              format: float
+              minimum: 1
+              maximum: 99999999999999.98
+            currency_code:
+              type: string
+        zone_name:
+          type: string
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    campaign_plan_create:
+      type: object
+      properties:
+        id:
+          type: integer
+        advertiser_id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+    campaign_plan_update:
+      type: object
+      properties:
+        version:
+          type: integer
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

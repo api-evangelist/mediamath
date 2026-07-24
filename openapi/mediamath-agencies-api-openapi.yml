@@ -1,0 +1,751 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Agencies API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Agencies
+  description: Agencies
+paths:
+  /agencies:
+    get:
+      operationId: list-agencies
+      summary: List Agencies
+      description: Get a list of agencies
+      tags:
+      - Agencies
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/agencies_with'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List agencies response
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/agency_collection'
+                - $ref: '#/components/schemas/agency_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-agency
+      summary: Create an Agency
+      description: Create an agency
+      tags:
+      - Agencies
+      responses:
+        '201':
+          description: Agency created response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agency_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/agency_create'
+  /agencies/{agency_id}:
+    get:
+      operationId: get-agency
+      summary: Get an Agency
+      description: Get an agency by ID
+      tags:
+      - Agencies
+      parameters:
+      - $ref: '#/components/parameters/extended'
+      - in: path
+        name: agency_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the agency to get
+      responses:
+        '200':
+          description: Agency response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/agency_response'
+                - $ref: '#/components/schemas/agency_response_extended'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-agency
+      summary: Update an Agency
+      description: Update an agency by ID
+      parameters:
+      - in: path
+        name: agency_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the agency to update
+      tags:
+      - Agencies
+      responses:
+        '200':
+          description: Agency updated response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agency_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/agency_update'
+  /agencies/{agency_id}/history:
+    get:
+      operationId: agency-audit-log
+      summary: Agency Audit Log
+      description: Get a list of changes to this agency
+      tags:
+      - Agencies
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: agency_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the agency
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /agencies/{agency_id}/permissions:
+    get:
+      operationId: list-user-permissions-agency
+      summary: List User Permissions for an Agency
+      description: List user permissions for an agency
+      tags:
+      - Agencies
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: agency_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the agency
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission_agency'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /audit_log/agencies:
+    post:
+      operationId: agency-audit-log-bulk
+      summary: Bulk Agency Audit Log
+      description: Get a list of changes to these agencies
+      tags:
+      - Agencies
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log_bulk'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/id_list'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    agency_response:
+      title: agency_response
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/agency_response_base'
+          - type: object
+            properties:
+              inherited_mfa_avoidance:
+                type: string
+                description: available if mfa_avoidance = INHERIT
+                enum:
+                - INHERIT
+                - ALLOW_ALL
+                - EXCLUDE_MFA
+              inherited_mfa_from:
+                type: string
+                description: available if mfa_avoidance = INHERIT
+                enum:
+                - Organization
+                - Agency
+        meta:
+          $ref: '#/components/schemas/single_metadata'
+    agency_base:
+      title: agency
+      type: object
+      properties:
+        ads_txt_verified:
+          type: string
+          enum:
+          - ANY
+          - AUTHORIZED_ONLY
+          - AUTHORIZED_DIRECT_ONLY
+          - NONE
+        allow_x_adv_optimization:
+          type: boolean
+        allow_x_adv_pixels:
+          type: boolean
+        dmp_enabled:
+          type: string
+          enum:
+          - disabled
+          - inherits
+        eligible_for_data_sharing:
+          type: boolean
+        name:
+          type: string
+          minLength: 1
+          maxLength: 64
+        status:
+          type: boolean
+        logo:
+          type: string
+          maxLength: 1024
+        mfa_avoidance:
+          type: string
+          enum:
+          - INHERIT
+          - ALLOW_ALL
+          - EXCLUDE_MFA
+    permission_flags:
+      type: object
+      properties:
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+        inherited_from:
+          type: string
+    agency_collection:
+      title: agency_collection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    agency_create:
+      allOf:
+      - $ref: '#/components/schemas/agency_base'
+      - type: object
+        properties:
+          organization_id:
+            type: integer
+            format: int32
+            example: 17
+            minimum: 1
+        required:
+        - organization_id
+        - name
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    permission_agency:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          agency_id:
+            type: integer
+    agency_update:
+      allOf:
+      - $ref: '#/components/schemas/agency_base'
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 1
+            minimum: 0
+    agency_response_extended:
+      title: agency_response_extended
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/agency_response_base'
+          - type: object
+            properties:
+              inherited_mfa_avoidance:
+                type: string
+                enum:
+                - INHERIT
+                - ALLOW_ALL
+                - EXCLUDE_MFA
+              inherited_mfa_from:
+                type: string
+                enum:
+                - Organization
+                - Agency
+        meta:
+          $ref: '#/components/schemas/single_metadata'
+    agency_response_base:
+      allOf:
+      - $ref: '#/components/schemas/agency_base'
+      - type: object
+        properties:
+          id:
+            type: integer
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          entity_type:
+            type: string
+          organization_id:
+            type: integer
+            minimum: 1
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+          version:
+            type: integer
+          sales_contact_id:
+            type: integer
+            deprecated: true
+          billing_contact_id:
+            type: integer
+            deprecated: true
+          traffic_contact_id:
+            type: integer
+            deprecated: true
+    agency_collection_full:
+      title: agency_collection_full
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/agency_base'
+          - type: object
+            properties:
+              id:
+                type: integer
+              created_on:
+                type: string
+                format: date-time
+                readOnly: true
+              entity_type:
+                type: string
+              organization_id:
+                type: integer
+                minimum: 1
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
+              version:
+                type: integer
+              organization:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  entity_type:
+                    type: string
+                  rel:
+                    type: string
+              sales_contact_id:
+                type: integer
+                deprecated: true
+              billing_contact_id:
+                type: integer
+                deprecated: true
+              traffic_contact_id:
+                type: integer
+                deprecated: true
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    agencies_with:
+      in: query
+      name: with
+      schema:
+        type: string
+        enum:
+        - organization
+      required: false
+      description: Get related property in response
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    audit_log_bulk:
+      description: Audit log bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    tool_name:
+                      type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  requestBodies:
+    id_list:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: array
+                example:
+                - 8
+                - 98
+                - 7
+                minItems: 1
+                items:
+                  type: integer
+                  format: int32
+            required:
+            - id
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

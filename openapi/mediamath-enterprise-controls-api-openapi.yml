@@ -1,0 +1,522 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Enterprise Controls API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Enterprise Controls
+  description: Enterprise Controls
+paths:
+  /entity_groups:
+    get:
+      operationId: list-entity-groups
+      summary: List Entity Groups
+      description: Get a list of entity groups
+      tags:
+      - Enterprise Controls
+      responses:
+        '200':
+          description: List entity groups response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/entity_group_list_item'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /entity_groups/{entity_group_id}:
+    get:
+      operationId: get-entity-group
+      summary: Get an Entity Group
+      description: Get an entity group by ID
+      tags:
+      - Enterprise Controls
+      parameters:
+      - in: path
+        name: entity_group_id
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Entity group response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/entity_group'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /entity_groups/{entity_group_id}/controls/{entity_type}:
+    get:
+      operationId: get-entity-group-controls-entity-type
+      summary: Get Entity Group Controls by Entity Type
+      description: Get controls of entity group by entity type
+      tags:
+      - Enterprise Controls
+      parameters:
+      - in: path
+        name: entity_group_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: entity_type
+        schema:
+          type: string
+          enum:
+          - agencies
+          - advertisers
+          - campaigns
+          - strategies
+          - deals
+          - atomic_creatives
+          - strategy_supply_sources
+        required: true
+      responses:
+        '200':
+          description: Entity group controls by entity type response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/enterprise_control'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /entity_groups/{entity_group_id}/history:
+    get:
+      operationId: entity-group-audit-log
+      summary: Entity Group Audit Log
+      description: Get a list changes to this entity group
+      tags:
+      - Enterprise Controls
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: entity_group_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the entity group
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    control_string:
+      title: control_string
+      type: object
+      properties:
+        constraint_values:
+          type: string
+        default_values:
+          type: string
+    enterprise_control:
+      type: object
+      description: Type of constraint_value depends of field and constraint type. It's array for constraint types one_of, not and between. Default value is consistent with constraint value (can be array or one value).
+      allOf:
+      - type: object
+        properties:
+          field:
+            type: string
+          constraint_type:
+            type: string
+      - type: object
+        oneOf:
+        - allOf:
+          - $ref: '#/components/schemas/control_integer'
+          description: Possible for constraint types "eq", "ne"
+        - allOf:
+          - $ref: '#/components/schemas/control_integer_array'
+          description: Possible for constraint types "one_of", "not", "at_least"
+        - allOf:
+          - $ref: '#/components/schemas/control_decimal'
+          description: Possible for constraint types "eq", "ne", "gt", "gte", "lt", "lte"
+        - allOf:
+          - $ref: '#/components/schemas/control_decimal_array'
+          description: Possible for constraint type "between"
+        - allOf:
+          - $ref: '#/components/schemas/control_string'
+          description: Possible for constraint types "eq", "ne"
+        - allOf:
+          - $ref: '#/components/schemas/control_string_array'
+          description: Possible for constraint types "one_of", "not", "at_least"
+        - allOf:
+          - $ref: '#/components/schemas/control_boolean'
+          description: Possible for constraint types "eq", "ne"
+    control_decimal_array:
+      title: control_decimal_array
+      type: object
+      properties:
+        constraint_values:
+          type: array
+          items:
+            type: number
+            format: float
+        default_values:
+          type: number
+          format: float
+    control_string_array:
+      title: control_string_array
+      type: object
+      properties:
+        constraint_values:
+          type: array
+          items:
+            type: string
+        default_values:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+    entity_group_advertiser:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/entity_group_entity'
+      - type: object
+        properties:
+          agency:
+            $ref: '#/components/schemas/entity_group_entity'
+          organization:
+            $ref: '#/components/schemas/entity_group_entity'
+    entity_group_list_item:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        organization_count:
+          type: integer
+        agency_count:
+          type: integer
+        advertiser_count:
+          type: integer
+        ec_count:
+          type: integer
+        preview:
+          type: string
+    entity_group_entity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    control_boolean:
+      title: control_boolean
+      type: object
+      properties:
+        constraint_values:
+          type: boolean
+        default_values:
+          type: boolean
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    control_integer:
+      title: control_integer
+      type: object
+      properties:
+        constraint_values:
+          type: integer
+        default_values:
+          type: integer
+    entity_group_agency:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/entity_group_entity'
+      - type: object
+        properties:
+          organization:
+            $ref: '#/components/schemas/entity_group_entity'
+    control_decimal:
+      title: control_decimal
+      type: object
+      properties:
+        constraint_values:
+          type: number
+          format: float
+        default_values:
+          type: number
+          format: float
+    control_integer_array:
+      title: control_integer_array
+      type: object
+      properties:
+        constraint_values:
+          type: array
+          items:
+            type: integer
+        default_values:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+    entity_group:
+      type: object
+      properties:
+        id:
+          type: integer
+        version:
+          type: integer
+        name:
+          type: string
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/entity_group_entity'
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/entity_group_agency'
+        advertisers:
+          type: array
+          items:
+            $ref: '#/components/schemas/entity_group_advertiser'
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  parameters:
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

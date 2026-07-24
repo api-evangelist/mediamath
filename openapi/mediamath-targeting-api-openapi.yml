@@ -1,0 +1,1725 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Targeting API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Targeting
+  description: Targeting
+paths:
+  /target:
+    get:
+      operationId: list-targets-legacy
+      summary: (Legacy) List Targets
+      description: Get a list of targets
+      tags:
+      - Targeting
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      responses:
+        '200':
+          $ref: '#/components/responses/collection'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-target-legacy
+      summary: (Legacy) Create a Target
+      description: Create a target
+      tags:
+      - Targeting
+      responses:
+        '201':
+          $ref: '#/components/responses/target'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/target_create'
+  /target/{target_id}:
+    get:
+      operationId: get-target-legacy
+      summary: (Legacy) Get a Target
+      description: Get a target by ID
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/target'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+      parameters:
+      - schema:
+          type: integer
+        name: target_id
+        in: path
+        required: true
+        description: Numeric ID of the target to get
+    post:
+      operationId: update-target-legacy
+      summary: (Legacy) Update a Target
+      description: Update a target by ID
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/target'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/target_update'
+      parameters:
+      - schema:
+          type: integer
+        name: target_id
+        in: path
+        required: true
+        description: Numeric ID of the target to update
+    delete:
+      operationId: delete-target-legacy
+      summary: (Legacy) Delete a Target
+      description: Delete a target by ID
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/target_deleted'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+      parameters:
+      - schema:
+          type: integer
+        name: target_id
+        in: path
+        required: true
+        description: Numeric ID of the target to delete
+    put:
+      operationId: put-update-target-legacy
+      summary: (Legacy) Update a Target
+      description: Update a target by ID
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/target'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/target_update'
+      parameters:
+      - schema:
+          type: integer
+        name: target_id
+        in: path
+        required: true
+        description: Numeric ID of the target to update
+  /targets:
+    get:
+      operationId: list-targets
+      summary: List targets
+      description: Get a list of targets
+      tags:
+      - Targeting
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      responses:
+        '200':
+          $ref: '#/components/responses/collection'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-target
+      summary: Create a Target
+      description: Create a target
+      tags:
+      - Targeting
+      responses:
+        '201':
+          $ref: '#/components/responses/target'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/target_create'
+  /targets/{target_id}:
+    get:
+      operationId: get-target
+      summary: Get a Target
+      description: Get a target by ID
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/target'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+      parameters:
+      - in: path
+        name: target_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the target to get
+    post:
+      operationId: update-target
+      summary: Update a Target
+      description: Update a target by ID
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/target'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/target_update'
+      parameters:
+      - schema:
+          type: integer
+        name: target_id
+        in: path
+        required: true
+        description: Numeric ID of the target to update
+    delete:
+      operationId: delete-target
+      summary: Delete a Target
+      description: Delete a target by ID
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/target_deleted'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+      parameters:
+      - schema:
+          type: integer
+        name: target_id
+        in: path
+        required: true
+        description: Numeric ID of the target to delete
+  /target-path:
+    get:
+      operationId: list-target-paths-legacy
+      summary: List Target paths
+      description: Get a list of target paths
+      tags:
+      - Targeting
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      responses:
+        '200':
+          $ref: '#/components/responses/collection'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /targeting:
+    post:
+      operationId: add-view-targeting
+      summary: Add and View Targeting
+      description: Add and view targeting
+      tags:
+      - Targeting
+      responses:
+        '200':
+          description: Add and view response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      location:
+                        type: array
+                        nullable: true
+                        items:
+                          $ref: '#/components/schemas/location_response'
+                  meta:
+                    type: object
+                    required:
+                    - status
+                    - count
+                    properties:
+                      status:
+                        type: string
+                        minLength: 1
+                      count:
+                        type: number
+                  errors:
+                    type: array
+                    nullable: true
+                    items: {}
+                required:
+                - meta
+        '207':
+          description: Multi-Status (WebDAV)
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - location
+                    properties:
+                      location:
+                        type: array
+                        uniqueItems: true
+                        minItems: 1
+                        items:
+                          type: object
+                          properties:
+                            strategy_id:
+                              type: number
+                            strategy_target_id:
+                              type: number
+                            strategy_target_exclude:
+                              type: boolean
+                            strategy_target_active:
+                              type: boolean
+                            strategy_target_operator:
+                              type: string
+                              minLength: 1
+                            strategy_target_value_id:
+                              type: number
+                            target_dimension_code:
+                              type: string
+                              minLength: 1
+                            target_dimension_name:
+                              type: string
+                              minLength: 1
+                            target_value_id:
+                              type: number
+                            target_value_name:
+                              type: string
+                              minLength: 1
+                            target_value_value:
+                              type: number
+                            target_value_code:
+                              type: string
+                              minLength: 1
+                            strategy_count:
+                              type: number
+                          required:
+                          - strategy_id
+                          - strategy_target_id
+                          - strategy_target_exclude
+                          - strategy_target_active
+                          - strategy_target_operator
+                          - strategy_target_value_id
+                          - target_dimension_code
+                          - target_dimension_name
+                          - target_value_id
+                          - target_value_name
+                          - target_value_value
+                          - target_value_code
+                          - strategy_count
+                  meta:
+                    type: object
+                    required:
+                    - status
+                    - count
+                    properties:
+                      status:
+                        type: string
+                        minLength: 1
+                      count:
+                        type: number
+                  errors:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                        message:
+                          type: string
+                          minLength: 1
+                        field:
+                          type: string
+                          minLength: 1
+                      required:
+                      - code
+                      - message
+                      - field
+                required:
+                - data
+                - meta
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                strategy_id:
+                  type: array
+                  items:
+                    type: integer
+                    format: int32
+                    example: 87
+                targeting:
+                  $ref: '#/components/schemas/targeting_base'
+              required:
+              - strategy_id
+  /contextual_segments/cpm_estimate:
+    post:
+      operationId: contextual-segments-cpm-estimate
+      summary: Contextual Segments CPM estimates
+      description: Get CPM estimates for contextual segments
+      tags:
+      - Targeting
+      parameters:
+      - $ref: '#/components/parameters/extended'
+      requestBody:
+        $ref: '#/components/requestBodies/contextual_segment_estimate'
+      responses:
+        '200':
+          $ref: '#/components/responses/contextual_segment_estimate'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /targeting_segments/frequently_used:
+    get:
+      operationId: get-targeting-segments-frequently-used
+      summary: Get Frequently Used Contextual Segments
+      description: Display the most frequently used contextual segments for a given advertiser
+      tags:
+      - Targeting
+      parameters:
+      - in: query
+        name: advertiser_id
+        schema:
+          type: integer
+        description: Numeric ID of the advertiser to filter on
+      - in: query
+        name: top
+        schema:
+          type: integer
+        description: limit of top elements
+      responses:
+        '200':
+          $ref: '#/components/responses/targeting_segment_friendly_name'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /audience_segments/frequently_used:
+    get:
+      operationId: get-audience-segments-frequently-used
+      summary: Frequently Used Audience Segments
+      description: Display the most frequently used audience segments for a given advertiser or campaign.
+      tags:
+      - Targeting
+      parameters:
+      - in: query
+        name: advertiser_id
+        schema:
+          type: integer
+        description: Numeric ID of the advertiser to filter on
+      - in: query
+        name: campaign_id
+        schema:
+          type: integer
+        description: Numeric ID of the campaign to filter on
+      - in: query
+        name: top
+        schema:
+          type: integer
+        description: limit of top elements
+      responses:
+        '200':
+          $ref: '#/components/responses/targeting_segment_friendly_name'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /audience_segments/cpm_estimate:
+    post:
+      operationId: audience-segments-cpm-estimate
+      tags:
+      - Targeting
+      summary: Audience Segments CPM Estimate
+      description: Audience segments CPM estimate
+      parameters:
+      - $ref: '#/components/parameters/extended'
+      requestBody:
+        $ref: '#/components/requestBodies/audience_segments_cpm_estimate'
+      responses:
+        '200':
+          $ref: '#/components/responses/audience_segments_cpm_estimate'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /technology_target_values:
+    get:
+      operationId: list-technology-target-values
+      summary: List Technology Target Values
+      description: "Get list of technology target values. Can be sorted by:\n- `id`,\n- `dimension`,\n- `parent_id`,\n- `name`,\n- `full_path`,\n- `value`,\n- `code`,\n- `sortable_name` \nand queried (with `q=`) by:\n- `id`,\n- `parent_id`,\n- `name`,\n- `full_path` (if provided parameter `full_path` will be ignored),\n- `value`,\n- `code`,\n- `sortable_name`.\n"
+      tags:
+      - Targeting
+      parameters:
+      - in: query
+        name: name
+        schema:
+          type: string
+        required: false
+        description: 'Case insensitive name contains search. Example: `name=target1`'
+      - in: query
+        name: full_path
+        schema:
+          type: string
+        required: false
+        description: 'Case insensitive full_path contains search. Example: `full_path=target1`'
+      - in: query
+        name: dimension_code
+        schema:
+          type: string
+        required: true
+        description: "Comma separated list of dimension codes. Example: `dimension_code=BRLG,BSER`. Supported values:\n - `BRLG` - Browser Language,\n - `OSXX` - Operating System (extended),\n - `BSER` - Browser,\n - `CSPD` - Connection Speed,\n - `DVMD` - Device Model,\n - `DVCE` - Device,\n - `INVT` - Inventory (supply source/publisher),\n - `ISPX` - ISP (Internet Service Provider),\n - `VAUD` - Video: Audibility,\n - `VCON` - Video: Context,\n - `VLIN` - Video: Linearity (linear vs non-linear),\n - `VPLC` - Video: Placement,\n - `VPSZ` - Video: Player Size,\n - `VSKP` - Video: Skippability,\n - `DMAX` - Designated Market Area,\n - `REGN` - Region (geographic region),\n - `COUNTRY` - Country,\n - `CITY` - City.\n"
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      responses:
+        '200':
+          $ref: '#/components/responses/list_technology_target_values'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /path_targeting_segments:
+    get:
+      operationId: list-contextual-segments
+      summary: List Contextual Segments
+      description: Get a list of contextual segments
+      tags:
+      - Targeting
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      - in: query
+        name: currency_code
+        schema:
+          type: string
+          example: USD
+          minLength: 3
+          maxLength: 3
+        required: false
+        description: If not provided, the default currency (USD) will be used.
+      responses:
+        '200':
+          description: List targeting segments response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/contextual_segment_collection'
+                - $ref: '#/components/schemas/contextual_segment_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /path_audience_segments:
+    get:
+      operationId: list-path-audience-segments
+      summary: List Path Audience Segments
+      description: "Get a list of path audience segments. Segments can be queried and sorted by fields: \n- `id`, \n- `name`,  \n- `version`, \n- `parent_audience_segment_id`, \n- `full_path`, \n- `uniques`, \n- `retail_cpm` (type = double, value in usd), \n- `code`, \n- `buyable`, \n- `child_count`, \n- `wholesale_cpm` (type = double, value in usd), \n- `type`, \n- `taxonomy_id`, \n- `updated_on`, \n- `created_on`, \n- `audience_vendor_id`, \n- `audience_vendor_name`, \n- `audience_vendor_vendor_id`, \n- `audience_vendor_mma_free_cm`, \n- `audience_vendor_updated_on`, \n- `audience_vendor_created_on`, \n- `audience_vendor_version`, \n- `audience_vendor_provides_batch_segments`, \n- `audience_vendor_campaign_brain_enabled`, \n- `audience_vendor_pin_top_search`, \n- `audience_vendor_bidder_code`, \n- `audience_vendor_namespace_code`.\n"
+      tags:
+      - Targeting
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q_required'
+      - in: query
+        name: currency_code
+        schema:
+          type: string
+          example: USD
+          minLength: 3
+          maxLength: 3
+        required: false
+        description: If not provided, the default currency (USD) will be used.
+      - in: query
+        name: advertiser_id
+        schema:
+          type: integer
+        required: false
+        description: Advertiser ID for taxonomy lookup
+      - in: query
+        name: only_brain_enabled
+        schema:
+          type: boolean
+        required: false
+        description: If true, only segments with audience_vendor.campaign_brain_enabled = true will be returned
+      - in: query
+        name: parent_id
+        schema:
+          type: integer
+        required: false
+        description: Parent audience segment ID
+      - in: query
+        name: with
+        schema:
+          type: string
+          enum:
+          - audience_vendor
+        required: false
+        description: If provided, additional entity information will be returned
+      responses:
+        '200':
+          description: Path audience segments collection response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/path_audience_segments_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    path_audience_segment:
+      title: path_audience_segment
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        parent_audience_segment_id:
+          type: integer
+          nullable: true
+        full_path:
+          type: string
+        uniques:
+          type: integer
+        retail_cpm:
+          type: array
+          items:
+            $ref: '#/components/schemas/cpm'
+        audience_vendor_id:
+          type: integer
+        code:
+          type: string
+          nullable: true
+        buyable:
+          type: boolean
+        child_count:
+          type: integer
+        wholesale_cpm:
+          type: array
+          items:
+            $ref: '#/components/schemas/cpm'
+        type:
+          type: string
+        taxonomy_id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        audience_vendor:
+          description: available with parameter `with=audience_vendor`
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/audience_vendor'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    target_update:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          format: int32
+          example: 5
+        name:
+          type: string
+          minLength: 1
+        factual_id:
+          type: string
+        mediamath_organization_id:
+          type: integer
+          format: int32
+          example: 55
+        target_inet:
+          type: string
+          minLength: 1
+        visible:
+          type: boolean
+        visible_overridden:
+          type: boolean
+        bidder_frequency:
+          type: integer
+          format: int32
+          example: 3
+        dimension_code:
+          type: string
+          minLength: 1
+        version:
+          type: integer
+          format: int32
+          example: 2
+    target_create:
+      allOf:
+      - $ref: '#/components/schemas/target_base'
+      - type: object
+    target_dimension_include:
+      type: object
+      properties:
+        code:
+          type: string
+          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        target_value_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 33
+      required:
+      - code
+      - operator
+      - target_value_ids
+    audience_vendor:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        vendor_id:
+          type: integer
+        mma_free_cm:
+          type: boolean
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        provides_batch_segments:
+          type: boolean
+        campaign_brain_enabled:
+          type: boolean
+        pin_top_search:
+          type: boolean
+        bidder_code:
+          type: string
+        namespace_code:
+          type: string
+    audience_target:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        audience_segment_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 32
+    contextual_segment_collection:
+      type: object
+      title: contextual_segment_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    contextual_segment_collection_full:
+      type: object
+      title: contextual_segment_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/contextual_segment_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    cpm:
+      type: object
+      properties:
+        currency_code:
+          type: string
+          example: USD
+        value:
+          type: number
+          format: double
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    contextual_segment_short:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 3
+        name:
+          type: string
+        full_path:
+          type: string
+        cpm:
+          type: number
+          format: double
+        user_cpm:
+          type: number
+          format: double
+          nullable: true
+        segment_objective_name:
+          type: string
+        uniques:
+          type: integer
+          format: int32
+          example: 12345
+          nullable: true
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    day_part:
+      type: object
+      required:
+      - start_hour
+      - end_hour
+      - days
+      properties:
+        user_time:
+          type: boolean
+          default: true
+        start_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 1
+        end_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 5
+        days:
+          type: array
+          items:
+            type: string
+            enum:
+            - M
+            - T
+            - W
+            - R
+            - F
+            - S
+            - U
+          example:
+          - M
+          - T
+          - W
+          - S
+          - U
+    audience_segments_group:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        segments:
+          type: array
+          items:
+            type: object
+            properties:
+              audience_segment_id:
+                type: integer
+                format: int32
+                example: 88
+              user_cpm:
+                type: number
+                format: double
+                minimum: 0
+                description: if provided value will be used instead of segment cpm (value in USD).
+    target_dimension_exclude:
+      type: object
+      properties:
+        code:
+          type: string
+          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        target_value_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 3
+      required:
+      - target_value_ids
+    targeting_base:
+      type: object
+      properties:
+        audience:
+          type: object
+          properties:
+            include:
+              type: array
+              items:
+                $ref: '#/components/schemas/audience_target'
+            exclude:
+              type: array
+              items:
+                $ref: '#/components/schemas/audience_target'
+        contextual:
+          type: object
+          properties:
+            include:
+              type: array
+              items:
+                $ref: '#/components/schemas/target_dimension_include'
+            exclude:
+              type: array
+              items:
+                $ref: '#/components/schemas/target_dimension_exclude'
+        my_data:
+          type: object
+          properties:
+            include:
+              type: object
+              properties:
+                pixel_bundle_ids:
+                  type: array
+                  items:
+                    type: integer
+                    format: int32
+                    example: 88
+                operator:
+                  type: string
+                  enum:
+                  - AND
+                  - OR
+            exclude:
+              type: object
+              properties:
+                pixel_bundle_ids:
+                  type: array
+                  items:
+                    type: integer
+                    format: int32
+                    example: 32
+        location:
+          type: object
+          properties:
+            include:
+              type: array
+              items:
+                $ref: '#/components/schemas/target_dimension_include'
+            exclude:
+              type: array
+              items:
+                $ref: '#/components/schemas/target_dimension_exclude'
+        technology:
+          type: object
+          properties:
+            include:
+              type: array
+              items:
+                $ref: '#/components/schemas/target_dimension_include'
+            exclude:
+              type: array
+              items:
+                $ref: '#/components/schemas/target_dimension_exclude'
+        day_parts:
+          type: array
+          items:
+            $ref: '#/components/schemas/day_part'
+    location_response:
+      type: object
+      properties:
+        strategy_id:
+          type: number
+        strategy_target_id:
+          type: number
+        strategy_target_exclude:
+          type: boolean
+        strategy_target_active:
+          type: boolean
+        strategy_target_operator:
+          type: string
+          minLength: 1
+        strategy_target_value_id:
+          type: number
+        target_dimension_code:
+          type: string
+          minLength: 1
+        target_dimension_name:
+          type: string
+          minLength: 1
+        target_value_id:
+          type: number
+        target_value_name:
+          type: string
+          minLength: 1
+        target_value_value:
+          type: number
+        target_value_code:
+          type: string
+          minLength: 1
+        strategy_count:
+          type: number
+      required:
+      - strategy_id
+      - strategy_target_id
+      - strategy_target_exclude
+      - strategy_target_active
+      - strategy_target_operator
+      - strategy_target_value_id
+      - target_dimension_code
+      - target_dimension_name
+      - target_value_id
+      - target_value_name
+      - target_value_value
+      - target_value_code
+      - strategy_count
+      x-examples:
+        example-1:
+          strategy_id: 65
+          strategy_target_exclude: false
+          strategy_target_active: true
+          strategy_target_operator: OR
+          target_dimension_code: REGN
+          target_dimension_name: nameface REGN
+          target_value_id: 18
+          target_value_name: target values item
+          target_value_value: 123123
+          target_value_code: Target Value 1
+          strategy_count: 2
+      title: ''
+    target_base:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          format: int32
+          example: 10
+        name:
+          type: string
+          minLength: 1
+        factual_id:
+          type: string
+        mediamath_organization_id:
+          type: integer
+          format: int32
+          example: 20
+        target_inet:
+          type: string
+          minLength: 1
+        visible:
+          type: boolean
+        visible_overridden:
+          type: boolean
+        bidder_frequency:
+          type: integer
+          format: int32
+          example: 5
+        dimension_code:
+          type: string
+          minLength: 1
+      required:
+      - name
+    contextual_segment_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          parent_targeting_segment_id:
+            type: integer
+            nullable: true
+          full_path:
+            type: string
+          cpm:
+            type: number
+            format: double
+          targeting_vendor_id:
+            type: integer
+          vendor_name:
+            type: string
+          external_code:
+            type: string
+          segment_objective_name:
+            type: string
+          segment_objective_id:
+            type: integer
+          buyable:
+            type: boolean
+          has_children:
+            type: boolean
+    path_audience_segments_collection_full:
+      type: object
+      title: path_audience_segments_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/path_audience_segment'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    audience_segment_short:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 11
+        name:
+          type: string
+          example: Name3
+        full_path:
+          type: string
+          example: Name1 - Name2 - Name3
+        cpm:
+          type: number
+          format: double
+        user_cpm:
+          type: number
+          format: double
+          nullable: true
+        uniques:
+          type: integer
+          format: int32
+          nullable: true
+          example: 12345
+        code:
+          type: string
+          nullable: true
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    q_required:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: true
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5%26status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  responses:
+    list_technology_target_values:
+      description: List technology target values
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                nullable: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    dimension:
+                      type: string
+                    name:
+                      type: string
+                    sortable_name:
+                      type: string
+                      description: "Field equals formatted name for `OSXX, DVMD` dimensions and `name` for other dimensions. \nExample: `name=WURFL/OS/Android/OS Version/2.0, dimension=OSXX` then `sortable_name=Android » 2.0`.\n"
+                    full_path:
+                      type: string
+                    value:
+                      type: number
+                    code:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    targeting_segment_friendly_name:
+      description: Targeting segment friendly name response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                nullable: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    external_code:
+                      type: string
+                    friendly_name:
+                      type: string
+                    vendor_id:
+                      type: number
+                    vendor_name:
+                      type: string
+                    dimension_id:
+                      type: number
+                    code:
+                      type: string
+                    frequency:
+                      type: number
+                    name:
+                      type: string
+                    retail_cpm:
+                      type: number
+                    objective_id:
+                      type: number
+                    targeting_vendor_id:
+                      type: number
+                    segment_objective_name:
+                      type: string
+              meta:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    collection:
+      description: Collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                nullable: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    contextual_segment_estimate:
+      description: CPM estimate response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  cpm:
+                    type: object
+                    required:
+                    - value
+                    - contextual_cpm_min
+                    - contextual_cpm_max
+                    properties:
+                      currency_code:
+                        type: string
+                        minLength: 3
+                        maxLength: 3
+                      value:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                      includes_taxed_segments:
+                        type: boolean
+                      contextual_cpm_min:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                      contextual_cpm_max:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                  segments:
+                    type: array
+                    description: available only when extended
+                    items:
+                      $ref: '#/components/schemas/contextual_segment_short'
+              meta:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+    target_deleted:
+      description: Target deleted response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    audience_segments_cpm_estimate:
+      description: Audience segments CPM estimate response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  cpm:
+                    type: object
+                    required:
+                    - audience_cpm_min
+                    - audience_cpm_max
+                    properties:
+                      currency_code:
+                        type: string
+                        minLength: 3
+                        maxLength: 3
+                      includes_taxed_segments:
+                        type: boolean
+                      audience_cpm_min:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                      audience_cpm_max:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                  segments:
+                    type: array
+                    description: available only when extended
+                    items:
+                      $ref: '#/components/schemas/audience_segment_short'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    target:
+      description: Target response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/target_base'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+  requestBodies:
+    contextual_segment_estimate:
+      content:
+        application/json:
+          schema:
+            title: Contextual Segment Estimate Request
+            type: object
+            required:
+            - currency_code
+            properties:
+              currency_code:
+                type: string
+                example: USD
+                minLength: 3
+                maxLength: 3
+              include:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                    operator:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                    segments:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          targeting_segment_id:
+                            type: integer
+                            format: int32
+                            example: 67
+                          user_cpm:
+                            type: number
+                            format: double
+                            minimum: 0
+                            description: if provided value will be used instead of segment cpm (value in USD).
+              exclude:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  operator:
+                    type: string
+                    enum:
+                    - AND
+                    - OR
+                  segments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        targeting_segment_id:
+                          type: integer
+                          format: int32
+                          example: 76
+                        user_cpm:
+                          type: number
+                          format: double
+                          minimum: 0
+                          description: if provided value will be used instead of segment cpm
+    target_create:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/target_create'
+    audience_segments_cpm_estimate:
+      description: Audience segments CPM estimate request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - currency_code
+            properties:
+              currency_code:
+                type: string
+                example: USD
+                minLength: 3
+                maxLength: 3
+              include:
+                type: array
+                items:
+                  $ref: '#/components/schemas/audience_segments_group'
+              exclude:
+                $ref: '#/components/schemas/audience_segments_group'
+    target_update:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/target_update'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

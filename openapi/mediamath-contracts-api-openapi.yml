@@ -1,0 +1,829 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Contracts API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Contracts
+  description: Contracts
+paths:
+  /contracts:
+    post:
+      operationId: create-contract
+      summary: Create a Contract
+      description: Create a contract
+      tags:
+      - Contracts
+      requestBody:
+        $ref: '#/components/requestBodies/contract_create'
+      responses:
+        '201':
+          description: Contract created response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/contract_base_response'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    get:
+      operationId: list-contracts
+      summary: List Contracts
+      description: Get a list of contracts
+      tags:
+      - Contracts
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List contracts response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/contract_collection'
+                - $ref: '#/components/schemas/contract_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /contracts/{contract_id}:
+    post:
+      operationId: update-contract
+      summary: Update a Contract
+      description: Update a contract by ID
+      tags:
+      - Contracts
+      parameters:
+      - in: path
+        name: contract_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the contract to update
+      requestBody:
+        $ref: '#/components/requestBodies/contract_update'
+      responses:
+        '200':
+          description: Contract updated response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/contract_base_response'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+    get:
+      operationId: get-contract
+      summary: Get a Contract
+      description: Get a contract by ID
+      tags:
+      - Contracts
+      parameters:
+      - in: path
+        name: contract_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the contract to get
+      responses:
+        '200':
+          description: Contract response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/contract_base_response'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /contracts/{contract_id}/history:
+    get:
+      operationId: contract-audit-log
+      summary: Contract Audit Log
+      description: Get a list changes to this contract
+      tags:
+      - Contracts
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: contract_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the contract
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    contract_collection_full:
+      type: object
+      title: contract_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/contract_base_response'
+          nullable: true
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    contract_collection:
+      type: object
+      title: contract_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+          nullable: true
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    contract_base_response:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 4
+          version:
+            type: integer
+            format: int32
+            example: 44
+      - $ref: '#/components/schemas/contract_base'
+    contract_base:
+      title: contract_base
+      type: object
+      properties:
+        organization_id:
+          type: integer
+          format: int32
+          example: 34
+        effective_start_date:
+          type: string
+          format: date-time
+        effective_end_date:
+          type: string
+          format: date-time
+        platform_monthly_min:
+          type: number
+          format: float
+        platform_access_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        platform_access_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        platform_access_fee_fixed:
+          type: number
+          format: float
+          nullable: true
+        managed_service_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        managed_service_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        managed_service_fee_fixed:
+          type: number
+          format: float
+          nullable: true
+        optimization_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        optimization_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        optimization_fee_fixed:
+          type: number
+          format: float
+          nullable: true
+        pmp_optimization_off_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - PCT_NET_TOTAL_SPEND
+        pmp_optimization_off_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        pmp_optimization_off_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        pmp_optimization_on_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - PCT_NET_TOTAL_SPEND
+        pmp_optimization_on_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        pmp_optimization_on_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        dmp_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - CPTS
+          nullable: true
+        dmp_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        dmp_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        dmp_fee_cpts:
+          type: number
+          format: float
+          nullable: true
+        signals_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          nullable: true
+        signals_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        signals_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        t1_apps_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          nullable: true
+        t1_apps_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        t1_apps_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        contract_number:
+          type: integer
+          readOnly: true
+        spend_cap:
+          type: number
+          format: float
+          nullable: true
+        platform_access_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - FIXED
+          - PCT_NET_TOTAL_SPEND
+        managed_service_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - FIXED
+          - PCT_NET_TOTAL_SPEND
+        optimization_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - FIXED
+          - PCT_NET_TOTAL_SPEND
+        profit_share_fee_pct:
+          type: number
+          format: float
+        exclude_agency_margin:
+          type: boolean
+          default: false
+        t1_as_fee_cpm:
+          type: number
+          format: float
+          default: 0.05
+        evidon_privacy_cost_cpm:
+          type: number
+          format: float
+          default: 0.02
+        peer39_channel_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        peer39_custom_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        peer39_safety_fee_cpm:
+          type: number
+          format: float
+        peer39_quality_fee_cpm:
+          type: number
+          format: float
+        fbx_dynamic_cpm:
+          type: number
+          format: float
+          default: 0.3
+        t1_vads_fee_cpm:
+          type: number
+          format: float
+          default: 0.25
+        adaptive_segment_cpm:
+          type: number
+          format: float
+          default: 0
+        external_media_tracking_cpm:
+          type: number
+          format: float
+          default: 0
+        currency_code:
+          type: string
+          maxLength: 3
+          minLength: 3
+        t1_html5_fee_cpm:
+          type: number
+          format: float
+          default: 0.05
+        viewability_display_sample:
+          type: number
+          format: float
+          nullable: true
+        viewability_display_all_imps:
+          type: number
+          format: float
+          nullable: true
+        viewability_video_sample:
+          type: number
+          format: float
+          nullable: true
+        viewability_video_all_imps:
+          type: number
+          format: float
+          nullable: true
+        standard_segment_cpm:
+          type: number
+          format: float
+          default: 0.1
+        connected_id_cost:
+          type: number
+          format: float
+          default: 0
+        financing_cost:
+          type: number
+          format: float
+          default: 0
+        audience_verification_cost:
+          type: number
+          format: float
+          default: 0.25
+        programmatic_guaranteed_platform_access_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        programmatic_guaranteed_platform_access_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        programmatic_guaranteed_platform_access_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - PCT_NET_TOTAL_SPEND
+        media_enablement_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        media_enablement_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        media_enablement_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+          - PCT_CLEAR
+        source_platform_access_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        source_platform_access_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        source_platform_access_fee_unit:
+          type: string
+          enum:
+          - PCT_TOTAL_COST
+          - CPM
+        country_tax_withholding_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        country_tax_withholding_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        country_tax_withholding_fee_unit:
+          type: string
+          enum:
+          - CPM
+          - PCT_CLEAR
+          - PCT_NET_TOTAL_SPEND
+        partnership_rebate_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        partnership_rebate_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        partnership_rebate_fee_unit:
+          type: string
+          enum:
+          - CPM
+          - PCT_CLEAR
+          - PCT_NET_TOTAL_SPEND
+        cross_device_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        dba_optimization_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        dba_optimization_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        dba_optimization_fee_unit:
+          type: string
+          enum:
+          - CPM
+          - PCT_MEDIA
+        audio_video_platform_access_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+        audio_video_platform_access_fee_pct:
+          type: number
+          format: float
+          nullable: true
+        audio_video_platform_access_fee_unit:
+          type: string
+          enum:
+          - CPM
+          - PCT_TOTAL_COST
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        mfa_fee_cpm:
+          type: number
+          format: float
+          nullable: true
+  requestBodies:
+    contract_create:
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+            - type: object
+              required:
+              - organization_id
+              - currency_code
+              - effective_start_date
+              - effective_end_date
+              - platform_monthly_min
+              - exclude_agency_margin
+              - profit_share_fee_pct
+              - t1_as_fee_cpm
+              - t1_vads_fee_cpm
+              - t1_html5_fee_cpm
+              - standard_segment_cpm
+              - adaptive_segment_cpm
+            - $ref: '#/components/schemas/contract_base'
+    contract_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+            - type: object
+              properties:
+                version:
+                  type: integer
+                  format: int32
+                  example: 44
+            - $ref: '#/components/schemas/contract_base'
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+  responses:
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

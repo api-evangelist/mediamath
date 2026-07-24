@@ -1,0 +1,480 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Campaigns Budget Flights API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Campaigns Budget Flights
+  description: Campaigns Budget Flights
+paths:
+  /bulk_update/budget_flights:
+    post:
+      operationId: bulk-update-budget-flights
+      summary: Bulk Update Budget Flights
+      description: Update multiple budget flights
+      tags:
+      - Campaigns Budget Flights
+      requestBody:
+        $ref: '#/components/requestBodies/budget_flight_bulk_update'
+      responses:
+        '200':
+          description: Updated budget flight list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      items:
+                        $ref: '#/components/schemas/campaign_budget_flights'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '207':
+          description: Multi-status updated budget flight list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/campaign_budget_flights'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /campaigns/{campaign_id}/budget_flights:
+    get:
+      operationId: list-budget-flights
+      summary: List Budget Flights
+      description: Get a list of budget flights
+      tags:
+      - Campaigns Budget Flights
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/full'
+      - schema:
+          type: integer
+        name: campaign_id
+        in: path
+        required: true
+        description: Numeric ID of the campaign
+      responses:
+        '200':
+          description: List budget flights response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/budget_flight_collection'
+                - $ref: '#/components/schemas/budget_flight_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /campaigns/{campaign_id}/budget_flights/history:
+    get:
+      operationId: campaign-budget-flights-audit-log
+      summary: Budget Flights for a given Campaign Audit Log
+      description: Get a list changes to this campaign's budget flights
+      tags:
+      - Campaigns Budget Flights
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: campaign_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the campaign
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    budget_flight_collection_full:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/budget_flight_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    campaign_budget_flights:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 77
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          description: The latest end date of flight must be no more than 36 months after the earliest start date
+        total_budget:
+          type: number
+          format: float
+        total_impression_budget:
+          nullable: true
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 12345
+        is_relevant:
+          type: boolean
+          readOnly: true
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    budget_flight_full:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        campaign_id:
+          type: integer
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        total_budget:
+          type: number
+          format: float
+        is_relevant:
+          type: boolean
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        zone_name:
+          type: string
+        currency_code:
+          type: string
+        total_impression_budget:
+          type: integer
+          nullable: true
+          minimum: 1
+    budget_flight_collection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    campaign_budget_flights_create:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          description: The latest end date of flight must be no more than 36 months after the earliest start date
+        total_budget:
+          type: number
+          format: float
+        total_impression_budget:
+          nullable: true
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 12345
+      required:
+      - start_date
+      - end_date
+      - total_budget
+  requestBodies:
+    budget_flight_bulk_update:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              budget_flights:
+                properties:
+                  create:
+                    type: array
+                    items:
+                      allOf:
+                      - $ref: '#/components/schemas/campaign_budget_flights_create'
+                      - type: object
+                        required:
+                        - campaign_id
+                        properties:
+                          campaign_id:
+                            type: integer
+                            format: int32
+                            example: 12
+                  update:
+                    type: array
+                    items:
+                      allOf:
+                      - $ref: '#/components/schemas/campaign_budget_flights'
+                      - type: object
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: integer
+                            format: int32
+                            example: 55
+                            minimum: 1
+                  delete:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          format: int32
+                          example: 5
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+  responses:
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

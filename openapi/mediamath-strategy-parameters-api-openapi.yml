@@ -1,0 +1,933 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Strategy Parameters API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Strategy Parameters
+  description: Strategy Parameters
+paths:
+  /strategy_deals:
+    get:
+      operationId: list-strategy-deals
+      summary: List Strategy Deals
+      description: Get a list of strategy deals
+      tags:
+      - Strategy Parameters
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/strategy_deals_with'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List strategy deals response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_deal_collection'
+                - $ref: '#/components/schemas/strategy_deal_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_day_parts:
+    get:
+      operationId: list-strategy-day-parts
+      summary: List Strategy Day Parts
+      description: Get a list of strategy day parts
+      tags:
+      - Strategy Parameters
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List strategy day parts response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_day_part_collection'
+                - $ref: '#/components/schemas/strategy_day_part_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_groups:
+    get:
+      operationId: list-strategy-groups
+      summary: List Strategy Groups
+      description: Get a list of strategy groups for a specific campaign
+      tags:
+      - Strategy Parameters
+      responses:
+        '200':
+          description: List strategy groups response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_group_collection'
+                - $ref: '#/components/schemas/strategy_group_collection_full'
+                - $ref: '#/components/schemas/strategy_group_collection_full_extended'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_ip_addresses:
+    get:
+      operationId: list-strategy-ip-addresses
+      summary: List Strategy IP Addresses
+      description: 'Get a list of strategy IP addresses with default sort by `id DESC`. Can be queried by:
+
+        - `id`,
+
+        - `version`,
+
+        - `target_inet` with type IP/CIDR for all operators except search `=:`,
+
+        - `strategy_id` is required,
+
+        - `created_on`,
+
+        - `updated_on`
+
+        and can be sorted by:
+
+        - `id`,
+
+        - `version`,
+
+        - `target_inet`,
+
+        - `strategy_id`,
+
+        - `created_on`,
+
+        - `updated_on`.
+
+        '
+      tags:
+      - Strategy Parameters
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List strategy IP addresses response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_ip_address_collection'
+                - $ref: '#/components/schemas/strategy_ip_address_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_ip_addresses/{strategy_id}/download.csv:
+    get:
+      operationId: download-strategy-ip-addresses
+      summary: Download Information for a Strategy IP addresses
+      description: CSV download of IP addresses for a strategy
+      tags:
+      - Strategy Parameters
+      parameters:
+      - in: path
+        name: strategy_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy to get IP addresses
+      responses:
+        '200':
+          description: Successful CSV download.
+          headers:
+            Content-Disposition:
+              description: Indicates that the response should be handled as a file attachment.
+              schema:
+                type: string
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_concepts:
+    get:
+      operationId: list-strategy-concepts
+      summary: List Strategy Concepts
+      description: Get a list of strategy concepts
+      tags:
+      - Strategy Parameters
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      - $ref: '#/components/parameters/extended'
+      responses:
+        '200':
+          description: List strategy concepts response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_concept_collection'
+                - $ref: '#/components/schemas/strategy_concept_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_target_values:
+    get:
+      operationId: list-strategy-target-values
+      summary: List Strategy Target Values
+      description: Get a list of strategy target values
+      tags:
+      - Strategy Parameters
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List strategy target values response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_target_value_collection'
+                - $ref: '#/components/schemas/strategy_target_value_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_postal_codes:
+    get:
+      operationId: list-strategy-postal-codes
+      summary: List Strategy Postal Codes
+      description: 'Get a list of strategy postal codes with default sort by `id DESC`. Can be queried by:
+
+        - `id`,
+
+        - `name`,
+
+        - `value`,
+
+        - `code`,
+
+        - `exclude`,
+
+        - `strategy_id` is required
+
+        and can be sorted by:
+
+        - `id`,
+
+        - `name`,
+
+        - `value`,
+
+        - `code`,
+
+        - `strategy_id`.
+
+        '
+      tags:
+      - Strategy Parameters
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List strategy postal codes response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_postal_code_collection'
+                - $ref: '#/components/schemas/strategy_postal_code_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_postal_codes/{strategy_id}/download.csv:
+    get:
+      operationId: download-strategy-postal-codes
+      summary: Download Information for a Strategy Postal Codes
+      description: CSV download of postal codes for a strategy
+      tags:
+      - Strategy Parameters
+      parameters:
+      - in: path
+        name: strategy_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy to get postal codes
+      responses:
+        '200':
+          description: Successful CSV download.
+          headers:
+            Content-Disposition:
+              description: Indicates that the response should be handled as a file attachment.
+              schema:
+                type: string
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    strategy_target_value_collection_full:
+      type: object
+      title: strategy_target_value_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_target_value_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_ip_address_collection_full:
+      type: object
+      title: strategy_ip_address_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_ip_address_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_deal_collection_full:
+      type: object
+      title: strategy_deal_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_deal_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_concept_collection_full:
+      type: object
+      title: strategy_concept_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_concept_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_concept_collection:
+      type: object
+      title: strategy_concept_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_target_value_collection:
+      type: object
+      title: strategy_target_value_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_day_part_collection:
+      type: object
+      title: strategy_day_part_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_day_part_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          version:
+            type: integer
+          strategy_id:
+            type: integer
+          user_time:
+            type: boolean
+            default: true
+          status:
+            type: boolean
+            nullable: true
+          start_hour:
+            type: integer
+          end_hour:
+            type: integer
+          days:
+            type: string
+            maxLength: 7
+            default: MTWRFSU
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    strategy_group_collection_full_extended:
+      type: object
+      title: strategy_group_collection_full_extended
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_group_full_extended'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_target_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          strategy_id:
+            type: integer
+          target_dimension_id:
+            type: integer
+          exclude:
+            type: boolean
+            default: false
+          active:
+            type: boolean
+            default: true
+          target_op:
+            type: string
+            enum:
+            - AND
+            - OR
+    strategy_group_collection:
+      type: object
+      title: strategy_group_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    target_value_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          parent_value_id:
+            type: integer
+            nullable: true
+          target_dimension_id:
+            type: integer
+          name:
+            type: string
+            nullable: true
+          value:
+            type: integer
+          code:
+            type: string
+            nullable: true
+          is_targetable:
+            type: boolean
+            default: true
+    strategy_day_part_collection_full:
+      type: object
+      title: strategy_day_part_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_day_part_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_concept_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          version:
+            type: integer
+          strategy_id:
+            type: integer
+          concept_id:
+            type: integer
+          status:
+            type: boolean
+          weighting:
+            type: string
+            enum:
+            - BUDGET
+            - IMPRESSION
+            - NONE
+            default: NONE
+          percent:
+            type: number
+            format: float
+            nullable: true
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+    strategy_postal_code_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          strategy_id:
+            type: integer
+          name:
+            type: string
+          value:
+            type: integer
+          code:
+            type: string
+          exclude:
+            type: boolean
+    strategy_deal_collection:
+      type: object
+      title: strategy_deal_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_group_full_extended:
+      allOf:
+      - type: object
+        properties:
+          count:
+            type: integer
+          strategy_ids:
+            type: array
+            items:
+              type: integer
+              format: int32
+          name:
+            type: string
+    strategy_target_value_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          strategy_target:
+            $ref: '#/components/schemas/strategy_target_full'
+          target_value:
+            type: array
+            items:
+              $ref: '#/components/schemas/target_value_full'
+    strategy_ip_address_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          version:
+            type: integer
+          strategy_id:
+            type: integer
+          target_inet:
+            type: array
+            items:
+              type: string
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+    strategy_group_full:
+      allOf:
+      - type: object
+        properties:
+          group:
+            type: array
+            items:
+              type: string
+    strategy_postal_code_collection_full:
+      type: object
+      title: strategy_postal_code_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_postal_code_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_deal_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          version:
+            type: integer
+          strategy_id:
+            type: integer
+          deal_id:
+            type: integer
+    strategy_postal_code_collection:
+      type: object
+      title: strategy_postal_code_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_group_collection_full:
+      type: object
+      title: strategy_group_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_group_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_ip_address_collection:
+      type: object
+      title: strategy_ip_address_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    strategy_deals_with:
+      in: query
+      name: with
+      schema:
+        type: string
+        enum:
+        - strategy
+        - campaign
+        - advertiser
+        - agency
+      required: false
+      description: Get related property in response
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

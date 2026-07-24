@@ -1,0 +1,537 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Strategy Templates API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Strategy Templates
+  description: Strategy Templates
+paths:
+  /strategy_templates:
+    post:
+      operationId: create-strategy-template
+      summary: Create a Strategy Template
+      description: Create a strategy template
+      tags:
+      - Strategy Templates
+      responses:
+        '201':
+          $ref: '#/components/responses/strategy_template_created'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/strategy_template_create'
+    get:
+      operationId: list-strategy-template
+      summary: List Strategy Templates
+      description: Get a list of strategy templates
+      tags:
+      - Strategy Templates
+      parameters:
+      - in: query
+        name: global
+        schema:
+          type: boolean
+        required: false
+        description: Boolean value to get global strategy templates
+      - in: query
+        name: organization_id
+        schema:
+          type: integer
+        required: false
+        description: Numeric ID of the organization to get strategy templates for
+      - in: query
+        name: agency_id
+        schema:
+          type: integer
+        required: false
+        description: Numeric ID of the agency to get strategy templates for
+      - in: query
+        name: advertiser_id
+        schema:
+          type: integer
+        required: false
+        description: Numeric ID of the advertiser to get strategy templates for
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      responses:
+        '200':
+          description: List strategy templates response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/strategy_template_response'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /strategy_templates/{strategy_template_id}:
+    post:
+      parameters:
+      - in: path
+        name: strategy_template_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy_template object
+      operationId: update-strategy-template
+      summary: Update a Strategy Template
+      description: Update a strategy template by ID
+      tags:
+      - Strategy Templates
+      responses:
+        '200':
+          $ref: '#/components/responses/strategy_template_updated'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '503':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/strategy_template_create'
+    get:
+      operationId: get-strategy-template
+      summary: Get a Strategy Template
+      description: Get a strategy template by ID
+      parameters:
+      - in: path
+        name: strategy_template_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy_template
+      tags:
+      - Strategy Templates
+      responses:
+        '200':
+          $ref: '#/components/responses/strategy_template_updated'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '503':
+          $ref: '#/components/responses/error'
+    delete:
+      operationId: delete-strategy-template
+      summary: Delete a Strategy Template
+      description: Delete a strategy template by ID
+      parameters:
+      - in: path
+        name: strategy_template_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy_template
+      tags:
+      - Strategy Templates
+      responses:
+        '200':
+          $ref: '#/components/responses/strategy_template_deleted'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '503':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    strategy_template_response:
+      title: strategy template response
+      additionalProperties: false
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        global:
+          type: boolean
+        organization_id:
+          type: integer
+          format: int32
+        agency_id:
+          type: integer
+          format: int32
+        advertiser_id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+          example: strategy template test
+        descriptiom:
+          type: string
+          minLength: 1
+          example: this is a strategy template
+        creator_id:
+          type: integer
+          format: int32
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+  parameters:
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    strategy_template_created:
+      description: Strategy created response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  organization_id:
+                    type: integer
+                    nullable: true
+                  agency_id:
+                    type: integer
+                    nullable: true
+                  advertiser_id:
+                    type: integer
+                    nullable: true
+                  global:
+                    type: boolean
+                  name:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  template:
+                    type: object
+                  created_on:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                    nullable: true
+                  updated_on:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                    nullable: true
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    strategy_template_deleted:
+      description: Strategy template deleted response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    strategy_template_updated:
+      description: Strategy updated response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  organization_id:
+                    type: integer
+                    nullable: true
+                  agency_id:
+                    type: integer
+                    nullable: true
+                  advertiser_id:
+                    type: integer
+                    nullable: true
+                  global:
+                    type: boolean
+                  name:
+                    type: string
+                  description:
+                    type: string
+                    nullable: true
+                  template:
+                    type: object
+                  created_on:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  updated_on:
+                    type: string
+                    format: date-time
+                    readOnly: true
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+  requestBodies:
+    strategy_template_create:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              organization_id:
+                type: integer
+                format: int32
+                nullable: true
+              agency_id:
+                type: integer
+                format: int32
+                nullable: true
+              advertiser_id:
+                type: integer
+                format: int32
+                nullable: true
+              global:
+                type: boolean
+                nullable: true
+              name:
+                type: string
+                minLength: 1
+                maxLength: 256
+              description:
+                type: string
+                minLength: 1
+                maxLength: 256
+              template:
+                type: string
+            required:
+            - name
+            - description
+            - template
+          examples:
+            GlobalTemplate:
+              value:
+                global: true
+                name: valid strategy template (Global)
+                description: this is an example of valid strategy template  at Global level
+                template: 'key: value'
+            OrganizationLevel:
+              value:
+                organization_id: 1
+                name: valid strategy template (Organization)
+                description: this is an example of valid strategy template  at Organization level
+                template: 'key: value'
+            AgencyLevel:
+              value:
+                agency_id: 190
+                name: valid strategy template (Agency)
+                description: this is an example of valid strategy template  at Agency level
+                template: 'key: value'
+            AdvertiserLevel:
+              value:
+                advertiser_id: 190
+                name: valid strategy template (Advertiser)
+                description: this is an example of valid strategy template  at Advertiser level
+                template: 'key: value'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

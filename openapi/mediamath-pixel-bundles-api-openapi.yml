@@ -1,0 +1,628 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Pixel Bundles API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Pixel Bundles
+  description: Pixel Bundles
+paths:
+  /pixel_bundles:
+    post:
+      operationId: create-pixel-bundle
+      summary: Create a Pixel Bundle
+      description: Create a pixel bundle
+      tags:
+      - Pixel Bundles
+      requestBody:
+        $ref: '#/components/requestBodies/pixel_bundle_create'
+      responses:
+        '201':
+          description: Pixel bundle created response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/pixel_bundle_response'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    get:
+      operationId: list-pixel-bundles
+      summary: List Pixel Bundles
+      description: Get a list of pixel bundles
+      tags:
+      - Pixel Bundles
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/agencies_with'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: Pixel bundles response
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/pixel_bundle_collection'
+                - $ref: '#/components/schemas/pixel_bundle_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /pixel_bundles/{pixel_bundle_id}:
+    post:
+      operationId: update-pixel-bundle
+      summary: Update a Pixel Bundle
+      description: Update a pixel bundle by ID
+      tags:
+      - Pixel Bundles
+      parameters:
+      - in: path
+        name: pixel_bundle_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the pixel bundle to update
+      requestBody:
+        $ref: '#/components/requestBodies/pixel_bundle_update'
+      responses:
+        '200':
+          description: Pixel bundle updated response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/pixel_bundle_response'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+    get:
+      operationId: get-pixel-bundle
+      summary: Get a Pixel Bundle
+      description: Get a pixel bundle by ID
+      tags:
+      - Pixel Bundles
+      parameters:
+      - in: path
+        name: pixel_bundle_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the pixel bundle to get
+      responses:
+        '200':
+          description: Pixel bundle response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/pixel_bundle_response'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /pixel_bundles/{pixel_bundle_id}/history:
+    get:
+      operationId: pixel-bundle-audit-log
+      summary: Pixel Bundle Audit Log
+      description: Get a list changes to this pixel bundle
+      tags:
+      - Pixel Bundles
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: pixel_bundle_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the pixel bundle
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    pixel_bundle_collection:
+      title: pixel_bundle_collection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+          nullable: true
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    pixel_bundle_collection_full:
+      title: pixel_bundle_collection_full
+      type: object
+      properties:
+        data:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/pixel_bundle_response'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    pixel_bundle_create:
+      type: object
+      properties:
+        pixel_type:
+          type: string
+          enum:
+          - creative
+          - event
+          - data
+          - segment
+          - dynamic
+        advertiser_id:
+          type: integer
+          nullable: true
+          format: int32
+          example: 23
+        agency_id:
+          type: integer
+          nullable: true
+          format: int32
+          example: 12
+    pixel_bundle_base:
+      title: pixel_bundle_base
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          format: int32
+          example: 32
+          readOnly: true
+        provider_id:
+          type: integer
+          nullable: true
+          minimum: 1
+          format: int32
+          example: 15
+        name:
+          type: string
+          minLength: 1
+          maxLength: 64
+        cost_pct_cpm:
+          type: number
+          nullable: true
+        eligible:
+          type: boolean
+        tags:
+          type: string
+          nullable: true
+          readOnly: true
+        cost_cpm:
+          type: number
+          nullable: true
+        external_identifier:
+          type: string
+          readOnly: true
+        tag_type:
+          type: string
+          enum:
+          - dfa
+          - uat
+          - image
+          - iframe
+          - js
+        pricing:
+          type: string
+          enum:
+          - CPM
+          - CPTS
+          nullable: true
+        cost_cpts:
+          type: number
+          nullable: true
+        segment_op:
+          type: string
+          nullable: true
+          enum:
+          - AND
+          - OR
+        rmx_friendly:
+          type: boolean
+          deprecated: true
+        rmx_merit:
+          type: boolean
+          deprecated: true
+        rmx_pc_window_minutes:
+          type: integer
+          nullable: true
+          format: int32
+          example: 34
+          deprecated: true
+        rmx_pv_window_minutes:
+          type: integer
+          nullable: true
+          format: int32
+          example: 44
+          deprecated: true
+        rmx_conversion_type:
+          type: string
+          enum:
+          - one
+          - variable
+          deprecated: true
+        rmx_conversion_minutes:
+          type: integer
+          format: int32
+          example: 24
+          deprecated: true
+        currency:
+          type: string
+          nullable: true
+          enum:
+          - S1
+          - S2
+          - V1
+          - V2
+        revenue:
+          type: string
+          nullable: true
+          enum:
+          - S1
+          - S2
+          - V1
+          - V2
+        currency_fixed:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        event_urls:
+          type: array
+          items:
+            type: string
+          nullable: true
+        contianer_tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+    pixel_bundle_response:
+      title: pixel_bundle
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/pixel_bundle_create'
+      - $ref: '#/components/schemas/pixel_bundle_base'
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 4
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+  parameters:
+    agencies_with:
+      in: query
+      name: with
+      schema:
+        type: string
+        enum:
+        - organization
+      required: false
+      description: Get related property in response
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+  requestBodies:
+    pixel_bundle_create:
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+            - type: object
+              required:
+              - name
+              - pixel_type
+              - tag_type
+              properties:
+                event_urls:
+                  type: array
+                  items:
+                    type: string
+                    maxLength: 2048
+                  nullable: true
+                container_tags:
+                  type: array
+                  items:
+                    type: string
+                    maxLength: 1024
+                  nullable: true
+            - $ref: '#/components/schemas/pixel_bundle_create'
+            - $ref: '#/components/schemas/pixel_bundle_base'
+    pixel_bundle_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+            - type: object
+              properties:
+                version:
+                  type: integer
+                  format: int32
+                  example: 4
+            - $ref: '#/components/schemas/pixel_bundle_base'
+  responses:
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

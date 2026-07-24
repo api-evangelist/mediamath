@@ -1,0 +1,430 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Audience Vendors API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Audience Vendors
+  description: Audience Vendors
+paths:
+  /audience_vendors:
+    get:
+      operationId: list-audience-vendors
+      summary: List Audience Vendors
+      description: Get a list of audience vendors
+      tags:
+      - Audience Vendors
+      responses:
+        '200':
+          description: List audience vendors response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 123
+                        name:
+                          type: string
+                          example: Vendor Name
+                        entity_type:
+                          type: string
+                          example: audience_vendor
+                        mma_free_cm:
+                          type: boolean
+                          example: true
+                        updated_on:
+                          type: string
+                          example: '2021-01-01T00:00:00Z'
+                        created_on:
+                          type: string
+                          example: '2021-01-01T00:00:00Z'
+                        provides_batch_segments:
+                          type: boolean
+                          example: true
+                        campaign_brain_enabled:
+                          type: boolean
+                          example: true
+                        pin_top_search:
+                          type: boolean
+                          example: true
+                        bidder_code:
+                          type: string
+                          example: am
+                        namespace_code:
+                          type: string
+                          example: 5afb12h4
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                      count:
+                        type: integer
+                        example: 100
+                      total_count:
+                        type: integer
+                        example: 12011
+                      offset:
+                        type: integer
+                        example: 0
+                      next_page:
+                        type: string
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+    post:
+      operationId: create-audience-vendor
+      summary: Create an Audience Vendor
+      description: Create an audience vendor
+      tags:
+      - Audience Vendors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 0
+                  maxLength: 256
+                namespace_code:
+                  type: string
+                  minLength: 0
+                  maxLength: 16
+                bidder_code:
+                  type: string
+                  minLength: 0
+                  maxLength: 16
+                vendor_id:
+                  type: integer
+                  format: int32
+                  example: 24
+                campaign_brain_enabled:
+                  type: boolean
+                provides_batch_segments:
+                  type: boolean
+                mma_free_cm:
+                  type: boolean
+                pin_top_search:
+                  type: boolean
+                provider_tax:
+                  type: string
+              required:
+              - name
+              - namespace_code
+              - bidder_code
+              - vendor_id
+      responses:
+        '201':
+          description: Audience vendor created response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 123
+                      name:
+                        type: string
+                        example: Vendor Name
+                      namespace_code:
+                        type: string
+                        example: namespace123
+                      bidder_code:
+                        type: string
+                        example: bidder123
+                      vendor_id:
+                        type: integer
+                        example: 456
+                      campaign_brain_enabled:
+                        type: boolean
+                        example: true
+                      provides_batch_segments:
+                        type: boolean
+                        example: true
+                      mma_free_cm:
+                        type: boolean
+                        example: false
+                      pin_top_search:
+                        type: boolean
+                        example: true
+                      provider_tax:
+                        type: string
+                        example: tax123
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+  /audience_vendors/{audience_vendor_id}:
+    get:
+      operationId: get-audience-vendor
+      summary: Get an Audience Vendor
+      description: Get an audience vendor by ID
+      tags:
+      - Audience Vendors
+      parameters:
+      - name: audience_vendor_id
+        in: path
+        required: true
+        description: Numeric ID of the audience vendor
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Audience vendor response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 123
+                      name:
+                        type: string
+                        example: Vendor Name
+                      entity_type:
+                        type: string
+                        example: audience_vendor
+                      mma_free_cm:
+                        type: boolean
+                        example: true
+                      updated_on:
+                        type: string
+                        example: '2021-01-01T00:00:00Z'
+                      created_on:
+                        type: string
+                        example: '2021-01-01T00:00:00Z'
+                      provides_batch_segments:
+                        type: boolean
+                        example: true
+                      campaign_brain_enabled:
+                        type: boolean
+                        example: true
+                      pin_top_search:
+                        type: boolean
+                        example: true
+                      bidder_code:
+                        type: string
+                        example: am
+                      namespace_code:
+                        type: string
+                        example: 5afb12h4
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Audience Vendor not found
+        '500':
+          description: Internal server error
+    post:
+      operationId: update-audience-vendor
+      summary: Update an Audience Vendor
+      description: Update an audience vendor by ID
+      tags:
+      - Audience Vendors
+      parameters:
+      - name: audience_vendor_id
+        in: path
+        required: true
+        description: Numeric ID of the audience vendor to update
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 0
+                  maxLength: 256
+                namespace_code:
+                  type: string
+                  minLength: 0
+                  maxLength: 16
+                bidder_code:
+                  type: string
+                  minLength: 0
+                  maxLength: 16
+                vendor_id:
+                  type: integer
+                  format: int32
+                  example: 24
+                campaign_brain_enabled:
+                  type: boolean
+                provides_batch_segments:
+                  type: boolean
+                mma_free_cm:
+                  type: boolean
+                pin_top_search:
+                  type: boolean
+                provider_tax:
+                  type: string
+      responses:
+        '200':
+          description: Audience vendor updated response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 123
+                      name:
+                        type: string
+                        example: Updated Vendor Name
+                      namespace_code:
+                        type: string
+                        example: new_namespace
+                      bidder_code:
+                        type: string
+                        example: new_bidder
+                      vendor_id:
+                        type: integer
+                        example: 456
+                      campaign_brain_enabled:
+                        type: boolean
+                        example: false
+                      provides_batch_segments:
+                        type: boolean
+                        example: true
+                      mma_free_cm:
+                        type: boolean
+                        example: false
+                      pin_top_search:
+                        type: boolean
+                        example: false
+                      provider_tax:
+                        type: string
+                        example: new_tax
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Audience Vendor not found
+        '500':
+          description: Internal server error
+components:
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

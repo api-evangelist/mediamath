@@ -1,0 +1,689 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Users API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Users
+  description: Users
+paths:
+  /users:
+    get:
+      operationId: list-users
+      summary: List users
+      description: Get a list of users
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      responses:
+        '200':
+          $ref: '#/components/responses/collection'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-user
+      summary: Create a User
+      description: Create a user
+      tags:
+      - Users
+      responses:
+        '201':
+          description: User created response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/user_create'
+  /users/{user_id}:
+    get:
+      operationId: get-user
+      tags:
+      - Users
+      summary: Get a User
+      description: Get a user by ID
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user to get
+      - $ref: '#/components/parameters/extended'
+      responses:
+        '200':
+          description: User response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-user
+      summary: Update a User
+      description: Update a user by ID
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user to update
+      tags:
+      - Users
+      responses:
+        '200':
+          description: User updated response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/user_update'
+  /users/{user_id}/history:
+    get:
+      operationId: user-audit-log
+      summary: User Audit Log
+      description: Get a list of changes to this user
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /users/{user_id}/settings:
+    get:
+      operationId: get-user-settings
+      tags:
+      - Users
+      summary: Get User's Settings
+      description: Get user's settings by ID
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user to get
+      responses:
+        '200':
+          description: User settings response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_settings_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-user-settings
+      summary: Update User's Settings
+      description: Update user's settings by ID
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user to update
+      tags:
+      - Users
+      responses:
+        '200':
+          description: User settings updated response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_settings_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/user_settings_update_request'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    user_create:
+      allOf:
+      - $ref: '#/components/schemas/user_base'
+      - type: object
+        required:
+        - first_name
+        - last_name
+        - username
+        - roles
+        properties:
+          first_name:
+            type: string
+            minLength: 1
+            maxLength: 32
+          last_name:
+            type: string
+            minLength: 1
+            maxLength: 32
+          phone:
+            type: string
+            maxLength: 24
+          username:
+            type: string
+            minLength: 1
+            maxLength: 255
+          roles:
+            $ref: '#/components/schemas/roles'
+    user_settings_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            settings:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+        user:
+          type: object
+          properties:
+            id:
+              type: integer
+            type:
+              type: string
+            name:
+              type: string
+        status:
+          type: object
+          properties:
+            code:
+              type: string
+              example: ok
+    user_update:
+      allOf:
+      - $ref: '#/components/schemas/user_base'
+      - type: object
+        required:
+        - first_name
+        - last_name
+        - roles
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 2
+          first_name:
+            type: string
+          last_name:
+            type: string
+          phone:
+            type: string
+          roles:
+            $ref: '#/components/schemas/roles'
+          password:
+            type: string
+            minLength: 8
+            maxLength: 30
+            description: new password for user
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    user_response:
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/user_base'
+          - type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              username:
+                type: string
+              version:
+                type: integer
+              first_name:
+                type: string
+              last_name:
+                type: string
+              link_ldap:
+                type: boolean
+              link_saml:
+                type: boolean
+              phone:
+                type: string
+              mobile:
+                type: string
+              fax:
+                type: string
+              type:
+                type: string
+              role:
+                type: string
+              scope:
+                type: string
+              view_organizations:
+                type: boolean
+              edit_campaigns:
+                type: boolean
+              edit_margins_and_performance:
+                type: boolean
+              creator_id:
+                type: integer
+              created_on:
+                type: string
+                format: date-time
+                readOnly: true
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
+              last_login_on:
+                type: string
+                nullable: true
+              access_internal_fees:
+                type: boolean
+              view_segments:
+                type: boolean
+              edit_segments:
+                type: boolean
+              view_data_definition:
+                type: boolean
+              edit_data_definition:
+                type: boolean
+              view_dmp_reports:
+                type: boolean
+              email:
+                type: string
+              roles:
+                $ref: '#/components/schemas/roles'
+              permissions:
+                $ref: '#/components/schemas/user_permissions'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    roles:
+      type: array
+      example:
+      - 4
+      - 6
+      description: "Possible values:\n- 2: \"admin\", \n- 3: \"manager\", \n- 4: \"reporter\", \n- 5: \"internal\", \n- 6: \"agency\" ,\n- 7: \"edit_data_definition\", \n- 8: \"view_data_definition\", \n- 9: \"edit_segments\", \n- 10: \"view_segments\", \n- 11: \"edit_campaigns\", \n- 13: \"edit_margins_and_performance\", \n- 14: \"view_organizations\", \n- 15: \"view_dmp_reports\", \n- 16: \"manage_contracts\", \n- 17: \"view_contracts\".\nSome values can't be used with each other, for example 3 and 4. For more information use \"/roles\" request.\n"
+      items:
+        type: integer
+        format: int16
+        minimum: 1
+        maximum: 32767
+    user_permission:
+      title: user permission
+      type: object
+      properties:
+        id:
+          type: integer
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+    user_permissions:
+      title: user permissions
+      description: available only when extended
+      nullable: true
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+        advertisers:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+    user_settings_update_request:
+      type: object
+      properties:
+        settings:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+                nullable: true
+                description: if value is null or empty string then setting will be removed
+    user_base:
+      title: user
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 64
+        active:
+          type: boolean
+        language:
+          type: string
+        zone_name:
+          type: string
+  parameters:
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    collection:
+      description: Collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                nullable: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

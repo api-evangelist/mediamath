@@ -1,0 +1,1771 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers New Strategy Plans API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: New Strategy Plans
+  description: New Strategy Plans
+paths:
+  /new_strategy_plans/forecast:
+    post:
+      operationId: post-ephemeral-new-strategy-plan
+      summary: Post Ephemeral New Strategy Plan to Run a Forecast
+      description: Post a new strategy plan object to run forecast without saving the strategy plan
+      tags:
+      - New Strategy Plans
+      requestBody:
+        $ref: '#/components/requestBodies/new_strategy_plan_create'
+      responses:
+        '200':
+          $ref: '#/components/responses/new_strategy_plan'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /new_strategy_plans/{strategy_plan_id}/forecast:
+    post:
+      operationId: run-and-update-forecast
+      summary: Run and Update Forecast for Given New Strategy Plan
+      description: Run and update forecast for given new strategy plan ID
+      tags:
+      - New Strategy Plans
+      parameters:
+      - in: path
+        name: strategy_plan_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy_plan object to run a forecast
+      responses:
+        '200':
+          $ref: '#/components/responses/new_strategy_plan'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /new_strategy_plans/{strategy_plan_id}:
+    get:
+      operationId: get-new-strategy-plan
+      summary: Get a New Strategy Plan
+      description: Get a new strategy plan by ID
+      tags:
+      - New Strategy Plans
+      parameters:
+      - in: path
+        name: strategy_plan_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy_plan object to get
+      - $ref: '#/components/parameters/extended'
+      responses:
+        '200':
+          description: New strategy plan response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/new_strategy_plan_response'
+                - $ref: '#/components/schemas/new_strategy_plan_response_extended'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-new-strategy-plan
+      summary: Update a New Strategy Plan
+      description: Update a new strategy plan by ID
+      tags:
+      - New Strategy Plans
+      parameters:
+      - in: path
+        name: strategy_plan_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy_plan object to update
+      requestBody:
+        $ref: '#/components/requestBodies/new_strategy_plan_update'
+      responses:
+        '200':
+          $ref: '#/components/responses/new_strategy_plan'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+    delete:
+      operationId: delete-new-strategy-plan
+      summary: Delete a New Strategy Plan
+      description: Delete a new strategy plan by ID
+      tags:
+      - New Strategy Plans
+      parameters:
+      - in: path
+        name: strategy_plan_id
+        schema:
+          type: integer
+        required: true
+        description: Array numeric IDs of the strategy_plan object to delete
+      responses:
+        '200':
+          $ref: '#/components/responses/deleted_strategy_plans'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /new_strategy_plans:
+    get:
+      operationId: list-new-strategy-plans
+      summary: List New Strategy Plans
+      description: Get a list of new strategy plans
+      tags:
+      - New Strategy Plans
+      parameters:
+      - in: query
+        name: organization_id
+        schema:
+          type: integer
+        required: false
+        description: Numeric ID of the organization to get campaign plans for
+      - in: query
+        name: agency_id
+        schema:
+          type: integer
+        required: false
+        description: Numeric ID of the agency to get campaign plans for
+      - in: query
+        name: advertiser_id
+        schema:
+          type: integer
+        required: false
+        description: Numeric ID of the advertiser to get campaign plans for
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/extended'
+      responses:
+        '200':
+          description: List new strategy plans response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/new_strategy_plan_collection_full'
+                - $ref: '#/components/schemas/new_strategy_plan_collection_full_extended'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-new-strategy-plan
+      summary: Create a New Strategy Plan
+      description: Create a new strategy plan
+      tags:
+      - New Strategy Plans
+      requestBody:
+        $ref: '#/components/requestBodies/new_strategy_plan_create'
+      responses:
+        '201':
+          $ref: '#/components/responses/new_strategy_plan'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /new_strategy_plan_target_values:
+    get:
+      operationId: list-new-strategy-plan-target-values
+      summary: List New Strategy Plan Target Values
+      description: Get a list of new strategy plan target values
+      tags:
+      - New Strategy Plans
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List target values response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/strategy_plan_target_value_collection'
+                - $ref: '#/components/schemas/strategy_plan_target_value_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    new_strategy_plan_response:
+      type: object
+      title: new_strategy_plan_response
+      properties:
+        data:
+          allOf:
+          - type: object
+            properties:
+              campaign_start_date:
+                type: string
+                format: date-time
+                readOnly: true
+              campaign_end_date:
+                type: string
+                format: date-time
+                readOnly: true
+              campaign_zone_name:
+                type: string
+          - $ref: '#/components/schemas/new_strategy_plan_full_response'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    new_strategy_plan_collection_full:
+      type: object
+      title: new_strategy_plan_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_plan_full_response'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_plan_target_value_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          strategy_target:
+            $ref: '#/components/schemas/strategy_plan_target_full'
+          target_value:
+            type: array
+            items:
+              $ref: '#/components/schemas/target_value_full'
+    strategy_contextual_segment_extended:
+      title: ''
+      type: object
+      properties:
+        targeting_segment_id:
+          type: integer
+        targeting_segment_name:
+          type: string
+          description: available only when extended
+          readOnly: true
+        full_path:
+          type: string
+          description: available only when extended
+          readOnly: true
+        vendor_id:
+          type: integer
+          description: available only when extended
+          readOnly: true
+        vendor_name:
+          type: string
+          description: available only when extended
+          readOnly: true
+        objective_type_id:
+          type: integer
+          description: available only when extended
+          readOnly: true
+        objective_type_name:
+          type: string
+          description: available only when extended
+          readOnly: true
+        retail_cpm:
+          type: number
+          description: available only when extended
+          readOnly: true
+        user_cpm:
+          type: number
+          readOnly: true
+          description: available only when extended
+        currency_code:
+          type: string
+          readOnly: true
+          description: available only when extended
+        external_code:
+          type: string
+          readOnly: true
+          description: available only when extended
+      required:
+      - targeting_segment_id
+    strategy_plan_details:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 128
+        feature_compatibility:
+          type: string
+          maxLength: 1024
+        device_graph_only:
+          type: boolean
+    deal_group:
+      title: ''
+      type: object
+      properties:
+        deal_group_id:
+          type: integer
+          format: int32
+          example: 9
+      required:
+      - deal_group_id
+    strategy_plan_frequency:
+      type: object
+      additionalProperties: false
+      properties:
+        frequency_type:
+          type: string
+          nullable: true
+          enum:
+          - even
+          - asap
+          - no-limit
+          - t1-optimized
+        frequency_interval:
+          type: string
+          enum:
+          - hour
+          - day
+          - week
+          - month
+          - campaign
+          - not-applicable
+        frequency_amount:
+          type: integer
+          format: int32
+          example: 5
+        frequency_optimization:
+          type: boolean
+    new_strategy_plan_full:
+      allOf:
+      - $ref: '#/components/schemas/strategy_plan_details'
+      - type: object
+        properties:
+          zone_name:
+            type: string
+            example: America/New_York
+          campaign_service_type:
+            type: string
+          type:
+            type: string
+          duration:
+            $ref: '#/components/schemas/strategy_plan_duration'
+          budget:
+            $ref: '#/components/schemas/strategy_plan_budget'
+          goals:
+            $ref: '#/components/schemas/strategy_plan_goals'
+          frequency:
+            $ref: '#/components/schemas/strategy_plan_frequency'
+          inventory:
+            $ref: '#/components/schemas/strategy_plan_inventory'
+          targeting:
+            $ref: '#/components/schemas/strategy_plan_targeting'
+          creatives:
+            $ref: '#/components/schemas/strategy_plan_creatives'
+      description: New Strategy Plan
+    strategy_plan_creatives:
+      type: object
+      required:
+      - ad_expandable
+      - ad_formats
+      - ad_sizes
+      properties:
+        ad_expandable:
+          type: boolean
+          nullable: true
+        ad_formats:
+          type: array
+          items:
+            type: string
+          nullable: true
+        ad_sizes:
+          type: array
+          items:
+            type: string
+          nullable: true
+    new_strategy_plan_full_response_extended:
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_plan_full_extended'
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 33
+          version:
+            type: integer
+            format: int32
+            example: 3
+          campaign_id:
+            type: integer
+            format: int32
+            example: 8
+    strategy_plan_targeting_extended:
+      allOf:
+      - properties:
+          fold_position:
+            type: array
+            items:
+              type: string
+              enum:
+              - ABOVE
+              - BELOW
+              - UNCATEGORIZED
+            nullable: true
+          audience:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    operator:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                    segments:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/strategy_audience_segment_extended'
+              exclude:
+                type: object
+                properties:
+                  operator:
+                    type: string
+                    enum:
+                    - AND
+                    - OR
+                  segments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/strategy_audience_segment_extended'
+          contextual:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                    operator:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                    segments:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/strategy_contextual_segment_extended'
+              exclude:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  operator:
+                    type: string
+                    enum:
+                    - AND
+                    - OR
+                  segments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/strategy_contextual_segment_extended'
+                required:
+                - segments
+          postal_codes:
+            $ref: '#/components/schemas/targeting_postal_codes_response'
+          geofence:
+            type: object
+            properties:
+              include:
+                $ref: '#/components/schemas/strategy_geofence_extended'
+              exclude:
+                $ref: '#/components/schemas/strategy_geofence_extended'
+          my_data:
+            type: object
+            properties:
+              include:
+                $ref: '#/components/schemas/strategy_my_data_extended'
+              exclude:
+                $ref: '#/components/schemas/strategy_my_data_extended'
+          location:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_location_extended'
+              exclude:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_location_extended'
+          technology:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_technology_extended'
+              exclude:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_technology_extended'
+          ip_addresses:
+            $ref: '#/components/schemas/targeting_ip_addresses_response'
+          day_parts:
+            type: array
+            items:
+              $ref: '#/components/schemas/day_part'
+          recency:
+            type: array
+            items:
+              type: object
+              properties:
+                pixel_id:
+                  type: integer
+                  format: int32
+                  example: 67
+                from_hour:
+                  type: integer
+                  format: int32
+                  example: 5
+                to_hour:
+                  type: integer
+                  format: int32
+                  example: 7
+              required:
+              - pixel_id
+              - from_hour
+              - to_hour
+          language_codes:
+            type: array
+            items:
+              properties:
+                code:
+                  type: string
+                name:
+                  type: string
+      type: object
+    targeting_postal_codes_response:
+      type: object
+      properties:
+        restriction:
+          type: string
+          example: INCLUDE
+        count:
+          type: integer
+          example: 5
+    strategy_location_extended:
+      title: ''
+      type: object
+      properties:
+        target_value_id:
+          type: integer
+        name:
+          type: string
+          description: available only when extended
+        full_path:
+          type: string
+          description: available only when extended
+          example: United States >> New York >> New York
+        code:
+          type: string
+          enum:
+          - DMAX
+          - REGN
+          - CITY
+          - COUNTRY
+        provider_code:
+          type: string
+          description: provider/source code from the underlying target value (e.g. "US", "DMA-501"); available only when extended
+        target_value:
+          type: integer
+          description: available only when extended
+      required:
+      - target_value_id
+    targeting_ip_addresses:
+      type: object
+      properties:
+        restriction:
+          type: string
+          example: INCLUDE
+          enum:
+          - INCLUDE
+          - EXCLUDE
+          - ''
+        codes:
+          writeOnly: true
+          type: array
+          maxItems: 100000
+          items:
+            type: string
+    new_strategy_plan_response_extended:
+      type: object
+      title: new_strategy_plan_response_extended
+      properties:
+        data:
+          allOf:
+          - type: object
+            properties:
+              campaign_start_date:
+                type: string
+                format: date-time
+                readOnly: true
+              campaign_end_date:
+                type: string
+                format: date-time
+                readOnly: true
+              campaign_zone_name:
+                type: string
+          - $ref: '#/components/schemas/new_strategy_plan_full_response_extended'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    targeting_ip_addresses_response:
+      type: object
+      properties:
+        restriction:
+          type: string
+          example: INCLUDE
+          enum:
+          - INCLUDE
+          - EXCLUDE
+          - ''
+        count:
+          type: integer
+          example: 500
+    new_strategy_plan_full_extended:
+      allOf:
+      - $ref: '#/components/schemas/strategy_plan_details'
+      - type: object
+        properties:
+          zone_name:
+            type: string
+            example: America/New_York
+          campaign_service_type:
+            type: string
+          type:
+            type: string
+          duration:
+            $ref: '#/components/schemas/strategy_plan_duration'
+          budget:
+            $ref: '#/components/schemas/strategy_plan_budget'
+          goals:
+            $ref: '#/components/schemas/strategy_plan_goals'
+          frequency:
+            $ref: '#/components/schemas/strategy_plan_frequency'
+          inventory:
+            $ref: '#/components/schemas/strategy_plan_inventory'
+          targeting:
+            $ref: '#/components/schemas/strategy_plan_targeting_extended'
+          creatives:
+            $ref: '#/components/schemas/strategy_plan_creatives'
+      description: New Strategy Plan (extended)
+    strategy_plan_goals:
+      type: object
+      additionalProperties: false
+      properties:
+        goal_type:
+          type: string
+          enum:
+          - spend
+          - reach
+          - cpc
+          - cpe
+          - cpa
+          - roi
+          - ctr
+          - vcr
+          - viewability_rate
+          - vcpm
+          - cpcv
+          - ''
+        goal_value:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 999999999.9999
+        min_bid:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 9999999.99
+        max_bid:
+          type: number
+          format: float
+          minimum: 0.01
+          maximum: 9999999.99
+        roi_target:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 999999999.99
+          nullable: true
+        bid_min_devices:
+          type: integer
+          nullable: true
+          format: int32
+          example: 1
+        bid_aggressiveness:
+          type: integer
+          minimum: 0
+          maximum: 100
+        bid_price_is_media_only:
+          type: boolean
+        max_bid_wm:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 9999999.99
+          nullable: true
+        use_bid_shading:
+          type: boolean
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    strategy_technology:
+      type: object
+      title: ''
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+          default: OR
+        code:
+          type: string
+          enum:
+          - BSER
+          - CSPD
+          - DVCE
+          - ISPX
+          - OSXX
+          - INVT
+          - VPSZ
+          - VLIN
+          - VCON
+          - VAUD
+          - VSKP
+          - VPLC
+          - DVMD
+          - BRLG
+          - IPTA
+          - HYPL
+        target_value_id:
+          type: integer
+          format: int32
+          example: 77
+      required:
+      - code
+      - target_value_id
+    target_value_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          parent_value_id:
+            type: integer
+            nullable: true
+          target_dimension_id:
+            type: integer
+          name:
+            type: string
+            nullable: true
+          value:
+            type: integer
+          code:
+            type: string
+            nullable: true
+          is_targetable:
+            type: boolean
+            default: true
+    supply_source:
+      title: ''
+      type: object
+      properties:
+        supply_source_id:
+          type: integer
+          format: int32
+          example: 54
+      required:
+      - supply_source_id
+    targeting_postal_codes:
+      type: object
+      properties:
+        restriction:
+          type: string
+          example: INCLUDE
+        codes:
+          writeOnly: true
+          type: array
+          maxItems: 100000
+          items:
+            type: string
+          example:
+          - us-14392
+          - us-24981
+          - us-25632
+          - us-16191
+          - us-48574
+          - us14392
+          - us24981
+          - us25632
+          - us16191
+          - us48574
+          - '14392'
+          - '24981'
+          - '25632'
+          - '16191'
+          - '48574'
+    strategy_technology_extended:
+      type: object
+      title: ''
+      properties:
+        code:
+          type: string
+          enum:
+          - BSER
+          - CSPD
+          - DVCE
+          - ISPX
+          - OSXX
+          - INVT
+          - VPSZ
+          - VLIN
+          - VCON
+          - VAUD
+          - VSKP
+          - VPLC
+          - DVMD
+          - BRLG
+          - IPTA
+          - HYPL
+        target_value_id:
+          type: integer
+        name:
+          type: string
+          description: available only when extended
+          readOnly: true
+        target_value:
+          type: integer
+          description: available only when extended
+          readOnly: true
+      required:
+      - code
+      - target_value_id
+    strategy_audience_segment:
+      type: object
+      title: strategy_audience_segment
+      properties:
+        audience_segment_id:
+          type: integer
+          format: int32
+          example: 24
+        user_cpm:
+          type: number
+          format: float
+          nullable: true
+          description: user_cpm is stored in the currency of the campaign and will not fluctuate with daily exchange rates.
+      required:
+      - audience_segment_id
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    deal:
+      title: ''
+      type: object
+      properties:
+        deal_id:
+          type: integer
+          format: int32
+          example: 8
+      required:
+      - deal_id
+    strategy_plan_budget:
+      type: object
+      properties:
+        budget:
+          type: number
+          format: float
+          description: Must be a valid float between 1 and 10000000 USD or its equivalent in other currency.
+          nullable: true
+        currency_code:
+          type: string
+    new_strategy_plan_full_response:
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_plan_full'
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 33
+          version:
+            type: integer
+            format: int32
+            example: 3
+          campaign_id:
+            type: integer
+            format: int32
+            example: 8
+    strategy_geofence_extended:
+      type: object
+      title: ''
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+          default: OR
+        segments:
+          type: array
+          items:
+            type: object
+            required:
+            - geofence_segment_id
+            - geofence_segment_factual_id
+            properties:
+              geofence_segment_id:
+                type: integer
+              geofence_segment_factual_id:
+                type: string
+              name:
+                type: string
+                maxLength: 128
+                description: available only when extended
+              status:
+                type: boolean
+                description: available only when extended
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
+                description: available only when extended
+    day_part:
+      type: object
+      required:
+      - start_hour
+      - end_hour
+      - days
+      properties:
+        user_time:
+          type: boolean
+          default: true
+        start_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 1
+        end_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 5
+        days:
+          type: array
+          items:
+            type: string
+            enum:
+            - M
+            - T
+            - W
+            - R
+            - F
+            - S
+            - U
+          example:
+          - M
+          - T
+          - W
+          - S
+          - U
+    strategy_my_data_extended:
+      type: object
+      title: ''
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+          default: OR
+        pixels:
+          type: array
+          items:
+            type: object
+            properties:
+              pixel_id:
+                type: integer
+              pixel_name:
+                type: string
+                description: available only when extended
+                readOnly: true
+              pixel_type:
+                type: string
+                enum:
+                - event
+                - data
+                - dynamic
+                description: available only when extended
+                readOnly: true
+              owner_type:
+                type: string
+                enum:
+                - advertiser
+                - agency
+                description: available only when extended
+                readOnly: true
+              owner_id:
+                type: integer
+                description: available only when extended
+                readOnly: true
+              owner_name:
+                type: string
+                description: available only when extended
+                readOnly: true
+            required:
+            - pixel_id
+      required:
+      - pixels
+    strategy_location:
+      title: ''
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+          default: OR
+        target_value_id:
+          type: integer
+          format: int32
+          example: 87
+        code:
+          type: string
+          enum:
+          - DMAX
+          - REGN
+          - CITY
+          - COUNTRY
+      required:
+      - target_value_id
+      - code
+    strategy_plan_duration:
+      type: object
+      additionalProperties: false
+      properties:
+        use_campaign_start:
+          type: boolean
+        use_campaign_end:
+          type: boolean
+        start_date:
+          type: string
+          format: date-time
+          nullable: true
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+    strategy_audience_segment_extended:
+      type: object
+      title: ''
+      properties:
+        audience_segment_id:
+          type: integer
+        audience_segment_name:
+          type: string
+          description: available only when extended
+          readOnly: true
+        cpm:
+          type: number
+          readOnly: true
+          description: available only when extended
+        user_cpm:
+          type: number
+          readOnly: true
+          description: available only when extended
+        currency_code:
+          type: string
+          readOnly: true
+          description: available only when extended
+        full_path:
+          type: string
+          description: available only when extended
+          readOnly: true
+        size:
+          type: integer
+          description: available only when extended
+          readOnly: true
+        vendor_id:
+          type: integer
+          description: available only when extended
+          readOnly: true
+        vendor_name:
+          type: string
+          description: available only when extended
+          readOnly: true
+        code:
+          type: string
+          description: available only when extended
+          readOnly: true
+      required:
+      - audience_segment_id
+    strategy_plan_target_value_collection_full:
+      type: object
+      title: strategy_plan_target_value_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/strategy_plan_target_value_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_plan_inventory:
+      type: object
+      properties:
+        run_on_all_pmp:
+          type: boolean
+        run_on_all_exchanges:
+          type: boolean
+        site_restriction_transparent_urls:
+          type: boolean
+        domain_restrictions:
+          type: object
+          properties:
+            include:
+              type: array
+              items:
+                $ref: '#/components/schemas/domain_restriction'
+            exclude:
+              type: array
+              items:
+                $ref: '#/components/schemas/domain_restriction'
+        site_lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/site_list'
+        deals:
+          type: array
+          items:
+            $ref: '#/components/schemas/deal'
+        deal_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/deal_group'
+        supply_sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/supply_source'
+      required:
+      - run_on_all_pmp
+      - run_on_all_exchanges
+    site_list:
+      title: site_list
+      type: object
+      properties:
+        site_list_id:
+          type: integer
+          format: int32
+          example: 32
+        assigned:
+          type: boolean
+      required:
+      - site_list_id
+      - assigned
+    strategy_plan_target_value_collection:
+      type: object
+      title: strategy_plan_target_value_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_plan_target_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          strategy_plan_id:
+            type: integer
+          target_dimension_id:
+            type: integer
+          exclude:
+            type: boolean
+            default: false
+          active:
+            type: boolean
+            default: true
+          target_op:
+            type: string
+            enum:
+            - AND
+            - OR
+    new_strategy_plan_collection_full_extended:
+      type: object
+      title: new_strategy_plan_collection_full_extended
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_plan_full_response_extended'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    strategy_geofence:
+      type: object
+      title: ''
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+          default: OR
+        segments:
+          type: array
+          items:
+            type: object
+            minProperties: 1
+            properties:
+              geofence_segment_id:
+                type: integer
+                format: int32
+                example: 45
+              geofence_segment_factual_id:
+                type: string
+    strategy_my_data:
+      type: object
+      title: ''
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+          default: OR
+        pixels:
+          type: array
+          items:
+            type: object
+            properties:
+              pixel_id:
+                type: integer
+                format: int32
+                example: 65
+            required:
+            - pixel_id
+      required:
+      - pixels
+    strategy_plan_targeting:
+      allOf:
+      - properties:
+          fold_position:
+            type: array
+            items:
+              type: string
+              enum:
+              - ABOVE
+              - BELOW
+              - UNCATEGORIZED
+            nullable: true
+          audience:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    operator:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                    segments:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/strategy_audience_segment'
+              exclude:
+                type: object
+                properties:
+                  operator:
+                    type: string
+                    enum:
+                    - AND
+                    - OR
+                  segments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/strategy_audience_segment'
+          contextual:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                    operator:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                    segments:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/strategy_contextual_segment'
+              exclude:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  operator:
+                    type: string
+                    enum:
+                    - AND
+                    - OR
+                  segments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/strategy_contextual_segment'
+                required:
+                - segments
+          postal_codes:
+            $ref: '#/components/schemas/targeting_postal_codes'
+          geofence:
+            type: object
+            properties:
+              include:
+                $ref: '#/components/schemas/strategy_geofence'
+              exclude:
+                $ref: '#/components/schemas/strategy_geofence'
+          my_data:
+            type: object
+            properties:
+              include:
+                $ref: '#/components/schemas/strategy_my_data'
+              exclude:
+                $ref: '#/components/schemas/strategy_my_data'
+          location:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_location'
+              exclude:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_location'
+          technology:
+            type: object
+            properties:
+              include:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_technology'
+              exclude:
+                type: array
+                items:
+                  $ref: '#/components/schemas/strategy_technology'
+          ip_addresses:
+            $ref: '#/components/schemas/targeting_ip_addresses'
+          day_parts:
+            type: array
+            items:
+              $ref: '#/components/schemas/day_part'
+          recency:
+            type: array
+            items:
+              type: object
+              properties:
+                pixel_id:
+                  type: integer
+                  format: int32
+                  example: 67
+                from_hour:
+                  type: integer
+                  format: int32
+                  example: 5
+                to_hour:
+                  type: integer
+                  format: int32
+                  example: 7
+              required:
+              - pixel_id
+              - from_hour
+              - to_hour
+          language_codes:
+            type: array
+            items:
+              properties:
+                code:
+                  type: string
+                name:
+                  type: string
+      type: object
+    domain_restriction:
+      type: object
+      required:
+      - domain
+      - target_type
+      properties:
+        domain:
+          type: string
+          example: www.mediamath.com
+        target_type:
+          type: string
+          enum:
+          - DOMAIN
+          - APP
+    strategy_contextual_segment:
+      title: strategy_contextual_segment
+      type: object
+      properties:
+        targeting_segment_id:
+          type: integer
+          format: int32
+          example: 33
+        user_cpm:
+          type: number
+          format: float
+          nullable: true
+          description: user_cpm is stored in the currency of the campaign and will not fluctuate with daily exchange rates.
+      required:
+      - targeting_segment_id
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  requestBodies:
+    new_strategy_plan_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+            - type: object
+              properties:
+                version:
+                  type: integer
+                  format: int32
+                  example: 2
+                channels:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - display
+                    - video
+                    - audio
+                    - ctv
+                    - native
+            - $ref: '#/components/schemas/new_strategy_plan_full'
+    new_strategy_plan_create:
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+            - type: object
+              properties:
+                advertiser_id:
+                  type: integer
+                  format: int32
+                  example: 7
+                campaign_plan_id:
+                  type: integer
+                  format: int32
+                  example: 55
+                channels:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - display
+                    - video
+                    - audio
+                    - ctv
+                    - native
+            - $ref: '#/components/schemas/new_strategy_plan_full'
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    deleted_strategy_plans:
+      description: Strategy plans deleted response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    new_strategy_plan:
+      description: New strategy plan response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                allOf:
+                - type: object
+                  properties:
+                    campaign_start_date:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    campaign_end_date:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    campaign_zone_name:
+                      type: string
+                - $ref: '#/components/schemas/new_strategy_plan_full_response'
+              meta:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

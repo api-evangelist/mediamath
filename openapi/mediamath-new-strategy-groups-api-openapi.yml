@@ -1,0 +1,597 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers New Strategy Groups API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: New Strategy Groups
+paths:
+  /new_strategy_groups:
+    get:
+      operationId: list-new-strategy-groups
+      summary: List New Strategy Groups
+      description: 'Get a paginated list of strategy groups. The `q` parameter must include a
+
+        `campaign_id==<id>` clause (required for permission scoping); additional filter
+
+        clauses (joined by `&`, URL-encoded as `%26`) and `sort_by` follow the standard
+
+        Campaigns API list-endpoint convention and may reference any `strategy_groups`
+
+        column — e.g. `q=campaign_id==100%26name=:Prospecting*&sort_by=-spend_cap_amount`.
+
+        '
+      tags:
+      - New Strategy Groups
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - in: query
+        name: full
+        schema:
+          type: string
+        required: false
+        description: Pass `full=*` to return the full entity in each list item.
+      - in: query
+        name: with
+        schema:
+          type: string
+        required: false
+        description: Comma-separated list of related entities to embed. Only `strategies` is supported; when set, the full response includes a `strategies` array of `{id, entity_type, name}` per group.
+      responses:
+        '200':
+          description: List new strategy groups response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/new_strategy_group_collection'
+                - $ref: '#/components/schemas/new_strategy_group_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-new-strategy-group
+      summary: Create a New Strategy Group
+      description: Create a strategy group within a campaign.
+      tags:
+      - New Strategy Groups
+      requestBody:
+        $ref: '#/components/requestBodies/new_strategy_group_create'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/new_strategy_group_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /new_strategy_groups/{strategy_group_id}:
+    get:
+      operationId: get-new-strategy-group
+      summary: Get a New Strategy Group
+      description: Get a strategy group by ID.
+      tags:
+      - New Strategy Groups
+      parameters:
+      - in: path
+        name: strategy_group_id
+        schema:
+          type: integer
+          format: int64
+        required: true
+      - in: query
+        name: with
+        schema:
+          type: string
+        required: false
+        description: Comma-separated list of related entities to embed. Only `strategies` is supported; when set, the response includes a `strategies` array of `{id, entity_type, name}`.
+      responses:
+        '200':
+          description: Strategy group response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/new_strategy_group_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-new-strategy-group
+      summary: Update a New Strategy Group
+      description: Partial update with optional optimistic locking via `version`. `campaign_id` is immutable.
+      tags:
+      - New Strategy Groups
+      parameters:
+      - in: path
+        name: strategy_group_id
+        schema:
+          type: integer
+          format: int64
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/new_strategy_group_update'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/new_strategy_group_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+    delete:
+      operationId: delete-new-strategy-group
+      summary: Delete a New Strategy Group
+      description: Delete a strategy group by ID. Any attached strategies are detached (their strategy_group_id is set to NULL); they are not deleted and retain their campaign_id.
+      tags:
+      - New Strategy Groups
+      parameters:
+      - in: path
+        name: strategy_group_id
+        schema:
+          type: integer
+          format: int64
+        required: true
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/new_strategy_group_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /new_strategy_groups/{strategy_group_id}/history:
+    get:
+      operationId: new-strategy-group-audit-log
+      summary: New Strategy Group Audit Log
+      description: Get a list of changes to this strategy group
+      tags:
+      - New Strategy Groups
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: strategy_group_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the strategy group
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    new_strategy_group_strategy_embed:
+      type: object
+      description: Minimal strategy shape used as the embed value for ?with=strategies.
+      properties:
+        id:
+          type: integer
+          format: int32
+        entity_type:
+          type: string
+          example: strategy
+        name:
+          type: string
+    new_strategy_group_create:
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_group_base'
+      - type: object
+        required:
+        - campaign_id
+        - name
+        properties:
+          campaign_id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 100
+    new_strategy_group_update:
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_group_base'
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 0
+    new_strategy_group_base:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          maxLength: 1024
+        spend_cap_type:
+          type: string
+          enum:
+          - even
+          - asap
+          - no-limit
+          default: no-limit
+        spend_cap_amount:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.01
+          maximum: 9999999.99
+        impression_cap_type:
+          type: string
+          enum:
+          - even
+          - asap
+          - no-limit
+          default: no-limit
+        impression_cap_amount:
+          type: integer
+          format: int32
+          nullable: true
+          minimum: 1
+        external_identifier:
+          type: string
+          nullable: true
+          maxLength: 256
+    new_strategy_group_list_item:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        entity_type:
+          type: string
+          example: strategy_group
+        name:
+          type: string
+        campaign_id:
+          type: integer
+          format: int32
+        strategy_count:
+          type: integer
+          format: int64
+          readOnly: true
+          description: Number of strategies attached to this group. Always present.
+          example: 3
+        strategies:
+          type: array
+          readOnly: true
+          description: Attached strategies. Only present when ?with=strategies is set.
+          items:
+            $ref: '#/components/schemas/new_strategy_group_strategy_embed'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    new_strategy_group_response:
+      type: object
+      title: new_strategy_group_response
+      properties:
+        data:
+          $ref: '#/components/schemas/new_strategy_group_full'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    new_strategy_group_collection_full:
+      type: object
+      title: new_strategy_group_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_group_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    new_strategy_group_collection:
+      type: object
+      title: new_strategy_group_collection
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_group_list_item'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    new_strategy_group_full:
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_group_base'
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+            readOnly: true
+          version:
+            type: integer
+            format: int32
+            readOnly: true
+          campaign_id:
+            type: integer
+            format: int32
+            readOnly: true
+          strategy_count:
+            type: integer
+            format: int64
+            readOnly: true
+            description: Number of strategies attached to this group. Always present.
+            example: 3
+          strategies:
+            type: array
+            readOnly: true
+            description: Attached strategies. Only present when ?with=strategies is set.
+            items:
+              $ref: '#/components/schemas/new_strategy_group_strategy_embed'
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+  requestBodies:
+    new_strategy_group_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/new_strategy_group_update'
+    new_strategy_group_create:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/new_strategy_group_create'
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                nullable: true
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  parameters:
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

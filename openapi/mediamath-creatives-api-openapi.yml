@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Creatives API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Creatives
+  description: Creatives
+paths:
+  /creatives/{creative_id}:
+    get:
+      operationId: get-creative
+      summary: Get a Creative
+      description: Get a creative by ID
+      tags:
+      - Creatives
+      parameters:
+      - in: path
+        name: creative_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the creative to get
+      responses:
+        '200':
+          description: Creative response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/creative_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    creative_response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/creative_base'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    creative_base:
+      title: creative
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+          minimum: 1
+        tag:
+          type: string
+        tag_type:
+          type: string
+          enum:
+          - IFRAME_SCRIPT_NOSCRIPT
+          - IFRAME_SCRIPT
+          - IFRAME_NOSCRIPT
+          - IFRAME_IMG
+          - SCRIPT_NOSCRIPT
+          - SCRIPT
+          - NOSCRIPT
+          - IFRAME
+          - IMG
+          - VIDEO
+        inner_tag:
+          type: string
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

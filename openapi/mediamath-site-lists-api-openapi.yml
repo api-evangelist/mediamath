@@ -1,0 +1,626 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Site Lists API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Site Lists
+  description: Site Lists
+paths:
+  /site_lists:
+    get:
+      operationId: list-site-lists
+      summary: List Site Lists
+      description: 'Get a list of site lists. Site lists can be sorted and queried by fields:
+
+        - `id`,
+
+        - `version`,
+
+        - `status`,
+
+        - `organization_id`,
+
+        - `name`,
+
+        - `restriction`,
+
+        - `filename`,
+
+        - `content_updated_on`,
+
+        - `sites_count`,
+
+        - `created_on`,
+
+        - `updated_on`.
+
+        '
+      tags:
+      - Site Lists
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List site lists response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/site_list_collection'
+                - $ref: '#/components/schemas/site_list_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /site_lists/{site_list_id}:
+    get:
+      operationId: get-site-list
+      summary: Get Site List
+      description: Get a site list by ID
+      tags:
+      - Site Lists
+      parameters:
+      - in: path
+        name: site_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the site list to get
+      responses:
+        '200':
+          $ref: '#/components/responses/site_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /site_lists/upload:
+    post:
+      operationId: upload-create-site-lists
+      summary: Upload New Site Lists
+      description: Upload new site lists
+      tags:
+      - Site Lists
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to be uploaded (e.g., comma_sep.txt).
+                organization_id:
+                  type: string
+                  description: The ID of the organization. Its a string because form upload
+                name:
+                  type: string
+                  maxLength: 64
+                  example: Test List
+                  description: The name of the site list being uploaded.
+                restriction:
+                  type: string
+                  default: INCLUDE
+                  enum:
+                  - INCLUDE
+                  - EXCLUDE
+                status:
+                  type: string
+                  enum:
+                  - 'true'
+                  - 'false'
+                  - '0'
+                  - '1'
+              required:
+              - file
+              - organization_id
+              - name
+      responses:
+        '201':
+          $ref: '#/components/responses/site_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /site_lists/{site_list_id}/upload:
+    post:
+      operationId: upload-update-site-lists
+      summary: Upload Updated Site Lists
+      description: Upload updated site lists
+      tags:
+      - Site Lists
+      parameters:
+      - in: path
+        name: site_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the site list to get site list assignments
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to be uploaded (e.g., comma_sep.txt).
+                organization_id:
+                  type: string
+                  description: The ID of the organization. Its a string because form upload
+                name:
+                  type: string
+                  maxLength: 64
+                  example: Test List
+                  description: The name of the site list being uploaded.
+                restriction:
+                  type: string
+                  enum:
+                  - INCLUDE
+                  - EXCLUDE
+                status:
+                  type: string
+                  enum:
+                  - 'true'
+                  - 'false'
+                  - '0'
+                  - '1'
+                version:
+                  type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/site_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /site_lists/{site_list_id}/download.csv:
+    get:
+      operationId: download-site-lists
+      summary: Download Information for a Site List
+      description: CSV download of site information for a site list
+      tags:
+      - Site Lists
+      parameters:
+      - in: path
+        name: site_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the site list to get site list assignments
+      - in: query
+        name: target_type
+        schema:
+          type: string
+        description: Filter the sites download by a target type
+      responses:
+        '200':
+          description: Successful CSV download.
+          headers:
+            Content-Disposition:
+              description: Indicates that the response should be handled as a file attachment.
+              schema:
+                type: string
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /site_lists/{site_list_id}/assignments:
+    get:
+      operationId: get-site-list-assignments
+      summary: List Site List Assignments
+      description: Get a list of assignments for a site list
+      tags:
+      - Site Lists
+      parameters:
+      - in: path
+        name: site_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the site list to get site list assignments
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: 'List assignments response. Can be queried and sorted by:
+
+            - `id`,
+
+            - `site_list_id`,
+
+            - `entity_id`,
+
+            - `associated_campaign_id`,
+
+            - `collection`,
+
+            - `name`.
+
+            '
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/site_list_assignment_collection'
+                - $ref: '#/components/schemas/site_list_assignment_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    site_list_assignment_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          site_list_id:
+            type: integer
+          entity_id:
+            type: integer
+          associated_campaign_id:
+            type: integer
+          collection:
+            type: string
+          name:
+            type: string
+    site_list_assignment_collection:
+      type: object
+      title: site_list_assignment_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    site_list_assignment_collection_full:
+      type: object
+      title: site_list_assignment_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/site_list_assignment_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    site_list_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 126
+          version:
+            type: integer
+            format: int32
+            example: 2
+          status:
+            type: boolean
+          organization_id:
+            type: integer
+            format: int32
+            example: 16
+          name:
+            type: string
+            maxLength: 64
+          restriction:
+            type: string
+            enum:
+            - INCLUDE
+            - EXCLUDE
+          filename:
+            type: string
+            maxLength: 255
+            nullable: true
+            example: test_site_list.csv
+          content_updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+          sites_count:
+            type: integer
+            format: int32
+            example: 100
+            nullable: true
+          sites_count_domain:
+            type: integer
+            format: int32
+            example: 1
+            nullable: true
+          sites_count_app:
+            type: integer
+            format: int32
+            example: 2
+            nullable: true
+          sites_count_primary_seller_id:
+            type: integer
+            format: int32
+            example: 3
+            nullable: true
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+    site_list_collection:
+      type: object
+      title: site_list_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    site_list_collection_full:
+      type: object
+      title: site_list_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/site_list_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+  responses:
+    site_list:
+      description: Site list response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/site_list_full'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  parameters:
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

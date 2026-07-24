@@ -1,0 +1,391 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers Marketplaces API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Marketplaces
+  description: Marketplaces
+paths:
+  /marketplaces/{marketplace_id}:
+    get:
+      operationId: get-marketplace
+      summary: Get a Marketplace
+      description: Get a marketplace by ID
+      tags:
+      - Marketplaces
+      responses:
+        '200':
+          description: Marketplace response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/marketplace_full_response'
+                  meta:
+                    $ref: '#/components/schemas/single_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+      parameters:
+      - schema:
+          type: integer
+        name: marketplace_id
+        in: path
+        required: true
+        description: Numeric ID of the marketplace to get
+    post:
+      operationId: update-marketplace
+      summary: Update a Marketplace
+      description: Update a marketplace by ID
+      tags:
+      - Marketplaces
+      responses:
+        '200':
+          $ref: '#/components/responses/marketplace'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+      requestBody:
+        $ref: '#/components/requestBodies/marketplace_update'
+      parameters:
+      - schema:
+          type: integer
+        name: marketplace_id
+        in: path
+        required: true
+        description: Numeric ID of the marketplace to update
+  /marketplaces:
+    get:
+      operationId: list-marketplaces
+      summary: List Marketplaces
+      description: Get a list of marketplaces
+      tags:
+      - Marketplaces
+      responses:
+        '200':
+          description: List marketplaces response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/marketplace_full_response'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-marketplace
+      summary: Create a Marketplace
+      description: Create a marketplace
+      tags:
+      - Marketplaces
+      requestBody:
+        $ref: '#/components/requestBodies/marketplace_create'
+      responses:
+        '201':
+          $ref: '#/components/responses/marketplace'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    marketplace_full_response:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 33
+          version:
+            type: integer
+            format: int32
+            example: 3
+      - $ref: '#/components/schemas/marketplace_full'
+    marketplace_create:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/marketplace_full'
+      - type: object
+        required:
+        - name
+        - strategy_id
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    marketplace_full:
+      type: object
+      properties:
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          minLength: 1
+        supply_type:
+          type: string
+          minLength: 1
+        status:
+          type: boolean
+        rtb_enabled:
+          type: boolean
+        strategy_id:
+          type: integer
+          format: int32
+          example: 5
+        code:
+          type: string
+          minLength: 1
+        bidder_exchange_identifier:
+          type: integer
+          format: int32
+          example: 8
+        rtb_type:
+          type: string
+          minLength: 1
+        has_display:
+          type: boolean
+        has_mobile_display:
+          type: boolean
+        has_video:
+          type: boolean
+        has_mobile_video:
+          type: boolean
+        requires_creative_audit:
+          type: boolean
+        has_desktop_video:
+          type: boolean
+        has_connected_tv:
+          type: boolean
+        mma_free:
+          type: boolean
+        private:
+          type: boolean
+        mkt_sell_price:
+          type: number
+          format: float
+          minimum: -1
+          nullable: true
+        mkt_sell_price_currency_code:
+          type: string
+          minLength: 3
+          maxLength: 3
+          example: USD
+          nullable: true
+        permission_organizations:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 7
+        permission_agencies:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 9
+    marketplace_update:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 3
+      - $ref: '#/components/schemas/marketplace_full'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+  responses:
+    marketplace:
+      description: Marketplace response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/marketplace_full_response'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  requestBodies:
+    marketplace_create:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/marketplace_create'
+    marketplace_update:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/marketplace_update'
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

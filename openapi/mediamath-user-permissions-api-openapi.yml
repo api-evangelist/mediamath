@@ -1,0 +1,889 @@
+openapi: 3.0.0
+info:
+  title: Campaigns Ad Servers User Permissions API
+  description: 'MediaMath Campaign Management API
+
+
+    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
+
+    '
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: User Permissions
+  description: User Permissions
+paths:
+  /users/{user_id}/permissions:
+    post:
+      operationId: update-permissions-user
+      summary: Update Permissions for a User
+      description: Update Permissions for a User
+      tags:
+      - User Permissions
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/user_permission_update'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_permissions_response'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+  /permissions/{user_id}:
+    get:
+      operationId: list-user-permissions
+      summary: List User Permissions
+      description: Get a list of user permissions
+      tags:
+      - User Permissions
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      - in: query
+        name: organization_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: Numeric ID of the user
+      - in: query
+        name: agency_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: Numeric ID of the agency
+      - in: query
+        name: advertiser_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: Numeric ID of the advertiser
+      - in: query
+        name: campaign_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: Numeric ID of the campaign
+      - in: query
+        name: strategy_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: Numeric ID of the strategy
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/permission_list'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                    required:
+                    - status
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: list-user-permissions-filtered
+      summary: List User Permissions for Entities
+      description: Get a list of user permissions for requested entities
+      tags:
+      - User Permissions
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      requestBody:
+        $ref: '#/components/requestBodies/permission_check'
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/permission_list'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                    required:
+                    - status
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /permissions/{user_id}/organizations:
+    get:
+      operationId: list-user-permissions-organizations
+      summary: List User Permissions for All Organizations
+      description: Get a list of user permissions for organizations
+      tags:
+      - User Permissions
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission_organization'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /permissions/{user_id}/agencies:
+    get:
+      operationId: list-user-permissions-agencies
+      summary: List User Permissions for All Agencies
+      description: Get a list of user permissions for agencies
+      tags:
+      - User Permissions
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission_agency'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /permissions/{user_id}/advertisers:
+    get:
+      operationId: list-user-permissions-advertisers
+      summary: List User Permissions for All Advertisers
+      description: Get a list of user permissions for advertisers
+      tags:
+      - User Permissions
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission_advertiser'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /permissions/{user_id}/campaigns:
+    get:
+      operationId: list-user-permissions-campaigns
+      summary: List User Permissions for All Campaigns
+      description: Get a list of user permissions for campaigns
+      tags:
+      - User Permissions
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission_campaign'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /permissions/{user_id}/strategies:
+    get:
+      operationId: list-user-permissions-strategies
+      summary: List User Permissions for All Strategies
+      description: Get a list of user permissions for strategies
+      tags:
+      - User Permissions
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/permission_strategy'
+                  meta:
+                    $ref: '#/components/schemas/list_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+  /permissions/{user_id}/v2format:
+    get:
+      operationId: list-user-permissions-v2
+      summary: List User Permissions (V2 Format)
+      description: Get a list of user permissions in V2 format
+      tags:
+      - User Permissions
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/permission_v2_object'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                    required:
+                    - status
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: list-user-permissions-v2-filtered
+      summary: List User Permissions for Entities (V2 Format)
+      description: Get a list of user permissions for requested entities in V2 format
+      tags:
+      - User Permissions
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+        description: User ID
+      requestBody:
+        $ref: '#/components/requestBodies/permission_v2_check'
+      responses:
+        '200':
+          description: List user permissions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/permission_v2_object'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                    required:
+                    - status
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    permission_v2_agency:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          dmp_enabled:
+            type: string
+          value:
+            type: string
+          organization_id:
+            type: integer
+    permission_v2_flags:
+      type: object
+      properties:
+        type:
+          type: string
+        role:
+          type: string
+        scope:
+          type: string
+        view_segments:
+          type: boolean
+        view_organizations:
+          type: boolean
+        edit_margins_and_performance:
+          type: boolean
+        access_internal_fees:
+          type: boolean
+        edit_segments:
+          type: boolean
+        edit_campaigns:
+          type: boolean
+        view_data_definition:
+          type: boolean
+        view_dmp_reports:
+          type: boolean
+        edit_data_definition:
+          type: boolean
+    permission_flags:
+      type: object
+      properties:
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+        inherited_from:
+          type: string
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    permission_v2_object:
+      type: object
+      properties:
+        flags:
+          allOf:
+          - $ref: '#/components/schemas/permission_v2_flags'
+        entities:
+          type: object
+          properties:
+            organizations:
+              type: array
+              items:
+                $ref: '#/components/schemas/permission_v2_organization'
+            agencies:
+              type: array
+              items:
+                $ref: '#/components/schemas/permission_v2_agency'
+            advertisers:
+              type: array
+              items:
+                $ref: '#/components/schemas/permission_v2_advertiser'
+    permission_advertiser:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          advertiser_id:
+            type: integer
+    user_permissions_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            permissions:
+              $ref: '#/components/schemas/user_permissions'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    permission_strategy:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          strategy_id:
+            type: integer
+    permission_agency:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          agency_id:
+            type: integer
+    permission_organization:
+      allOf:
+      - type: object
+        properties:
+          organization_id:
+            type: integer
+      - $ref: '#/components/schemas/permission_flags'
+    permission_campaign:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          campaign_id:
+            type: integer
+    permission_v2_advertiser:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          dmp_enabled:
+            type: string
+          agency_id:
+            type: integer
+          value:
+            type: string
+    user_permission:
+      title: user permission
+      type: object
+      properties:
+        id:
+          type: integer
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+    user_permissions:
+      title: user permissions
+      description: available only when extended
+      nullable: true
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+        advertisers:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+    permission_list:
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_organization'
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_agency'
+        advertisers:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_advertiser'
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_campaign'
+        strategies:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_strategy'
+    user_permission_update:
+      type: object
+      required:
+      - permissions
+      properties:
+        permissions:
+          type: object
+          properties:
+            organization_ids:
+              type: array
+              items:
+                type: integer
+                format: int32
+            agency_ids:
+              type: array
+              items:
+                type: integer
+                format: int32
+            advertiser_ids:
+              type: array
+              items:
+                type: integer
+                format: int32
+    permission_v2_organization:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          dmp_enabled:
+            type: string
+          value:
+            type: string
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  requestBodies:
+    permission_v2_check:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              organizations:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 5
+              agencies:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 6
+              advertisers:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 7
+    permission_check:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              organizations:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 10
+              agencies:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 12
+              advertisers:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 11
+              campaigns:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 71
+              strategies:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  example: 17
+  parameters:
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals
