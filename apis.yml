@@ -1,10 +1,9 @@
 aid: mediamath
 name: MediaMath
-description: MediaMath (by Infillion) is a programmatic advertising DSP with REST
-  APIs for managing campaigns, targeting, bidding strategies, creative trafficking,
-  audience segments, and performance analytics. The platform provides an API-first
-  composable architecture supporting campaign management, reporting, audience onboarding,
-  marketplaces access, and custom bidding algorithms.
+description: MediaMath (by Infillion) is a programmatic advertising DSP with REST APIs for managing campaigns,
+  targeting, bidding strategies, creative trafficking, audience segments, and performance analytics. The
+  platform provides an API-first composable architecture supporting campaign management, reporting, audience
+  onboarding, marketplaces access, and custom bidding algorithms.
 accessModel:
   pricing: enterprise
   onboarding: self-serve
@@ -21,7 +20,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/mediamath.png
 url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 tags:
 - Programmatic Advertising
@@ -36,12 +35,11 @@ tags:
 - Analytics
 apis:
 - name: MediaMath Marketplaces API V2.0
-  description: >-
-    API for leveraging PMP Direct and Exchange supply sources, enabling programmatic access to private
-    marketplace deals and exchange inventory within the MediaMath Platform.
+  description: API for leveraging PMP Direct and Exchange supply sources, enabling programmatic access
+    to private marketplace deals and exchange inventory within the MediaMath Platform.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://apidocs.mediamath.com/apis/marketplaces-api/marketplaces
-  baseURL: https://api.mediamath.com
+  baseURL: https://api.mediamath.com/deals/v1.0
   tags:
   - Marketplaces
   - PMP
@@ -49,50 +47,47 @@ apis:
   - Supply
   - Inventory
   properties:
+  - type: OpenAPI
+    url: openapi/mediamath-marketplaces-api-v2-openapi.yml
   - type: Documentation
     url: https://apidocs.mediamath.com/apis/marketplaces-api/marketplaces
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
 - name: MediaMath Bring Your Own Algorithm (BYOA) API
-  description: >-
-    API for applying custom bidding algorithms within the MediaMath platform brain, including Campaign
-    Settings configuration and Custom Bid Router for external algorithm invocation during bid opportunities.
+  description: API for applying custom bidding algorithms within the MediaMath platform brain, including
+    Campaign Settings configuration and Custom Bid Router for external algorithm invocation during bid
+    opportunities.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://apidocs.mediamath.com/apis/byoa-api/campaign-settings
-  baseURL: https://api.mediamath.com
+  baseURL: https://api.byoa.mediamath.com
   tags:
   - Bidding
   - Custom Algorithms
   - BYOA
   - Optimization
   properties:
+  - type: OpenAPI
+    url: openapi/mediamath-byoa-api-openapi.yml
   - type: Documentation
     url: https://apidocs.mediamath.com/apis/byoa-api/campaign-settings
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
 - name: MediaMath Audience Onboarding API
-  description: >-
-    API for ingesting audience event data into the MediaMath Platform via real-time server-side pixel
-    events and batch event uploads. Supports UUID, mobile advertising IDs, and CTV device IDs for cross-device
-    audience building and segment management.
+  description: API for ingesting audience event data into the MediaMath Platform via real-time server-side
+    pixel events and batch event uploads. Supports UUID, mobile advertising IDs, and CTV device IDs for
+    cross-device audience building and segment management.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://apidocs.mediamath.com/guides/audience-onboarding
   baseURL: https://ingest-default.prod.octane.mediamath.com
@@ -108,18 +103,14 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
 - name: MediaMath Server-to-Server Data Distribution API
-  description: >-
-    API for syncing audience segment data through server-to-server data distribution, supporting UUID-to-segment
-    mappings, SFTP file transfer, and processing log access with Basic Authentication.
+  description: API for syncing audience segment data through server-to-server data distribution, supporting
+    UUID-to-segment mappings, SFTP file transfer, and processing log access with Basic Authentication.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://apidocs.mediamath.com/guides/server-to-server
   baseURL: https://s2s-api.datasvc.mediamath.com
@@ -134,14 +125,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
 - aid: mediamath:mediamath-ad-servers-api
   name: MediaMath Ad Servers API
   description: Ad Servers
@@ -157,14 +145,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -184,14 +169,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -211,14 +193,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -238,14 +217,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -265,14 +241,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -292,14 +265,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -319,14 +289,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -346,14 +313,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -373,14 +337,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -400,14 +361,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -427,14 +385,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -454,14 +409,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -481,14 +433,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -508,14 +457,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -535,14 +481,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -562,14 +505,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -589,14 +529,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -616,14 +553,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -643,14 +577,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -670,14 +601,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -697,14 +625,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -724,14 +649,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -751,14 +673,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -778,14 +697,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -805,14 +721,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -832,14 +745,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -859,14 +769,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -886,14 +793,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -913,14 +817,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -940,14 +841,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -967,14 +865,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -994,14 +889,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -1021,14 +913,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -1048,14 +937,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -1075,14 +961,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -1102,14 +985,11 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
@@ -1129,18 +1009,162 @@ apis:
   - type: Authentication
     url: https://apidocs.mediamath.com/guides
   - type: Plans
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/plans/mediamath-plans.yml
   - type: RateLimits
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/rate-limits/mediamath-rate-limits.yml
   - type: FinOps
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
+    url: https://raw.githubusercontent.com/api-evangelist/mediamath/refs/heads/main/finops/mediamath-finops.yml
   - type: GraphQL
     url: graphql/mediamath-graphql.md
   - type: Documentation
     url: https://apidocs.mediamath.com/apis/reporting-api
+- aid: mediamath:mediamath-audience-segments-api
+  name: MediaMath Audience Segments API
+  description: Audience Segments API (DMP v2.0) for onboarding and activating first- and third-party audience
+    data in the MediaMath Platform. Manages global and permissioned taxonomies, external data segments
+    (data pixels), segment permissioning to organizations/agencies/advertisers, and data-vendor revenue
+    share at the taxonomy level. Deprecated as of 1 August 2026 in favour of the V3 Campaign Management
+    API.
+  humanURL: https://apidocs.mediamath.com/apis/audience-taxonomies
+  baseURL: https://api.mediamath.com/dmp/v2.0
+  tags:
+  - Audience
+  - Segments
+  - Taxonomy
+  - Data Onboarding
+  - DMP
+  properties:
+  - type: OpenAPI
+    url: openapi/mediamath-audience-segments-api-openapi.yml
+  - type: Overlay
+    url: overlays/mediamath-audience-segments-api-overlay.yaml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/
+  - type: Authentication
+    url: authentication/mediamath-authentication.yml
+  - type: RateLimits
+    url: rate-limits/mediamath-rate-limits.yml
+  - type: Plans
+    url: plans/mediamath-plans.yml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/apis/audience-taxonomies
+- aid: mediamath:mediamath-bof-config-api
+  name: MediaMath BOF Config API
+  description: Bid Request Firehose (BOF) configuration API. BOF is a high-performance system that ingests
+    bid opportunities from MediaMath bidders and filters and batches them to third-party consumers based
+    on configurable parameters. This API manages consumer config files, filter lists, channel-type and
+    geo filters, delivery buckets and role ARNs, and S3/Google Cloud partition macros.
+  humanURL: https://apidocs.mediamath.com/apis/bof-api-v1
+  baseURL: https://api.mediamath.com/opportunity-firehose/v2.0
+  tags:
+  - Bid Requests
+  - Firehose
+  - Streaming
+  - Data Distribution
+  - Programmatic
+  properties:
+  - type: OpenAPI
+    url: openapi/mediamath-bof-config-api-openapi.yml
+  - type: Overlay
+    url: overlays/mediamath-bof-config-api-overlay.yaml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/
+  - type: Authentication
+    url: authentication/mediamath-authentication.yml
+  - type: RateLimits
+    url: rate-limits/mediamath-rate-limits.yml
+  - type: Plans
+    url: plans/mediamath-plans.yml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/apis/bof-api-v1
+- aid: mediamath:mediamath-component-creatives-api
+  name: MediaMath Component Creatives API
+  description: Component Creatives API (v3.0) for building and managing modular, component-based creatives
+    in the MediaMath Platform — assembling creative components into dynamic ad units, managing component
+    metadata and assignments, and versioning component sets independently of the atomic creative objects
+    they compose.
+  humanURL: https://apidocs.mediamath.com/apis/component-creatives
+  baseURL: https://api.mediamath.com
+  tags:
+  - Creatives
+  - Components
+  - Dynamic Creative
+  - Ad Serving
+  - Creative Management
+  properties:
+  - type: OpenAPI
+    url: openapi/mediamath-component-creatives-api-openapi.yml
+  - type: Overlay
+    url: overlays/mediamath-component-creatives-api-overlay.yaml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/
+  - type: Authentication
+    url: authentication/mediamath-authentication.yml
+  - type: RateLimits
+    url: rate-limits/mediamath-rate-limits.yml
+  - type: Plans
+    url: plans/mediamath-plans.yml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/apis/component-creatives
+- aid: mediamath:mediamath-reporting-api-v1
+  name: MediaMath Reporting API V1
+  description: Reporting API V1 (standard reports). Thirty GET report endpoints — performance, win/loss,
+    win/loss creative, device technology, geo, site, audience index and more — each with a companion /meta
+    endpoint describing available dimensions and metrics, plus a /validate endpoint. Deprecated; the documentation
+    states it will be removed and names Reporting API V2 as the replacement.
+  humanURL: https://apidocs.mediamath.com/apis/reporting-api-v1
+  baseURL: https://api.mediamath.com/reporting/v1/std
+  tags:
+  - Reporting
+  - Analytics
+  - Performance
+  - Win Loss
+  - Deprecated
+  properties:
+  - type: OpenAPI
+    url: openapi/mediamath-reporting-api-v1-openapi.yml
+  - type: Overlay
+    url: overlays/mediamath-reporting-api-v1-overlay.yaml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/
+  - type: Authentication
+    url: authentication/mediamath-authentication.yml
+  - type: RateLimits
+    url: rate-limits/mediamath-rate-limits.yml
+  - type: Plans
+    url: plans/mediamath-plans.yml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/apis/reporting-api-v1
+- aid: mediamath:mediamath-video-creatives-api
+  name: MediaMath Video Creatives API
+  description: Video Creatives API (v1.0) for hosted video and audio creative management — reserving creative
+    records, obtaining presigned S3 upload URLs, polling encode status through Pending/Processing/Finished,
+    listing encoded variants, managing companion banners, validating VAST tags and retrieving VAST XML.
+    Also exposes IAB attribute, IAB vertical and language reference collections and creative classification.
+  humanURL: https://apidocs.mediamath.com/apis/video-creatives
+  baseURL: https://api.mediamath.com
+  tags:
+  - Video
+  - Creatives
+  - VAST
+  - Encoding
+  - CTV
+  - Ad Serving
+  properties:
+  - type: OpenAPI
+    url: openapi/mediamath-video-creatives-api-openapi.yml
+  - type: Overlay
+    url: overlays/mediamath-video-creatives-api-overlay.yaml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/
+  - type: Authentication
+    url: authentication/mediamath-authentication.yml
+  - type: RateLimits
+    url: rate-limits/mediamath-rate-limits.yml
+  - type: Plans
+    url: plans/mediamath-plans.yml
+  - type: Documentation
+    url: https://apidocs.mediamath.com/apis/video-creatives
 common:
 - type: AgenticAccess
   url: agentic-access/mediamath-agentic-access.yml
@@ -1161,13 +1185,84 @@ common:
 - type: Authentication
   url: https://apidocs.mediamath.com/guides
 - type: Blog
-  url: https://devblog.mediamath.com/
+  url: https://infillion.com/blog/
 - type: Support
   url: https://support.infillion.com/s/submit-a-case
 - type: Login
   url: https://platform.mediamath.com/
 - type: Academy
   url: https://academy.mediamath.com/
+- type: Packages
+  url: packages/mediamath-packages.yml
+- type: SDKs
+  url: packages/mediamath-packages.yml
+- type: WellKnown
+  url: well-known/mediamath-well-known.yml
+- type: MCPServer
+  url: mcp/mediamath-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/mediamath-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/mediamath-llms.txt
+- type: Protobuf
+  url: grpc/mediamath-winnotice.proto
+- type: Conformance
+  url: conformance/mediamath-conformance.yml
+- type: ErrorCatalog
+  url: errors/mediamath-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/mediamath-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/mediamath-lifecycle.yml
+- type: Conventions
+  url: conventions/mediamath-conventions.yml
+- type: DataModel
+  url: data-model/mediamath-data-model.yml
+- type: Webhooks
+  url: asyncapi/mediamath-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: VulnerabilityDisclosure
+  url: security/mediamath-vulnerability-disclosure.yml
+- type: Security
+  url: security/mediamath-vulnerability-disclosure.yml
+- type: Examples
+  url: examples/
+- type: DeveloperPortal
+  url: https://apidocs.mediamath.com/
+- type: APIReference
+  url: https://apidocs.mediamath.com/apis/campaigns-api/openapi
+- type: GettingStarted
+  url: https://apidocs.mediamath.com/guides
+- type: GitHubOrganization
+  url: https://github.com/MediaMath
+- type: Postman
+  url: https://apidocs.mediamath.com/guides/postman-collections
+- type: TermsOfService
+  url: https://apidocs.mediamath.com/legal/terms
+- type: PrivacyPolicy
+  url: https://infillion.com/privacy-policy/
+- type: Overlay
+  url: overlays/mediamath-audience-segments-api-overlay.yaml
+- type: Overlay
+  url: overlays/mediamath-bof-config-api-overlay.yaml
+- type: Overlay
+  url: overlays/mediamath-byoa-api-overlay.yaml
+- type: Overlay
+  url: overlays/mediamath-campaigns-api-overlay.yaml
+- type: Overlay
+  url: overlays/mediamath-component-creatives-api-overlay.yaml
+- type: Overlay
+  url: overlays/mediamath-marketplaces-api-v2-overlay.yaml
+- type: Overlay
+  url: overlays/mediamath-reporting-api-v1-overlay.yaml
+- type: Overlay
+  url: overlays/mediamath-video-creatives-api-overlay.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 42
+  pass: local-v1
