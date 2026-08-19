@@ -1,0 +1,2813 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "BYOA",
+    "description": "# Custom Brain\n\nCustom Brain allows the client to use the BYOA API to upload a set of logistic coefficients corresponding to any of the variables currently in use by the MediaMath Brain.  These coefficients will then be used by participating strategies to calculate the predicted response rate for each impression.  The bidder will calculate bid price by multipling the predicted response rate by the strategy's goal value.  Goal values can be modified using the MediaMath Platform campaign management API.\n\nIt is best for you to contact us early in your process by emailing developers@mediamath.com, as it may take about 48 hours before you are granted API access to begin work on your model.\n\n![BYOM](https://mediamath.github.io/api-docs/images/BYOA-CustomBrain.png \"BYOM Architecture\")",
+    "contact": {
+      "name": "BYOA API Support",
+      "url": "http://devblog.mediamath.com",
+      "email": "byoa@mediamath.com"
+    },
+    "license": {
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+      "name": "Apache 2.0"
+    },
+    "version": ""
+  },
+  "paths": {
+    "/campaign_settings/{campaign_id}/strategies/{strategy_id}": {
+      "get": {
+        "tags": [
+          "Campaign Settings"
+        ],
+        "summary": "Strategy based Campaign Details",
+        "description": "Get strategy level Campaign Setting",
+        "operationId": "GET_campaign_settings-campaign_id-strategies-strategy_id",
+        "parameters": [
+          {
+            "name": "strategy_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "campaign_id": {
+                            "type": "integer"
+                          },
+                          "created_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "executor_id": {
+                            "type": "integer"
+                          },
+                          "high": {
+                            "type": "integer"
+                          },
+                          "low": {
+                            "type": "integer"
+                          },
+                          "model_id": {
+                            "type": "string",
+                            "description": "A string describing a Brain name (or Model ID)"
+                          },
+                          "namespace": {
+                            "type": "string"
+                          },
+                          "strategy_id": {
+                            "type": "integer"
+                          },
+                          "updated_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "uuid_type": {
+                            "type": "string",
+                            "enum": [
+                              "CID",
+                              "UUID"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "campaign_id": 675865,
+                          "created_on": "2019-08-28T02:24:36.49769Z",
+                          "executor_id": 2,
+                          "high": 99,
+                          "low": 0,
+                          "model_id": "aggregate_2",
+                          "namespace": "100667",
+                          "updated_on": "2019-08-28T02:24:36.49769Z",
+                          "uuid_type": "CID"
+                        }
+                      ],
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_CampaignSetting",
+                          "message": "CampaignSetting with campaign_id(368832), strategy_id(12345) not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Campaign Settings"
+        ],
+        "summary": "Strategy based Campaign Delete",
+        "description": "Delete Campaign Setting with Campaign, Strategy\n\nNo request body for this type.",
+        "operationId": "DELETE_campaign_settings-campaign_id-strategies-strategy_id",
+        "parameters": [
+          {
+            "name": "strategy_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "campaign_id": {
+                            "type": "integer"
+                          },
+                          "created_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "executor_id": {
+                            "type": "integer"
+                          },
+                          "high": {
+                            "type": "integer"
+                          },
+                          "low": {
+                            "type": "integer"
+                          },
+                          "model_id": {
+                            "type": "string"
+                          },
+                          "namespace": {
+                            "type": "string"
+                          },
+                          "strategy_id": {
+                            "type": "integer"
+                          },
+                          "updated_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "uuid_type": {
+                            "type": "string",
+                            "enum": [
+                              "CID",
+                              "UUID"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "campaign_id": 10000,
+                          "created_on": "2017-07-06T13:53:10.395836Z",
+                          "executor_id": 2,
+                          "high": 99,
+                          "low": 0,
+                          "model_id": "model_name",
+                          "namespace": "mm",
+                          "strategy_id": 1000,
+                          "updated_on": "2017-07-06T13:53:10.395836Z",
+                          "uuid_type": "CID"
+                        }
+                      ],
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_CampaignSetting",
+                          "message": "CampaignSetting with campaign_id(1000), strategy_id(1000) not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Campaign Settings"
+        ],
+        "summary": "Strategy based Campaign Create/Modify",
+        "description": "Configure BYOA functionality at a Strategy Level for a Campaign",
+        "operationId": "PUT_campaign_settings-campaign_id-strategies-strategy_id",
+        "parameters": [
+          {
+            "name": "strategy_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "Adama_session",
+            "in": "header",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Adama_session_exp",
+            "in": "header",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "description": "uuid_type should be at the top layer and the rest should be in an array one layer deeper."
+        },
+        "responses": {
+          "200": {
+            "description": "Example using cURL:\n\n```\ncurl -X PUT \"https://api.byoa.mediamath.com/campaign_settings/999999/strategies/888888\" \\\n  -d '{\n    \"settings\": [\n      {\n        \"executor_id\": 2,\n        \"high\": 99,\n        \"low\": 0,\n        \"model_id\": \"<ModelName>\",\n        \"namespace\": \"<OrganizationID>\"\n      }\n    ],\n    \"uuid_type\": \"UUID\"\n  }' \\\n  -H 'adama_session: <adama_session>'\n```\n\nNote that executor_id must be set to 2. This refers to the current version of the MediaMath BYOA Model executor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "campaign_id": {
+                            "type": "integer"
+                          },
+                          "created_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "executor_id": {
+                            "type": "integer"
+                          },
+                          "high": {
+                            "type": "integer"
+                          },
+                          "low": {
+                            "type": "integer"
+                          },
+                          "model_id": {
+                            "type": "string",
+                            "description": "A string describing a Brain name (or Model ID)"
+                          },
+                          "namespace": {
+                            "type": "string"
+                          },
+                          "strategy_id": {
+                            "type": "integer"
+                          },
+                          "updated_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "uuid_type": {
+                            "type": "string",
+                            "enum": [
+                              "CID",
+                              "UUID"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "campaign_id": 10000,
+                          "created_on": "2017-07-06T13:53:10.395836Z",
+                          "executor_id": 1,
+                          "high": 99,
+                          "low": 0,
+                          "model_id": "model_name",
+                          "namespace": "mm",
+                          "strategy_id": 1000,
+                          "updated_on": "2017-07-06T13:53:10.395836Z",
+                          "uuid_type": "CID"
+                        }
+                      ],
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_Executor",
+                          "message": "Executor with ID 1 not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaign_settings/{campaign_id}": {
+      "delete": {
+        "tags": [
+          "Campaign Settings"
+        ],
+        "summary": "Campaign Delete",
+        "description": "Delete a Campaign\n\nThere is no request body for this endpoint command.",
+        "operationId": "DELETE_campaign_settings-campaign_id",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "Campaign ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "campaign_id": {
+                            "type": "integer"
+                          },
+                          "created_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "executor_id": {
+                            "type": "integer"
+                          },
+                          "high": {
+                            "type": "integer"
+                          },
+                          "low": {
+                            "type": "integer"
+                          },
+                          "model_id": {
+                            "type": "string"
+                          },
+                          "namespace": {
+                            "type": "string"
+                          },
+                          "updated_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "uuid_type": {
+                            "type": "string",
+                            "enum": [
+                              "CID",
+                              "UUID"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "campaign_id": 10000,
+                          "created_on": "2017-07-07T11:20:10.92661Z",
+                          "executor_id": 2,
+                          "high": 99,
+                          "low": 0,
+                          "model_id": "model_name",
+                          "namespace": "mm",
+                          "updated_on": "2017-07-07T11:20:10.92661Z",
+                          "uuid_type": "CID"
+                        }
+                      ],
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_CampaignSetting",
+                          "message": "CampaignSetting with campaign_id(100000), strategy_id(0) not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Campaign Settings"
+        ],
+        "summary": "Campaign Create/Modify",
+        "description": "Configure BYOA functionality at a Campaign Level",
+        "operationId": "PUT_campaign_settings-campaign_id",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "Campaign ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PUT_campaign_settings-campaign_idBody"
+        },
+        "responses": {
+          "200": {
+            "description": "Example using cURL:\n\n```\n$ curl -X PUT \"https://api.byoa.mediamath.com/campaign_settings/999999\" \\\n  -d '{\n    \"settings\": [\n      {\n        \"executor_id\": 2,\n        \"high\": 99,\n        \"low\": 0,\n        \"model_id\": \"<ModelName>\",\n        \"namespace\": \"<OrganizationID>\"\n      }\n    ],\n    \"uuid_type\": \"UUID\"\n  }' \\\n  -H 'adama_session: <adama_session>'\n```\n\nNote that executor_id must be set to 2. This refers to the current version of the MediaMath BYOA Model executor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "campaign_id": {
+                            "type": "integer"
+                          },
+                          "created_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "executor_id": {
+                            "type": "integer"
+                          },
+                          "high": {
+                            "type": "integer"
+                          },
+                          "low": {
+                            "type": "integer"
+                          },
+                          "model_id": {
+                            "type": "string"
+                          },
+                          "namespace": {
+                            "type": "string"
+                          },
+                          "updated_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "uuid_type": {
+                            "type": "string",
+                            "enum": [
+                              "CID",
+                              "UUID"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "campaign_id": 315901,
+                          "created_on": "2017-07-05T09:22:16.862852Z",
+                          "executor_id": 2,
+                          "high": 99,
+                          "low": 0,
+                          "model_id": "model_name",
+                          "namespace": "101463",
+                          "updated_on": "2017-07-05T09:22:16.862852Z",
+                          "uuid_type": "CID"
+                        }
+                      ],
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "reason": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "JSON_Decode_Error"
+                        }
+                      ],
+                      "meta": {
+                        "reason": "Error during decoding JSON data",
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Campaign Settings"
+        ],
+        "summary": "Campaign Details",
+        "description": "Get details on BYOA settings for a campaign\n\nQuery parameters like page_limit and with and sort_by do not work",
+        "operationId": "GET_campaign_settings-campaign_id",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "description": "Campaign ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "campaign_id": {
+                            "type": "integer"
+                          },
+                          "created_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "executor_id": {
+                            "type": "integer"
+                          },
+                          "high": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 99
+                          },
+                          "low": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 99
+                          },
+                          "model_id": {
+                            "type": "string"
+                          },
+                          "namespace": {
+                            "type": "string"
+                          },
+                          "updated_on": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "uuid_type": {
+                            "type": "string",
+                            "enum": [
+                              "CID",
+                              "UUID"
+                            ],
+                            "format": "CID"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "campaign_id": 100001,
+                          "created_on": "2019-07-16T18:19:13.801517Z",
+                          "executor_id": 2,
+                          "high": 49,
+                          "low": 0,
+                          "model_id": "tree_brain",
+                          "namespace": "mm",
+                          "updated_on": "2019-07-16T18:19:13.801517Z",
+                          "uuid_type": "UUID"
+                        },
+                        {
+                          "campaign_id": 100001,
+                          "created_on": "2019-07-16T18:19:13.801517Z",
+                          "executor_id": 2,
+                          "high": 99,
+                          "low": 50,
+                          "model_id": "campaign_100001_tf",
+                          "namespace": "mm",
+                          "updated_on": "2019-07-16T18:19:13.801517Z",
+                          "uuid_type": "UUID"
+                        }
+                      ],
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_CampaignSetting",
+                          "message": "CampaignSetting with campaign_id(1), strategy_id(0) not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/data/{namespace}/models/{model_id}": {
+      "delete": {
+        "tags": [
+          "Custom Brain"
+        ],
+        "summary": "Model Data Delete",
+        "description": "Delete a model",
+        "operationId": "DELETE_data-namespace-models-model_id",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "description": "Model ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namespace",
+            "in": "path",
+            "description": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "created_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "data_size": {
+                          "type": "integer"
+                        },
+                        "updated_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "created_on": "2017-07-05T15:21:03.228289Z",
+                        "data_size": 30878,
+                        "updated_on": "2017-07-05T15:21:03.228289Z"
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_ModelData",
+                          "message": "ModelData with namespace(mm), model_id(fake_model) not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Custom Brain"
+        ],
+        "summary": "Model Data Details",
+        "description": "Get Model details",
+        "operationId": "GET_data-namespace-models-model_id",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "description": "Model ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namespace",
+            "in": "path",
+            "description": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Data parameter has been drastically shortened for this example.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "brain_type_id": {
+                          "type": "integer"
+                        },
+                        "created_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "Data": {
+                          "type": "string"
+                        },
+                        "model_id": {
+                          "type": "string"
+                        },
+                        "Namespace": {
+                          "type": "string"
+                        },
+                        "updated_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "brain_type_id": 3,
+                        "created_on": "2019-06-04T19:10:37.951112Z",
+                        "Data": "DAAA...",
+                        "model_id": "aggregate_2",
+                        "Namespace": "100667",
+                        "updated_on": "2019-08-17T16:13:35.445614Z"
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_ModelData",
+                          "message": "ModelData with namespace(mm), model_id(fake_model) not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Custom Brain"
+        ],
+        "summary": "Model Data Create/Modify",
+        "description": "Upload Model data",
+        "operationId": "PUT_data-namespace-models-model_id",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namespace",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "string"
+                  },
+                  "brain_type_id": {
+                    "type": "integer",
+                    "minimum": 1000,
+                    "maximum": 1004
+                  }
+                },
+                "required": [
+                  "data",
+                  "brain_type_id"
+                ]
+              }
+            }
+          },
+          "description": "Note: the data field in the example below has been radically shortened for space concerns"
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "created_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "data_size": {
+                          "type": "integer"
+                        },
+                        "updated_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "created_on": "2019-07-05T10:18:43.250498Z",
+                        "data_size": 2538,
+                        "updated_on": "2019-07-05T10:18:43.250498Z"
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/data/decode/{namespace}/models/{model_id}": {
+      "get": {
+        "tags": [
+          "Custom Brain"
+        ],
+        "summary": "Model Data Decode",
+        "description": "Get Model details",
+        "operationId": "GET_data-decode-namespace-models-model_id",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "description": "model ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namespace",
+            "in": "path",
+            "description": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Features (under Data under data) in the example below have been extremely abbreviated for easier readability.  GoalType (under Data) is case-insensitive.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "brain_type_id": {
+                          "type": "integer"
+                        },
+                        "created_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "Data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "Beta": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "Boundaries": {
+                                "nullable": true
+                              },
+                              "Features": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "VAR_NAME": {
+                                      "type": "number",
+                                      "description": "VAR_NAME changes with each entry.  The number tends to either be 0 or a Float64 close to 0 that goes over 10 digits past the right of the decimal."
+                                    }
+                                  }
+                                }
+                              },
+                              "GoalType": {
+                                "type": "string",
+                                "enum": [
+                                  "cpa",
+                                  "cpe",
+                                  "cpc",
+                                  "ctr",
+                                  "roi",
+                                  "vcr",
+                                  "vcpm",
+                                  "viewability_rate",
+                                  "CPA",
+                                  "CPE",
+                                  "CPC",
+                                  "ROI",
+                                  "VCR",
+                                  "VCPM",
+                                  "VIEWABILITY_RATE"
+                                ],
+                                "description": "Strategy Goal Type.  The values are case-insensitive."
+                              },
+                              "Predictions": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                },
+                                "nullable": true
+                              }
+                            }
+                          }
+                        },
+                        "model_id": {
+                          "type": "string"
+                        },
+                        "Namespace": {
+                          "type": "string"
+                        },
+                        "updated_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "brain_type_id": 3,
+                        "created_on": "2019-06-04T19:10:37.951112Z",
+                        "Data": [
+                          {
+                            "Beta": [
+                              -0.6969433426856995,
+                              0.001734119956381619,
+                              0.9618840217590332
+                            ],
+                            "Boundaries": null,
+                            "Features": [
+                              {
+                                "__const": 0.035219017416238785,
+                                "bidder_pixel_frequency^am:1013008": 0.08368363976478577,
+                                "bidder_pixel_frequency^am:1024846": -0.011259343475103378,
+                                "bidder_pixel_frequency^am:1024856": -0.03232333064079285,
+                                "video_skippability^0": 0.03521893545985222,
+                                "week_part^0": 0.041367363184690475,
+                                "week_part^1": -0.008225390687584877
+                              }
+                            ],
+                            "GoalType": "ctr",
+                            "Predictions": null
+                          },
+                          {
+                            "Beta": [
+                              -8.242341995239258,
+                              0.00010720000136643648,
+                              0.09820403158664703
+                            ],
+                            "Boundaries": null,
+                            "Features": [
+                              {
+                                "__const": -0.07225784659385681,
+                                "bidder_pixel_frequency^am:1013008": 0.02445729449391365,
+                                "bidder_pixel_frequency^am:1024846": 0.18239469826221466,
+                                "bidder_pixel_frequency^am:1024856": -0.08111409842967987,
+                                "video_skippability^0": -0.07225784659385681,
+                                "week_part^0": 0.17733316123485565,
+                                "week_part^1": -0.21395796537399292
+                              }
+                            ],
+                            "GoalType": "cpa",
+                            "Predictions": null
+                          }
+                        ],
+                        "model_id": "aggregate_2",
+                        "Namespace": "100667",
+                        "updated_on": "2019-08-17T16:13:35.445614Z"
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Not_Found_ModelData",
+                          "message": "ModelData with namespace(mm), model_id(fake_model) not found."
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/data/{namespace}": {
+      "get": {
+        "tags": [
+          "Custom Brain"
+        ],
+        "summary": "Model Data Details for Namespace",
+        "description": "Get all Models and data for a specific namespace",
+        "operationId": "GET_data-namespace",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "description": "namespace",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "model_id",
+            "in": "query",
+            "description": "Model ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The parameter Data had a very long value, which has been shortened for readabiltiy here.  Really the same as doing a GET /data/{namespace}/models/{model_id}.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "brain_type_id": {
+                          "type": "integer"
+                        },
+                        "created_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "Data": {
+                          "type": "string"
+                        },
+                        "model_id": {
+                          "type": "string"
+                        },
+                        "Namespace": {
+                          "type": "string"
+                        },
+                        "updated_on": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "success"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "brain_type_id": 3,
+                        "created_on": "2019-06-04T19:10:37.951112Z",
+                        "Data": "DAAA...",
+                        "model_id": "aggregate_2",
+                        "Namespace": "100667",
+                        "updated_on": "2019-08-17T16:13:35.445614Z"
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "Invalid_model_id",
+                          "message": "No valid model_id provided in query"
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/custombidrouter/{org_id}/configuration": {
+      "get": {
+        "tags": [
+          "Custom Bid Router"
+        ],
+        "summary": "Configuration Summary",
+        "description": "Get a summary of the service consisting of the defined executors, environments, and endpoints. This summary will help you identify that you have correctly configured all your endpoints for all the regions",
+        "operationId": "summary-bidvaluator-organization",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param-organization-id"
+          },
+          {
+            "name": "",
+            "in": "header",
+            "description": "_",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PUT_campaign_settings-campaign_idBody"
+        },
+        "responses": {
+          "200": {
+            "description": "VAR_NAME (under executors) can be any executor name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "emails": {
+                          "type": "string"
+                        },
+                        "executors": {
+                          "type": "object",
+                          "properties": {
+                            "VAR_NAME": {
+                              "type": "object",
+                              "properties": {
+                                "endpoints": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "brain_type_id": {
+                                        "type": "integer",
+                                        "minimum": 1000,
+                                        "maximum": 1004
+                                      },
+                                      "content_type": {
+                                        "type": "string",
+                                        "enum": [
+                                          "json",
+                                          "protobuf"
+                                        ]
+                                      },
+                                      "endpoint": {
+                                        "type": "string"
+                                      },
+                                      "endpoint_id": {
+                                        "type": "string"
+                                      },
+                                      "environment": {
+                                        "type": "string",
+                                        "enum": [
+                                          "sandbox",
+                                          "production"
+                                        ]
+                                      },
+                                      "logging": {
+                                        "type": "object",
+                                        "properties": {
+                                          "logging_enabled": {
+                                            "type": "boolean"
+                                          },
+                                          "s3_bucketname": {
+                                            "type": "string"
+                                          },
+                                          "s3_region": {
+                                            "type": "string"
+                                          },
+                                          "s3_role_arn": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "pop_ids": {
+                                        "type": "array",
+                                        "description": "Each pop_ids array entry must be 3 letters long",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "sample_rate": {
+                                        "type": "integer"
+                                      },
+                                      "upstream_enabled": {
+                                        "type": "boolean"
+                                      },
+                                      "endpoint_type": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "executor_id": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "ACME Org Production Executor": {
+                          "endpoints": [
+                            {
+                              "brain_type_id": 1003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-east-1.acme.co/bid/valuate",
+                              "endpoint_id": "01b0acd2-d627-472f-8abe-255e4298c078",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "ewr"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "bid"
+                            },
+                            {
+                              "brain_type_id": 1003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-west-2.acme.co/bid/valuate",
+                              "endpoint_id": "6a7f517c-6b03-4db9-baf1-dff3099fb81a",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "pao"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "bid"
+                            },
+                            {
+                              "brain_type_id": 2003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-east-2.acme.co/win/win_notice",
+                              "endpoint_id": "eb5105f8-4551-462b-a122-fbb5581ef4b9",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "ord"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "win"
+                            }
+                          ],
+                          "executor_id": 4
+                        }
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "error"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "errors": [
+                        {
+                          "code": "No Adama write permission for namespace",
+                          "message": "Error in authentication"
+                        }
+                      ],
+                      "meta": {
+                        "status": "error"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    },
+    "/custombidrouter/{org_id}/executors/{executor_id}": {
+      "get": {
+        "tags": [
+          "Custom Bid Router"
+        ],
+        "summary": "Executor Details",
+        "description": "The details of the Custom Bid Router executor and all attached Endpoints\n",
+        "operationId": "GET-executor-details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param-executor-id"
+          },
+          {
+            "$ref": "#/components/parameters/param-organization-id"
+          },
+          {
+            "$ref": "#/components/parameters/param-executor-id"
+          },
+          {
+            "$ref": "#/components/parameters/param-organization-id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "VAR_NAME is variable, the name of an executor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "VAR_NAME": {
+                          "type": "object",
+                          "properties": {
+                            "endpoints": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "brain_type_id": {
+                                    "type": "integer"
+                                  },
+                                  "content_type": {
+                                    "type": "string"
+                                  },
+                                  "endpoint": {
+                                    "type": "string"
+                                  },
+                                  "endpoint_id": {
+                                    "type": "string"
+                                  },
+                                  "environment": {
+                                    "type": "string"
+                                  },
+                                  "logging": {
+                                    "type": "object",
+                                    "properties": {
+                                      "logging_enabled": {
+                                        "type": "boolean"
+                                      }
+                                    }
+                                  },
+                                  "pop_ids": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "sample_rate": {
+                                    "type": "integer"
+                                  },
+                                  "upstream_enabled": {
+                                    "type": "boolean"
+                                  },
+                                  "endpoint_type": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "executor_id": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "ACME Org Production Executor": {
+                          "endpoints": [
+                            {
+                              "brain_type_id": 1003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-east-1.acme.co/bid/valuate",
+                              "endpoint_id": "01b0acd2-d627-472f-8abe-255e4298c078",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "ewr"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "bid"
+                            },
+                            {
+                              "brain_type_id": 1003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-west-2.acme.co/bid/valuate",
+                              "endpoint_id": "6a7f517c-6b03-4db9-baf1-dff3099fb81a",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "pao"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "bid"
+                            },
+                            {
+                              "brain_type_id": 2003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-east-2.acme.co/win/win_notice",
+                              "endpoint_id": "eb5105f8-4551-462b-a122-fbb5581ef4b9",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "ord"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "win"
+                            }
+                          ],
+                          "executor_id": 4
+                        }
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Custom Bid Router"
+        ],
+        "summary": "Executor Update",
+        "description": "The sample rate defines the percentage of the bid opportunities that are forwarded to your endpoints. The sample rate can be adjusted by the client collectively for all endpoints of an executor. This feature is useful to manage and budget system utilization.",
+        "operationId": "PATCH-executor-details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param-executor-id"
+          },
+          {
+            "$ref": "#/components/parameters/param-organization-id"
+          },
+          {
+            "name": "executor_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sample_rate": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "description": "_"
+        },
+        "responses": {
+          "200": {
+            "description": "VAR_NAME is variable, the name of an executor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "VAR_NAME": {
+                          "type": "object",
+                          "properties": {
+                            "endpoints": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "brain_type_id": {
+                                    "type": "integer"
+                                  },
+                                  "content_type": {
+                                    "type": "string"
+                                  },
+                                  "endpoint": {
+                                    "type": "string"
+                                  },
+                                  "endpoint_id": {
+                                    "type": "string"
+                                  },
+                                  "environment": {
+                                    "type": "string"
+                                  },
+                                  "logging": {
+                                    "type": "object",
+                                    "properties": {
+                                      "logging_enabled": {
+                                        "type": "boolean"
+                                      }
+                                    }
+                                  },
+                                  "pop_ids": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "sample_rate": {
+                                    "type": "integer"
+                                  },
+                                  "upstream_enabled": {
+                                    "type": "boolean"
+                                  },
+                                  "endpoint_type": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "executor_id": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "ACME Org Production Executor": {
+                          "endpoints": [
+                            {
+                              "brain_type_id": 1003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-east-1.acme.co/bid/valuate",
+                              "endpoint_id": "01b0acd2-d627-472f-8abe-255e4298c078",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "ewr"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "bid"
+                            },
+                            {
+                              "brain_type_id": 1003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-west-2.acme.co/bid/valuate",
+                              "endpoint_id": "6a7f517c-6b03-4db9-baf1-dff3099fb81a",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "pao"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "bid"
+                            },
+                            {
+                              "brain_type_id": 2003,
+                              "content_type": "protobuf",
+                              "endpoint": "http://bid-handler-prod-us-east-2.acme.co/win/win_notice",
+                              "endpoint_id": "eb5105f8-4551-462b-a122-fbb5581ef4b9",
+                              "environment": "production",
+                              "logging": {
+                                "logging_enabled": false
+                              },
+                              "pop_ids": [
+                                "ord"
+                              ],
+                              "sample_rate": 100,
+                              "upstream_enabled": true,
+                              "endpoint_type": "win"
+                            }
+                          ],
+                          "executor_id": 4
+                        }
+                      },
+                      "meta": {
+                        "status": "success"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": []
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Campaign Settings",
+      "description": "BYOA (Bring Your Own Algorithm) allows advertisers to apply their own bidding algorithms within MediaMath. The participating campaigns and strategies are configured with the BYOA Campaign Settings "
+    },
+    {
+      "name": "Custom Bid Router",
+      "description": "Custom Bid Router further extends the BYOA architecture allowing advertisers to apply their own bidding algorithms in their own ecosystem. The MediaMath system will invoke an external call to the client with the bid request and await a response that MediaMath can use in our internal auction. Forwarded bid requests adhere to OpenRTB v2.4 format and may be enriched with certain information such as segment membership and pixel recency."
+    },
+    {
+      "name": "Custom Brain",
+      "description": "In Customized Brain, the client uses the BYOA API to upload a set of logistic coefficients corresponding to any of the variables currently in use by the MediaMath Brain. These coefficients will then be used by participating strategies to calculate the predicted response rate for each impression. The bidder will calculate bid price by multiplying the predicted response rate by the strategy's goal value. Goal values can be modified using the T1 campaign management API."
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.byoa.mediamath.com"
+    }
+  ],
+  "components": {
+    "parameters": {
+      "param-organization-id": {
+        "name": "org_id",
+        "in": "path",
+        "description": "Your organization ID",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "param-endpoint-id": {
+        "name": "endpoint_id",
+        "in": "path",
+        "description": "An endpoint referenced by its UUID  ",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "param-executor-id": {
+        "name": "executor_id",
+        "in": "path",
+        "description": "The Executor ID identifies an Executor which provide a logical grouping for your Bid Valuation endpoints which are then applied to specific campaigns",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "param-pop-id": {
+        "name": "pop_id",
+        "in": "path",
+        "description": "POP ID",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3,
+          "enum": [
+            "ewr",
+            "ord",
+            "pao",
+            "zrh",
+            "ams",
+            "hkg",
+            "nrt"
+          ]
+        }
+      }
+    },
+    "responses": {
+      "bidvaluator-response-endpoint": {
+        "description": "Response of a created or modified BidValuator Endpoint",
+        "content": {
+          "*/*": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created_on": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "endpoint": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "endpoint_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "environment": {
+                      "type": "string",
+                      "enum": [
+                        "sandbox",
+                        "production"
+                      ]
+                    },
+                    "pop_ids": {
+                      "type": "array",
+                      "description": "Each pop_ids array entry must be 3 letters long",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "sample_rate": {
+                      "type": "integer"
+                    },
+                    "updated_on": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "upstream_enabled": {
+                      "type": "boolean"
+                    },
+                    "endpoint_type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "success"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/json": {
+            "examples": {
+              "response": {
+                "value": {
+                  "data": {
+                    "created_on": "2019-02-18T23:04:06.65533Z",
+                    "endpoint": "https://byoa-useast.mediamath.com",
+                    "endpoint_id": "23ba4a90-d331-4ab2-bb00-2f27f174d36c",
+                    "environment": "sandbox",
+                    "pop_ids": [
+                      "ewr",
+                      "ord"
+                    ],
+                    "sample_rate": 100,
+                    "updated_on": "2019-02-18T23:04:06.65533Z",
+                    "upstream_enabled": false,
+                    "endpoint_type": "bid"
+                  },
+                  "meta": {
+                    "status": "success"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "bidvaluator-response-executor-create": {
+        "description": "The Executor ID returned in the response is how this executor is identified when used in subsequent API requests.",
+        "content": {
+          "*/*": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created_on": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "executor_id": {
+                      "type": "integer"
+                    },
+                    "executor_name": {
+                      "type": "string"
+                    },
+                    "updated_on": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "success"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/json": {
+            "examples": {
+              "response": {
+                "value": {
+                  "data": {
+                    "created_on": "2019-02-18T14:10:17.078983Z",
+                    "executor_id": 9,
+                    "executor_name": "ACME Org Production Executor",
+                    "updated_on": "2019-02-18T14:10:17.078983Z"
+                  },
+                  "meta": {
+                    "status": "success"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "bidvaluator-response-executor": {
+        "description": "The Executor and attached endpoints",
+        "content": {
+          "*/*": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "created_on": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "endpoint_ids": {
+                      "type": "array",
+                      "format": "uuid",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "executor_name": {
+                      "type": "string"
+                    },
+                    "updated_on": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "success"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/json": {
+            "examples": {
+              "response": {
+                "value": {
+                  "data": {
+                    "created_on": "2019-02-18T14:10:17.078983Z",
+                    "endpoint_ids": [
+                      "1629547c-50e7-485a-ae1b-b30617711763"
+                    ],
+                    "executor_name": "ACME Org Production Executor",
+                    "updated_on": "2019-02-18T14:10:17.078983Z"
+                  },
+                  "meta": {
+                    "status": "success"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "PUT_campaign_settings-campaign_idBody": {
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        },
+        "description": "_"
+      }
+    },
+    "securitySchemes": {
+      "adama-session-header": {
+        "type": "apiKey",
+        "description": "Authentication is provided through OAuth2. You'll need to request a Client ID and Secret key.\n\nAfter Authentication is established make a request to https://api.mediamath.com/api/v2.0/session with the Authorization:\"Bearer ACCESS_TOKEN header, and copy the adama_session cookie header from the response. Use both the Authorization:\"Bearer ACCESS_TOKEN\" header and adama_session= cookie in all future requests",
+        "name": "adama_session",
+        "in": "header"
+      },
+      "oauth2": {
+        "type": "oauth2",
+        "description": "exchange an Authorization Code for a Token",
+        "flows": {
+          "password": {
+            "tokenUrl": "https://auth.mediamath.com/oath/token",
+            "scopes": {}
+          }
+        }
+      }
+    }
+  }
+}

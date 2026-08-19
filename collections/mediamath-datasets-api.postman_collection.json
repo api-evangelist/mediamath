@@ -1,0 +1,2577 @@
+{
+  "item": [
+    {
+      "id": "c088d97f-d6ab-4bb3-a547-ef80ac769452",
+      "name": "Datasets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6096f1f-0fd6-40d5-a2a5-0de123feeee3",
+          "name": "All Dimensions and Metrics",
+          "request": {
+            "name": "All Dimensions and Metrics",
+            "description": {
+              "content": "\nStandard performance metrics in campaign currency and broken out by our widest array of dimensions.\nAvailable in custom date ranges or intervals with the option to aggregate by day, week, or month.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`|`by_day`, `by_week`, `by_month`|\n|`ads_txt_type`<br>Ads.txt Type|Any|Any|\n|`ads_txt_verified`<br>Ads.txt Verified|Any|Any|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`app_id`<br>|Any|Any|\n|`app_name`<br>|Any|Any|\n|`app_store`<br>|Any|Any|\n|`auction_type`<br>|Any|Any|\n|`bid_price_impact`<br>|Any|Any|\n|`browser`<br>|Any|Any|\n|`browser_version`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`channel_type`<br>|Any|Any|\n|`city_id`<br>|Any|Any|\n|`city_name`<br>|Any|Any|\n|`concept_id`<br>|Any|Any|\n|`concept_name`<br>|Any|Any|\n|`conn_speed_id`<br>Connection Speed|Any|Any|\n|`conn_speed_name`<br>|Any|Any|\n|`content_title`<br>|Any|Any|\n|`country_id`<br>|Any|Any|\n|`country_name`<br>|Any|Any|\n|`creative_id`<br>|Any|Any|\n|`creative_is_native`<br>|Any|Any|\n|`creative_name`<br>|Any|Any|\n|`creative_size`<br>|Any|Any|\n|`creative_tpas_placement_id`<br>|Any|Any|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`device_make`<br>|Any|Any|\n|`device_model`<br>|Any|Any|\n|`dma_id`<br>|Any|Any|\n|`dma_name`<br>|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`flight_id`<br>|Any|Any|\n|`form_factor`<br>Device Type|Any|Any|\n|`inventory_browser_type`<br>|Any|Any|\n|`inventory_market_type`<br>|Any|Any|\n|`isp_id`<br>|Any|Any|\n|`isp_name`<br>|Any|Any|\n|`media_name`<br>|Any|Any|\n|`mm_buying_modality`<br>Buying Modality|Any|Any|\n|`openrtb_device_type`<br>OpenRTB Device Type|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`os_type`<br>OS Type|Any|Any|\n|`os_version`<br>OS Version|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`postal_code_id`<br>|Any|Any|\n|`postal_code_name`<br>|Any|Any|\n|`primary_seller_id`<br>|Any|Any|\n|`primary_seller_name`<br>|Any|Any|\n|`prisma_campaign_id`<br>|Any|Any|\n|`prisma_campaign_name`<br>|Any|Any|\n|`prisma_client_product_estimate`<br>|Any|Any|\n|`prisma_io_number`<br>|Any|Any|\n|`publisher_id`<br>|Any|Any|\n|`publisher_name`<br>|Any|Any|\n|`region_id`<br>|Any|Any|\n|`region_name`<br>|Any|Any|\n|`site_domain`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|`video_placement`<br>|Any|Any|\n|`video_skippability`<br>|Any|Any|\n|**Metrics**|\n|`calculated_impressions`<br>|Any|Any|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`in_view`<br>In View Impressions|Any|Any|\n|`in_view_100_percent`<br>100% In View Impressions|Any|Any|\n|`in_view_15_seconds`<br>In View - 15 Seconds|Any|Any|\n|`in_view_15_seconds_rate`<br>In View 15 Seconds Rate|Any|Any|\n|`in_view_5_seconds`<br>In View - 5 Seconds|Any|Any|\n|`in_view_5_seconds_rate`<br>In View 5 Seconds Rate|Any|Any|\n|`in_view_q1`<br>|Any|Any|\n|`in_view_q2`<br>|Any|Any|\n|`in_view_q3`<br>|Any|Any|\n|`in_view_q4`<br>|Any|Any|\n|`measurability_rate`<br>Measurability Rate|Any|Any|\n|`measurable`<br>Measurable Impressions|Any|Any|\n|`media_cost_non_watermark_usd`<br>Non-Watermark Media Cost (USD)|Any|Any|\n|`media_cost_watermark_usd`<br>Watermark Media Cost (USD)|Any|Any|\n|`non_watermark_impressions`<br>Non-Watermark Impressions|Any|Any|\n|`post_click_aov`<br>Post-Click AOV|Any|Any|\n|`post_click_aov_usd`<br>(USD) Post-Click AOV|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_click_revenue`<br>Post-Click Revenue|Any|Any|\n|`post_click_revenue_usd`<br>(USD) Post-Click Revenue|Any|Any|\n|`post_click_total_spend_roi`<br>Post-Click Total Spend ROI|Any|Any|\n|`post_view_aov`<br>Post-View AOV|Any|Any|\n|`post_view_aov_usd`<br>(USD) Post-View AOV|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`post_view_revenue`<br>Post-View Revenue|Any|Any|\n|`post_view_revenue_usd`<br>(USD) Post-View Revenue|Any|Any|\n|`post_view_total_spend_roi`<br>Post-View Total Spend ROI|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_aov`<br>Total AOV|Any|Any|\n|`total_aov_usd`<br>(USD) Total AOV|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_revenue`<br>|Any|Any|\n|`total_revenue_usd`<br>(USD) Total Revenue|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpa_usd`<br>(USD) Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpc_usd`<br>(USD) Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpcv_usd`<br>(USD) Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_cpm_usd`<br>(USD) Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pc_cpa_usd`<br>(USD) Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`total_spend_pv_cpa_usd`<br>(USD) Total Spend PV CPA|Any|Any|\n|`total_spend_roi`<br>Total Spend ROI|Any|Any|\n|`total_spend_usd`<br>(USD) Total Spend|Any|Any|\n|`total_spend_vcpm`<br>Total Spend vCPM |Any|Any|\n|`total_spend_vcpm_usd`<br>(USD) Total Spend vCPM |Any|Any|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_complete_rate_impression_based`<br>100% Completed Rate - Impressions Based|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_first_quartile_rate_impression_based`<br>25% Completed Rate - Impressions Based|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_midpoint_rate_impression_based`<br>50% Completed Rate - Impressions Based|Any|Any|\n|`video_mute`<br>Mute|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_third_quartile_rate_impression_based`<br>75% Completed Rate - Impressions Based|Any|Any|\n|`video_unmute`<br>Unmute|Any|Any|\n|`viewability_rate`<br>Viewability Rate|Any|Any|\n|`viewability_rate_100_percent`<br>100% In View Rate|Any|Any|\n|`watermark_impressions`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_days`, `yesterday`, `month_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n3 years\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "all-dimensions-and-metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6bd036ca-b625-460e-9c99-febcfd5f37b5",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all-dimensions-and-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26c7ac61-11db-486c-a934-c3116a3dc1c7",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all-dimensions-and-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46fd5f77-5797-4aca-8c61-27fc775a626c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all-dimensions-and-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22b139dc-ea10-48f3-8fa9-7b05110e9392",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all-dimensions-and-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4fd9dc0e-fc4c-4dcd-bf0f-1c1bee54ac61",
+          "name": "Brain Feature Summary",
+          "request": {
+            "name": "Brain Feature Summary",
+            "description": {
+              "content": "\nBrain Feature Summary Report\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`yesterday`, `last_X_days`, `month_to_date`|`by_day`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`feature`<br>|Any|Any|\n|`index`<br>|Any|Any|\n|`model_goal`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`position`<br>|Any|Any|\n|**Metrics**|\n\n### Pageable\nYes\n\n### Time Windows\n`yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`by_day`\n\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "brain-feature-summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a040639-5b6b-4ec6-a74c-9d5b6675040a",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9c3d683-e108-481f-b262-f7c5c64d7707",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffe3cc9e-339d-4995-85e2-be94b0887639",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd73427c-0f54-4ae0-a246-cdda8245df30",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4fba6d37-7958-446f-85b7-64cd5ad94128",
+          "name": "Brain Feature Value",
+          "request": {
+            "name": "Brain Feature Value",
+            "description": {
+              "content": "\nBrain Feature Value Report\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`yesterday`, `last_X_days`, `month_to_date`|`by_day`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`bid_impact`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`feature`<br>|Any|Any|\n|`feature_report_type`<br>|Any|Any|\n|`feature_value`<br>|Any|Any|\n|`index`<br>|Any|Any|\n|`is_numeric`<br>|Any|Any|\n|`mean`<br>|Any|Any|\n|`model_goal`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`position`<br>|Any|Any|\n|**Metrics**|\n\n### Pageable\nYes\n\n### Time Windows\n`yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`by_day`\n\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "brain-feature-value"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a5035e5-ef09-4cd1-be9e-e93e877af6a8",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8866af68-dc23-4a9f-9eb4-b425891d424c",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bf2cb45-8e2b-497e-a7ff-df8c1f3d3088",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "718df562-5c7d-4ad7-a3cf-67bf6c4aa551",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain-feature-value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ea04e3e-b999-4214-abb3-6afc85c91cdf",
+          "name": "Day Part",
+          "request": {
+            "name": "Day Part",
+            "description": {
+              "content": "\nStandard performance metrics broken out by time of day and day of week. Available in standard intervals.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`day_part_id`<br>Day Part ID|Any|Any|\n|`day_part_name`<br>Day Part in the User's Timezone|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|`week_day_id`<br>Weekday ID|Any|Any|\n|`week_day_name`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_mute`<br>Mute|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_unmute`<br>Unmute|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n1 year and CTD\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "day-part"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7db85ca4-5fc0-4c15-8ee3-2ca6519e6df4",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "day-part"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dac5f4e9-da29-40f8-967d-2b11b51317cb",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "day-part"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "583cc570-22fc-4579-a883-b68610e4d568",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "day-part"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d35decb7-783b-46ce-856f-199a03b138ae",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "day-part"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "319fd8dc-7c5a-445e-82f3-aa2fa05b3f7b",
+          "name": "Deals",
+          "request": {
+            "name": "Deals",
+            "description": {
+              "content": "\n\nMetrics that describe the path from a matched bid opportunity (biddable) to a delivered impression (win) for private marketplace deals. \nThe data is stored in UTC timezone and is available by hour.\n\n**NOTE: this dataset requires the use of filter `organization_id` with exactly 1 value, and `deal_id` with at least 1 value.**\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `last_X_days`, `yesterday`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|**Metrics**|\n|`bid_rate`<br>|Any|Any|\n|`biddables`<br>|Any|Any|\n|`bids`<br>|Any|Any|\n|`matches`<br>|Any|Any|\n|`win_rate`<br>|Any|Any|\n|`wins`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`all`, `by_hour`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n1 year\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "61eb4630-1448-424b-be6b-e503f363c347",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83d953b2-277e-4eb5-a5b2-96728b23c290",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "048d47f3-69b1-4c3b-9895-50c9812aa4d1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3983f387-5c49-4309-acaf-81c1a10f4a1c",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3edd8fc1-aa61-4230-b269-cffdf7621a64",
+          "name": "Performance",
+          "request": {
+            "name": "Performance",
+            "description": {
+              "content": "\nStandard Aggregated Performance Report in Campaign Currency\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`concept_id`<br>|Any|Any|\n|`concept_name`<br>|Any|Any|\n|`creative_id`<br>|Any|Any|\n|`creative_is_native`<br>|Any|Any|\n|`creative_name`<br>|Any|Any|\n|`creative_size`<br>|Any|Any|\n|`creative_tpas_placement_id`<br>|Any|Any|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`flight_id`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`prisma_campaign_id`<br>|Any|Any|\n|`prisma_campaign_name`<br>|Any|Any|\n|`prisma_client_product_estimate`<br>|Any|Any|\n|`prisma_io_number`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`in_view`<br>In View Impressions|Any|Any|\n|`in_view_100_percent`<br>100% In View Impressions|Any|Any|\n|`in_view_15_seconds`<br>|Any|Any|\n|`in_view_15_seconds_rate`<br>|Any|Any|\n|`in_view_5_seconds`<br>|Any|Any|\n|`in_view_5_seconds_rate`<br>|Any|Any|\n|`in_view_q1`<br>|Any|Any|\n|`in_view_q2`<br>|Any|Any|\n|`in_view_q3`<br>|Any|Any|\n|`in_view_q4`<br>|Any|Any|\n|`measurability_rate`<br>Measurability Rate|Any|Any|\n|`measurable`<br>Measurable Impressions|Any|Any|\n|`post_click_aov`<br>Post-Click AOV|Any|Any|\n|`post_click_aov_usd`<br>(USD) Post-Click AOV|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_click_revenue`<br>Post-Click Revenue|Any|Any|\n|`post_click_revenue_usd`<br>|Any|Any|\n|`post_click_total_spend_roi`<br>Post-Click Total Spend ROI|Any|Any|\n|`post_view_aov`<br>Post-View AOV|Any|Any|\n|`post_view_aov_usd`<br>(USD) Post-View AOV|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`post_view_revenue`<br>Post-View Revenue|Any|Any|\n|`post_view_revenue_usd`<br>(USD) Post-View Revenue|Any|Any|\n|`post_view_total_spend_roi`<br>Post-View Total Spend ROI|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_aov`<br>Total AOV|Any|Any|\n|`total_aov_usd`<br>(USD) Total AOV|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_revenue`<br>|Any|Any|\n|`total_revenue_usd`<br>|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpa_usd`<br>(USD) Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpc_usd`<br>(USD) Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpcv_usd`<br>(USD) Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_cpm_usd`<br>(USD) Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pc_cpa_usd`<br>(USD) Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`total_spend_pv_cpa_usd`<br>(USD) Total Spend PV CPA|Any|Any|\n|`total_spend_roi`<br>Total Spend ROI|Any|Any|\n|`total_spend_usd`<br>|Any|Any|\n|`total_spend_vcpm`<br>Total Spend vCPM|Any|Any|\n|`total_spend_vcpm_usd`<br>(USD) Total Spend vCPM|Any|Any|\n|`uniques`<br>|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`all`, `by_day`, `by_week`, `by_month`|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_complete_rate_impression_based`<br>VCR (Impression Based)|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_first_quartile_rate_impression_based`<br>25% Completed Rate - Impressions Based|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_midpoint_rate_impression_based`<br>50% Completed Rate - Impressions Based|Any|Any|\n|`video_mute`<br>|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_third_quartile_rate_impression_based`<br>75% Completed Rate - Impressions Based|Any|Any|\n|`video_unmute`<br>|Any|Any|\n|`viewability_rate`<br>Viewability Rate|Any|Any|\n|`viewability_rate_100_percent`<br>100% In View Rate|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_days`, `yesterday`, `month_to_date`, `campaign_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\nSince 2013\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "performance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5cd6a77a-34c1-4bff-9ab8-36adc2f6eebd",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a07fd509-2f2a-4b71-9b89-3950fc7639a4",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d06ac0bc-7349-4afc-bdb9-09f3622ecda0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b1e9f4b-188b-4ec3-b949-0dccc372d6bf",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7b51456-98bb-4689-af70-c424ac43f3f3",
+          "name": "Performance Hourly",
+          "request": {
+            "name": "Performance Hourly",
+            "description": {
+              "content": "\nStandard Aggregated Performance Report in Campaign Currency\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`flight_id`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`prisma_campaign_id`<br>|Any|Any|\n|`prisma_campaign_name`<br>|Any|Any|\n|`prisma_client_product_estimate`<br>|Any|Any|\n|`prisma_io_number`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`in_view`<br>In View Impressions|Any|Any|\n|`in_view_100_percent`<br>100% In View Impressions|Any|Any|\n|`in_view_15_seconds`<br>|Any|Any|\n|`in_view_15_seconds_rate`<br>|Any|Any|\n|`in_view_5_seconds`<br>|Any|Any|\n|`in_view_5_seconds_rate`<br>|Any|Any|\n|`measurability_rate`<br>Measurability Rate|Any|Any|\n|`measurable`<br>Measurable Impressions|Any|Any|\n|`post_click_aov`<br>Post-Click AOV|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_click_revenue`<br>Post-Click Revenue|Any|Any|\n|`post_click_revenue_usd`<br>|Any|Any|\n|`post_click_total_spend_roi`<br>Post-Click Total Spend ROI|Any|Any|\n|`post_view_aov`<br>Post-View AOV|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`post_view_revenue`<br>Post-View Revenue|Any|Any|\n|`post_view_total_spend_roi`<br>Post-View Total Spend ROI|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_aov`<br>Total AOV|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`total_revenue`<br>|Any|Any|\n|`total_spend`<br>|Any|Any|\n|`total_spend_cpa`<br>Total Spend eCPA|Any|Any|\n|`total_spend_cpc`<br>Total Spend eCPC|Any|Any|\n|`total_spend_cpcv`<br>Total Spend eCPCV|Any|Any|\n|`total_spend_cpm`<br>Total Spend eCPM|Any|Any|\n|`total_spend_pc_cpa`<br>Total Spend PC CPA|Any|Any|\n|`total_spend_pv_cpa`<br>Total Spend PV CPA|Any|Any|\n|`total_spend_roi`<br>Total Spend ROI|Any|Any|\n|`total_spend_usd`<br>|Any|Any|\n|`total_spend_vcpm`<br>Total Spend vCPM |Any|Any|\n|`video_close`<br>Close|Any|Any|\n|`video_collapse`<br>Collapse|Any|Any|\n|`video_companion_clicks`<br>Companion Clicks|Any|Any|\n|`video_companion_ctr`<br>Companion CTR|Any|Any|\n|`video_companion_impressions`<br>Companion Impressions|Any|Any|\n|`video_complete`<br>100% Completed Views|Any|Any|\n|`video_complete_rate`<br>100% Completed Rate|Any|Any|\n|`video_complete_rate_impression_based`<br>VCR (Impression Based)|Any|Any|\n|`video_engaged_impressions`<br>Engaged Impressions|Any|Any|\n|`video_engaged_rate`<br>Engaged Rate|Any|Any|\n|`video_expand`<br>Expand|Any|Any|\n|`video_first_quartile`<br>25% Completed Views|Any|Any|\n|`video_first_quartile_rate`<br>25% Completed Rate|Any|Any|\n|`video_first_quartile_rate_impression_based`<br>25% Completed Rate - Impressions Based|Any|Any|\n|`video_fullscreen`<br>Fullscreen|Any|Any|\n|`video_midpoint`<br>50% Completed Views|Any|Any|\n|`video_midpoint_rate`<br>50% Completed Rate|Any|Any|\n|`video_midpoint_rate_impression_based`<br>50% Completed Rate - Impressions Based|Any|Any|\n|`video_mute`<br>|Any|Any|\n|`video_pause`<br>Pause|Any|Any|\n|`video_play_rate`<br>Play Rate|Any|Any|\n|`video_resume`<br>Resume|Any|Any|\n|`video_rewind`<br>Rewind|Any|Any|\n|`video_skip`<br>Skip|Any|Any|\n|`video_skippable_impressions`<br>Skippable Impressions|Any|Any|\n|`video_skipped_impressions`<br>Skipped Impressions|Any|Any|\n|`video_skipped_rate`<br>Skipped Rate|Any|Any|\n|`video_start`<br>Start|Any|Any|\n|`video_third_quartile`<br>75% Completed Views|Any|Any|\n|`video_third_quartile_rate`<br>75% Completed Rate|Any|Any|\n|`video_third_quartile_rate_impression_based`<br>75% Completed Rate - Impressions Based|Any|Any|\n|`video_unmute`<br>|Any|Any|\n|`viewability_rate`<br>Viewability Rate|Any|Any|\n|`viewability_rate_100_percent`<br>100% In View Rate|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_hours`, `last_X_days`, `yesterday`, `month_to_date`\n\n### Rollups\n`all`, `by_hour`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n90 days\n### Time Zones\n`UTC`, `campaign`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "performance-hourly"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18f49093-f41d-479f-82d7-8a607d985a0b",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance-hourly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c32d88d8-0242-4a19-ae7a-78352cdc8f7f",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance-hourly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4feaf2d-bf0a-4ccd-ae3f-d7ed7a5e219c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance-hourly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8b57513-9c9c-4925-b755-b90dd576e438",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance-hourly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d2a2550-6e56-407b-96fe-b0e15f37d8b0",
+          "name": "Pixel Loads",
+          "request": {
+            "name": "Pixel Loads",
+            "description": {
+              "content": "\nLoads and Uniques metrics for `data` and `event` pixels, broken out by referrer and referrer rank, available by day.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`pixel_cost_cpm`<br>|Any|Any|\n|`pixel_cost_cpts`<br>|Any|Any|\n|`pixel_cost_pct_cpm`<br>|Any|Any|\n|`pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`pixel_currency`<br>|Any|Any|\n|`pixel_currency_fixed`<br>|Any|Any|\n|`pixel_eligible`<br>|Any|Any|\n|`pixel_external_identifier`<br>|Any|Any|\n|`pixel_id`<br>|Any|Any|\n|`pixel_name`<br>|Any|Any|\n|`pixel_pricing`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_execution_by`<br>|Any|Any|\n|`pixel_provider_id`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_provider_tax`<br>|Any|Any|\n|`pixel_provider_status`<br>|Any|Any|\n|`pixel_provider_taxonomy_file`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_provider_vendor_id`<br>|Any|Any|\n|`pixel_rmx_conversion_minutes`<br>|Any|Any|\n|`pixel_rmx_conversion_type`<br>|Any|Any|\n|`pixel_rmx_friendly`<br>|Any|Any|\n|`pixel_rmx_merit`<br>|Any|Any|\n|`pixel_rmx_pc_window_minutes`<br>|Any|Any|\n|`pixel_rmx_pv_window_minutes`<br>|Any|Any|\n|`pixel_segment_op`<br>|Any|Any|\n|`pixel_status`<br>|Any|Any|\n|`pixel_tag_type`<br>|Any|Any|\n|`pixel_tags`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`provider_id`<br>|Any|Any|\n|`referrer`<br>|Any|Any|\n|`referrer_rank`<br>|Any|Any|\n|**Metrics**|\n|`loads`<br>|Any|Any|\n|`uniques`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`all`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n90 days\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pixel-loads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6b69096e-a32f-42fa-b1ac-cca517f8802d",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pixel-loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66fb047e-255b-48c0-a1a4-33c0d77d6108",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pixel-loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcc179d6-39a1-4ec8-880c-f3ced7e4095b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pixel-loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e47e5ce-3651-4909-b726-899538a317ee",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pixel-loads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_day\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad40bc71-d78b-470d-a5e1-b8cf35b52e40",
+          "name": "Reach and Frequency",
+          "request": {
+            "name": "Reach and Frequency",
+            "description": {
+              "content": "\nBasic performance metrics as well as the \"uniques\" metric, broken out by frequency of ad exposure.  Available in standard intervals.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`frequency`<br>number of impressions seen by a unique user|Any|Any|\n|`frequency_bin`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`clicks`<br>|Any|Any|\n|`ctc`<br>CTC|Any|Any|\n|`ctr`<br>CTR|Any|Any|\n|`general_invalid_clicks`<br>|Any|Any|\n|`impressions`<br>|Any|Any|\n|`post_click_conversions`<br>Post-Click Conversions|Any|Any|\n|`post_view_conversions`<br>Post-View Conversions|Any|Any|\n|`rr_per_1k_imps`<br>Response Rate/1K Imps|Any|Any|\n|`total_clicks`<br>|Any|Any|\n|`total_conversions`<br>|Any|Any|\n|`uniques`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`yesterday`, `last_7_days`, `last_14_days`, `last_30_days`, `last_60_days`, `last_90_days`\n\n### Rollups\n`all`\n\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reach-frequency"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": [\n    \"<string>\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"filters\": [\n        {\n          \"field\": \"<string>\",\n          \"filters\": [\n            \"<object>\",\n            \"<object>\"\n          ],\n          \"op\": \"=\",\n          \"value\": \"<integer>\"\n        },\n        {\n          \"field\": \"<string>\",\n          \"filters\": [\n            \"<object>\",\n            \"<object>\"\n          ],\n          \"op\": \"=\",\n          \"value\": \"<integer>\"\n        }\n      ],\n      \"op\": \"=\",\n      \"value\": \"<integer>\"\n    }\n  ],\n  \"rollup\": \"<string>\",\n  \"time_window\": \"<string>\",\n  \"full_entities\": [\n    \"<string>\"\n  ],\n  \"max_results\": \"<integer>\",\n  \"order\": [\n    {\n      \"field\": \"<string>\",\n      \"desc\": false,\n      \"nulls_last\": false\n    },\n    {\n      \"field\": \"<string>\",\n      \"desc\": false,\n      \"nulls_last\": false\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": \"<integer>\",\n    \"page_size\": \"<integer>\"\n  },\n  \"time_zone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "481fc7b0-2f8f-4a54-a748-a54a4ae8acb2",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reach-frequency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"campaign_id\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"all\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "805f62cb-49e1-425f-9072-15a625ffbe16",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reach-frequency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"campaign_id\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"all\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9126e86-8eb6-44d7-8bbf-54390c750d52",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reach-frequency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"campaign_id\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"all\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "586af478-8eb6-47df-b216-125c3013ffdb",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reach-frequency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"campaign_id\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"all\",\n  \"time_window\": \"last_7_days\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c203dc60-9381-4ea8-94a5-a996c4558675",
+          "name": "Win/Loss",
+          "request": {
+            "name": "Win/Loss",
+            "description": {
+              "content": "\nMetrics describe the auction before a win or even a bid has taken place.  Broken out by strategy, exchange, and deal dimensions and available by hour.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_created_on`<br>Campaign Creation Time|Any|Any|\n|`campaign_currency_code`<br>Campaign Currency Code|Any|Any|\n|`campaign_custom_attribution_source`<br>|Any|Any|\n|`campaign_dynamic_budget_allocation_type`<br>|Any|Any|\n|`campaign_end_date`<br>(GMT) Campaign End Date|Any|Any|\n|`campaign_end_date_campaign_tz`<br>(CTZ) Campaign End Date|Any|Any|\n|`campaign_frequency_amount`<br>Campaign Frequency Amount|Any|Any|\n|`campaign_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`campaign_frequency_optimization`<br>Campaign Frequency Optimization|Any|Any|\n|`campaign_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`campaign_goal_type`<br>|Any|Any|\n|`campaign_goal_value`<br>|Any|Any|\n|`campaign_has_custom_attribution`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_impression_cap_amount`<br>|Any|Any|\n|`campaign_impression_cap_automatic`<br>|Any|Any|\n|`campaign_impression_cap_type`<br>|Any|Any|\n|`campaign_initial_start_date`<br>(GMT) Campaign Initial Start Date|Any|Any|\n|`campaign_initial_start_date_campaign_tz`<br>(CTZ) Campaign Initial Start Date|Any|Any|\n|`campaign_io_name`<br>|Any|Any|\n|`campaign_io_reference_num`<br>|Any|Any|\n|`campaign_is_programmatic_guaranteed`<br>Campaign Is Programmatic Guaranteed|Any|Any|\n|`campaign_merit_pixel_created_on`<br>Pixel Creation Time|Any|Any|\n|`campaign_merit_pixel_eligible`<br>|Any|Any|\n|`campaign_merit_pixel_external_identifier`<br>|Any|Any|\n|`campaign_merit_pixel_id`<br>|Any|Any|\n|`campaign_merit_pixel_name`<br>|Any|Any|\n|`campaign_merit_pixel_provider_id`<br>|Any|Any|\n|`campaign_merit_pixel_status`<br>|Any|Any|\n|`campaign_merit_pixel_tag_type`<br>|Any|Any|\n|`campaign_merit_pixel_tags`<br>|Any|Any|\n|`campaign_merit_pixel_updated_on`<br>Pixel Update Time|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`campaign_pc_window_minutes`<br>|Any|Any|\n|`campaign_political`<br>|Any|Any|\n|`campaign_pv_pct`<br>|Any|Any|\n|`campaign_pv_window_minutes`<br>|Any|Any|\n|`campaign_service_type`<br>Campaign Service Type, a.k.a. Managed Service Flag / managed_service_flag|Any|Any|\n|`campaign_spend_cap_amount`<br>|Any|Any|\n|`campaign_spend_cap_automatic`<br>|Any|Any|\n|`campaign_spend_cap_daily_cap`<br>|Any|Any|\n|`campaign_spend_cap_type`<br>|Any|Any|\n|`campaign_start_date`<br>(GMT) Campaign Start Date|Any|Any|\n|`campaign_start_date_campaign_tz`<br>(CTZ) Campaign Start Date|Any|Any|\n|`campaign_status`<br>Active Status|Any|Any|\n|`campaign_total_budget`<br>|Any|Any|\n|`campaign_total_impression_budget`<br>Campaign Impressions Budget|Any|Any|\n|`campaign_updated_on`<br>Campaign Update Time|Any|Any|\n|`campaign_zone_name`<br>Campaign Time Zone, a.k.a time_zone|Any|Any|\n|`deal_external_id`<br>|Any|Any|\n|`deal_group_id`<br>|Any|Any|\n|`deal_group_name`<br>|Any|Any|\n|`deal_id`<br>|Any|Any|\n|`deal_name`<br>|Any|Any|\n|`deal_price_type`<br>|Any|Any|\n|`deal_publisher_id`<br>Deal Publisher ID|Any|Any|\n|`exchange_id`<br>|Any|Any|\n|`exchange_name`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_name`<br>|Any|Any|\n|`pixel_provider_created_on`<br>|Any|Any|\n|`pixel_provider_name`<br>|Any|Any|\n|`pixel_provider_updated_on`<br>|Any|Any|\n|`pixel_type`<br>|Any|Any|\n|`strategy_archived`<br>|Any|Any|\n|`strategy_audience_segment_exclude_op`<br>|Any|Any|\n|`strategy_audience_segment_include_op`<br>|Any|Any|\n|`strategy_bid_aggressiveness`<br>|Any|Any|\n|`strategy_bid_price_is_media_only`<br>|Any|Any|\n|`strategy_budget`<br>|Any|Any|\n|`strategy_channel`<br>|Any|Any|\n|`strategy_created_on`<br>|Any|Any|\n|`strategy_description`<br>|Any|Any|\n|`strategy_end_date`<br>|Any|Any|\n|`strategy_exchange_type_for_run_on_all`<br>|Any|Any|\n|`strategy_frequency_amount`<br>|Any|Any|\n|`strategy_frequency_interval`<br>Campaign Frequency Interval|Any|Any|\n|`strategy_frequency_optimization`<br>|Any|Any|\n|`strategy_frequency_type`<br>Campaign Frequency Type|Any|Any|\n|`strategy_goal_type`<br>|Any|Any|\n|`strategy_goal_value`<br>|Any|Any|\n|`strategy_groups`<br>|Any|Any|\n|`strategy_id`<br>|Any|Any|\n|`strategy_impression_pacing_amount`<br>|Any|Any|\n|`strategy_impression_pacing_interval`<br>|Any|Any|\n|`strategy_impression_pacing_type`<br>|Any|Any|\n|`strategy_max_bid`<br>|Any|Any|\n|`strategy_max_bid_wm`<br>|Any|Any|\n|`strategy_min_bid`<br>|Any|Any|\n|`strategy_name`<br>|Any|Any|\n|`strategy_pacing_amount`<br>|Any|Any|\n|`strategy_pacing_interval`<br>|Any|Any|\n|`strategy_pacing_optimization_amount`<br>|Any|Any|\n|`strategy_pacing_optimization_type`<br>|Any|Any|\n|`strategy_pacing_type`<br>|Any|Any|\n|`strategy_roi_target`<br>|Any|Any|\n|`strategy_site_restriction_transparent_urls`<br>|Any|Any|\n|`strategy_start_date`<br>|Any|Any|\n|`strategy_status`<br>Active Status|Any|Any|\n|`strategy_targeting_segment_exclude_op`<br>|Any|Any|\n|`strategy_targeting_segment_include_op`<br>|Any|Any|\n|`strategy_updated_on`<br>|Any|Any|\n|`strategy_use_campaign_end`<br>|Any|Any|\n|`strategy_use_campaign_start`<br>|Any|Any|\n|`strategy_use_mm_freq`<br>|Any|Any|\n|`strategy_use_optimization`<br>|Any|Any|\n|**Metrics**|\n|`average_bid_amount_cpm`<br>|Any|Any|\n|`average_win_amount_cpm`<br>|Any|Any|\n|`bid_rate`<br>|Any|Any|\n|`bids`<br>|Any|Any|\n|`matched_bid_opportunities`<br>|Any|Any|\n|`max_bid_amount_cpm`<br>|Any|Any|\n|`max_win_amount_cpm`<br>|Any|Any|\n|`min_bid_amount_cpm`<br>|Any|Any|\n|`min_win_amount_cpm`<br>|Any|Any|\n|`pacing_matched_bid_opportunities`<br>|Any|Any|\n|`total_bid_amount_cpm`<br>|Any|Any|\n|`total_win_amount_cpm`<br>|Any|Any|\n|`win_rate`<br>|Any|Any|\n|`wins`<br>|Any|Any|\n\n### Pageable\nYes\n\n### Time Windows\n`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`\n\n### Rollups\n`all`, `by_hour`, `by_day`, `by_week`, `by_month`\n\n\n### Data Retention / Lookback Window\n1 year\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "win-loss"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5297ca6d-108a-40c2-8296-77634eb36b8f",
+              "name": "JSON for Paginated, JSONL for Streaming",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "win-loss"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"items_count\": 3,\n    \"page_index\": 0,\n    \"status\": \"OK\",\n    \"total_items_count\": 3,\n    \"total_pages\": 1\n  },\n  \"results\": [\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 1,\n      \"impressions\": 93283\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 2,\n      \"impressions\": 474\n    },\n    {\n      \"agg_timestamp\": \"2023-07-27T12:00:00Z\",\n      \"campaign_id\": 3,\n      \"impressions\": 45775\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e356928f-9a69-4815-83f3-af16a8875fc2",
+              "name": "The request is not valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "win-loss"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "093a048c-c000-4b30-bec9-9ae453ee3ac6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "win-loss"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30e6673e-ea90-411e-8910-bc932338f114",
+              "name": "An error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "win-loss"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fields\": [\n    \"campaign_id\",\n    \"impressions\"\n  ],\n  \"filters\": [\n    {\n      \"field\": \"organization_id\",\n      \"op\": \"=\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"agency_id\",\n      \"value\": [\n        123456,\n        789012\n      ]\n    },\n    {\n      \"field\": \"advertiser_id\",\n      \"value\": 123456\n    },\n    {\n      \"field\": \"campaign_name\",\n      \"op\": \"=~\",\n      \"value\": \"Test Campaign\"\n    }\n  ],\n  \"order\": [\n    {\n      \"desc\": false,\n      \"field\": \"agg_timestamp\",\n      \"nulls_last\": true\n    }\n  ],\n  \"pagination\": {\n    \"page_index\": 0,\n    \"page_size\": 100\n  },\n  \"rollup\": \"by_hour\",\n  \"time_window\": \"current_day\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"BadRequest\",\n  \"message\": \"field does not exist in this dataset: campaign_id_test\",\n  \"request_id\": \"74K33s47Yd1ns97E9RZsfFhn1Gj0ehYs\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cfcec4a4-d934-4b36-8e85-58ba323d25ff",
+    "name": "Campaigns Ad Servers Datasets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}

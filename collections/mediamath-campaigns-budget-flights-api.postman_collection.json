@@ -1,0 +1,1028 @@
+{
+  "item": [
+    {
+      "id": "86fa2b6b-293f-4d3d-8408-42cafcb564c8",
+      "name": "Campaigns Budget Flights",
+      "description": {
+        "content": "Campaigns Budget Flights",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "33baf3f5-2253-48de-8017-da6e0fc6aedb",
+          "name": "Bulk Update Budget Flights",
+          "request": {
+            "name": "Bulk Update Budget Flights",
+            "description": {
+              "content": "Update multiple budget flights",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk_update",
+                "budget_flights"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"budget_flights\": {\n    \"create\": [\n      {\n        \"campaign_id\": \"<integer>\",\n        \"end_date\": \"<dateTime>\",\n        \"start_date\": \"<dateTime>\",\n        \"total_budget\": \"<float>\",\n        \"total_impression_budget\": \"<long>\"\n      },\n      {\n        \"campaign_id\": \"<integer>\",\n        \"end_date\": \"<dateTime>\",\n        \"start_date\": \"<dateTime>\",\n        \"total_budget\": \"<float>\",\n        \"total_impression_budget\": \"<long>\"\n      }\n    ],\n    \"update\": [\n      {\n        \"id\": \"<integer>\",\n        \"start_date\": \"<dateTime>\",\n        \"end_date\": \"<dateTime>\",\n        \"total_budget\": \"<float>\",\n        \"total_impression_budget\": \"<long>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"start_date\": \"<dateTime>\",\n        \"end_date\": \"<dateTime>\",\n        \"total_budget\": \"<float>\",\n        \"total_impression_budget\": \"<long>\"\n      }\n    ],\n    \"delete\": [\n      {\n        \"id\": \"<integer>\"\n      },\n      {\n        \"id\": \"<integer>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd04518b-8b2f-480a-9bd2-943a18896746",
+              "name": "Updated budget flight list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73e2ddc5-f46d-4559-9e77-bf6b3fa86a6e",
+              "name": "Multi-status updated budget flight list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 77,\n      \"start_date\": \"<dateTime>\",\n      \"end_date\": \"<dateTime>\",\n      \"total_budget\": \"<float>\",\n      \"total_impression_budget\": 12345,\n      \"is_relevant\": false\n    },\n    {\n      \"id\": 77,\n      \"start_date\": \"<dateTime>\",\n      \"end_date\": \"<dateTime>\",\n      \"total_budget\": \"<float>\",\n      \"total_impression_budget\": 12345,\n      \"is_relevant\": true\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65db0b14-27e7-44eb-8192-f974f8407bff",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b892738a-d7d3-477e-ae3b-64215d869261",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c17bd2b-d11e-4495-8cc2-fba22b122bd6",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98770826-f961-4a78-84e6-77757189da14",
+          "name": "List Budget Flights",
+          "request": {
+            "name": "List Budget Flights",
+            "description": {
+              "content": "Get a list of budget flights",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign_id",
+                "budget_flights"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "<string>",
+                  "description": "To return all fields, set the value to `*`. For example, `full=*` will include all properties.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign_id",
+                  "description": "(Required) Numeric ID of the campaign"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "42928f09-0536-4dcf-94c5-ccd479ca6bb7",
+              "name": "List budget flights response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 3876,\n      \"entity_type\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": 3456,\n      \"entity_type\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8fd8e1c-84ff-4eb0-8779-9a4f9a9e3c55",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6a3ed7c-6bfd-4c5c-bcdf-6a9099c50171",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcefd876-a1db-4448-bffb-1f3f6649f13e",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "884572d9-f9dc-4677-bb84-4135aabcf103",
+          "name": "Budget Flights for a given Campaign Audit Log",
+          "request": {
+            "name": "Budget Flights for a given Campaign Audit Log",
+            "description": {
+              "content": "Get a list changes to this campaign's budget flights",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign_id",
+                "budget_flights",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign_id",
+                  "description": "(Required) Numeric ID of the campaign"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4961c5bf-be36-467e-8a58-c42d1c4a3017",
+              "name": "Audit log response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"action\": \"string\",\n      \"date\": \"1964-02-26T12:30:08.501Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 5746,\n      \"collection\": \"string\",\n      \"entity_id\": 5968,\n      \"tool_name\": \"string\"\n    },\n    {\n      \"action\": \"string\",\n      \"date\": \"2001-01-05T09:07:57.168Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 739,\n      \"collection\": \"string\",\n      \"entity_id\": 5788,\n      \"tool_name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c3801bd-fc97-48fa-9316-91a9ed32e277",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d18894b-1eb7-4d12-81d6-5e2c90a359b7",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3e1b494-1e78-442a-9e07-28dadd29a547",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92aad6de-f3a4-43e6-b556-9ff47239f6e8",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "budget_flights",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) Numeric ID of the campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5b0076ac-892b-47fe-8818-9d2a0107669b",
+    "name": "Campaigns Ad Servers Campaigns Budget Flights API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}

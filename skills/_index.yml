@@ -1,0 +1,42 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/*.yml (operationIds verified against the specs before use),
+  conventions/mediamath-conventions.yml, errors/mediamath-problem-types.yml,
+  lifecycle/mediamath-lifecycle.yml, data-model/mediamath-data-model.yml
+note: >-
+  Packaged Agent Skills for the marquee MediaMath Platform flows. Every
+  operationId referenced in these skills was grepped out of the OpenAPI documents
+  in openapi/ — none was invented. MediaMath publishes no AGENTS.md or
+  provider-authored skills; the Infillion Agent Connector MCP server is the
+  provider's own agent surface, and it is closed beta, so these skills target the
+  public REST APIs that anyone with credentials can call today.
+skills:
+  - name: mediamath-launch-campaign
+    file: mediamath-launch-campaign.md
+    description: Resolve an advertiser, create a campaign with goals/budget/attribution, then create the strategies that buy.
+    api: MediaMath Campaign Management API v3.0
+    operations: 12
+  - name: mediamath-traffic-creatives
+    file: mediamath-traffic-creatives.md
+    description: Group creatives into concepts, create 3PAS display and hosted video creatives, and check per-exchange approval health.
+    api: MediaMath Campaign Management API v3.0 + Video Creatives API v1.0
+    operations: 17
+  - name: mediamath-pull-performance-report
+    file: mediamath-pull-performance-report.md
+    description: Choose the right reporting dataset, read its metadata, submit the query, and handle the V1-to-V2 deprecation.
+    api: MediaMath Reporting API V2 (and deprecated V1)
+    operations: 10
+  - name: mediamath-manage-pmp-deals
+    file: mediamath-manage-pmp-deals.md
+    description: Work PMP deals, deal groups, publishers and channels through Marketplaces V2.0, including its non-standard query rules.
+    api: MediaMath Marketplaces API V2.0
+    operations: 21
+cross_cutting_rules_embedded_in_every_skill:
+  - OAuth2 bearer token from https://auth.mediamath.com/oauth/token, 86400s lifetime.
+  - Legacy dual-auth fallback — adama_session cookie from GET /api/v2.0/session.
+  - No idempotency key exists; read back before retrying any create.
+  - Updates are POST to the entity path, not PUT/PATCH.
+  - Bulk endpoints return HTTP 207 Multi-Status; a 207 is not success.
+  - X-RateLimit-* headers report per-pod values, 1/5 of cluster capacity.
+  - Error envelope is {meta:{status,uuid}, errors:[{code,message,details}]}, not RFC 9457.

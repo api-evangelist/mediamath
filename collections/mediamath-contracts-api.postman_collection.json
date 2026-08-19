@@ -1,0 +1,1704 @@
+{
+  "item": [
+    {
+      "id": "ca9d774b-4386-45fb-a4c5-22ca6f344a11",
+      "name": "Contracts",
+      "description": {
+        "content": "Contracts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b6705e24-6cf9-4e18-96db-4ccf1391142d",
+          "name": "Create a Contract",
+          "request": {
+            "name": "Create a Contract",
+            "description": {
+              "content": "Create a contract",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad713656-1232-4a4b-aaaf-b7448aa560a2",
+              "name": "Contract created response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4,\n    \"version\": 44,\n    \"organization_id\": 34,\n    \"effective_start_date\": \"<dateTime>\",\n    \"effective_end_date\": \"<dateTime>\",\n    \"platform_monthly_min\": \"<float>\",\n    \"platform_access_fee_pct\": \"<float>\",\n    \"platform_access_fee_cpm\": \"<float>\",\n    \"platform_access_fee_fixed\": \"<float>\",\n    \"managed_service_fee_pct\": \"<float>\",\n    \"managed_service_fee_cpm\": \"<float>\",\n    \"managed_service_fee_fixed\": \"<float>\",\n    \"optimization_fee_pct\": \"<float>\",\n    \"optimization_fee_cpm\": \"<float>\",\n    \"optimization_fee_fixed\": \"<float>\",\n    \"pmp_optimization_off_unit\": \"<string>\",\n    \"pmp_optimization_off_fee_pct\": \"<float>\",\n    \"pmp_optimization_off_fee_cpm\": \"<float>\",\n    \"pmp_optimization_on_unit\": \"<string>\",\n    \"pmp_optimization_on_fee_pct\": \"<float>\",\n    \"pmp_optimization_on_fee_cpm\": \"<float>\",\n    \"dmp_fee_unit\": \"<string>\",\n    \"dmp_fee_pct\": \"<float>\",\n    \"dmp_fee_cpm\": \"<float>\",\n    \"dmp_fee_cpts\": \"<float>\",\n    \"signals_fee_unit\": \"<string>\",\n    \"signals_fee_pct\": \"<float>\",\n    \"signals_fee_cpm\": \"<float>\",\n    \"t1_apps_fee_unit\": \"<string>\",\n    \"t1_apps_fee_pct\": \"<float>\",\n    \"t1_apps_fee_cpm\": \"<float>\",\n    \"contract_number\": 7404,\n    \"spend_cap\": \"<float>\",\n    \"platform_access_fee_unit\": \"<string>\",\n    \"managed_service_fee_unit\": \"<string>\",\n    \"optimization_fee_unit\": \"<string>\",\n    \"profit_share_fee_pct\": \"<float>\",\n    \"exclude_agency_margin\": false,\n    \"t1_as_fee_cpm\": 0.05,\n    \"evidon_privacy_cost_cpm\": 0.02,\n    \"peer39_channel_fee_cpm\": \"<float>\",\n    \"peer39_custom_fee_cpm\": \"<float>\",\n    \"peer39_safety_fee_cpm\": \"<float>\",\n    \"peer39_quality_fee_cpm\": \"<float>\",\n    \"fbx_dynamic_cpm\": 0.3,\n    \"t1_vads_fee_cpm\": 0.25,\n    \"adaptive_segment_cpm\": 0,\n    \"external_media_tracking_cpm\": 0,\n    \"currency_code\": \"<string>\",\n    \"t1_html5_fee_cpm\": 0.05,\n    \"viewability_display_sample\": \"<float>\",\n    \"viewability_display_all_imps\": \"<float>\",\n    \"viewability_video_sample\": \"<float>\",\n    \"viewability_video_all_imps\": \"<float>\",\n    \"standard_segment_cpm\": 0.1,\n    \"connected_id_cost\": 0,\n    \"financing_cost\": 0,\n    \"audience_verification_cost\": 0.25,\n    \"programmatic_guaranteed_platform_access_fee_cpm\": \"<float>\",\n    \"programmatic_guaranteed_platform_access_fee_pct\": \"<float>\",\n    \"programmatic_guaranteed_platform_access_fee_unit\": \"<string>\",\n    \"media_enablement_fee_cpm\": \"<float>\",\n    \"media_enablement_fee_pct\": \"<float>\",\n    \"media_enablement_fee_unit\": \"<string>\",\n    \"source_platform_access_fee_cpm\": \"<float>\",\n    \"source_platform_access_fee_pct\": \"<float>\",\n    \"source_platform_access_fee_unit\": \"<string>\",\n    \"country_tax_withholding_fee_cpm\": \"<float>\",\n    \"country_tax_withholding_fee_pct\": \"<float>\",\n    \"country_tax_withholding_fee_unit\": \"<string>\",\n    \"partnership_rebate_fee_cpm\": \"<float>\",\n    \"partnership_rebate_fee_pct\": \"<float>\",\n    \"partnership_rebate_fee_unit\": \"<string>\",\n    \"cross_device_fee_cpm\": \"<float>\",\n    \"dba_optimization_fee_cpm\": \"<float>\",\n    \"dba_optimization_fee_pct\": \"<float>\",\n    \"dba_optimization_fee_unit\": \"<string>\",\n    \"audio_video_platform_access_fee_cpm\": \"<float>\",\n    \"audio_video_platform_access_fee_pct\": \"<float>\",\n    \"audio_video_platform_access_fee_unit\": \"<string>\",\n    \"created_on\": \"1982-10-20T23:24:28.990Z\",\n    \"updated_on\": \"2011-03-31T00:29:13.993Z\",\n    \"mfa_fee_cpm\": \"<float>\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5a170f6-0add-4346-8a2a-0b5fa0492549",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "098bef85-9c90-4ccc-a6bd-134ac9dff72d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc14027c-9634-4e0a-9a4d-ebede3694f8a",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de863072-babf-434e-beaa-1c465ff9aa7b",
+          "name": "List Contracts",
+          "request": {
+            "name": "List Contracts",
+            "description": {
+              "content": "Get a list of contracts",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "<string>",
+                  "description": "To return all fields, set the value to `*`. For example, `full=*` will include all properties.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b0d5692-ff46-4454-9fb9-709f839b49d0",
+              "name": "List contracts response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 1085,\n      \"entity_type\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": 1863,\n      \"entity_type\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f99e662-d48e-4be7-9ef1-022afe68e612",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbbce4e3-73ca-4d81-aa55-5f4286bff1d3",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e391cf37-bf88-4c59-a644-1e9f7a1e3de6",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78b078e7-0d96-42a1-8bb5-09ef6f116b2d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42bcae23-bd18-43ab-8c5a-b2f3d09c143c",
+          "name": "Update a Contract",
+          "request": {
+            "name": "Update a Contract",
+            "description": {
+              "content": "Update a contract by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) Numeric ID of the contract to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<integer>\",\n  \"organization_id\": \"<integer>\",\n  \"effective_start_date\": \"<dateTime>\",\n  \"effective_end_date\": \"<dateTime>\",\n  \"platform_monthly_min\": \"<float>\",\n  \"platform_access_fee_pct\": \"<float>\",\n  \"platform_access_fee_cpm\": \"<float>\",\n  \"platform_access_fee_fixed\": \"<float>\",\n  \"managed_service_fee_pct\": \"<float>\",\n  \"managed_service_fee_cpm\": \"<float>\",\n  \"managed_service_fee_fixed\": \"<float>\",\n  \"optimization_fee_pct\": \"<float>\",\n  \"optimization_fee_cpm\": \"<float>\",\n  \"optimization_fee_fixed\": \"<float>\",\n  \"pmp_optimization_off_unit\": \"<string>\",\n  \"pmp_optimization_off_fee_pct\": \"<float>\",\n  \"pmp_optimization_off_fee_cpm\": \"<float>\",\n  \"pmp_optimization_on_unit\": \"<string>\",\n  \"pmp_optimization_on_fee_pct\": \"<float>\",\n  \"pmp_optimization_on_fee_cpm\": \"<float>\",\n  \"dmp_fee_unit\": \"<string>\",\n  \"dmp_fee_pct\": \"<float>\",\n  \"dmp_fee_cpm\": \"<float>\",\n  \"dmp_fee_cpts\": \"<float>\",\n  \"signals_fee_unit\": \"<string>\",\n  \"signals_fee_pct\": \"<float>\",\n  \"signals_fee_cpm\": \"<float>\",\n  \"t1_apps_fee_unit\": \"<string>\",\n  \"t1_apps_fee_pct\": \"<float>\",\n  \"t1_apps_fee_cpm\": \"<float>\",\n  \"spend_cap\": \"<float>\",\n  \"platform_access_fee_unit\": \"<string>\",\n  \"managed_service_fee_unit\": \"<string>\",\n  \"optimization_fee_unit\": \"<string>\",\n  \"profit_share_fee_pct\": \"<float>\",\n  \"exclude_agency_margin\": false,\n  \"t1_as_fee_cpm\": 0.05,\n  \"evidon_privacy_cost_cpm\": 0.02,\n  \"peer39_channel_fee_cpm\": \"<float>\",\n  \"peer39_custom_fee_cpm\": \"<float>\",\n  \"peer39_safety_fee_cpm\": \"<float>\",\n  \"peer39_quality_fee_cpm\": \"<float>\",\n  \"fbx_dynamic_cpm\": 0.3,\n  \"t1_vads_fee_cpm\": 0.25,\n  \"adaptive_segment_cpm\": 0,\n  \"external_media_tracking_cpm\": 0,\n  \"currency_code\": \"<string>\",\n  \"t1_html5_fee_cpm\": 0.05,\n  \"viewability_display_sample\": \"<float>\",\n  \"viewability_display_all_imps\": \"<float>\",\n  \"viewability_video_sample\": \"<float>\",\n  \"viewability_video_all_imps\": \"<float>\",\n  \"standard_segment_cpm\": 0.1,\n  \"connected_id_cost\": 0,\n  \"financing_cost\": 0,\n  \"audience_verification_cost\": 0.25,\n  \"programmatic_guaranteed_platform_access_fee_cpm\": \"<float>\",\n  \"programmatic_guaranteed_platform_access_fee_pct\": \"<float>\",\n  \"programmatic_guaranteed_platform_access_fee_unit\": \"<string>\",\n  \"media_enablement_fee_cpm\": \"<float>\",\n  \"media_enablement_fee_pct\": \"<float>\",\n  \"media_enablement_fee_unit\": \"<string>\",\n  \"source_platform_access_fee_cpm\": \"<float>\",\n  \"source_platform_access_fee_pct\": \"<float>\",\n  \"source_platform_access_fee_unit\": \"<string>\",\n  \"country_tax_withholding_fee_cpm\": \"<float>\",\n  \"country_tax_withholding_fee_pct\": \"<float>\",\n  \"country_tax_withholding_fee_unit\": \"<string>\",\n  \"partnership_rebate_fee_cpm\": \"<float>\",\n  \"partnership_rebate_fee_pct\": \"<float>\",\n  \"partnership_rebate_fee_unit\": \"<string>\",\n  \"cross_device_fee_cpm\": \"<float>\",\n  \"dba_optimization_fee_cpm\": \"<float>\",\n  \"dba_optimization_fee_pct\": \"<float>\",\n  \"dba_optimization_fee_unit\": \"<string>\",\n  \"audio_video_platform_access_fee_cpm\": \"<float>\",\n  \"audio_video_platform_access_fee_pct\": \"<float>\",\n  \"audio_video_platform_access_fee_unit\": \"<string>\",\n  \"mfa_fee_cpm\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8084d883-576e-4560-9852-346adf934ef4",
+              "name": "Contract updated response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4,\n    \"version\": 44,\n    \"organization_id\": 34,\n    \"effective_start_date\": \"<dateTime>\",\n    \"effective_end_date\": \"<dateTime>\",\n    \"platform_monthly_min\": \"<float>\",\n    \"platform_access_fee_pct\": \"<float>\",\n    \"platform_access_fee_cpm\": \"<float>\",\n    \"platform_access_fee_fixed\": \"<float>\",\n    \"managed_service_fee_pct\": \"<float>\",\n    \"managed_service_fee_cpm\": \"<float>\",\n    \"managed_service_fee_fixed\": \"<float>\",\n    \"optimization_fee_pct\": \"<float>\",\n    \"optimization_fee_cpm\": \"<float>\",\n    \"optimization_fee_fixed\": \"<float>\",\n    \"pmp_optimization_off_unit\": \"<string>\",\n    \"pmp_optimization_off_fee_pct\": \"<float>\",\n    \"pmp_optimization_off_fee_cpm\": \"<float>\",\n    \"pmp_optimization_on_unit\": \"<string>\",\n    \"pmp_optimization_on_fee_pct\": \"<float>\",\n    \"pmp_optimization_on_fee_cpm\": \"<float>\",\n    \"dmp_fee_unit\": \"<string>\",\n    \"dmp_fee_pct\": \"<float>\",\n    \"dmp_fee_cpm\": \"<float>\",\n    \"dmp_fee_cpts\": \"<float>\",\n    \"signals_fee_unit\": \"<string>\",\n    \"signals_fee_pct\": \"<float>\",\n    \"signals_fee_cpm\": \"<float>\",\n    \"t1_apps_fee_unit\": \"<string>\",\n    \"t1_apps_fee_pct\": \"<float>\",\n    \"t1_apps_fee_cpm\": \"<float>\",\n    \"contract_number\": 7404,\n    \"spend_cap\": \"<float>\",\n    \"platform_access_fee_unit\": \"<string>\",\n    \"managed_service_fee_unit\": \"<string>\",\n    \"optimization_fee_unit\": \"<string>\",\n    \"profit_share_fee_pct\": \"<float>\",\n    \"exclude_agency_margin\": false,\n    \"t1_as_fee_cpm\": 0.05,\n    \"evidon_privacy_cost_cpm\": 0.02,\n    \"peer39_channel_fee_cpm\": \"<float>\",\n    \"peer39_custom_fee_cpm\": \"<float>\",\n    \"peer39_safety_fee_cpm\": \"<float>\",\n    \"peer39_quality_fee_cpm\": \"<float>\",\n    \"fbx_dynamic_cpm\": 0.3,\n    \"t1_vads_fee_cpm\": 0.25,\n    \"adaptive_segment_cpm\": 0,\n    \"external_media_tracking_cpm\": 0,\n    \"currency_code\": \"<string>\",\n    \"t1_html5_fee_cpm\": 0.05,\n    \"viewability_display_sample\": \"<float>\",\n    \"viewability_display_all_imps\": \"<float>\",\n    \"viewability_video_sample\": \"<float>\",\n    \"viewability_video_all_imps\": \"<float>\",\n    \"standard_segment_cpm\": 0.1,\n    \"connected_id_cost\": 0,\n    \"financing_cost\": 0,\n    \"audience_verification_cost\": 0.25,\n    \"programmatic_guaranteed_platform_access_fee_cpm\": \"<float>\",\n    \"programmatic_guaranteed_platform_access_fee_pct\": \"<float>\",\n    \"programmatic_guaranteed_platform_access_fee_unit\": \"<string>\",\n    \"media_enablement_fee_cpm\": \"<float>\",\n    \"media_enablement_fee_pct\": \"<float>\",\n    \"media_enablement_fee_unit\": \"<string>\",\n    \"source_platform_access_fee_cpm\": \"<float>\",\n    \"source_platform_access_fee_pct\": \"<float>\",\n    \"source_platform_access_fee_unit\": \"<string>\",\n    \"country_tax_withholding_fee_cpm\": \"<float>\",\n    \"country_tax_withholding_fee_pct\": \"<float>\",\n    \"country_tax_withholding_fee_unit\": \"<string>\",\n    \"partnership_rebate_fee_cpm\": \"<float>\",\n    \"partnership_rebate_fee_pct\": \"<float>\",\n    \"partnership_rebate_fee_unit\": \"<string>\",\n    \"cross_device_fee_cpm\": \"<float>\",\n    \"dba_optimization_fee_cpm\": \"<float>\",\n    \"dba_optimization_fee_pct\": \"<float>\",\n    \"dba_optimization_fee_unit\": \"<string>\",\n    \"audio_video_platform_access_fee_cpm\": \"<float>\",\n    \"audio_video_platform_access_fee_pct\": \"<float>\",\n    \"audio_video_platform_access_fee_unit\": \"<string>\",\n    \"created_on\": \"1982-10-20T23:24:28.990Z\",\n    \"updated_on\": \"2011-03-31T00:29:13.993Z\",\n    \"mfa_fee_cpm\": \"<float>\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2a7ebfb-dd6a-4352-a0c2-f3844407d8de",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17704f2b-d74b-4e24-9ac6-d67728974ff7",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8986b52-2fa0-4f9e-ab77-911bd9977b38",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59391cf7-d44b-4860-9c04-3798719ecda7",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bea26dc0-bb3b-4db4-8220-508312d3042b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e86d00ff-7ca5-44f0-962a-d90417529a66",
+          "name": "Get a Contract",
+          "request": {
+            "name": "Get a Contract",
+            "description": {
+              "content": "Get a contract by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) Numeric ID of the contract to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe3ed6a9-ccf0-4a1b-a008-9982012214c2",
+              "name": "Contract response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4,\n    \"version\": 44,\n    \"organization_id\": 34,\n    \"effective_start_date\": \"<dateTime>\",\n    \"effective_end_date\": \"<dateTime>\",\n    \"platform_monthly_min\": \"<float>\",\n    \"platform_access_fee_pct\": \"<float>\",\n    \"platform_access_fee_cpm\": \"<float>\",\n    \"platform_access_fee_fixed\": \"<float>\",\n    \"managed_service_fee_pct\": \"<float>\",\n    \"managed_service_fee_cpm\": \"<float>\",\n    \"managed_service_fee_fixed\": \"<float>\",\n    \"optimization_fee_pct\": \"<float>\",\n    \"optimization_fee_cpm\": \"<float>\",\n    \"optimization_fee_fixed\": \"<float>\",\n    \"pmp_optimization_off_unit\": \"<string>\",\n    \"pmp_optimization_off_fee_pct\": \"<float>\",\n    \"pmp_optimization_off_fee_cpm\": \"<float>\",\n    \"pmp_optimization_on_unit\": \"<string>\",\n    \"pmp_optimization_on_fee_pct\": \"<float>\",\n    \"pmp_optimization_on_fee_cpm\": \"<float>\",\n    \"dmp_fee_unit\": \"<string>\",\n    \"dmp_fee_pct\": \"<float>\",\n    \"dmp_fee_cpm\": \"<float>\",\n    \"dmp_fee_cpts\": \"<float>\",\n    \"signals_fee_unit\": \"<string>\",\n    \"signals_fee_pct\": \"<float>\",\n    \"signals_fee_cpm\": \"<float>\",\n    \"t1_apps_fee_unit\": \"<string>\",\n    \"t1_apps_fee_pct\": \"<float>\",\n    \"t1_apps_fee_cpm\": \"<float>\",\n    \"contract_number\": 7404,\n    \"spend_cap\": \"<float>\",\n    \"platform_access_fee_unit\": \"<string>\",\n    \"managed_service_fee_unit\": \"<string>\",\n    \"optimization_fee_unit\": \"<string>\",\n    \"profit_share_fee_pct\": \"<float>\",\n    \"exclude_agency_margin\": false,\n    \"t1_as_fee_cpm\": 0.05,\n    \"evidon_privacy_cost_cpm\": 0.02,\n    \"peer39_channel_fee_cpm\": \"<float>\",\n    \"peer39_custom_fee_cpm\": \"<float>\",\n    \"peer39_safety_fee_cpm\": \"<float>\",\n    \"peer39_quality_fee_cpm\": \"<float>\",\n    \"fbx_dynamic_cpm\": 0.3,\n    \"t1_vads_fee_cpm\": 0.25,\n    \"adaptive_segment_cpm\": 0,\n    \"external_media_tracking_cpm\": 0,\n    \"currency_code\": \"<string>\",\n    \"t1_html5_fee_cpm\": 0.05,\n    \"viewability_display_sample\": \"<float>\",\n    \"viewability_display_all_imps\": \"<float>\",\n    \"viewability_video_sample\": \"<float>\",\n    \"viewability_video_all_imps\": \"<float>\",\n    \"standard_segment_cpm\": 0.1,\n    \"connected_id_cost\": 0,\n    \"financing_cost\": 0,\n    \"audience_verification_cost\": 0.25,\n    \"programmatic_guaranteed_platform_access_fee_cpm\": \"<float>\",\n    \"programmatic_guaranteed_platform_access_fee_pct\": \"<float>\",\n    \"programmatic_guaranteed_platform_access_fee_unit\": \"<string>\",\n    \"media_enablement_fee_cpm\": \"<float>\",\n    \"media_enablement_fee_pct\": \"<float>\",\n    \"media_enablement_fee_unit\": \"<string>\",\n    \"source_platform_access_fee_cpm\": \"<float>\",\n    \"source_platform_access_fee_pct\": \"<float>\",\n    \"source_platform_access_fee_unit\": \"<string>\",\n    \"country_tax_withholding_fee_cpm\": \"<float>\",\n    \"country_tax_withholding_fee_pct\": \"<float>\",\n    \"country_tax_withholding_fee_unit\": \"<string>\",\n    \"partnership_rebate_fee_cpm\": \"<float>\",\n    \"partnership_rebate_fee_pct\": \"<float>\",\n    \"partnership_rebate_fee_unit\": \"<string>\",\n    \"cross_device_fee_cpm\": \"<float>\",\n    \"dba_optimization_fee_cpm\": \"<float>\",\n    \"dba_optimization_fee_pct\": \"<float>\",\n    \"dba_optimization_fee_unit\": \"<string>\",\n    \"audio_video_platform_access_fee_cpm\": \"<float>\",\n    \"audio_video_platform_access_fee_pct\": \"<float>\",\n    \"audio_video_platform_access_fee_unit\": \"<string>\",\n    \"created_on\": \"1982-10-20T23:24:28.990Z\",\n    \"updated_on\": \"2011-03-31T00:29:13.993Z\",\n    \"mfa_fee_cpm\": \"<float>\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f7cc4eb-f116-4db1-ba39-82dbdcbbdaae",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "daa56b4d-1392-42dd-aa8a-55fa6011f35c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55468618-edb6-44c4-a35b-2ac2d816499c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b903056f-1e79-40d0-9e3d-03290b9d3cbd",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "633ec26a-c56b-44a7-9adc-6ff76de9fe2a",
+          "name": "Contract Audit Log",
+          "request": {
+            "name": "Contract Audit Log",
+            "description": {
+              "content": "Get a list changes to this contract",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "contract_id",
+                  "description": "(Required) Numeric ID of the contract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c2224bf-41a3-47e0-aadc-238b0b844b09",
+              "name": "Audit log response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"action\": \"string\",\n      \"date\": \"1961-03-15T14:02:48.343Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 2252,\n      \"collection\": \"string\",\n      \"entity_id\": 1407,\n      \"tool_name\": \"string\"\n    },\n    {\n      \"action\": \"string\",\n      \"date\": \"2013-11-28T19:42:32.624Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 9447,\n      \"collection\": \"string\",\n      \"entity_id\": 6151,\n      \"tool_name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42627abf-7ec2-4283-a3ed-92d115a35556",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97ee1208-952c-4d58-8e7d-ccc503d6f94d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e4aea8f-b9a6-4d09-bd3c-6a9fe2c535bb",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20e0c5f4-f723-4dd5-9c6d-caa98932dbc5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "contract_id",
+                      "description": "(Required) Numeric ID of the contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "473c9393-908e-4f2b-b372-677bf555996a",
+    "name": "Campaigns Ad Servers Contracts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}

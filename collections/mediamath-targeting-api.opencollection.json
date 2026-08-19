@@ -1,0 +1,592 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Targeting API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Targeting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "(Legacy) List Targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/target",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+              }
+            ]
+          },
+          "docs": "Get a list of targets"
+        },
+        {
+          "info": {
+            "name": "(Legacy) Create a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/target",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a target"
+        },
+        {
+          "info": {
+            "name": "(Legacy) Get a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/target/:target_id",
+            "params": [
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the target to get"
+              }
+            ]
+          },
+          "docs": "Get a target by ID"
+        },
+        {
+          "info": {
+            "name": "(Legacy) Update a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/target/:target_id",
+            "params": [
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the target to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a target by ID"
+        },
+        {
+          "info": {
+            "name": "(Legacy) Update a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mediamath.com/api/v3.0/target/:target_id",
+            "params": [
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the target to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a target by ID"
+        },
+        {
+          "info": {
+            "name": "(Legacy) Delete a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mediamath.com/api/v3.0/target/:target_id",
+            "params": [
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the target to delete"
+              }
+            ]
+          },
+          "docs": "Delete a target by ID"
+        },
+        {
+          "info": {
+            "name": "List targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/targets",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+              }
+            ]
+          },
+          "docs": "Get a list of targets"
+        },
+        {
+          "info": {
+            "name": "Create a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/targets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a target"
+        },
+        {
+          "info": {
+            "name": "Get a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/targets/:target_id",
+            "params": [
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the target to get"
+              }
+            ]
+          },
+          "docs": "Get a target by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/targets/:target_id",
+            "params": [
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the target to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a target by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mediamath.com/api/v3.0/targets/:target_id",
+            "params": [
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the target to delete"
+              }
+            ]
+          },
+          "docs": "Delete a target by ID"
+        },
+        {
+          "info": {
+            "name": "List Target paths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/target-path",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+              }
+            ]
+          },
+          "docs": "Get a list of target paths"
+        },
+        {
+          "info": {
+            "name": "Add and View Targeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/targeting",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add and view targeting"
+        },
+        {
+          "info": {
+            "name": "Contextual Segments CPM estimates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/contextual_segments/cpm_estimate",
+            "params": [
+              {
+                "name": "extended",
+                "value": "",
+                "type": "query",
+                "description": "Get extended properties in response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get CPM estimates for contextual segments"
+        },
+        {
+          "info": {
+            "name": "Get Frequently Used Contextual Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/targeting_segments/frequently_used",
+            "params": [
+              {
+                "name": "advertiser_id",
+                "value": "",
+                "type": "query",
+                "description": "Numeric ID of the advertiser to filter on"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "limit of top elements"
+              }
+            ]
+          },
+          "docs": "Display the most frequently used contextual segments for a given advertiser"
+        },
+        {
+          "info": {
+            "name": "Frequently Used Audience Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/audience_segments/frequently_used",
+            "params": [
+              {
+                "name": "advertiser_id",
+                "value": "",
+                "type": "query",
+                "description": "Numeric ID of the advertiser to filter on"
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Numeric ID of the campaign to filter on"
+              },
+              {
+                "name": "top",
+                "value": "",
+                "type": "query",
+                "description": "limit of top elements"
+              }
+            ]
+          },
+          "docs": "Display the most frequently used audience segments for a given advertiser or campaign."
+        },
+        {
+          "info": {
+            "name": "Audience Segments CPM Estimate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/audience_segments/cpm_estimate",
+            "params": [
+              {
+                "name": "extended",
+                "value": "",
+                "type": "query",
+                "description": "Get extended properties in response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Audience segments CPM estimate"
+        },
+        {
+          "info": {
+            "name": "List Technology Target Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/technology_target_values",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Case insensitive name contains search. Example: `name=target1`"
+              },
+              {
+                "name": "full_path",
+                "value": "",
+                "type": "query",
+                "description": "Case insensitive full_path contains search. Example: `full_path=target1`"
+              },
+              {
+                "name": "dimension_code",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of dimension codes. Example: `dimension_code=BRLG,BSER`. Supported values:\n - `BRLG` - Browser Language,\n - `OSXX` - Operating System (extended),\n - `BSER` - Browser,\n - `CSPD` - Connection Speed,\n - `DVMD` - Device Model,\n - `DVCE` - Device,\n - `INVT` - Inventory (supply source/publisher),\n - `ISPX` - ISP (Internet Service Provider),\n - `VAUD` - Video: Audibility,\n - `VCON` - Video: Context,\n - `VLIN` - Video: Linearity (linear vs non-linear),\n - `VPLC` - Video: Placement,\n - `VPSZ` - Video: Player Size,\n - `VSKP` - Video: Skippability,\n - `DMAX` - Designated Market Area,\n - `REGN` - Region (geographic region),\n - `COUNTRY` - Country,\n - `CITY` - City.\n"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+              }
+            ]
+          },
+          "docs": "Get list of technology target values. Can be sorted by:\n- `id`,\n- `dimension`,\n- `parent_id`,\n- `name`,\n- `full_path`,\n- `value`,\n- `code`,\n- `sortable_name` \nand queried (with `q=`) by:\n- `id`,\n- `parent_id`,\n- `name`,\n- `full_path` (if provided parameter `full_path` will be ignored),\n- `value`,\n- `code`,\n- `sortable_name`.\n"
+        },
+        {
+          "info": {
+            "name": "List Contextual Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/path_targeting_segments",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+              },
+              {
+                "name": "full",
+                "value": "",
+                "type": "query",
+                "description": "To return all fields, set the value to `*`. For example, `full=*` will include all properties.\n"
+              },
+              {
+                "name": "currency_code",
+                "value": "",
+                "type": "query",
+                "description": "If not provided, the default currency (USD) will be used."
+              }
+            ]
+          },
+          "docs": "Get a list of contextual segments"
+        },
+        {
+          "info": {
+            "name": "List Path Audience Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/path_audience_segments",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5%26status==true` to find all active entities with id greater than 5.\n"
+              },
+              {
+                "name": "currency_code",
+                "value": "",
+                "type": "query",
+                "description": "If not provided, the default currency (USD) will be used."
+              },
+              {
+                "name": "advertiser_id",
+                "value": "",
+                "type": "query",
+                "description": "Advertiser ID for taxonomy lookup"
+              },
+              {
+                "name": "only_brain_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If true, only segments with audience_vendor.campaign_brain_enabled = true will be returned"
+              },
+              {
+                "name": "parent_id",
+                "value": "",
+                "type": "query",
+                "description": "Parent audience segment ID"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "If provided, additional entity information will be returned"
+              }
+            ]
+          },
+          "docs": "Get a list of path audience segments. Segments can be queried and sorted by fields: \n- `id`, \n- `name`,  \n- `version`, \n- `parent_audience_segment_id`, \n- `full_path`, \n- `uniques`, \n- `retail_cpm` (type = double, value in usd), \n- `code`, \n- `buyable`, \n- `child_count`, \n- `wholesale_cpm` (type = double, value in usd), \n- `type`, \n- `taxonomy_id`, \n- `updated_on`, \n- `created_on`, \n- `audience_vendor_id`, \n- `audience_vendor_name`, \n- `audience_vendor_vendor_id`, \n- `audience_vendor_mma_free_cm"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

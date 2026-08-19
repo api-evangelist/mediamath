@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers New Strategy Groups API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "New Strategy Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List New Strategy Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/new_strategy_groups",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+              },
+              {
+                "name": "full",
+                "value": "",
+                "type": "query",
+                "description": "Pass `full=*` to return the full entity in each list item."
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related entities to embed. Only `strategies` is supported; when set, the full response includes a `strategies` array of `{id, entity_type, name}` per group."
+              }
+            ]
+          },
+          "docs": "Get a paginated list of strategy groups. The `q` parameter must include a\n`campaign_id==<id>` clause (required for permission scoping); additional filter\nclauses (joined by `&`, URL-encoded as `%26`) and `sort_by` follow the standard\nCampaigns API list-endpoint convention and may reference any `strategy_groups`\ncolumn — e.g. `q=campaign_id==100%26name=:Prospecting*&sort_by=-spend_cap_amount`.\n"
+        },
+        {
+          "info": {
+            "name": "Create a New Strategy Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/new_strategy_groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a strategy group within a campaign."
+        },
+        {
+          "info": {
+            "name": "Get a New Strategy Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/new_strategy_groups/:strategy_group_id",
+            "params": [
+              {
+                "name": "strategy_group_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related entities to embed. Only `strategies` is supported; when set, the response includes a `strategies` array of `{id, entity_type, name}`."
+              }
+            ]
+          },
+          "docs": "Get a strategy group by ID."
+        },
+        {
+          "info": {
+            "name": "Update a New Strategy Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/new_strategy_groups/:strategy_group_id",
+            "params": [
+              {
+                "name": "strategy_group_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partial update with optional optimistic locking via `version`. `campaign_id` is immutable."
+        },
+        {
+          "info": {
+            "name": "Delete a New Strategy Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mediamath.com/api/v3.0/new_strategy_groups/:strategy_group_id",
+            "params": [
+              {
+                "name": "strategy_group_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a strategy group by ID. Any attached strategies are detached (their strategy_group_id is set to NULL); they are not deleted and retain their campaign_id."
+        },
+        {
+          "info": {
+            "name": "New Strategy Group Audit Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/new_strategy_groups/:strategy_group_id/history",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "strategy_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the strategy group"
+              }
+            ]
+          },
+          "docs": "Get a list of changes to this strategy group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

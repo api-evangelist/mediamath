@@ -1,0 +1,3856 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Component Creatives API",
+    "description": "The terms creative components and native components may be used interchangeably.\nComponent Creatives are uploaded in the \"Creatives Tab\" within the Creatives Module, and is where creatives for native campaigns are uploaded.\n\n## Component Creatives API v3.0 (current)\n\nQA API Base: `https://t1qa1.mediamath.com/component_creatives/v3.0/` (or whichever QA server is being used)\n\nProd API Base: `https://api.mediamath.com/component_creatives/v3.0/`\n\nv3.0 endpoints use Bearer (JWT) authentication via the `Authorization` header.\n\n## Component Creatives API v1.0 (deprecated)\n\n> **Deprecated:** The v1.0 endpoints are deprecated. Please migrate to v3.0.\n\nQA API Base: `https://t1qa1.mediamath.com/component_creatives/v1.0/` (or whichever QA server is being used)\n\nProd API Base: `https://api.mediamath.com/component_creatives/v1.0`",
+    "contact": {
+      "name": "API Support",
+      "url": "https://support.infillion.com/"
+    },
+    "license": {
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+      "name": "Apache 2.0"
+    },
+    "version": "3.0"
+  },
+  "tags": [
+    {
+      "name": "Component Creatives",
+      "description": "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed soon\" %}\n  Please migrate to the **Component Creatives API v3.0** documented above.\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\" %}\n  The use of cookie adama_session for authentication has been discontinued and it's not supported in Component Creatives API v3.0.\n  We ask all of our clients who have not yet migrated to **Bearer (JWT) Authentication** to do so as soon as possible.\n{% /admonition %}"
+    },
+    {
+      "name": "Creatives - Native",
+      "description": "v3.0 component (native) creative endpoints."
+    },
+    {
+      "name": "Components",
+      "description": "v3.0 component definition endpoints."
+    },
+    {
+      "name": "Approvals",
+      "description": "v3.0 creative approval status endpoints."
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Component Creatives API v3.0",
+      "tags": [
+        "Creatives - Native",
+        "Components",
+        "Approvals"
+      ]
+    },
+    {
+      "name": "Component Creatives API v1.0 (Deprecated)",
+      "tags": [
+        "Component Creatives"
+      ]
+    }
+  ],
+  "paths": {
+    "/component_creatives/v1.0/creatives": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "List Creatives",
+        "description": "**⚠️ Deprecated** — Use `GET /v3.0/creatives` instead.\n\nList creatives",
+        "operationId": "List-creatives",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "description": "sort_by",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "atomic_creative_id",
+                "advertiser_id",
+                "advertiser_name",
+                "concept_name",
+                "start_date",
+                "end_date",
+                "concept_id",
+                "creative_name",
+                "last_modified",
+                "external_identifier",
+                "status"
+              ]
+            }
+          },
+          {
+            "name": "page_limit",
+            "in": "query",
+            "description": "page_limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "page_offset",
+            "in": "query",
+            "description": "page_offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "advertiser_id",
+            "in": "query",
+            "description": "advertiser_id",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "advertiser_id": 122631,
+                          "advertiser_name": "ACME",
+                          "assets": [
+                            {
+                              "asset_id": 159377,
+                              "asset_type": "text",
+                              "asset_value": "Puppeteer Component Creative #2",
+                              "component_human_name": "Title",
+                              "component_id": 7
+                            },
+                            {
+                              "asset_id": 159378,
+                              "asset_type": "text",
+                              "asset_value": "DO NOT MODIFY: Puppeteer Test Creative used for automated testing.",
+                              "component_human_name": "Description",
+                              "component_id": 10
+                            },
+                            {
+                              "asset_id": 159379,
+                              "asset_type": "text",
+                              "asset_value": "https://t1.mediamath.com/",
+                              "component_human_name": "Destination URL",
+                              "component_id": 4
+                            }
+                          ],
+                          "atomic_creative_id": 6897203,
+                          "concept_id": "2219854",
+                          "concept_name": "Puppeteer Component Creative #2",
+                          "created_at": "2019-05-29T17:04:53.082Z",
+                          "creative_id": 16160,
+                          "creative_name": "Puppeteer Component Creative #2",
+                          "end_date": "2019-01-01T00:00:00",
+                          "external_identifier": "NA",
+                          "last_modified": "2019-05-29T17:04:32",
+                          "last_published": "2019-05-29T17:04:58.589Z",
+                          "start_date": "2019-01-01T00:00:00",
+                          "status": "1",
+                          "unpublished": false,
+                          "updated_at": "2019-05-29T17:04:58.589Z"
+                        },
+                        {
+                          "advertiser_id": 225607,
+                          "advertiser_name": "IBM - Outbrain",
+                          "assets": [
+                            {
+                              "asset_id": 155128,
+                              "asset_type": "image",
+                              "component_human_name": "Image",
+                              "component_id": 2,
+                              "image_file_size": 117931,
+                              "image_filename": "LinuxONE_Native_Banking_1200x1200.jpg",
+                              "image_height": 1200,
+                              "image_url": "https://s3.amazonaws.com/mm-component-creative-api/1558639899084_c6df48cfa3d27180af814331f73553b7_LinuxONE_Native_Banking_1200x1200.jpg",
+                              "image_width": 1200
+                            },
+                            {
+                              "asset_id": 155129,
+                              "asset_type": "text",
+                              "asset_value": "https://www.ibm.com/account/reg/us-en/signup?formid=urx-36770",
+                              "component_human_name": "Destination URL",
+                              "component_id": 4
+                            },
+                            {
+                              "asset_id": 155130,
+                              "asset_type": "text",
+                              "asset_value": "IBM",
+                              "component_human_name": "Brand Name(sponsored by)",
+                              "component_id": 13
+                            },
+                            {
+                              "asset_id": 155131,
+                              "asset_type": "text",
+                              "asset_value": "https://bs.serving-sys.com/Serving/adServer.bs?cn=trd&pli=1074647816&adid=1077380410&ord=[RANDOM_NUMBER]",
+                              "component_human_name": "3PAS Click Tracking URL",
+                              "component_id": 14
+                            },
+                            {
+                              "asset_id": 155132,
+                              "asset_type": "text",
+                              "asset_value": "Maintaining Trust for Financial Services \r\n\r\n",
+                              "component_human_name": "Title",
+                              "component_id": 7
+                            },
+                            {
+                              "asset_id": 155133,
+                              "asset_type": "text",
+                              "asset_value": "Protect your customers' data and prevent breaches with the right IT infrastructure. Read how",
+                              "component_human_name": "Description",
+                              "component_id": 10
+                            },
+                            {
+                              "asset_id": 155134,
+                              "asset_type": "text",
+                              "asset_value": "https://bs.serving-sys.com/Serving/adServer.bs?cn=display&c=19&pli=1074647816&adid=1077380410&ord=[RANDOM_NUMBER]",
+                              "component_human_name": "3PAS Impression Tracking URL",
+                              "component_id": 16
+                            },
+                            {
+                              "asset_id": 155135,
+                              "asset_type": "image",
+                              "component_human_name": "Logo",
+                              "component_id": 21,
+                              "image_file_size": 2770,
+                              "image_filename": "ibm.png",
+                              "image_height": 200,
+                              "image_url": "https://s3.amazonaws.com/mm-component-creative-api/1558639899093_d5e4e3a232b3456e309c242d687a126c_ibm.png",
+                              "image_width": 200
+                            }
+                          ],
+                          "atomic_creative_id": 6884010,
+                          "concept_id": "2213973",
+                          "concept_name": "ibm_outbrain",
+                          "created_at": "2019-05-23T19:31:39.059Z",
+                          "creative_id": 15550,
+                          "creative_name": "outbrain4",
+                          "external_identifier": "NA",
+                          "last_modified": "2019-05-23T19:31:23",
+                          "last_published": "2019-05-23T19:31:51.910Z",
+                          "status": "1",
+                          "unpublished": false,
+                          "updated_at": "2019-05-23T19:31:51.910Z"
+                        }
+                      ],
+                      "meta": {
+                        "code": 200,
+                        "count": 2,
+                        "next_page": "http://component-creative-api.prod.cbe.mediamath.com/v1.0/creatives?page_offset=2&page_limit=2",
+                        "offset": 0,
+                        "status": "success",
+                        "total_count": 864,
+                        "type": "creatives"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Here are 2 examples of error sections (meta sections are identical):\n\n      \"location\": \"query\",\n      \"param\": \"page_limit\",\n      \"msg\": \"must be an Integer between 1 and 100\",\n      \"value\": \"0\"\n\nand \n\n      \"location\": \"query\",\n      \"param\": \"atomic_creative_ids\",\n      \"msg\": \"Must provide comma separated ids and number of ids should not exceed 50\",\n      \"value\": \"\"",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 400,
+                        "status": "error",
+                        "message": "Validation Error"
+                      },
+                      "errors": [
+                        {
+                          "location": "query",
+                          "param": "atomic_creative_ids",
+                          "msg": "Must provide comma separated ids and number of ids should not exceed 50",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 401,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Authorization required."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Create a New Creative",
+        "description": "**⚠️ Deprecated** — Use `POST /v3.0/creatives` instead.\n\nCreate a new creative",
+        "operationId": "Create-a-new-creative",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Create-a-new-creativeBody"
+        },
+        "responses": {
+          "201": {
+            "description": "Remember, assets have different schema depending on asset type.\n\nHeader: Cookie: adama_session={adama_session}",
+            "headers": {
+              "new1579011858564": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 100178,
+                        "advertiser_name": "Brooklyn Bubblegum Co.",
+                        "assets": [
+                          {
+                            "asset_id": 1538,
+                            "asset_type": "text",
+                            "asset_value": "new body",
+                            "component": "body"
+                          },
+                          {
+                            "asset_id": 1539,
+                            "asset_type": "image",
+                            "component": "image",
+                            "image_file_size": null,
+                            "image_filename": "mediamathlogo.png",
+                            "image_height": 100,
+                            "image_url": "https://s3.amazonaws.com/mm-component-creative/1479403779621_227082bd4ced0f888aa0066f06ea1402_mediamathlogo.png",
+                            "image_width": 160
+                          }
+                        ],
+                        "atomic_creative_id": 3200795,
+                        "created_at": "2016-11-17T17:29:39.607Z",
+                        "creative_id": 261,
+                        "creative_name": "test creative",
+                        "end_date": "2016-11-30T00:00:00",
+                        "external_identifier": "NA",
+                        "last_modified": "2016-11-17T17:30:55",
+                        "last_published": "2016-11-17T17:29:39.607Z",
+                        "start_date": "2016-09-30T00:00:00",
+                        "status": "1",
+                        "unpublished": false,
+                        "updated_at": "2016-11-17T17:29:39.607Z"
+                      },
+                      "meta": {
+                        "code": 201,
+                        "status": "created",
+                        "type": "creative"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 400,
+                        "status": "error",
+                        "message": "Validation Error"
+                      },
+                      "errors": [
+                        {
+                          "param": "creative_name",
+                          "msg": "required"
+                        },
+                        {
+                          "param": "advertiser_id",
+                          "msg": "must be an integer"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/version": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Get Group Version Info",
+        "description": "Get group version info",
+        "operationId": "Get-group-version-info",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "version": "cfb1074-20190419202430"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/approvals": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "List Creative Approvals",
+        "description": "**⚠️ Deprecated** — Use `GET /v3.0/approvals` instead.\n\nList Creative Approvals",
+        "operationId": "List-Creative-Approvals",
+        "parameters": [
+          {
+            "name": "atomic_creative_ids",
+            "in": "query",
+            "description": "Actually, an integer or comma-delimited list not to exceed 50 items",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "See below",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "atomic_creative_id": "6226793",
+                          "net_status": "REJECTED",
+                          "sources": {
+                            "sharethrough": "REJECTED",
+                            "triplelift": "PENDING"
+                          }
+                        },
+                        {
+                          "atomic_creative_id": "6242534",
+                          "net_status": "N/A",
+                          "sources": {
+                            "sharethrough": "N/A",
+                            "triplelift": "N/A"
+                          }
+                        },
+                        {
+                          "atomic_creative_id": "6242535",
+                          "net_status": "REJECTED",
+                          "sources": {
+                            "sharethrough": "REJECTED",
+                            "triplelift": "N/A"
+                          }
+                        }
+                      ],
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "approvals"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Post an Image or Subtitle Asset",
+        "description": "**⚠️ Deprecated** — Use `POST /v3.0/creatives` instead.\n\nNote about image assets:\n\nBase64 encoded image assets can be uploaded via this endpoint. This new image asset is represented in the assets param as an object containing an encoded_image_file and image_name properties. Example assets: \"[{\\\"encoded_image_file\\\": __base64_data_here__, \\\"image_filename\\\":\\\"logo.png\\\"}]\"\n\nNote about subtitle assets:\n\nBase64 encoded subtitle assets can be uploaded via this endpoint. This new subtitle asset is represented in the assets param as an object containing an encoded_subtitle_file and subtitle_filename properties. Example assets: \"[{\\\"encoded_subtitle_file\\\": __base64_data_here__, \\\"subtitle_filename\\\":\\\"test.srt\\\"}]\"\n\nHeader should be of format:                     Cookie: adama_session={adama_session}",
+        "operationId": "Post-an-Image-or-Subtitle-Asset",
+        "parameters": [
+          {
+            "name": "adama_session",
+            "in": "header",
+            "description": "See below",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Create-a-new-creativeBody"
+        },
+        "responses": {
+          "201": {
+            "description": "All assets have asset_id, asset_type, component_id, and component_human_name.\nasset_type=text also have asset_value.\nasset_type=image have the 5 parameters that start with \"image_\"",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 100178,
+                        "advertiser_name": "Brooklyn Bubblegum Co.",
+                        "assets": [
+                          {
+                            "asset_id": 1538,
+                            "asset_type": "text",
+                            "asset_value": "new body",
+                            "component_human_name": "Body",
+                            "component_id": 6
+                          },
+                          {
+                            "asset_id": 1539,
+                            "asset_type": "image",
+                            "component_human_name": "Image",
+                            "component_id": 2,
+                            "image_file_size": null,
+                            "image_filename": "mediamathlogo.png",
+                            "image_height": 100,
+                            "image_url": "https://s3.amazonaws.com/mm-component-creative/1479403779621_227082bd4ced0f888aa0066f06ea1402_mediamathlogo.png",
+                            "image_width": 160
+                          },
+                          {
+                            "asset_id": 311,
+                            "asset_type": "subtitle",
+                            "component_human_name": "Subtitle",
+                            "component_id": 12,
+                            "subtitle_filename": "test.srt",
+                            "subtitle_url": "https://s3.amazonaws.com/mm-component-creative-api-qa11/1509985844769_eb5b2640445f1e13a63def2f6d194d5f_test.srt"
+                          }
+                        ],
+                        "atomic_creative_id": 3200795,
+                        "created_at": "2016-11-17T17:29:39.607Z",
+                        "creative_id": 261,
+                        "creative_name": "test creative",
+                        "end_date": "2016-11-30T00:00:00",
+                        "external_identifier": "NA",
+                        "fb_status": "UNKNOWN",
+                        "last_modified": "2016-11-17T17:30:55",
+                        "start_date": "2016-09-30T00:00:00",
+                        "status": "1",
+                        "updated_at": "2016-11-17T17:29:39.607Z"
+                      },
+                      "meta": {
+                        "code": 201,
+                        "status": "created",
+                        "type": "creative"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 400,
+                        "status": "error",
+                        "message": "Validation Error"
+                      },
+                      "errors": [
+                        {
+                          "param": "creative_name",
+                          "msg": "required"
+                        },
+                        {
+                          "param": "advertiser_id",
+                          "msg": "must be an integer"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/creatives/{atomic_creative_id}/eligibility": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Get Creative's Eligibility Details",
+        "description": "**⚠️ Deprecated** — Use `GET /v3.0/creatives/{atomic_creative_id}/eligibility` instead.\n\nGet creative's eligibility details",
+        "operationId": "Get-details-about-a-creatives-eligibility",
+        "parameters": [
+          {
+            "name": "atomic_creative_id",
+            "in": "path",
+            "description": "See below",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "ad_format": {
+                            "external_id": "AUDIENCE_NETWORK_OUTSTREAM_VIDEO",
+                            "name": "Audience Network In-Stream Video",
+                            "simple_name": "In-stream"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Audience Network"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "DESKTOP_FEED_STANDARD",
+                            "name": "Desktop Newsfeed - Image",
+                            "simple_name": "Desktop"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "6",
+                              "name": "Body",
+                              "present": false
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Newsfeed"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "DESKTOP_FEED_STANDARD",
+                            "name": "Desktop Newsfeed - Video",
+                            "simple_name": "Desktop"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "6",
+                              "name": "Body",
+                              "present": false
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Newsfeed"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "INSTAGRAM_STANDARD",
+                            "name": "Instagram Feed - Image",
+                            "simple_name": "Image"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "6",
+                              "name": "Body",
+                              "present": false
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Instagram"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "INSTAGRAM_STANDARD",
+                            "name": "Instagram Feed - Video",
+                            "simple_name": "Video"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "6",
+                              "name": "Body",
+                              "present": false
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Instagram"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "INSTANT_ARTICLE_STANDARD",
+                            "name": "Instant Articles - Image",
+                            "simple_name": "Image"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Instant Articles"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "INSTANT_ARTICLE_STANDARD",
+                            "name": "Instant Articles - Video",
+                            "simple_name": "Video"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Instant Articles"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "INSTREAM_VIDEO_DESKTOP",
+                            "name": "In-Stream Video (Desktop)",
+                            "simple_name": "Desktop"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook In-Stream Video"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "INSTREAM_VIDEO_MOBILE",
+                            "name": "In-Stream Video (Mobile)",
+                            "simple_name": "Mobile"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook In-Stream Video"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MESSENGER_MOBILE_INBOX_MEDIA",
+                            "name": "Messenger Home",
+                            "simple_name": "Home"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Messenger"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MOBILE_BANNER",
+                            "name": "Audience Network Banner",
+                            "simple_name": "Banner"
+                          },
+                          "eligible": false,
+                          "optional_components": [
+                            {
+                              "id": "5",
+                              "name": "View Tag",
+                              "present": false
+                            }
+                          ],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Audience Network"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MOBILE_FEED_STANDARD",
+                            "name": "Mobile Newsfeed - Image",
+                            "simple_name": "Mobile"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "6",
+                              "name": "Body",
+                              "present": false
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Newsfeed"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MOBILE_FEED_STANDARD",
+                            "name": "Mobile Newsfeed - Video",
+                            "simple_name": "Mobile"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "6",
+                              "name": "Body",
+                              "present": false
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Newsfeed"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MOBILE_INTERSTITIAL",
+                            "name": "Audience Network Interstitial - Image",
+                            "simple_name": "Interstitial"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Audience Network"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MOBILE_INTERSTITIAL",
+                            "name": "Audience Network Interstitial - Video",
+                            "simple_name": "Interstitial"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Audience Network"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MOBILE_NATIVE",
+                            "name": "Audience Network Native - Image",
+                            "simple_name": "Native"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Audience Network"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "MOBILE_NATIVE",
+                            "name": "Audience Network Native - Video",
+                            "simple_name": "Native"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Audience Network"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "NATIVE_DESKTOP_0",
+                            "name": "Native Desktop 1",
+                            "simple_name": "Desktop: Food Network"
+                          },
+                          "eligible": true,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "10",
+                              "name": "Description",
+                              "present": true
+                            },
+                            {
+                              "id": "13",
+                              "name": "Brand Name(sponsored by)",
+                              "present": true
+                            },
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "7",
+                              "name": "Title",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Open RTB",
+                          "supplier_platform": "Native"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "NATIVE_DESKTOP_1",
+                            "name": "Native Desktop 2",
+                            "simple_name": "Desktop: Sky Sports"
+                          },
+                          "eligible": true,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "10",
+                              "name": "Description",
+                              "present": true
+                            },
+                            {
+                              "id": "13",
+                              "name": "Brand Name(sponsored by)",
+                              "present": true
+                            },
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "7",
+                              "name": "Title",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Open RTB",
+                          "supplier_platform": "Native"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "NATIVE_MOBILE_0",
+                            "name": "Native Mobile 1",
+                            "simple_name": "Mobile: Rolling Stone"
+                          },
+                          "eligible": true,
+                          "optional_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            }
+                          ],
+                          "required_components": [
+                            {
+                              "id": "10",
+                              "name": "Description",
+                              "present": true
+                            },
+                            {
+                              "id": "13",
+                              "name": "Brand Name(sponsored by)",
+                              "present": true
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "7",
+                              "name": "Title",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Open RTB",
+                          "supplier_platform": "Native"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "NATIVE_MOBILE_1",
+                            "name": "Native Mobile 2",
+                            "simple_name": "Mobile: E!"
+                          },
+                          "eligible": true,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "10",
+                              "name": "Description",
+                              "present": true
+                            },
+                            {
+                              "id": "13",
+                              "name": "Brand Name(sponsored by)",
+                              "present": true
+                            },
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            },
+                            {
+                              "id": "7",
+                              "name": "Title",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Open RTB",
+                          "supplier_platform": "Native"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "RIGHT_COLUMN_STANDARD",
+                            "name": "Desktop - Right Hand Side - Image",
+                            "simple_name": "Desktop"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "2",
+                              "name": "Image",
+                              "present": true
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Right Hand Side"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "RIGHT_COLUMN_STANDARD",
+                            "name": "Desktop - Right Hand Side - Video",
+                            "simple_name": "Desktop"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Right Hand Side"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "SUGGESTED_VIDEO_DESKTOP",
+                            "name": "Suggested Video (Desktop)",
+                            "simple_name": "Desktop"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Suggested Video"
+                        },
+                        {
+                          "ad_format": {
+                            "external_id": "SUGGESTED_VIDEO_MOBILE",
+                            "name": "Suggested Video (Mobile)",
+                            "simple_name": "Mobile"
+                          },
+                          "eligible": false,
+                          "optional_components": [],
+                          "required_components": [
+                            {
+                              "id": "11",
+                              "name": "Video",
+                              "present": false
+                            },
+                            {
+                              "id": "3",
+                              "name": "Page ID",
+                              "present": false
+                            },
+                            {
+                              "id": "4",
+                              "name": "Destination URL",
+                              "present": true
+                            }
+                          ],
+                          "supplier": "Facebook",
+                          "supplier_platform": "Facebook Suggested Video"
+                        }
+                      ],
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "creative_eligibility"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/creatives/{atomic_creative_id}": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Get Details of a Creative",
+        "description": "**⚠️ Deprecated** — Use `GET /v3.0/creatives/{atomic_creative_id}` instead.\n\nGet details of a creative",
+        "operationId": "Get-details-of-a-creative",
+        "parameters": [
+          {
+            "name": "atomic_creative_id",
+            "in": "path",
+            "description": "See below",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "start_date and end_date are not required fields, but they either both exist or don't exist per creative.\n\nIf the asset_type is text, asset_value is defined,\notherwise, the 5 parameters that begin \"image_\" are defined.\n",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 166476,
+                        "advertiser_name": "000Adam Test Advertiser",
+                        "assets": [
+                          {
+                            "asset_id": 9025,
+                            "asset_type": "image",
+                            "component_human_name": "Image",
+                            "component_id": 2,
+                            "image_file_size": 194898,
+                            "image_filename": "06_ig.jpg",
+                            "image_height": 612,
+                            "image_url": "https://s3.amazonaws.com/mm-component-creative-api/1506367361835_92ee3c43b925a23366da671ac044b34a_06_ig.jpg",
+                            "image_width": 612
+                          },
+                          {
+                            "asset_id": 9026,
+                            "asset_type": "text",
+                            "asset_value": "Go from desk to dinner in style",
+                            "component_human_name": "Body",
+                            "component_id": 6
+                          },
+                          {
+                            "asset_id": 9027,
+                            "asset_type": "text",
+                            "asset_value": "Scarlet fever",
+                            "component_human_name": "Title",
+                            "component_id": 7
+                          },
+                          {
+                            "asset_id": 9029,
+                            "asset_type": "text",
+                            "asset_value": "https://www.luisaviaroma.com/aquazzura/women/catalog/lang_EN/desid_81E?__=undefined&=&utm_source=mediamath_us&utm_medium=programmatic&utm_campaign=fullpriced&utm_term=FB&utm_content=female",
+                            "component_human_name": "Destination URL",
+                            "component_id": 4
+                          },
+                          {
+                            "asset_id": 9031,
+                            "asset_type": "text",
+                            "asset_value": "Upgrade your wardrobe with knockout sandals from Aquazzura.",
+                            "component_human_name": "Description",
+                            "component_id": 10
+                          }
+                        ],
+                        "atomic_creative_id": 4813554,
+                        "concept_id": "1432620",
+                        "concept_name": "LVR_US_IN_New Collection_Female_23June2017",
+                        "created_at": "2017-09-25T19:22:41.788Z",
+                        "creative_id": 1205,
+                        "creative_name": "LVR_US_IN_NewCollection_612x612_28June_06",
+                        "external_identifier": "NA",
+                        "last_modified": "2017-09-25T19:22:00",
+                        "last_published": "2018-03-06T16:00:27.624Z",
+                        "status": "1",
+                        "unpublished": false,
+                        "updated_at": "2018-03-06T16:00:27.624Z"
+                      },
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "creative"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 401,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Authorization required."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 404,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Creative not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Update Creatives Details",
+        "description": "**⚠️ Deprecated** — Use `PUT /v3.0/creatives/{atomic_creative_id}` instead.\n\n# Update creatives details\n\n## Caution\nIf the parameter assets is defined, then all previous assets belonging to this creative are replaced with this new array of assets. You can avoid deleting assets by adding the asset by id to the assets param like so [{\\\"asset_id\\\":34223}] :::\n\nNote about image assets:\n\nBase64 encoded image assets can be uploaded via this endpoint. This new image asset is represented in the assets param as an object containing an encoded_image_file and image_filename properties. Example assets: \"[{\\\"encoded_image_file\\\": __base64_data_here__, \\\"image_filename\\\":\\\"logo.png\\\"}]\"\n\n## Note about subtitle assets:\n\nBase64 encoded subtitle assets can be uploaded via this endpoint. This new subtitle asset is represented in the assets param as an object containing an encoded_subtitle_file and subtitle_filename properties. Example assets: \"[{\\\"encoded_subtitle_file\\\": __base64_data_here__, \\\"subtitle_filename\\\":\\\"test.srt\\\"}]\"",
+        "operationId": "Update-creatives-details",
+        "parameters": [
+          {
+            "name": "atomic_creative_id",
+            "in": "path",
+            "description": "atomic_creative_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "adama_session",
+            "in": "header",
+            "description": "See below",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Create-a-new-creativeBody"
+        },
+        "responses": {
+          "200": {
+            "description": "Different asset types use different parameters",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 100178,
+                        "assets": [
+                          {
+                            "asset_id": 1541,
+                            "asset_type": "text",
+                            "asset_value": "the updated body",
+                            "component": "body"
+                          }
+                        ],
+                        "atomic_creative_id": 3200795,
+                        "created_at": "2016-11-17T17:29:39.607Z",
+                        "creative_id": 261,
+                        "creative_name": "The updated name of the creative",
+                        "end_date": "2016-10-17T00:00:00",
+                        "external_identifier": "NA",
+                        "last_modified": "2016-11-17T17:47:43",
+                        "last_published": "2016-11-17T17:29:39.607Z",
+                        "start_date": "2016-10-15T00:00:00",
+                        "status": "1",
+                        "unpublished": false,
+                        "updated_at": "2016-11-17T17:29:39.607Z"
+                      },
+                      "meta": {
+                        "code": 200,
+                        "status": "updated",
+                        "type": "creative"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 400,
+                        "status": "error",
+                        "type": "error",
+                        "message": "t1_api: Validation errors: Concept 123112 not associated with advertiser 100178"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 404,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Creative not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/creatives/{atomic_creative_id}.QUERY.include=previews": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Get Atomic Creative with Preview Info",
+        "description": "**⚠️ Deprecated** — Use `GET /v3.0/creatives/{atomic_creative_id}?include=previews` instead.\n\nGet an atomic creative with preview info.\n# \".QUERY.\" should be replaced by a question mark for actual execution",
+        "operationId": "creatives-atomic_creative_id-include-previews",
+        "parameters": [
+          {
+            "name": "atomic_creative_id",
+            "in": "path",
+            "description": "See below",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "description": "Cookie: adama_session={adama_session}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "In the previews array, the types are not limited to just NATIVE_MOBILE_0 and NATIVE_MOBILE_1 and NATIVE_DESKTOP_0 and NATIVE_DESKTOP_1 (note: NATIVE_MOBILE_ and NATIVE_DESKTOP_ will only be followed by 0 or 1).  Other options (with no underscore-number) include:\nMOBILE_BANNER\nAUDIENCE_NETWORK_OUTSTREAM_VIDEO\nMOBILE_INTERSTITIAL\nMOBILE_NATIVE\nINSTREAM_VIDEO_DESKTOP\nINSTREAM_VIDEO_MOBILE\nINSTANT_ARTICLE_STANDARD\nMESSENGER_MOBILE_INBOX_MEDIA\nDESKTOP_FEED_STANDARD\nMOBILE_FEED_STANDARD\nRIGHT_COLUMN_STANDARD\nSUGGESTED_VIDEO_DESKTOP\nSUGGESTED_VIDEO_MOBILE\nINSTAGRAM_STANDARD\n\nGET /component_creatives/v1.0/creatives/{atomic_creative_id}/eligibility\nwill list out all of these external id's, and should not vary when the atomic_creative_id changes.",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 123710,
+                        "advertiser_name": "Donkey Test Advertiser",
+                        "assets": [
+                          {
+                            "asset_id": 173028,
+                            "asset_type": "image",
+                            "component_human_name": "Image",
+                            "component_id": 2,
+                            "image_file_size": 1483850,
+                            "image_filename": "NDAR - Native Creative.jpg",
+                            "image_height": 1200,
+                            "image_url": "https://s3.amazonaws.com/mm-component-creative-api/1560356915479_66f39a69fbbdc7acb180d895616c93f1_NDAR%20-%20Native%20Creative.jpg",
+                            "image_width": 1200
+                          },
+                          {
+                            "asset_id": 173029,
+                            "asset_type": "text",
+                            "asset_value": "MediaMath",
+                            "component_human_name": "Brand Name(sponsored by)",
+                            "component_id": 13
+                          },
+                          {
+                            "asset_id": 173030,
+                            "asset_type": "text",
+                            "asset_value": "Consumers are multicultural. Is your marketing?",
+                            "component_human_name": "Title",
+                            "component_id": 7
+                          },
+                          {
+                            "asset_id": 173031,
+                            "asset_type": "text",
+                            "asset_value": "Build campaigns that speak to the interests & needs of consumers across communities",
+                            "component_human_name": "Description",
+                            "component_id": 10
+                          },
+                          {
+                            "asset_id": 173032,
+                            "asset_type": "text",
+                            "asset_value": "https://www.mediamath.com/",
+                            "component_human_name": "Destination URL",
+                            "component_id": 4
+                          }
+                        ],
+                        "atomic_creative_id": 9534525,
+                        "concept_id": "123508",
+                        "concept_name": "NDAR - Native Creative",
+                        "created_at": "2019-06-19T17:56:55.431Z",
+                        "creative_id": 17941,
+                        "creative_name": "NDAR - Native Creative",
+                        "external_identifier": "NA",
+                        "last_modified": "2019-06-19T17:56:22",
+                        "last_published": "2019-06-19T17:57:29.300Z",
+                        "previews": {
+                          "NATIVE_DESKTOP_0": {
+                            "available": true,
+                            "preview": "<iframe width=\"1024\" height=\"768\" src=\"https://generator.sharethrough.com/embed?advertiser=MediaMath&description=Build+campaigns+that+speak+to+the+interests+%26+needs+of+consumers+across+communities&headline=Consumers+are+multicultural.+Is+your+marketing%3F&media_url=https%3A%2F%2Fwww.mediamath.com%2F&thumbnail_url=https%3A%2F%2Fs3.amazonaws.com%2Fmm-component-creative-api%2F1560967015479_66f39a69fbb267ecb180d895616c93f1_NDAR%2520-%2520Native%2520Creative.jpg&site=foodnetwork\"></iframe>"
+                          },
+                          "NATIVE_DESKTOP_1": {
+                            "available": true,
+                            "preview": "<iframe width=\"1024\" height=\"768\" src=\"https://generator.sharethrough.com/embed?advertiser=MediaMath&description=Build+campaigns+that+speak+to+the+interests+%26+needs+of+consumers+across+communities&headline=Consumers+are+multicultural.+Is+your+marketing%3F&media_url=https%3A%2F%2Fwww.mediamath.com%2F&thumbnail_url=https%3A%2F%2Fs3.amazonaws.com%2Fmm-component-creative-api%2F1560967015479_66f39a69fbb267ecb180d895616c93f1_NDAR%2520-%2520Native%2520Creative.jpg&site=skysports\"></iframe>"
+                          },
+                          "NATIVE_MOBILE_0": {
+                            "available": true,
+                            "preview": "<iframe width=\"320\" height=\"568\" src=\"https://generator.sharethrough.com/embed?advertiser=MediaMath&description=Build+campaigns+that+speak+to+the+interests+%26+needs+of+consumers+across+communities&headline=Consumers+are+multicultural.+Is+your+marketing%3F&media_url=https%3A%2F%2Fwww.mediamath.com%2F&thumbnail_url=https%3A%2F%2Fs3.amazonaws.com%2Fmm-component-creative-api%2F1560967015479_66f39a69fbb267ecb180d895616c93f1_NDAR%2520-%2520Native%2520Creative.jpg&site=rollingstone\"></iframe>"
+                          },
+                          "NATIVE_MOBILE_1": {
+                            "available": true,
+                            "preview": "<iframe width=\"320\" height=\"568\" src=\"https://generator.sharethrough.com/embed?advertiser=MediaMath&description=Build+campaigns+that+speak+to+the+interests+%26+needs+of+consumers+across+communities&headline=Consumers+are+multicultural.+Is+your+marketing%3F&media_url=https%3A%2F%2Fwww.mediamath.com%2F&thumbnail_url=https%3A%2F%2Fs3.amazonaws.com%2Fmm-component-creative-api%2F1560967015479_66f39a69fbb267ecb180d895616c93f1_NDAR%2520-%2520Native%2520Creative.jpg&site=eonline\"></iframe>"
+                          }
+                        },
+                        "status": "1",
+                        "unpublished": false,
+                        "updated_at": "2019-06-19T17:57:29.300Z"
+                      },
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "creative"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 400,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Creative not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/assets/{asset_id}": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Get a Text Asset",
+        "description": "Get a text asset\n\nHeaders\n\nCookie: adama_session={adama_session}",
+        "operationId": "Get-a-text-asset",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "description": "See below",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Depending on the asset type, you'll either get an asset_value (text) or the 5 parameters that start with \"image\" (image).  Everything else comes with either type.  It may be associated with either an advertise_id or a creative_id.",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 100178,
+                        "asset_id": 1537,
+                        "asset_name": null,
+                        "component_human_name": "Image",
+                        "component_id": 2,
+                        "created_at": "2016-11-17T17:29:32.340Z",
+                        "image_file_size": null,
+                        "image_filename": "mediamathlogo.png",
+                        "image_height": 100,
+                        "image_url": "https://s3.amazonaws.com/mm-component-creative/1479403772247_227082bd4ced0f888aa0066f06ea1402_mediamathlogo.png",
+                        "image_width": 160,
+                        "updated_at": "2016-11-17T17:29:32.340Z"
+                      },
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "asset"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 400,
+                        "status": "error",
+                        "message": "Validation Error"
+                      },
+                      "errors": [
+                        {
+                          "param": "asset_value",
+                          "msg": "required"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Request Update Image Asset",
+        "description": "**⚠️ Deprecated** — Use `PUT /v3.0/creatives/{atomic_creative_id}` instead.\n\nRequest update image asset\n\nText asset is in the request sample below.\n\nImage asset request sample:\n------WebKitFormBoundary7MA4YWxkTrZu0gW\nContent-Disposition: form-data; name=\"asset_value\"; filename=\"\"\nContent-Type:\n\n\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
+        "operationId": "Request-update-image-asset",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "description": "asset_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "adama_session",
+            "in": "header",
+            "description": "See below",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The data section will either have asset_value (text asset) or the 5 image parameters (image asset).    It may be associated with either an advertise_id or a creative_id.\n\nRequest update image asset (multipart/form-data)\n\nHeaders\n\nCookie: adama_session={adama_session}\n\nBody\n\n------WebKitFormBoundary7MA4YWxkTrZu0gW\nContent-Disposition: form-data; name=\"asset_value\"; filename=\"\"\nContent-Type:\n\n\n------WebKitFormBoundary7MA4YWxkTrZu0gW--\n\n------WebKitFormBoundary7MA4YWxkTrZu0gW\nContent-Disposition: form-data; name=\"asset_value\"; filename=\"\"\nContent-Type:\n\n\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 100178,
+                        "asset_id": 1537,
+                        "asset_name": null,
+                        "component_human_name": "Image",
+                        "component_id": 2,
+                        "created_at": "2016-11-17T17:29:32.340Z",
+                        "image_file_size": null,
+                        "image_filename": "mediamathlogo.png",
+                        "image_height": 100,
+                        "image_url": "https://s3.amazonaws.com/mm-component-creative/1479403772247_227082bd4ced0f888aa0066f06ea1402_mediamathlogo.png",
+                        "image_width": 160,
+                        "updated_at": "2016-11-17T17:29:32.340Z"
+                      },
+                      "meta": {
+                        "code": 201,
+                        "status": "created",
+                        "type": "asset"
+                      }
+                    }
+                  }
+                }
+              },
+              "new": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 201,
+                        "status": "created",
+                        "type": "asset"
+                      },
+                      "data": {
+                        "asset_id": 1537,
+                        "advertiser_id": 100178,
+                        "asset_name": null,
+                        "created_at": "2016-11-17T17:29:32.340Z",
+                        "updated_at": "2016-11-17T17:29:32.340Z",
+                        "component_id": 2,
+                        "component_human_name": "Image",
+                        "asset_value": "new body"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/components": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "List Components",
+        "description": "**⚠️ Deprecated** — Use `GET /v3.0/components` instead.\n\nList components",
+        "operationId": "list-components",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": [
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Body",
+                          "component_id": 6,
+                          "created_at": "2016-12-01T03:56:44.091Z",
+                          "is_enabled": true,
+                          "updated_at": "2016-12-01T03:56:44.091Z",
+                          "value_type_name": "TEXT"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Call to Action",
+                          "component_id": 1,
+                          "created_at": "2016-12-01T03:56:44.082Z",
+                          "is_enabled": true,
+                          "updated_at": "2016-12-01T03:56:44.082Z",
+                          "value_type_name": "TEXT"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Description",
+                          "component_id": 10,
+                          "created_at": "2017-02-21T00:00:00.000Z",
+                          "is_enabled": true,
+                          "updated_at": "2017-02-21T00:00:00.000Z",
+                          "value_type_name": "TEXT"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Destination URL",
+                          "component_id": 4,
+                          "created_at": "2016-12-01T03:56:44.085Z",
+                          "is_enabled": true,
+                          "updated_at": "2016-12-01T03:56:44.085Z",
+                          "value_type_name": "TEXT"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Display URL",
+                          "component_id": 9,
+                          "created_at": "2017-02-21T00:00:00.000Z",
+                          "is_enabled": true,
+                          "updated_at": "2017-02-21T00:00:00.000Z",
+                          "value_type_name": "TEXT"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Image",
+                          "component_id": 2,
+                          "created_at": "2016-12-01T03:56:44.081Z",
+                          "is_enabled": true,
+                          "updated_at": "2016-12-01T03:56:44.081Z",
+                          "value_type_name": "IMAGE"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Page ID",
+                          "component_id": 3,
+                          "created_at": "2016-12-01T03:56:44.078Z",
+                          "is_enabled": true,
+                          "updated_at": "2016-12-01T03:56:44.078Z",
+                          "value_type_name": "TEXT"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "Title",
+                          "component_id": 7,
+                          "created_at": "2016-12-01T03:56:44.093Z",
+                          "is_enabled": true,
+                          "updated_at": "2016-12-01T03:56:44.093Z",
+                          "value_type_name": "TEXT"
+                        },
+                        {
+                          "char_limit": null,
+                          "component_human_name": "View Tag",
+                          "component_id": 5,
+                          "created_at": "2016-12-01T03:56:44.088Z",
+                          "is_enabled": true,
+                          "updated_at": "2016-12-01T03:56:44.088Z",
+                          "value_type_name": "TEXT"
+                        }
+                      ],
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "total_count": 9,
+                        "type": "component"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 401,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Authorization required."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Create a Component",
+        "description": "**⚠️ Deprecated** — Use `POST /v3.0/components` instead.\n\nAccess is restricted to certain T1 user IDs stored in the database, disallowed users will receive a 401 error message.\n\nThe ID of the created component will be in the response.",
+        "operationId": "Create-a-component",
+        "parameters": [
+          {
+            "name": "adama_session",
+            "in": "header",
+            "description": "See below",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "description": "{\n    \"component_human_name\": \"Right Image\",\n    \"component_name\": \"right_image\",\n    \"value_type_name\": \"IMAGE\"\n}"
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "char_limit": null,
+                        "component_human_name": "Right Image",
+                        "component_id": 11,
+                        "created_at": "2016-11-17T19:58:06.894Z",
+                        "is_enabled": true,
+                        "updated_at": "2016-11-17T19:58:06.894Z",
+                        "value_type_name": "IMAGE"
+                      },
+                      "meta": {
+                        "code": 201,
+                        "status": "created",
+                        "type": "component"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "For a response, here's how image vs. text varies:\n\n    \"component_human_name\": \"Side Text\",\n    \"value_type_name\": \"TEXT\",\n\t\t\n\t\tvs.\n\t\t\n\t\t\"component_human_name\": \"Right Image\",\n    \"value_type_name\": \"IMAGE\",",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 401,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/components/{component_id}": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Get a Single Component Creative",
+        "description": "**⚠️ Deprecated** — Use `GET /v3.0/components/{component_id}` instead.\n\nGet a single component creative",
+        "operationId": "get-a-single-component-creative",
+        "parameters": [
+          {
+            "name": "component_id",
+            "in": "path",
+            "description": "See below",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "char_limit": null,
+                        "component_human_name": "Destination URL",
+                        "component_id": 4,
+                        "created_at": "2016-12-01T03:56:44.085Z",
+                        "is_enabled": true,
+                        "updated_at": "2016-12-01T03:56:44.085Z",
+                        "value_type_name": "TEXT"
+                      },
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "component"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 401,
+                        "status": "error",
+                        "type": "error",
+                        "message": "Authorization required."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Update a Single component creative",
+        "description": "**⚠️ Deprecated** — Use `POST /v3.0/components/{component_id}` instead.\n\nUpdate a Single component creative",
+        "operationId": "Update-a-Single-component-creative",
+        "parameters": [
+          {
+            "name": "component_id",
+            "in": "path",
+            "description": "See below",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Create-a-new-creativeBody"
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "char_limit": null,
+                        "component_human_name": "Destination URL",
+                        "component_id": 4,
+                        "created_at": "2016-12-01T03:56:44.085Z",
+                        "is_enabled": true,
+                        "updated_at": "2016-12-01T03:56:44.085Z",
+                        "value_type_name": "TEXT"
+                      },
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "component"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/assets": {
+      "post": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Create a New Asset Collection",
+        "description": "**⚠️ Deprecated** — Use `POST /v3.0/creatives` instead.\n\nCreate an asset and optionally associate it with a creative. Either an advertiser_id or creative_ids must be provided. All creatives in creative_ids must belong to the same advertiser.\n\nThe ID of the created asset will be in the response.\n\nRequest text asset (application/json)\n\nAttributes (NewTextAsset)\n\nHeaders\n\nCookie: adama_session={adama_session}\n\nThe body shown below is for a text asset.\n\nAn image asset body might be in the form of:\n------WebKitFormBoundary7MA4YWxkTrZu0gW\nContent-Disposition: form-data; name=\"component_id\"\n\n2\n------WebKitFormBoundary7MA4YWxkTrZu0gW\nContent-Disposition: form-data; name=\"asset_value\"; filename=\"\"\nContent-Type:\n\n\n------WebKitFormBoundary7MA4YWxkTrZu0gW\nContent-Disposition: form-data; name=\"creative_ids\"\n\n[3200795]\n------WebKitFormBoundary7MA4YWxkTrZu0gW\nContent-Disposition: form-data; name=\"advertiser_id\"\n\n100178\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
+        "operationId": "Create-a-New-Asset-Collection",
+        "parameters": [
+          {
+            "name": "adama_session",
+            "in": "header",
+            "description": "adama_session",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Create-a-new-creativeBody"
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "data": {
+                        "advertiser_id": 100178,
+                        "asset_id": 1546,
+                        "asset_name": null,
+                        "component_human_name": "Image",
+                        "component_id": 2,
+                        "created_at": "2016-11-18T16:38:45.375Z",
+                        "image_file_size": 5052,
+                        "image_filename": "logo.png",
+                        "image_height": 100,
+                        "image_url": "https://s3.amazonaws.com/mm-component-creative/1479487125286_227082bd4ced0f888aa0066f06ea1402_logo.png",
+                        "image_width": 160,
+                        "updated_at": "2016-11-18T16:38:45.375Z"
+                      },
+                      "meta": {
+                        "code": 201,
+                        "status": "created",
+                        "type": "asset"
+                      }
+                    }
+                  }
+                }
+              },
+              "new": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 201,
+                        "status": "created",
+                        "type": "asset"
+                      },
+                      "data": {
+                        "asset_id": 1543,
+                        "advertiser_id": 100178,
+                        "asset_name": null,
+                        "created_at": "2016-11-18T16:12:26.236Z",
+                        "updated_at": "2016-11-18T16:12:26.236Z",
+                        "component_id": 6,
+                        "component_human_name": "Body",
+                        "asset_value": "here is some body text"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v1.0/upload/{filename}": {
+      "get": {
+        "tags": [
+          "Component Creatives"
+        ],
+        "security": [],
+        "summary": "Get video asset upload S3 URL",
+        "description": "Get a pre-signed S3 URL to be used for uploading video assets. Once an object is put in the S3 bucket, this S3 url without it's query parameters can be used as an asset_value for video assets.",
+        "operationId": "Get_video_asset_upload_S3_URL",
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "path",
+            "description": "Cannot include any of the following characters: {}^/\\`[]~<>|#%'\"",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "description": "Cookie: adama_session={adama_session};",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "meta": {
+                        "code": 200,
+                        "status": "success",
+                        "type": "upload"
+                      },
+                      "data": "https://mm-component-creative-prod-dev.s3.amazonaws.com/1506608929527_cb764213f2b67169dacc809f077e4e7f_hello.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=REDACTED_AWS_ACCESS_KEY_ID%2F20170928%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170928T142849Z&X-Amz-Expires=60&X-Amz-Signature=536f9681d6de47f121616673b7a14cb9524d48944cb8d689f83e6f173da2f301&X-Amz-SignedHeaders=host"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/component_creatives/v3.0/approvals": {
+      "get": {
+        "description": "Retrieve approval status for multiple atomic creative IDs. Returns the net status and individual source statuses for each creative.",
+        "parameters": [
+          {
+            "description": "Comma-separated list of atomic creative IDs",
+            "in": "query",
+            "name": "atomic_creative_ids",
+            "required": true,
+            "example": "\"4838137,4838138,4838139\"",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Approvals status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ApprovalsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid atomic_creative_ids parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-get-approvals-status",
+        "summary": "Get Approvals Status",
+        "tags": [
+          "Approvals"
+        ]
+      }
+    },
+    "/component_creatives/v3.0/components": {
+      "get": {
+        "description": "Retrieve all components from the system",
+        "responses": {
+          "200": {
+            "description": "Components retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-list-all-components",
+        "summary": "List All Components",
+        "tags": [
+          "Components"
+        ]
+      },
+      "post": {
+        "description": "Create a new component. Requires Component Manager authorization.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.ComponentCreateRequest"
+              }
+            }
+          },
+          "description": "Component creation request",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Component created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - not a component manager",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-create-component",
+        "summary": "Create Component",
+        "tags": [
+          "Components"
+        ]
+      }
+    },
+    "/component_creatives/v3.0/components/{component_id}": {
+      "get": {
+        "description": "Retrieve a component by its ID",
+        "parameters": [
+          {
+            "description": "Component ID",
+            "in": "path",
+            "name": "component_id",
+            "required": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Component retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid component ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Component not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-get-component-by-id",
+        "summary": "Get Component By ID",
+        "tags": [
+          "Components"
+        ]
+      },
+      "post": {
+        "description": "Update an existing component. Requires Component Manager authorization. Note: value_type_name cannot be updated.",
+        "parameters": [
+          {
+            "description": "Component ID",
+            "in": "path",
+            "name": "component_id",
+            "required": true,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.ComponentUpdateRequest"
+              }
+            }
+          },
+          "description": "Component update request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Component updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid component_id or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - not a component manager",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Component not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-update-component",
+        "summary": "Update Component",
+        "tags": [
+          "Components"
+        ]
+      }
+    },
+    "/component_creatives/v3.0/creatives": {
+      "get": {
+        "description": "Retrieve a paginated list of component creatives with filtering options and JWT authentication. Supports sorting by various fields.",
+        "parameters": [
+          {
+            "description": "Offset for pagination (max 1000)",
+            "in": "query",
+            "name": "page_offset",
+            "example": 10,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "description": "Number of entities to show on one page (max 1000)",
+            "in": "query",
+            "name": "page_limit",
+            "example": 10,
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "description": "Filter by organization ID",
+            "in": "query",
+            "name": "organization_id",
+            "example": 10048,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter by advertiser ID",
+            "in": "query",
+            "name": "advertiser_id",
+            "example": 100078,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Sort field. Prepend - for descending",
+            "in": "query",
+            "name": "sort_by",
+            "example": "\"-atomic_creative_id\"",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "atomic_creative_id",
+                "-atomic_creative_id",
+                "advertiser_name",
+                "-advertiser_name",
+                "concept_name",
+                "-concept_name",
+                "creative_name",
+                "-creative_name",
+                "last_modified",
+                "-last_modified",
+                "status",
+                "-status"
+              ]
+            }
+          },
+          {
+            "description": "Search term for creative ID or name",
+            "in": "query",
+            "name": "search",
+            "example": "\"test creative\"",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by status",
+            "in": "query",
+            "name": "status",
+            "example": "\"1\"",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Component creatives retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentCreativeListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-list-component-creatives",
+        "summary": "List Component Creatives",
+        "tags": [
+          "Creatives - Native"
+        ]
+      },
+      "post": {
+        "description": "Create a new component creative with assets. Supports base64 encoded image and subtitle uploads.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.ComponentCreativeRequest"
+              }
+            }
+          },
+          "description": "Creative creation request",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Component creative created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentCreativeApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-create-component-creative",
+        "summary": "Create Component Creative",
+        "tags": [
+          "Creatives - Native"
+        ]
+      }
+    },
+    "/component_creatives/v3.0/creatives/{atomic_creative_id}": {
+      "get": {
+        "description": "Retrieve a component creative object using the creative ID with JWT authentication. Supports various asset types including text, image, video, and subtitle assets.",
+        "parameters": [
+          {
+            "description": "Creative ID",
+            "in": "path",
+            "name": "atomic_creative_id",
+            "required": true,
+            "example": 4838137,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Comma-separated list of additional data to include",
+            "in": "query",
+            "name": "include",
+            "example": "\"previews\"",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "previews"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Component creative retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentCreativeApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid atomic_creative_id parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Component creative not found or not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-get-component-creative-by-id",
+        "summary": "Get Component Creative by ID",
+        "tags": [
+          "Creatives - Native"
+        ]
+      },
+      "put": {
+        "description": "Update an existing component creative with optional fields. When assets are provided, all previous assets are completely replaced.",
+        "parameters": [
+          {
+            "description": "Creative ID",
+            "in": "path",
+            "name": "atomic_creative_id",
+            "required": true,
+            "example": 3200795,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.ComponentCreativeUpdateRequest"
+              }
+            }
+          },
+          "description": "Creative update request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Component creative updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ComponentCreativeApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Creative not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-update-component-creative",
+        "summary": "Update Component Creative",
+        "tags": [
+          "Creatives - Native"
+        ]
+      }
+    },
+    "/component_creatives/v3.0/creatives/{atomic_creative_id}/eligibility": {
+      "get": {
+        "description": "Retrieve eligibility information for a component creative across all placements with JWT authentication",
+        "parameters": [
+          {
+            "description": "Creative ID",
+            "in": "path",
+            "name": "atomic_creative_id",
+            "required": true,
+            "example": 3200738,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Creative eligibility retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.EligibilityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid atomic_creative_id parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Component creative not found or not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httputil.Response"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "operationId": "v3-get-creative-eligibility",
+        "summary": "Get Creative Eligibility",
+        "tags": [
+          "Creatives - Native"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.mediamath.com"
+    }
+  ],
+  "components": {
+    "requestBodies": {
+      "Create-a-new-creativeBody": {
+        "content": {
+          "application/json": {
+            "schema": {}
+          }
+        },
+        "description": "See below"
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "description": "Type \"Bearer\" followed by a space and JWT token.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      }
+    },
+    "schemas": {
+      "httputil.Response": {
+        "properties": {
+          "data": {},
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.AdFormat": {
+        "properties": {
+          "external_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "simple_name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ApprovalStatus": {
+        "properties": {
+          "atomic_creative_id": {
+            "type": "string"
+          },
+          "net_status": {
+            "type": "string"
+          },
+          "sources": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "models.ApprovalsResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/models.ApprovalStatus"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/models.MetaInfo"
+          }
+        },
+        "type": "object"
+      },
+      "models.Asset": {
+        "description": "Asset associated with a creative",
+        "properties": {
+          "asset_id": {
+            "type": "integer"
+          },
+          "asset_type": {
+            "type": "string"
+          },
+          "asset_value": {
+            "type": "string"
+          },
+          "component_human_name": {
+            "type": "string"
+          },
+          "component_id": {
+            "type": "integer"
+          },
+          "image_file_size": {
+            "type": "integer"
+          },
+          "image_filename": {
+            "type": "string"
+          },
+          "image_height": {
+            "type": "integer"
+          },
+          "image_url": {
+            "type": "string"
+          },
+          "image_width": {
+            "type": "integer"
+          },
+          "subtitle_filename": {
+            "type": "string"
+          },
+          "subtitle_url": {
+            "type": "string"
+          },
+          "video_filename": {
+            "type": "string"
+          },
+          "video_url": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.Component": {
+        "description": "Component definition",
+        "properties": {
+          "char_limit": {
+            "type": "integer"
+          },
+          "component_human_name": {
+            "type": "string"
+          },
+          "component_id": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "is_enabled": {
+            "type": "boolean"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "value_type_name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentCreateRequest": {
+        "description": "Component creation request",
+        "properties": {
+          "char_limit": {
+            "type": "integer"
+          },
+          "component_human_name": {
+            "description": "Required",
+            "type": "string"
+          },
+          "is_enabled": {
+            "description": "Default: true",
+            "type": "boolean"
+          },
+          "value_type_name": {
+            "description": "Required: TEXT, IMAGE, VIDEO, INTEGER, SUBTITLE",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentCreativeApiResponse": {
+        "description": "Standard component creative API response for create, update, and get operations",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/models.ComponentCreativeData"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/models.MetaInfo"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentCreativeData": {
+        "description": "Component Creative object with assets and metadata",
+        "properties": {
+          "advertiser_id": {
+            "type": "integer"
+          },
+          "advertiser_name": {
+            "type": "string"
+          },
+          "assets": {
+            "items": {
+              "$ref": "#/components/schemas/models.Asset"
+            },
+            "type": "array"
+          },
+          "atomic_creative_id": {
+            "type": "integer"
+          },
+          "clickthrough_url": {
+            "type": "string"
+          },
+          "concept_id": {
+            "type": "string"
+          },
+          "concept_name": {
+            "type": "string"
+          },
+          "creative_id": {
+            "type": "integer"
+          },
+          "creative_name": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "external_identifier": {
+            "type": "string"
+          },
+          "fb_status": {
+            "type": "string"
+          },
+          "feedback": {
+            "type": "object"
+          },
+          "landing_url": {
+            "type": "string"
+          },
+          "last_modified": {
+            "type": "string"
+          },
+          "last_published": {
+            "type": "string"
+          },
+          "previews": {
+            "type": "object"
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "unpublished": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentCreativeListResponse": {
+        "description": "Component creative list API response",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/models.ComponentCreativeData"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/models.MetaInfo"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentCreativeRequest": {
+        "properties": {
+          "assets": {
+            "description": "JSON string of AssetRequest array",
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "brandName": {
+            "type": "string"
+          },
+          "clickThroughUrl": {
+            "type": "string"
+          },
+          "clickTrackingUrl": {
+            "type": "string"
+          },
+          "concept_id": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "destinationUrl": {
+            "type": "string"
+          },
+          "displayUrl": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "external_identifier": {
+            "type": "string"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "impressionTrackingTag": {
+            "type": "string"
+          },
+          "impressionTrackingUrl": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          },
+          "tpas_ad_tag_name": {
+            "type": "string"
+          },
+          "viewabilityTrackingTag": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentCreativeUpdateRequest": {
+        "properties": {
+          "advertiser_id": {
+            "type": "integer"
+          },
+          "assets": {
+            "description": "JSON string of AssetRequest array",
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "brandName": {
+            "type": "string"
+          },
+          "clickThroughUrl": {
+            "type": "string"
+          },
+          "clickTrackingUrl": {
+            "type": "string"
+          },
+          "concept_id": {
+            "type": "integer"
+          },
+          "creative_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "destinationUrl": {
+            "type": "string"
+          },
+          "displayUrl": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "external_identifier": {
+            "type": "string"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "impressionTrackingTag": {
+            "type": "string"
+          },
+          "impressionTrackingUrl": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          },
+          "tpas_ad_tag_name": {
+            "type": "string"
+          },
+          "viewabilityTrackingTag": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentListResponse": {
+        "description": "Component list API response",
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/models.Component"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/models.MetaInfo"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentResponse": {
+        "description": "Single component API response",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/models.Component"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/models.MetaInfo"
+          }
+        },
+        "type": "object"
+      },
+      "models.ComponentUpdateRequest": {
+        "description": "Component update request",
+        "properties": {
+          "char_limit": {
+            "type": "integer"
+          },
+          "component_human_name": {
+            "type": "string"
+          },
+          "is_enabled": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "models.EligibilityResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/models.PlacementEligibility"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/models.MetaInfo"
+          }
+        },
+        "type": "object"
+      },
+      "models.EligibleComponent": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "present": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "models.MetaInfo": {
+        "description": "Response metadata",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "next_page": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "prev_page": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.PlacementEligibility": {
+        "properties": {
+          "ad_format": {
+            "$ref": "#/components/schemas/models.AdFormat"
+          },
+          "eligible": {
+            "type": "boolean"
+          },
+          "optional_components": {
+            "items": {
+              "$ref": "#/components/schemas/models.EligibleComponent"
+            },
+            "type": "array"
+          },
+          "required_components": {
+            "items": {
+              "$ref": "#/components/schemas/models.EligibleComponent"
+            },
+            "type": "array"
+          },
+          "supplier": {
+            "type": "string"
+          },
+          "supplier_platform": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ValidationDetail": {
+        "properties": {
+          "msg": {
+            "type": "string"
+          },
+          "param": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.ValidationError": {
+        "properties": {
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/models.ValidationDetail"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/models.ValidationMeta"
+          }
+        },
+        "type": "object"
+      },
+      "models.ValidationMeta": {
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

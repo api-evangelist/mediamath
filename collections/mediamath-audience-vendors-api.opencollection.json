@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Audience Vendors API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audience Vendors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Audience Vendors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/audience_vendors"
+          },
+          "docs": "Get a list of audience vendors"
+        },
+        {
+          "info": {
+            "name": "Create an Audience Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/audience_vendors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an audience vendor"
+        },
+        {
+          "info": {
+            "name": "Get an Audience Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/audience_vendors/:audience_vendor_id",
+            "params": [
+              {
+                "name": "audience_vendor_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the audience vendor"
+              }
+            ]
+          },
+          "docs": "Get an audience vendor by ID"
+        },
+        {
+          "info": {
+            "name": "Update an Audience Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/audience_vendors/:audience_vendor_id",
+            "params": [
+              {
+                "name": "audience_vendor_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the audience vendor to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an audience vendor by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

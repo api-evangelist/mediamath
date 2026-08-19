@@ -1,0 +1,2673 @@
+{
+  "item": [
+    {
+      "id": "65173201-2746-4e43-8798-f3bfe6db3ffb",
+      "name": "Advertisers",
+      "description": {
+        "content": "Advertisers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c87a56ab-3ab2-43f5-8d07-7996222163e5",
+          "name": "List Advertisers",
+          "request": {
+            "name": "List Advertisers",
+            "description": {
+              "content": "Get a list of advertisers",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Get related property in response"
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "<string>",
+                  "description": "To return all fields, set the value to `*`. For example, `full=*` will include all properties.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d42374b1-a5c8-4ba5-b85d-857c46447059",
+              "name": "List advertisers response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 3927,\n      \"name\": \"string\",\n      \"entity_type\": \"string\",\n      \"agency\": {\n        \"id\": 4763,\n        \"name\": \"string\",\n        \"entity_type\": \"string\",\n        \"rel\": \"string\"\n      }\n    },\n    {\n      \"id\": 3155,\n      \"name\": \"string\",\n      \"entity_type\": \"string\",\n      \"agency\": {\n        \"id\": 57,\n        \"name\": \"string\",\n        \"entity_type\": \"string\",\n        \"rel\": \"string\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "245a42d6-53fe-4ea4-b5d5-f06bbc93f525",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e28cd378-26ed-4a7f-a959-78d97c8501c1",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74133153-6323-446e-a18e-cb373d8d84a3",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b1e70d6-d6c1-4a50-8075-d19a0bd8fb2c",
+          "name": "Create an Advertiser",
+          "request": {
+            "name": "Create an Advertiser",
+            "description": {
+              "content": "Create an advertiser",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"agency_id\": \"<integer>\",\n  \"vertical_id\": \"<integer>\",\n  \"ad_server_id\": \"<integer>\",\n  \"domain\": \"<string>\",\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": \"<integer>\",\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"status\": \"<boolean>\",\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": \"<integer>\",\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": \"<integer>\",\n      \"impression_pixel\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "74a3a417-4907-4626-80c3-28bac6e9b56c",
+              "name": "Advertiser created response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"agency_id\": 125,\n  \"vertical_id\": 433,\n  \"ad_server_id\": 126,\n  \"domain\": \"<string>\",\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"status\": \"<boolean>\",\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"ad_server_id\": 126,\n    \"data_sharing_enabled\": \"<boolean>\",\n    \"dmp_enabled\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"frequency_interval\": \"not-applicable\",\n    \"frequency_type\": \"no-limit\",\n    \"frequency_amount\": 3,\n    \"minimize_multi_ads\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"status\": \"<boolean>\",\n    \"vertical_id\": 433,\n    \"ads_txt_verified\": \"<string>\",\n    \"political\": \"<boolean>\",\n    \"connected_id_type\": \"<string>\",\n    \"mfa_avoidance\": \"<string>\",\n    \"attribution_level\": \"INDIVIDUAL\",\n    \"targeting_identity_level\": \"INDIVIDUAL\",\n    \"advertiser_brain\": true,\n    \"vendor_attributions\": [\n      {\n        \"vendor_id\": 18,\n        \"impression_pixel\": \"<string>\"\n      },\n      {\n        \"vendor_id\": 18,\n        \"impression_pixel\": \"<string>\"\n      }\n    ],\n    \"id\": 680,\n    \"ad_server_fee\": 7462.525798668566,\n    \"agency_id\": 3285,\n    \"created_on\": \"2025-05-22T23:51:57.641Z\",\n    \"entity_type\": \"string\",\n    \"updated_on\": \"2000-07-25T04:40:25.542Z\",\n    \"version\": 5740,\n    \"effective_ads_txt_verified\": \"string\",\n    \"allow_x_strat_optimization\": false,\n    \"billing_contact_id\": 3046,\n    \"sales_contact_id\": 699,\n    \"agency\": {\n      \"id\": 7454,\n      \"name\": \"string\",\n      \"entity_type\": \"string\",\n      \"rel\": \"string\"\n    },\n    \"inherited_mfa_avoidance\": \"ALLOW_ALL\",\n    \"inherited_mfa_from\": \"Advertiser\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68bc6469-b333-411c-8260-6cccc2beb8d1",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"agency_id\": 125,\n  \"vertical_id\": 433,\n  \"ad_server_id\": 126,\n  \"domain\": \"<string>\",\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"status\": \"<boolean>\",\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5b7699f-ef2f-4535-9582-60f5a89fe946",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"agency_id\": 125,\n  \"vertical_id\": 433,\n  \"ad_server_id\": 126,\n  \"domain\": \"<string>\",\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"status\": \"<boolean>\",\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42ad86f9-c8cd-4736-9330-e3879f0fc60c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"agency_id\": 125,\n  \"vertical_id\": 433,\n  \"ad_server_id\": 126,\n  \"domain\": \"<string>\",\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"status\": \"<boolean>\",\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a962d365-21b2-4505-a2bb-258a45c81c7a",
+          "name": "Get an Advertiser",
+          "request": {
+            "name": "Get an Advertiser",
+            "description": {
+              "content": "Get an advertiser by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":advertiser_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "advertiser_id",
+                  "description": "(Required) Numeric ID of the advertiser to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2732bfa-96a3-4f90-b195-d93b14b3fbb2",
+              "name": "Advertiser response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"ad_server_id\": 126,\n    \"data_sharing_enabled\": \"<boolean>\",\n    \"dmp_enabled\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"frequency_interval\": \"not-applicable\",\n    \"frequency_type\": \"no-limit\",\n    \"frequency_amount\": 3,\n    \"minimize_multi_ads\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"status\": \"<boolean>\",\n    \"vertical_id\": 433,\n    \"ads_txt_verified\": \"<string>\",\n    \"political\": \"<boolean>\",\n    \"connected_id_type\": \"<string>\",\n    \"mfa_avoidance\": \"<string>\",\n    \"attribution_level\": \"INDIVIDUAL\",\n    \"targeting_identity_level\": \"INDIVIDUAL\",\n    \"advertiser_brain\": true,\n    \"vendor_attributions\": [\n      {\n        \"vendor_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"impression_pixel\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"vendor_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"impression_pixel\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"id\": 9567,\n    \"ad_server_fee\": 3788.3075648995477,\n    \"agency_id\": 9709,\n    \"created_on\": \"1966-12-20T09:52:33.849Z\",\n    \"entity_type\": \"string\",\n    \"updated_on\": \"1998-04-03T21:51:09.153Z\",\n    \"version\": 4165,\n    \"effective_ads_txt_verified\": \"string\",\n    \"allow_x_strat_optimization\": false,\n    \"billing_contact_id\": 3523,\n    \"sales_contact_id\": 1087,\n    \"agency\": {\n      \"id\": 5226,\n      \"name\": \"string\",\n      \"entity_type\": \"string\",\n      \"rel\": \"string\"\n    },\n    \"inherited_mfa_avoidance\": \"EXCLUDE_MFA\",\n    \"inherited_mfa_from\": \"Agency\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eccfa179-a19f-4752-b6d6-35500e65ddb5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43f5215f-fd54-431a-b0dc-f095939c221c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06a527bf-9712-4e8c-a1d7-ef6c3f8b783c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95ecfca7-8786-4e53-b1d7-0adae9157ee1",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79801db7-f492-444a-a94c-37381356b7ea",
+          "name": "Update an Advertiser",
+          "request": {
+            "name": "Update an Advertiser",
+            "description": {
+              "content": "Update an advertiser by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":advertiser_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "advertiser_id",
+                  "description": "(Required) Numeric ID of the advertiser to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ad_server_id\": \"<integer>\",\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": \"<integer>\",\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"status\": \"<boolean>\",\n  \"vertical_id\": \"<integer>\",\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": \"<integer>\",\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": \"<integer>\",\n      \"impression_pixel\": \"<string>\"\n    }\n  ],\n  \"version\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0d53b16-6159-4a74-87b5-a2952a92f297",
+              "name": "Advertiser updated response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_server_id\": 126,\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"status\": \"<boolean>\",\n  \"vertical_id\": 433,\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ],\n  \"version\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"ad_server_id\": 126,\n    \"data_sharing_enabled\": \"<boolean>\",\n    \"dmp_enabled\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"frequency_interval\": \"not-applicable\",\n    \"frequency_type\": \"no-limit\",\n    \"frequency_amount\": 3,\n    \"minimize_multi_ads\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"status\": \"<boolean>\",\n    \"vertical_id\": 433,\n    \"ads_txt_verified\": \"<string>\",\n    \"political\": \"<boolean>\",\n    \"connected_id_type\": \"<string>\",\n    \"mfa_avoidance\": \"<string>\",\n    \"attribution_level\": \"INDIVIDUAL\",\n    \"targeting_identity_level\": \"INDIVIDUAL\",\n    \"advertiser_brain\": true,\n    \"vendor_attributions\": [\n      {\n        \"vendor_id\": 18,\n        \"impression_pixel\": \"<string>\"\n      },\n      {\n        \"vendor_id\": 18,\n        \"impression_pixel\": \"<string>\"\n      }\n    ],\n    \"id\": 680,\n    \"ad_server_fee\": 7462.525798668566,\n    \"agency_id\": 3285,\n    \"created_on\": \"2025-05-22T23:51:57.641Z\",\n    \"entity_type\": \"string\",\n    \"updated_on\": \"2000-07-25T04:40:25.542Z\",\n    \"version\": 5740,\n    \"effective_ads_txt_verified\": \"string\",\n    \"allow_x_strat_optimization\": false,\n    \"billing_contact_id\": 3046,\n    \"sales_contact_id\": 699,\n    \"agency\": {\n      \"id\": 7454,\n      \"name\": \"string\",\n      \"entity_type\": \"string\",\n      \"rel\": \"string\"\n    },\n    \"inherited_mfa_avoidance\": \"ALLOW_ALL\",\n    \"inherited_mfa_from\": \"Advertiser\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e7b7087-c7c0-4b2a-ad5f-a7bedbc32752",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_server_id\": 126,\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"status\": \"<boolean>\",\n  \"vertical_id\": 433,\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ],\n  \"version\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e989ad22-b5be-4050-baf0-a75f5ff28279",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_server_id\": 126,\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"status\": \"<boolean>\",\n  \"vertical_id\": 433,\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ],\n  \"version\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a54ebd4-9ac9-4744-b48d-a7878988503b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_server_id\": 126,\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"status\": \"<boolean>\",\n  \"vertical_id\": 433,\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ],\n  \"version\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f10a10b2-2b0c-4ae0-b62d-d4ffec08c3e7",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_server_id\": 126,\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"status\": \"<boolean>\",\n  \"vertical_id\": 433,\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ],\n  \"version\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "160c7b38-4f16-4490-b314-e36864e16691",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_server_id\": 126,\n  \"data_sharing_enabled\": \"<boolean>\",\n  \"dmp_enabled\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"frequency_interval\": \"not-applicable\",\n  \"frequency_type\": \"no-limit\",\n  \"frequency_amount\": 3,\n  \"minimize_multi_ads\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"status\": \"<boolean>\",\n  \"vertical_id\": 433,\n  \"ads_txt_verified\": \"<string>\",\n  \"political\": \"<boolean>\",\n  \"connected_id_type\": \"<string>\",\n  \"mfa_avoidance\": \"<string>\",\n  \"attribution_level\": \"INDIVIDUAL\",\n  \"targeting_identity_level\": \"INDIVIDUAL\",\n  \"advertiser_brain\": true,\n  \"vendor_attributions\": [\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    },\n    {\n      \"vendor_id\": 18,\n      \"impression_pixel\": \"<string>\"\n    }\n  ],\n  \"version\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eecfa78a-4c1a-42d7-bf9e-142bf67f80e1",
+          "name": "Advertiser Audit Log",
+          "request": {
+            "name": "Advertiser Audit Log",
+            "description": {
+              "content": "Get a list changes to this advertiser",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":advertiser_id",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "advertiser_id",
+                  "description": "(Required) Numeric ID of the advertiser"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "45da2636-2c06-4e9c-8e82-7c894b880b83",
+              "name": "Audit log response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"action\": \"string\",\n      \"date\": \"1993-04-10T19:38:14.998Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 8591,\n      \"collection\": \"string\",\n      \"entity_id\": 7888,\n      \"tool_name\": \"string\"\n    },\n    {\n      \"action\": \"string\",\n      \"date\": \"1990-07-23T00:50:08.629Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 5036,\n      \"collection\": \"string\",\n      \"entity_id\": 8786,\n      \"tool_name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb4fec5a-b970-4b9c-ae9a-7e771d520b33",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff6e9e70-b8ee-4b8f-a2f0-6de5e0953eeb",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6dffa12a-93b4-46d6-99ef-bc698f043a01",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd401ad9-c2ff-4094-9cf6-f146e8595f6b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9819b35-f1b9-4c04-b9ec-282e52d392ee",
+          "name": "List Advertisers when Agency has Cross Advertiser Pixels enabled",
+          "request": {
+            "name": "List Advertisers when Agency has Cross Advertiser Pixels enabled",
+            "description": {
+              "content": "List all advertiser siblings when parent agency has allow_x_adv_pixels set to true",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":advertiser_id",
+                "pixel_targeting_advertisers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "advertiser_id",
+                  "description": "(Required) Numeric ID of the advertiser to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "469e1967-e82d-4a02-b81e-ec81aa5694e2",
+              "name": "List advertisers response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "pixel_targeting_advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 5313,\n      \"name\": \"string\",\n      \"entity_type\": \"string\",\n      \"agency\": {\n        \"id\": 6724,\n        \"name\": \"string\",\n        \"entity_type\": \"string\",\n        \"rel\": \"string\"\n      }\n    },\n    {\n      \"id\": 5099,\n      \"name\": \"string\",\n      \"entity_type\": \"string\",\n      \"agency\": {\n        \"id\": 7515,\n        \"name\": \"string\",\n        \"entity_type\": \"string\",\n        \"rel\": \"string\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6c6c220-bccf-4fe8-85cd-73b7b071d9e8",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "pixel_targeting_advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a00a7fdf-f7f3-4ca8-8182-2df05eeba1ca",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "pixel_targeting_advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcb9babe-52d0-4efe-b21f-9ca43b1244a4",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "pixel_targeting_advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91465fd9-5387-4df8-95a6-d1cb1ff7d3d1",
+          "name": "List User Permissions for an Advertiser",
+          "request": {
+            "name": "List User Permissions for an Advertiser",
+            "description": {
+              "content": "List user permissions for an advertiser",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "advertisers",
+                ":advertiser_id",
+                "permissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "advertiser_id",
+                  "description": "(Required) Numeric ID of the advertiser"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e0537ec-5932-4ecb-9252-e00a60b925c8",
+              "name": "List user permissions response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"create\": false,\n      \"read\": true,\n      \"update\": true,\n      \"delete\": false,\n      \"inherited_from\": \"string\",\n      \"advertiser_id\": 1508\n    },\n    {\n      \"create\": false,\n      \"read\": true,\n      \"update\": true,\n      \"delete\": true,\n      \"inherited_from\": \"string\",\n      \"advertiser_id\": 4700\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11258b15-5765-4f30-bee8-7da61e7b4ede",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec7a48ed-ab64-4fd3-89e5-da426d2e5c33",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e875e904-6146-47a4-999e-6f7ce166682f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d41bc3e-28ec-4736-8563-a4fa379db1a5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "advertisers",
+                    ":advertiser_id",
+                    "permissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "advertiser_id",
+                      "description": "(Required) Numeric ID of the advertiser"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7709d23d-b5d2-4554-8f53-923eb84903bf",
+          "name": "Bulk Advertiser Audit Log",
+          "request": {
+            "name": "Bulk Advertiser Audit Log",
+            "description": {
+              "content": "Get a list of changes to these advertiser",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_log",
+                "advertisers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": [\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "47f3f65e-8de2-4fee-9cc1-3e3c69117040",
+              "name": "Audit log bulk response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_log",
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"action\": \"string\",\n      \"date\": \"1946-10-12T05:08:27.892Z\",\n      \"tool_name\": \"string\",\n      \"user_name\": \"string\",\n      \"user_id\": 1835,\n      \"collection\": \"string\",\n      \"entity_id\": 3777,\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"action\": \"string\",\n      \"date\": \"1993-10-23T17:08:22.003Z\",\n      \"tool_name\": \"string\",\n      \"user_name\": \"string\",\n      \"user_id\": 3022,\n      \"collection\": \"string\",\n      \"entity_id\": 51,\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36147e1b-bb1a-4faf-9535-d813079b1aed",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_log",
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed786f6d-ed9a-4ccd-92cc-c5f3461f8c35",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_log",
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5047c9b-93ea-4da6-a3ed-58bca79a5b8f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_log",
+                    "advertisers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "82648fe1-67b8-4ac4-9bb5-07297c7e8359",
+    "name": "Campaigns Ad Servers Advertisers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}

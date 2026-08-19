@@ -1,0 +1,974 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "BOF Config API",
+    "description": "1. [What is BOF?](#what-is-bof)\n2. [How is BOF data accessed?](#how-is-bof-data-accessed)\n3. [How do I get started with BOF?](#how-do-i-get-started-with-bof)\n4. [How do I get self-service access to my BOF config file?](#how-do-i-get-self-service-access-to-my-bof-config-file)\n5. [List of Filters](#list-of-filters)\n6. [Example Filter Implementation](#example-filter-implementation)\n7. [List of Channels (X-Mm-Channel-Type)](#list-of-channels-x-mm-channel-type)\n8. [List of Geos (X-Mm-Geo)](#list-of-geos-x-mm-geo)\n9. [Tell me more about Role ARN and buckets](#tell-me-more-about-role-arn-and-buckets)\n10. [Partition Macros for S3/Google cloud users](#partition-macros-for-s3google-cloud-users)\n11. [JSON Object Capabilities](#json-object-capabilities)\n\n\n### What is BOF?\nThe Bid Request Firehose (BOF), is a high performance system designed to ingest bid opportunities from MediaMath bidders and filter and batch these requests to third parties based on configurable parameters.\n\n### How is BOF data accessed?\t\nIn order to grant access to the BOF, a config file, called a consumer, must be set-up for the internal/external client. There are 2 types of consumers that are available:\n\n1. Web endpoint - This can significantly reduce client data response time but requires the client to operate a web cluster capable of ingesting the traffic.\n\n2. S3 endpoint - This is for clients who are less worried about the delivery time of the data, and prefer to receive the data in larger batch sizes (30,000).  This is typically the lowest cost consumer for clients.\n\nCompression Types: LZOP, GZIP\n\nFormat Types: Json Array, JSONL\n\n### How do I get started with BOF?\t\nSetting up a web or s3 consumer takes minimal effort from the MM side. To get set up, please contact your Account representative and provide the following information:\n\n* If S3 consumer: Role ARN (see [below](#tell-me-more-about-role-arn-and-buckets) for more details)\n* If S3 consumer: S3 bucket name(s). You will need to create and provide access to a bucket with a role for BOF to deliver files to it. See [below](#partition-macros-for-s3google-cloud-users) for more details.\n\t* Note: BOF V2 offers cross-region data replication meaning you do not have to worry about creating multiple buckets e.g all your regional data can be sent to us-east-1\n* Email Contact\n* Which regions you are interested in capturing traffic from i.e US, EMEA, or APAC\n* Sample rate (0-100%): If you plan on receiving data from all of the US you should start with a 1% sample. For reference, as of early March 2020, the United States sees approximately 4 million requests a second during the day, so with a 1% filter and a deployment in ewr/ord/pao (United States) you will see ~40k requests per second. This is plenty of data for a sample. \n* At least one of the following filters (see [below](#list-of-filters) for more details):\n\t* X-Mm-Geo\n\t* X-Mm-Deal-Id \n\t* X-Mm-Exch-Id\n\t* X-Mm-Channel-Type \n\n### How do I get self-service access to my BOF config file?\nAs part of the release of BOF v2.0, clients will now have self-service access to their BOF config files. Specifically, they will be able to dynamically update their sample rate, and/or filters without having to engage the MM team. In order to gain self-service access all consumers will need an auth0 account with MediaMath. Please contact developers@mediamath.com to recieve your auth0 client id and secret and then proceed with the following steps:\n\nCurl auth.mediamath.com with your client ID and secret\n\n`POST https://auth.mediamath.com/oauth/token`\n\nExample Request:\n```\ncurl -X POST --header  'content-type: application/json' 'https://auth.mediamath.com/oauth/token' -d '{\"audience\": \"https://api.mediamath.com/opportunity_firehose/\", \"grant_type\":\"client_credentials\", \"client_id\":\"{CLIENT_ID}\", \"client_secret\":\"{CLIENT_SECRET}\"}'\n```\n\nExample Response:\n```\n{\"access_token\":\"ACCESS_TOKEN_HERE\",\"expires_in\":86400,\"token_type\":\"Bearer\"}\n```\n\nUse this token here when sending requests to https://api.mediamath.com/opportunity-firehose/v2.0/\n\n`curl -X GET -H \"Authorization:Bearer ACCESS_TOKEN_HERE\" 'https://api.mediamath.com/opportunity-firehose/v2.0/'`\n\n\n\n# Additional Information\nIn addition to the API's shown in the left column of your display, the following information will help you with updates to your BOF configurations.\n\n### **List of Filters**\n\n```\n[\n  \"X-Mm-Exch-Id\",\n  \"X-Mm-Deal-Id\",\n  \"X-Mm-Channel-Type\",\n  \"X-Mm-Geo\"\n]\n```\n\n### **Example Filter Implementation**\n\n```\n\"filters\": {\n\"X-Mm-Channel-Type\": [\"DISPLAY\",\"VIDEO\",\"SOCIAL\",\"MOBILE_DISPLAY_MOBILE_WEB\",\"MOBILE_VIDEO_MOBILE_WEB\",\"SEARCH\",\"EMAIL\",\"NEWSFEED\"],\n\"X-Mm-Exch-Id\": [\"3\",\"4\",\"5\",\"9\",\"13\",\"15\",\"30\"],\n\"X-Mm-Geo\": [\"60231\"]\n  }\n```\n\n> The filters are additive (they are AND'ed together), so the more filters, the smaller the data set. The above filters will result in seeing request of only those channel types AND only those exchange ids AND only that geo.\n\n### **List of Channels (X-Mm-Channel-Type)**\n\n```\n{\n  \"DISPLAY\",\n  \"VIDEO\",\n  \"SOCIAL\",\n  \"MOBILE_DISPLAY_MOBILE_WEB\",\n  \"MOBILE_VIDEO_MOBILE_WEB\",\n  \"SEARCH\",\n  \"EMAIL\",\n  \"MOBILE_DISPLAY_IN_APP\",\n  \"MOBILE_VIDEO_IN_APP\",\n  \"NEWSFEED\"\n}\n```\n\n### **List of Geos (X-Mm-Geo)**\n\n```\n{\n  \"60000\": \"Unknown\",\n  \"60001\": \"Other\",\n  \"60002\": \"Aruba\",\n  \"60003\": \"Afghanistan\",\n  \"60004\": \"Angola\",\n  \"60005\": \"Anguilla\",\n  \"60006\": \"Aland Islands\",\n  \"60007\": \"Albania\",\n  \"60008\": \"Andorra\",\n  \"60009\": \"Netherlands Antilles\",\n  \"60010\": \"United Arab Emirates\",\n  \"60011\": \"Argentina\",\n  \"60012\": \"Armenia\",\n  \"60013\": \"American Samoa\",\n  \"60014\": \"Antarctica\",\n  \"60015\": \"French Southern Territories\",\n  \"60016\": \"Antigua And Barbuda\",\n  \"60017\": \"Australia\",\n  \"60019\": \"Azerbaijan\",\n  \"60020\": \"Burundi\",\n  \"60022\": \"Benin\",\n  \"60023\": \"Burkina Faso\",\n  \"60024\": \"Bangladesh\",\n  \"60026\": \"Bahrain\",\n  \"60027\": \"Bahamas\",\n  \"60028\": \"Bosnia And Herzegowina\",\n  \"60029\": \"Belarus\",\n  \"60030\": \"Belize\",\n  \"60031\": \"Bermuda\",\n  \"60032\": \"Bolivia\",\n  \"60033\": \"Brazil\",\n  \"60034\": \"Barbados\",\n  \"60035\": \"Brunei Darussalam\",\n  \"60036\": \"Bhutan\",\n  \"60037\": \"Bouvet Island\",\n  \"60038\": \"Botswana\",\n  \"60039\": \"Central African Republic\",\n  \"60040\": \"Canada\",\n  \"60041\": \"Cocos (Keeling) Islands\",\n  \"60042\": \"Switzerland\",\n  \"60043\": \"Chile\",\n  \"60044\": \"China\",\n  \"60045\": \"Cote D Ivoire\",\n  \"60046\": \"Cameroon\",\n  \"60047\": \"Congo - The Democratic Rep Of\",\n  \"60048\": \"Congo\",\n  \"60049\": \"Cook Islands\",\n  \"60050\": \"Colombia\",\n  \"60051\": \"Comoros\",\n  \"60052\": \"Cape Verde\",\n  \"60053\": \"Costa Rica\",\n  \"60054\": \"Cuba\",\n  \"60055\": \"Christmas Island\",\n  \"60056\": \"Cayman Islands\",\n  \"60060\": \"Djibouti\",\n  \"60061\": \"Dominica\",\n  \"60063\": \"Dominican Republic\",\n  \"60064\": \"Algeria\",\n  \"60065\": \"Ecuador\",\n  \"60066\": \"Egypt\",\n  \"60067\": \"Eritrea\",\n  \"60068\": \"Western Sahara\",\n  \"60071\": \"Ethiopia\",\n  \"60073\": \"Fiji\",\n  \"60074\": \"Falkland Islands (Malvinas)\",\n  \"60076\": \"Faroe Islands\",\n  \"60077\": \"Micronesia - Federated States Of\",\n  \"60078\": \"Gabon\",\n  \"60080\": \"Georgia\",\n  \"60081\": \"Guernsey\",\n  \"60082\": \"Ghana\",\n  \"60083\": \"Gibraltar\",\n  \"60084\": \"Guinea\",\n  \"60085\": \"Guadeloupe\",\n  \"60086\": \"Gambia\",\n  \"60087\": \"Guinea-Bissau\",\n  \"60088\": \"Equatorial Guinea\",\n  \"60090\": \"Grenada\",\n  \"60091\": \"Greenland\",\n  \"60092\": \"Guatemala\",\n  \"60093\": \"French Guiana\",\n  \"60094\": \"Guam\",\n  \"60095\": \"Guyana\",\n  \"60096\": \"Hong Kong\",\n  \"60097\": \"Heard And Mc Donald Islands\",\n  \"60098\": \"Honduras\",\n  \"60100\": \"Haiti\",\n  \"60102\": \"Indonesia\",\n  \"60103\": \"Isle Of Man\",\n  \"60104\": \"India\",\n  \"60105\": \"British Indian Ocean Territory\",\n  \"60107\": \"Iran (Islamic Republic Of)\",\n  \"60108\": \"Iraq\",\n  \"60110\": \"Israel\",\n  \"60112\": \"Jamaica\",\n  \"60113\": \"Jersey\",\n  \"60114\": \"Jordan\",\n  \"60115\": \"Japan\",\n  \"60116\": \"Kazakhstan\",\n  \"60117\": \"Kenya\",\n  \"60118\": \"Kyrgyzstan\",\n  \"60119\": \"Cambodia\",\n  \"60120\": \"Kiribati\",\n  \"60121\": \"Saint Kitts And Nevis\",\n  \"60122\": \"Korea - South\",\n  \"60123\": \"Kuwait\",\n  \"60124\": \"Lao Peoples Democratic Republic\",\n  \"60125\": \"Lebanon\",\n  \"60126\": \"Liberia\",\n  \"60127\": \"Libyan Arab Jamahiriya\",\n  \"60128\": \"Saint Lucia\",\n  \"60130\": \"Sri Lanka\",\n  \"60131\": \"Lesotho\",\n  \"60135\": \"Macau\",\n  \"60136\": \"Morocco\",\n  \"60137\": \"Monaco\",\n  \"60138\": \"Moldova - Republic Of\",\n  \"60139\": \"Madagascar\",\n  \"60140\": \"Maldives\",\n  \"60141\": \"Mexico\",\n  \"60142\": \"Marshall Islands\",\n  \"60143\": \"Macedonia - The Frm Yugoslav Rep Of\",\n  \"60144\": \"Mali\",\n  \"60146\": \"Myanmar\",\n  \"60147\": \"Montenegro\",\n  \"60148\": \"Mongolia\",\n  \"60149\": \"Northern Mariana Islands\",\n  \"60150\": \"Mozambique\",\n  \"60151\": \"Mauritania\",\n  \"60152\": \"Montserrat\",\n  \"60153\": \"Martinique\",\n  \"60154\": \"Mauritius\",\n  \"60155\": \"Malawi\",\n  \"60156\": \"Malaysia\",\n  \"60157\": \"Mayotte\",\n  \"60158\": \"Namibia\",\n  \"60159\": \"New Caledonia\",\n  \"60160\": \"Niger\",\n  \"60161\": \"Norfolk Island\",\n  \"60162\": \"Nigeria\",\n  \"60163\": \"Nicaragua\",\n  \"60164\": \"Niue\",\n  \"60167\": \"Nepal\",\n  \"60168\": \"Nauru\",\n  \"60169\": \"New Zealand\",\n  \"60170\": \"Oman\",\n  \"60171\": \"Pakistan\",\n  \"60172\": \"Panama\",\n  \"60173\": \"Pitcairn\",\n  \"60174\": \"Peru\",\n  \"60175\": \"Philippines\",\n  \"60176\": \"Palau\",\n  \"60177\": \"Papua New Guinea\",\n  \"60179\": \"Puerto Rico\",\n  \"60180\": \"Korea - North\",\n  \"60182\": \"Paraguay\",\n  \"60183\": \"Palestinian Territories\",\n  \"60184\": \"French Polynesia\",\n  \"60185\": \"Qatar\",\n  \"60186\": \"Reunion\",\n  \"60188\": \"Russian Federation\",\n  \"60189\": \"Rwanda\",\n  \"60190\": \"Saudi Arabia\",\n  \"60191\": \"Sudan\",\n  \"60192\": \"Senegal\",\n  \"60193\": \"Singapore\",\n  \"60194\": \"South Georgia / South Sandwich Isl\",\n  \"60195\": \"St. Helena\",\n  \"60196\": \"Svalbard And Jan Mayen Islands\",\n  \"60197\": \"Solomon Islands\",\n  \"60198\": \"Sierra Leone\",\n  \"60199\": \"El Salvador\",\n  \"60200\": \"San Marino\",\n  \"60201\": \"Somalia\",\n  \"60202\": \"St. Pierre And Miquelon\",\n  \"60203\": \"Serbia\",\n  \"60204\": \"Sao Tome And Principe\",\n  \"60205\": \"Suriname\",\n  \"60209\": \"Swaziland\",\n  \"60210\": \"Seychelles\",\n  \"60211\": \"Syrian Arab Republic\",\n  \"60212\": \"Turks And Caicos Islands\",\n  \"60213\": \"Chad\",\n  \"60214\": \"Togo\",\n  \"60215\": \"Thailand\",\n  \"60216\": \"Tajikistan\",\n  \"60217\": \"Tokelau\",\n  \"60218\": \"Turkmenistan\",\n  \"60219\": \"Timor-Leste\",\n  \"60220\": \"Tonga\",\n  \"60221\": \"Trinidad And Tobago\",\n  \"60222\": \"Tunisia\",\n  \"60223\": \"Turkey\",\n  \"60224\": \"Tuvalu\",\n  \"60225\": \"Taiwan\",\n  \"60226\": \"Tanzania - United Republic Of\",\n  \"60227\": \"Uganda\",\n  \"60228\": \"Ukraine\",\n  \"60229\": \"Us Minor Outlying Islands\",\n  \"60230\": \"Uruguay\",\n  \"60231\": \"United States\",\n  \"60232\": \"Uzbekistan\",\n  \"60233\": \"Holy See (Vatican City State)\",\n  \"60234\": \"Saint Vincent And The Grenadines\",\n  \"60235\": \"Venezuela\",\n  \"60236\": \"British Virgin Islands\",\n  \"60237\": \"Us Virgin Islands\",\n  \"60238\": \"Viet Nam\",\n  \"60239\": \"Vanuatu\",\n  \"60240\": \"Wallis And Futuna Islands\",\n  \"60241\": \"Samoa\",\n  \"60242\": \"Yemen\",\n  \"60243\": \"South Africa\",\n  \"60244\": \"Zambia\",\n  \"60245\": \"Zimbabwe\",\n  \"60246\": \"Asia Pacific\",\n  \"60247\": \"Europe\",\n  \"72279\": \"Bonaire/Sint Eustatius/Saba\",\n  \"72280\": \"South Sudan\"\n}\n```\n\n### Tell me more about Role ARN and buckets\nCreate an AWS role with at trust relationship of the following\n\n```\n{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Principal\": {\n        \"AWS\": [\n          \"arn:aws:iam::888665229551:root\",\n          \"arn:aws:iam::654223338280:root\"\n        ]\n      },\n      \"Action\": \"sts:AssumeRole\",\n      \"Condition\": {}\n    }\n  ]\n}\n```\n\nAnd then give that role Put access to the bucket and/or bucket path\n\n```\n{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Action\": [\n                \"s3:Put*\"\n            ],\n            \"Effect\": \"Allow\",\n            \"Resource\": \"arn:aws:s3:::YOUR-BUCKET-NAME/*\"\n        }\n    ]\n}\n```\n\nOnce you have done that, provide us with the role:arn, bucket name, and region you put the bucket in and we can start delivering you files.\n\nIf you want to deliver files into a bucket with a prefix such as s3://mediamath/fileshere tell us the prefix and we can deliver the files there.\n\nThe delivery partitions are as follows.\n\n`prefix/HexValue (0-F)/Year-Month-Day/Hour/appUUID_Year-Month-Day-Hour-Minute_opportunities_UTCMS.json.lzo`\n\nThe numbered prefixes are there for high volume consumers based on the [best practices for s3 delivery on aws.](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance.html)\n\nI've created some terraform code to reflect this relationship.\n\n```\nresource \"aws_s3_bucket\" \"bof_ingest\" {\n  bucket = \"bof-ingest\"\n  region = \"us-east-1\"\n\n  acl = \"private\"\n}\n\nresource \"aws_iam_role\" \"bof_ingest_service_role\" {\n  name = \"bof_ingest_service_role\"\n\n  assume_role_policy = <<EOF\n{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Principal\": {\n        \"AWS\": [\n          \"arn:aws:iam::888665229551:root\",\n          \"arn:aws:iam::654223338280:root\"\n        ]\n      },\n      \"Action\": \"sts:AssumeRole\",\n      \"Condition\": {\n      }\n    }\n  ]\n}\nEOF\n}\n\nresource \"aws_iam_policy\" \"bof_ingest_service_role_policy\" {\n  name = \"bof_ingest_service_role_policy\"\n  path = \"/\"\n\n  policy = <<EOF\n{\n\t\"Version\": \"2012-10-17\",\n\t\"Statement\": [{\n\t\t\"Action\": [\n\t\t\t\"s3:Put*\"\n\t\t],\n\t\t\"Effect\": \"Allow\",\n\t\t\"Resource\": \"${aws_s3_bucket.bof_ingest.arn}/*\"\n\t}]\n}\nEOF\n}\n\nresource \"aws_iam_role_policy_attachment\" \"bof_ingest_service_role_policy_attachment\" {\n  role       = \"${aws_iam_role.bof_ingest_service_role.name}\"\n  policy_arn = \"${aws_iam_policy.bof_ingest_service_role_policy.arn}\"\n}\n```\n\n### Partition Macros for S3/Google cloud users\nPartition Macros can be set inside of AwsSettings/GoogleSettings.  You can change it by posting a macro to the following:\nPOST /consumers/{name}/awssettings\nor\nPOST /consumers/{name}/googlesettings\n\nExample post data:\n`{\"PartitionMacro\": \"%hex%/%yyyy%-%mm%-%dd%/%hh%/%appuuid%_%yyyy%-%mm%-%dd%-%hh%-%mm%opportunities%unixms%.jsonl.lzo\"}`\n\n%yyyy% = year\n%mm% = month\n%dd% = day\n%hh% = hour\n%mi% = minute\n%ss% = seconds\n\n%hex% = hex value 0-F\n%unix% = unix time stamp\n%unixms% = unix millisecond stamp\n%nano% = unix nanosecond stamp\n\n%appuuid% = our internal app UUID which is just a generated UUID\n \nYou can change the entire delivery of your path with these macros.\n\nThe default delivery partition macro is\n\n`\"%hex%/%yyyy%-%mm%-%dd%/%hh%/%appuuid%_%yyyy%-%mm%-%dd%-%hh%-%mm%opportunities%unixms%.jsonl.lzo\"`\n\nIf you were to create a partition macro with the following value\n\n`\"%yyyy%%mm%%dd%/%hh%/%appuuid%_%nano%.jsonl.lzop`\n\nIt would  expand to\n\n`20200402/14/b63aeb5b-9afa-4a42-9d33-b024fd96743f_1585853925137647046.jsonl.lzop`\n\nWe highly suggest keeping %appuuid%_%nano% in the file name.  The files are generated from each server and there is no de-duplication, so if you inadvertently overwrite your own files by choosing a path that is not unique enough there's nothing we can do.  This will mean you are being delivered files, charged for that delivery but losing that data.\n\nAlso remember that these need to be valid s3 path names.  If you create an invalid s3 path with a macro your file delivery will be interrupted until it is resolved.\n\n### JSON Object Capabilities\n````\ntype struct ConsumerSettings {\n    DropZeroUID     bool\n    DropExchangeUID bool\n    DropBody        bool\n\n    Filters map[string][]string\n\n    SampleSettings *sampleSettings\n\n    AwsSettings    *awsSettings\n    WebSettings    *webSettings\n    GoogleSettings *googleSettings\n}\n````\n\n````\ntype sampleSettings struct {\n\tDisabled   bool\n\tSampleRate int\n}\n````\n\n````\ntype awsSettings struct {\n\tRegions                    map[string]string\n\tBuckets                    map[string]string\n\tASE256ServerSideEncryption bool\n\tPartitionMacro             string\n}\n````\n\n````\ntype webSettings struct {\n\tEndpoints map[string]string\n}\n````\n\n````\ntype googleSettings struct {\n\tBuckets        map[string]string\n\tPartitionMacro string\n}\n````\n",
+    "contact": {
+      "url": "https://apidocs.mediamath.com",
+      "name": "developers@mediamath.com",
+      "email": "developers@mediamath.com"
+    },
+    "license": {
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+      "name": "Apache 2.0"
+    },
+    "version": "2.0"
+  },
+  "paths": {
+    "/consumers": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get list of accessible consumers",
+        "description": "Returns a list of the names of your consumers that you have access to.\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers`",
+        "operationId": "list-accessible-customers",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "example-consumer": null,
+                      "example-consumer-2": null,
+                      "example-consumer-3": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consumers/{name}/filters/{filter}": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get a specific filter type",
+        "description": "This endpoint returns the filtered values within one of a consumer's specified filter types\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers/example-consumer/filters/x-mm-channel-type`",
+        "operationId": "list-filters-channel-types",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The schema is an array of elements from a filter type's accepted values list.  Many of these filter type value lists (everything except X-Mm-Deal-Id]) can be found on the home page of this document.  The filter types you may use include: \n```\nX-Mm-Geo\nX-Mm-Deal-Id \nX-Mm-Exch-Id\nX-Mm-Channel-Type \n```\n\nThe example below if for Channel Type.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": [
+                      "DISPLAY",
+                      "EMAIL",
+                      "MOBILE_DISPLAY_MOBILE_WEB",
+                      "MOBILE_VIDEO_MOBILE_WEB",
+                      "NEWSFEED",
+                      "SEARCH",
+                      "SOCIAL",
+                      "VIDEO"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Post a specific filter type",
+        "description": "This endpoint lets you update filtered values under a given consumer's specific filter type.  Note: The user must have permission to add the filter value(s) to the filter (see the /permissions command).\n\nSample POST endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers/example-consumer/filter/x-mm-channel-type` with body `[\"DISPLAY\",\"EMAIL\"]`",
+        "operationId": "Update-filters-channel-types",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "description": "The schema is an array of elements from a filter type's accepted values list.  Many of these filter type value lists (everything except X-Mm-Deal-Id]) can be found on the home page of this document.  The filter types you may use include: \n```\nX-Mm-Geo\nX-Mm-Deal-Id \nX-Mm-Exch-Id\nX-Mm-Channel-Type \n```\n\nThe example below if for Channel Type."
+        },
+        "responses": {
+          "200": {
+            "description": "No response body, just the standard \"200 OK\" ACK to confirm acceptance of the new setting.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permissions": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get permissions",
+        "description": "This endpoint returns the current lists of filters and parameters that you can update without having to engaging the MM team. \n\nIf you would like to make updates to any other filters please email your account representative.\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/permissions/`\n\nIf you have access to:\n```\n\"EDIT.Filters.X-Mm-Exch-Id\": [\n  \"15\",\n  \"42\",\n  \"62\"\n]\n```\nThis means that you can add or subtract thos exchange id values from any of your consumers you control as you see fit.",
+        "operationId": "get-filter-list-per-consumer",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "AWSSettings.ASE256ServerSideEncryption": {
+                      "type": "object"
+                    },
+                    "AWSSettings.BucketPrefix": {
+                      "type": "object"
+                    },
+                    "AWSSettings.Buckets": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "AWSSettings.Regions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "Endpoint.Consumers": {
+                      "type": "object"
+                    },
+                    "Endpoints.AWSSettings": {
+                      "type": "object"
+                    },
+                    "Endpoints.Config": {
+                      "type": "object"
+                    },
+                    "Endpoints.FilterPermissions": {
+                      "type": "object"
+                    },
+                    "Endpoints.Filters": {
+                      "type": "object"
+                    },
+                    "Endpoints.SampleSettings": {
+                      "type": "object"
+                    },
+                    "Endpoints.WebSettings": {
+                      "type": "object"
+                    },
+                    "Filters.X-Mm-Exch-Id": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "WebSettings.Endpoints": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "EDIT.AWSSettings.ASE256ServerSideEncryption": "ALLOWED",
+                      "EDIT.AWSSettings.BucketPrefix": "ALLOWED",
+                      "EDIT.AWSSettings.Buckets": [
+                        "ewr",
+                        "iad",
+                        "ord",
+                        "pao",
+                        "sjc"
+                      ],
+                      "EDIT.AWSSettings.PartitionMacro": "ALLOWED",
+                      "EDIT.AWSSettings.Regions": [
+                        "ewr",
+                        "iad",
+                        "ord",
+                        "pao",
+                        "sjc"
+                      ],
+                      "EDIT.DropBody": "ALLOWED",
+                      "EDIT.DropExchangeUID": "ALLOWED",
+                      "EDIT.DropZeroUID": "ALLOWED",
+                      "EDIT.Filters.X-Mm-Channel-Type": [
+                        "DISPLAY",
+                        "VIDEO",
+                        "SOCIAL",
+                        "MOBILE_DISPLAY_MOBILE_WEB",
+                        "MOBILE_VIDEO_MOBILE_WEB",
+                        "SEARCH",
+                        "EMAIL",
+                        "MOBILE_DISPLAY_IN_APP",
+                        "MOBILE_VIDEO_IN_APP",
+                        "NEWSFEED"
+                      ],
+                      "EDIT.Filters.X-Mm-Exch-Id": [
+                        "15",
+                        "42",
+                        "62",
+                        "63",
+                        "65",
+                        "66",
+                        "67",
+                        "69",
+                        "70",
+                        "71",
+                        "72",
+                        "73",
+                        "74",
+                        "75",
+                        "76",
+                        "82",
+                        "83",
+                        "87",
+                        "89",
+                        "91",
+                        "92",
+                        "94",
+                        "96"
+                      ],
+                      "EDIT.SampleSettings.Disabled": "ALLOWED",
+                      "EDIT.SampleSettings.SampleRate": "ALLOWED",
+                      "EDIT.WebSettings.Endpoints": [
+                        "ewr",
+                        "iad",
+                        "ord",
+                        "pao",
+                        "sjc"
+                      ],
+                      "GET.ConsumerSettings": "ALLOWED",
+                      "GET.Consumers": "ALLOWED",
+                      "GET.Filters": "ALLOWED",
+                      "GET.Permissions": "ALLOWED",
+                      "GET.SampleSettings": "ALLOWED",
+                      "GET.WebSettings": "ALLOWED",
+                      "POST.ConsumerSettings": "ALLOWED",
+                      "POST.Filter": "ALLOWED",
+                      "POST.SampleSettings": "ALLOWED",
+                      "POST.WebSettings": "ALLOWED"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consumers/{name}/filters": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get filters",
+        "description": "This endpoint returns all of the current filters you have for a specified consumer.\n\nFor more information on other filters that MediaMath would have to change for you, checkout our other documentation.\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers/example-consumer/filters`",
+        "operationId": "List-consumers-active-filters",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Consumer name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "X-Mm-Channel-Type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "X-Mm-Exch-Id": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "X-Mm-Geo": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "X-Mm-Channel-Type": [
+                        "DISPLAY",
+                        "EMAIL",
+                        "MOBILE_DISPLAY_MOBILE_WEB",
+                        "MOBILE_VIDEO_MOBILE_WEB",
+                        "NEWSFEED",
+                        "SEARCH",
+                        "SOCIAL",
+                        "VIDEO"
+                      ],
+                      "X-Mm-Exch-Id": [
+                        "42",
+                        "62",
+                        "63",
+                        "65",
+                        "66",
+                        "67",
+                        "69",
+                        "70",
+                        "71",
+                        "72",
+                        "73",
+                        "74",
+                        "75",
+                        "76",
+                        "82",
+                        "83",
+                        "87",
+                        "89",
+                        "91",
+                        "92",
+                        "94",
+                        "96"
+                      ],
+                      "X-Mm-Geo": [
+                        "60231"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consumers/{name}/samplesettings": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get sample settings",
+        "description": "This will get your consumer's current disable/enable and sample rate status.\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers/example-consumer/samplesettings`",
+        "operationId": "Get-consumer-statuses",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Disabled": {
+                      "type": "boolean"
+                    },
+                    "SampleRate": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "Disabled": false,
+                      "SampleRate": 15
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Post sample settings",
+        "description": "This will set your sample rate and/or disabled value.",
+        "operationId": "Set-consumer-statuses",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "description": "_"
+        },
+        "responses": {
+          "200": {
+            "description": "No response body, just the standard \"200 OK\" ack to confirm acceptance of the new setting.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consumers/{name}": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get consumer config",
+        "description": "Get details of a specific consumer (which includes but is not limited to the filters)\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers/example-consumer`",
+        "operationId": "Get-consumer-details",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Name": {
+                      "type": "string"
+                    },
+                    "DropZeroUID": {
+                      "type": "boolean"
+                    },
+                    "DropExchangeUID": {
+                      "type": "boolean"
+                    },
+                    "DropBody": {
+                      "type": "boolean"
+                    },
+                    "Filters": {
+                      "type": "object",
+                      "properties": {
+                        "X-Mm-Channel-Type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "enum": [
+                              "DISPLAY",
+                              "EMAIL",
+                              "MOBILE_DISPLAY_IN_APP",
+                              "MOBILE_DISPLAY_MOBILE_WEB",
+                              "MOBILE_VIDEO_IN_APP",
+                              "MOBILE_VIDEO_MOBILE_WEB",
+                              "NEWSFEED",
+                              "SEARCH",
+                              "SOCIAL",
+                              "VIDEO"
+                            ]
+                          }
+                        },
+                        "X-Mm-Exch-Id": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "X-Mm-Geo": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "SampleSettings": {
+                      "type": "object",
+                      "properties": {
+                        "Disabled": {
+                          "type": "boolean"
+                        },
+                        "SampleRate": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "WebSettings": {
+                      "type": "object",
+                      "properties": {
+                        "Endpoints": {
+                          "type": "object",
+                          "properties": {
+                            "ewr": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "ord": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "pao": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "ams": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "zrh": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "nrt": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "hkg": {
+                              "type": "string",
+                              "format": "uri"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "Name": "example-consumer",
+                      "DropZeroUID": true,
+                      "DropExchangeUID": true,
+                      "DropBody": false,
+                      "Filters": {
+                        "X-Mm-Channel-Type": [
+                          "DISPLAY",
+                          "EMAIL",
+                          "MOBILE_DISPLAY_MOBILE_WEB",
+                          "MOBILE_VIDEO_MOBILE_WEB",
+                          "NEWSFEED",
+                          "SEARCH",
+                          "SOCIAL",
+                          "VIDEO"
+                        ],
+                        "X-Mm-Exch-Id": [
+                          "15"
+                        ],
+                        "X-Mm-Geo": [
+                          "60231"
+                        ]
+                      },
+                      "SampleSettings": {
+                        "Disabled": false,
+                        "SampleRate": 15
+                      },
+                      "WebSettings": {
+                        "Endpoints": {
+                          "ewr": "https://example.com",
+                          "ord": "https://example.com",
+                          "pao": "https://example.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Post consumer config",
+        "description": "This endpoint allows you to edit your entire config directly instead of in pieces as you see fit. You can take the output of /consumers/{name} and POST it back here and any changes will be updated",
+        "operationId": "post_consumer_config",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "DropZeroUID": false,
+                      "DropExchangeUID": false,
+                      "DropBody": false,
+                      "Filters": {
+                        "X-Mm-Exch-Id": [
+                          "15"
+                        ]
+                      },
+                      "SampleSettings": {
+                        "Disabled": true,
+                        "SampleRate": 1
+                      },
+                      "AwsSettings": {
+                        "Regions": {
+                          "ewr": "us-east-1",
+                          "iad": "us-east-1"
+                        },
+                        "Buckets": {
+                          "ewr": "example-bucket-name",
+                          "iad": "example-bucket-name"
+                        },
+                        "ASE256ServerSideEncryption": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consumers/{name}/websettings": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get consumer web settings",
+        "description": "This will get your consumer's web settings.\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers/example-consumer/websettings`",
+        "operationId": "list-consumer-websettings",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "Endpoints": {
+                        "ewr": "https://newlocations.com/",
+                        "ord": "https://newlocations.com/"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Post consumer web settings",
+        "description": "This will set your consumer's web settings.",
+        "operationId": "set-consumer-websettings",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "description": "Viewer said\nEndpoints: map[string]string"
+        },
+        "responses": {
+          "200": {
+            "description": "There is no response beyond the 200 OK acknowledgment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "Endpoints": {
+                        "ewr": "https://newlocations.com/",
+                        "ord": "https://newlocations.com/"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consumers/{name}/awssettings": {
+      "get": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Get consumer aws settings",
+        "description": "This will get your consumer's awssettings.\n\nSample endpoint: `https://api.mediamath.com/opportunity-firehose/v2.0/consumers/example-consumer/awssettings`",
+        "operationId": "List-consumer-awsettings",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "RoleARN = The Amazon Resource Name (ARN) of the role that the caller is assuming\n\nExternal ID = A unique identifier that is used by third parties to assume a role in their customers' accounts. For each role that the third party can assume, they should instruct their customers to create a role with the external ID that the third party generated. Each time the third party assumes the role, they must pass the customer's external ID. The external ID is useful in order to help third parties bind a role to the customer who created it.\n\nASE256ServerSideEncryption = Amazon's S3 256-bit Advanced Encryption Standard\n\t\t\t\t\t\t",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "Regions": {
+                        "ewr": "us-east-1",
+                        "iad": "us-east-1"
+                      },
+                      "Buckets": {
+                        "ewr": "mm-lab-bof-dump",
+                        "iad": "mm-lab-bof-dump"
+                      },
+                      "ASE256ServerSideEncryption": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "x-internal": true,
+        "tags": [
+          "Consumer Management"
+        ],
+        "summary": "Post consumer aws settings",
+        "description": "This will set your consumer's awssettings. \n\nNote: \"RoleARN\" and \"ExternalID\" cannot be changed",
+        "operationId": "set-consumer-awsettings",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "_",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "description": "RoleARN = The Amazon Resource Name (ARN) of the role that the caller is assuming\n\nExternal ID = A unique identifier that is used by third parties to assume a role in their customers' accounts. For each role that the third party can assume, they should instruct their customers to create a role with the external ID that the third party generated. Each time the third party assumes the role, they must pass the customer's external ID. The external ID is useful in order to help third parties bind a role to the customer who created it.\n\nASE256ServerSideEncryption = Is Amazon S3 256-bit Advanced Encryption Standard used? (true or false)\n\t\t\t\t\t\t"
+        },
+        "responses": {
+          "200": {
+            "description": "There is no response beyond the 200 OK acknowledgment\n\t",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "response": {
+                    "value": {
+                      "Regions": {
+                        "ewr": "us-east-1",
+                        "iad": "us-east-1"
+                      },
+                      "Buckets": {
+                        "ewr": "mm-lab-bof-dump",
+                        "iad": "mm-lab-bof-dump"
+                      },
+                      "ASE256ServerSideEncryption": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Consumer Management",
+      "description": "_",
+      "x-internal": true
+    },
+    {
+      "name": "Reference",
+      "description": "_",
+      "x-internal": true
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.mediamath.com/opportunity-firehose/v2.0"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "You will need an auth0 account with MediaMath to gain access to your consumer.\n\nCurl auth.mediamath.com with your client ID and secret\n\n`POST https://auth.mediamath.com/oauth/token`\nExample Request:\n`curl -X POST --header  'content-type: application/json' 'https://auth.mediamath.com/oauth/token' -d '{\"audience\": \"https://api.mediamath.com/opportunity_firehose/\", \"grant_type\":\"client_credentials\", \"client_id\":\"{CLIENT_ID}\", \"client_secret\":\"{CLIENT_SECRET}\"}'`\nExample Response:\n`{\"access_token\":\"ACCESS_TOKEN_HERE\",\"expires_in\":86400,\"token_type\":\"Bearer\"}`\nUse this token here when sending requests to https://api.mediamath.com/opportunity-firehose/v2.0/\n\n`curl -X GET -H \"Authorization:Bearer ACCESS_TOKEN_HERE\" 'https://api.mediamath.com/opportunity-firehose/v2.0/'`",
+        "flows": {
+          "password": {
+            "tokenUrl": "https:/auth.mediamath.com/oauth/token",
+            "scopes": {}
+          }
+        }
+      },
+      "Cookie_auth": {
+        "type": "apiKey",
+        "description": "Cookie: adama_sesion=`cookie-id`",
+        "name": "Cookie",
+        "in": "header"
+      }
+    }
+  }
+}

@@ -1,30 +1,421 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/campaigns-api-openapi.yaml, openapi/reporting-api-openapi.yaml
+generated: '2026-08-13'
+method: searched
+source: openapi/mediamath-ad-servers-api-openapi.yml, openapi/mediamath-advertisers-api-openapi.yml, openapi/mediamath-agencies-api-openapi.yml,
+  openapi/mediamath-atomic-creatives-api-openapi.yml, openapi/mediamath-audience-segments-api-openapi.yml,
+  openapi/mediamath-audience-vendors-api-openapi.yml, openapi/mediamath-bof-config-api-openapi.yml, openapi/mediamath-byoa-api-openapi.yml,
+  openapi/mediamath-campaign-plans-api-openapi.yml, openapi/mediamath-campaigns-api-openapi.yml, openapi/mediamath-campaigns-budget-flights-api-openapi.yml,
+  openapi/mediamath-concepts-api-openapi.yml, openapi/mediamath-contracts-api-openapi.yml, openapi/mediamath-creatives-api-openapi.yml,
+  openapi/mediamath-currency-rates-api-openapi.yml, openapi/mediamath-datasets-api-openapi.yml, openapi/mediamath-enterprise-controls-api-openapi.yml,
+  openapi/mediamath-general-api-openapi.yml, openapi/mediamath-marketplaces-api-openapi.yml, openapi/mediamath-new-strategy-groups-api-openapi.yml,
+  openapi/mediamath-new-strategy-plans-api-openapi.yml, openapi/mediamath-organizations-api-openapi.yml,
+  openapi/mediamath-pixel-bundles-api-openapi.yml, openapi/mediamath-pixel-providers-api-openapi.yml,
+  openapi/mediamath-reporting-api-v1-openapi.yml, openapi/mediamath-segment-groups-api-openapi.yml, openapi/mediamath-site-lists-api-openapi.yml,
+  openapi/mediamath-strategies-api-openapi.yml, openapi/mediamath-strategy-parameters-api-openapi.yml,
+  openapi/mediamath-strategy-templates-api-openapi.yml, openapi/mediamath-supply-sources-api-openapi.yml,
+  openapi/mediamath-targeting-api-openapi.yml, openapi/mediamath-targeting-attachments-api-openapi.yml,
+  openapi/mediamath-targeting-segment-objectives-api-openapi.yml, openapi/mediamath-targeting-segments-api-openapi.yml,
+  openapi/mediamath-timezones-api-openapi.yml, openapi/mediamath-user-permissions-api-openapi.yml, openapi/mediamath-users-api-openapi.yml,
+  openapi/mediamath-vendor-contracts-api-openapi.yml, openapi/mediamath-vendors-api-openapi.yml, openapi/mediamath-verticals-api-openapi.yml,
+  openapi/mediamath-video-creatives-api-openapi.yml
 schemes:
 - name: Auth0
-  source: openapi/campaigns-api-openapi.yaml
+  source: openapi/mediamath-ad-servers-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.mediamath.com/authorize
     tokenUrl: https://auth.mediamath.com/oauth/token
 - name: Auth0
-  source: openapi/reporting-api-openapi.yaml
+  source: openapi/mediamath-advertisers-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.mediamath.com/authorize
     tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-agencies-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-atomic-creatives-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: OAuth2
+  source: openapi/mediamath-audience-segments-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-audience-vendors-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: oauth2
+  source: openapi/mediamath-bof-config-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: https:/auth.mediamath.com/oauth/token
+  description: 'You will need an auth0 account with MediaMath to gain access to your consumer.
+
+
+    Curl auth.mediamath.com with your client ID and secret
+
+
+    `POST https://auth.mediamath.com/oauth/token`
+
+    Example Request:
+
+    `curl -X POST --header  ''content-type: application/json'' ''https://auth.mediamath.com/oauth/token''
+    -d ''{"audience": "https://api.mediamath.com/opportunity_firehose/", "grant_type":"client_credentials",
+    "client_id":"{CLIENT_ID}", "client_secret":"{CLIENT_SECRET}"}''`
+
+    Example Response:
+
+    `{"access_token":"ACCESS_TOKEN_HERE","expires_in":86400,"token_type":"Bearer"}`
+
+    Use this token here when sending requests to https://api.mediamath.com/opportunity-firehose/v2.0/
+
+
+    `curl -X GET -H "Authorization:Bearer ACCESS_TOKEN_HERE" ''https://api.mediamath.com/opportunity-firehose/v2.0/''`'
+- name: oauth2
+  source: openapi/mediamath-byoa-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: https://auth.mediamath.com/oath/token
+  description: exchange an Authorization Code for a Token
+- name: Auth0
+  source: openapi/mediamath-campaign-plans-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-campaigns-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-campaigns-budget-flights-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-concepts-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-contracts-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-creatives-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-currency-rates-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-datasets-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-enterprise-controls-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-general-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-marketplaces-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-new-strategy-groups-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-new-strategy-plans-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-organizations-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-pixel-bundles-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-pixel-providers-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: API_Key_-_1
+  source: openapi/mediamath-reporting-api-v1-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-segment-groups-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-site-lists-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-strategies-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-strategy-parameters-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-strategy-templates-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-supply-sources-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-targeting-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-targeting-attachments-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-targeting-segment-objectives-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-targeting-segments-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-timezones-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-user-permissions-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-users-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-vendor-contracts-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-vendors-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: Auth0
+  source: openapi/mediamath-verticals-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.mediamath.com/authorize
+    tokenUrl: https://auth.mediamath.com/oauth/token
+- name: OAuth2
+  source: openapi/mediamath-video-creatives-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: https://auth.mediamath.com
 scopes:
 - scope: manage:services
-  description: normal access
+  description: General management access to MediaMath Platform services. Declared as the default scope
+    on the Campaign Management API security requirement.
   flows:
   - authorizationCode
   sources:
-  - openapi/campaigns-api-openapi.yaml
+  - openapi/mediamath-ad-servers-api-openapi.yml
+  - openapi/mediamath-advertisers-api-openapi.yml
+  - openapi/mediamath-agencies-api-openapi.yml
+  - openapi/mediamath-atomic-creatives-api-openapi.yml
+  - openapi/mediamath-audience-vendors-api-openapi.yml
+  - openapi/mediamath-campaign-plans-api-openapi.yml
+  - openapi/mediamath-campaigns-api-openapi.yml
+  - openapi/mediamath-campaigns-budget-flights-api-openapi.yml
+  - openapi/mediamath-concepts-api-openapi.yml
+  - openapi/mediamath-contracts-api-openapi.yml
+  - openapi/mediamath-creatives-api-openapi.yml
+  - openapi/mediamath-currency-rates-api-openapi.yml
+  - openapi/mediamath-datasets-api-openapi.yml
+  - openapi/mediamath-enterprise-controls-api-openapi.yml
+  - openapi/mediamath-general-api-openapi.yml
+  - openapi/mediamath-marketplaces-api-openapi.yml
+  - openapi/mediamath-new-strategy-groups-api-openapi.yml
+  - openapi/mediamath-new-strategy-plans-api-openapi.yml
+  - openapi/mediamath-organizations-api-openapi.yml
+  - openapi/mediamath-pixel-bundles-api-openapi.yml
+  - openapi/mediamath-pixel-providers-api-openapi.yml
+  - openapi/mediamath-segment-groups-api-openapi.yml
+  - openapi/mediamath-site-lists-api-openapi.yml
+  - openapi/mediamath-strategies-api-openapi.yml
+  - openapi/mediamath-strategy-parameters-api-openapi.yml
+  - openapi/mediamath-strategy-templates-api-openapi.yml
+  - openapi/mediamath-supply-sources-api-openapi.yml
+  - openapi/mediamath-targeting-api-openapi.yml
+  - openapi/mediamath-targeting-attachments-api-openapi.yml
+  - openapi/mediamath-targeting-segment-objectives-api-openapi.yml
+  - openapi/mediamath-targeting-segments-api-openapi.yml
+  - openapi/mediamath-timezones-api-openapi.yml
+  - openapi/mediamath-user-permissions-api-openapi.yml
+  - openapi/mediamath-users-api-openapi.yml
+  - openapi/mediamath-vendor-contracts-api-openapi.yml
+  - openapi/mediamath-vendors-api-openapi.yml
+  - openapi/mediamath-verticals-api-openapi.yml
 - scope: offline_access
-  description: for refresh tokens
+  description: Required to receive a refresh_token from the authorize or token endpoint. Without it the
+    86400s access token cannot be renewed without re-authenticating.
   flows:
   - authorizationCode
   sources:
-  - openapi/campaigns-api-openapi.yaml
-  - openapi/reporting-api-openapi.yaml
+  - openapi/mediamath-ad-servers-api-openapi.yml
+  - openapi/mediamath-advertisers-api-openapi.yml
+  - openapi/mediamath-agencies-api-openapi.yml
+  - openapi/mediamath-atomic-creatives-api-openapi.yml
+  - openapi/mediamath-audience-vendors-api-openapi.yml
+  - openapi/mediamath-campaign-plans-api-openapi.yml
+  - openapi/mediamath-campaigns-api-openapi.yml
+  - openapi/mediamath-campaigns-budget-flights-api-openapi.yml
+  - openapi/mediamath-concepts-api-openapi.yml
+  - openapi/mediamath-contracts-api-openapi.yml
+  - openapi/mediamath-creatives-api-openapi.yml
+  - openapi/mediamath-currency-rates-api-openapi.yml
+  - openapi/mediamath-datasets-api-openapi.yml
+  - openapi/mediamath-enterprise-controls-api-openapi.yml
+  - openapi/mediamath-general-api-openapi.yml
+  - openapi/mediamath-marketplaces-api-openapi.yml
+  - openapi/mediamath-new-strategy-groups-api-openapi.yml
+  - openapi/mediamath-new-strategy-plans-api-openapi.yml
+  - openapi/mediamath-organizations-api-openapi.yml
+  - openapi/mediamath-pixel-bundles-api-openapi.yml
+  - openapi/mediamath-pixel-providers-api-openapi.yml
+  - openapi/mediamath-segment-groups-api-openapi.yml
+  - openapi/mediamath-site-lists-api-openapi.yml
+  - openapi/mediamath-strategies-api-openapi.yml
+  - openapi/mediamath-strategy-parameters-api-openapi.yml
+  - openapi/mediamath-strategy-templates-api-openapi.yml
+  - openapi/mediamath-supply-sources-api-openapi.yml
+  - openapi/mediamath-targeting-api-openapi.yml
+  - openapi/mediamath-targeting-attachments-api-openapi.yml
+  - openapi/mediamath-targeting-segment-objectives-api-openapi.yml
+  - openapi/mediamath-targeting-segments-api-openapi.yml
+  - openapi/mediamath-timezones-api-openapi.yml
+  - openapi/mediamath-user-permissions-api-openapi.yml
+  - openapi/mediamath-users-api-openapi.yml
+  - openapi/mediamath-vendor-contracts-api-openapi.yml
+  - openapi/mediamath-vendors-api-openapi.yml
+  - openapi/mediamath-verticals-api-openapi.yml
+docs: https://apidocs.mediamath.com/guides/authentication
+note: 'MediaMath does not publish a scopes/permissions reference page. The two scopes below are the only
+  ones the platform contracts declare, and the authentication guide confirms their meaning: manage:services
+  is the general API access scope and offline_access is required to receive a refresh_token. Authorization
+  is NOT expressed through OAuth scopes — it is expressed through platform user permissions granted at
+  organization / agency / advertiser / campaign / strategy level and read via the user-permissions API.
+  An agent cannot narrow its blast radius by requesting fewer scopes; it inherits the full permission
+  set of the authenticating user.'
+permission_model:
+  style: entity-scoped user permissions, not OAuth scopes
+  levels:
+  - organization
+  - agency
+  - advertiser
+  - campaign
+  - strategy
+  inheritance: downward from the level granted
+  read_via:
+  - list-user-permissions
+  - list-user-permissions-filtered
+  write_via:
+  - update-permissions-user
+  roles_referenced_in_docs:
+  - Trader with edit access
+  - Manager
+  - Admin
+  - read-only
+  source: https://apidocs.mediamath.com/guides/mcp/getting-connected
+additional_scopes_seen:
+- scope: openid
+  description: When requested, the token response also carries an id_token.
+  source: https://apidocs.mediamath.com/guides/authentication
+- scope: profile
+  source: well-known/mediamath-oauth-authorization-server.json
+  note: Advertised by the documentation MCP authorization server (Redocly-issued), not by the platform
+    Auth0 tenant.
+- scope: email
+  source: well-known/mediamath-oauth-authorization-server.json
+  note: Advertised by the documentation MCP authorization server (Redocly-issued), not by the platform
+    Auth0 tenant.
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://apidocs.mediamath.com/guides/authentication.md
+  http_status: 200

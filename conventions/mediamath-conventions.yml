@@ -1,0 +1,176 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://apidocs.mediamath.com/guides/authentication,
+  https://apidocs.mediamath.com/guides/api-rate-limiting,
+  https://apidocs.mediamath.com/guides/postman-collections,
+  https://apidocs.mediamath.com/guides/marketplaces,
+  openapi/*.yml
+summary: >-
+  MediaMath's Campaign Management API is a mature, consistent REST surface with a
+  single envelope shape, offset pagination, an entity-expansion convention and
+  well-documented rate-limit headers. It has one conspicuous gap for agent use:
+  there is NO idempotency mechanism of any kind — no Idempotency-Key header, no
+  request-id de-duplication, and creates use POST with no client-supplied key.
+  Combined with the fact that updates are also POST (not PUT/PATCH), a retried
+  create after a timeout will produce a duplicate entity.
+
+authentication:
+  style: oauth2-bearer
+  token_endpoint: https://auth.mediamath.com/oauth/token
+  authorize_endpoint: https://auth.mediamath.com/authorize
+  audience: https://api.mediamath.com/
+  header: 'Authorization: Bearer <access_token>'
+  token_lifetime_seconds: 86400
+  refresh: Requires the offline_access scope; grant_type=refresh_token.
+  grants:
+    - authorization_code
+    - password
+    - refresh_token
+  provider: Auth0
+  legacy_dual_auth:
+    required: true
+    detail: >-
+      The provider states migration to OAuth2 is incomplete. For APIs not yet
+      migrated, callers must GET https://api.mediamath.com/api/v2.0/session with
+      the bearer token, copy the returned adama_session cookie, and send BOTH the
+      Authorization header and the adama_session cookie on subsequent requests.
+      This is visible in the specs as the Cookie_Auth / Cookie_auth /
+      adama-session-header apiKey schemes.
+  see: authentication/mediamath-authentication.yml
+
+idempotency:
+  supported: false
+  header: null
+  scope: null
+  retention: null
+  evidence: >-
+    A full-text search of the developer documentation via the provider's own
+    documentation MCP server (query "idempotency key idempotent retry safe")
+    returned no idempotency documentation — the only match was the rate-limiting
+    retry code sample. No securityScheme, parameter or header named
+    Idempotency-Key appears in any of the 44 OpenAPI documents in openapi/.
+  consequence: >-
+    The published retry guidance (exponential backoff on 429/503) is applied to
+    all methods including POST creates and POST updates, with no de-duplication
+    key. Agents performing writes should read back with the matching find_*/list
+    operation before retrying a create.
+
+pagination:
+  style: offset
+  parameters:
+    - name: page_limit
+      description: Page size.
+    - name: page_offset
+      description: Zero-based record offset.
+    - name: sort_by
+      description: Field to order by.
+    - name: q
+      description: Filter expression.
+  response_fields:
+    - meta.count
+    - meta.total_count
+    - meta.offset
+    - meta.status
+  mcp_note: >-
+    The Agent Connector's find_* tools cap results at 25 per call and paginate
+    on top of these parameters.
+
+field_expansion:
+  full:
+    parameter: full
+    description: >-
+      "full=*" returns complete field responses for list endpoints. Individual
+      entity names may also be passed. The Marketplaces (media deals) API does
+      NOT support ?full — its collections always return full entity properties.
+  with:
+    parameter: with
+    description: >-
+      Includes related entities in single-entity or collection responses. Not
+      supported by the Marketplaces API.
+  limit_path_component:
+    description: >-
+      Campaign Management supports a /limit/ URL component to filter by a related
+      entity ID. Not supported by the Marketplaces API.
+
+envelope:
+  success:
+    shape: '{ "data": [...] | {...}, "meta": { "status": "success", "count": n, "total_count": n, "offset": n } }'
+  error:
+    shape: '{ "meta": { "status": "error", "uuid": "<request-uuid>" }, "errors": [ { "code": "...", "message": "...", "details": { ... } } ] }'
+    format: vendor
+    rfc9457: false
+    note: >-
+      Errors are a vendor envelope, not RFC 9457 application/problem+json. The
+      machine-actionable key is errors[].code (e.g. rate-limit-exceeded,
+      too-many-concurrent-writes, service-overloaded).
+  see: errors/mediamath-problem-types.yml
+
+request_tracing:
+  field: meta.uuid
+  header: null
+  note: >-
+    Every error response carries a per-request uuid in meta.uuid. No
+    correlation REQUEST header (X-Request-Id or traceparent) is documented for
+    the caller to supply, so tracing is server-assigned only.
+
+versioning:
+  style: uri-path
+  examples:
+    - https://api.mediamath.com/api/v3.0 (Campaign Management)
+    - https://api.mediamath.com/reporting/v2 (Reporting V2)
+    - https://api.mediamath.com/reporting/v1/std (Reporting V1)
+    - https://api.mediamath.com/deals/v1.0 (Marketplaces V2.0 API)
+    - https://api.mediamath.com/dmp/v2.0 (Audience Segments)
+    - https://api.mediamath.com/opportunity-firehose/v2.0 (BOF Config)
+  note: >-
+    Path version and product version diverge — the "Marketplaces API V2.0" is
+    served under /deals/v1.0. Some report endpoints additionally version by query
+    parameter (?v1 / ?v2 on the Device Technology report).
+  see: lifecycle/mediamath-lifecycle.yml
+
+http_semantics:
+  update_method: POST
+  note: >-
+    Campaign Management updates use POST /{collection}/{id} rather than PUT or
+    PATCH. The Marketplaces API mixes conventions — its "PUT-deal" operationId
+    is served by POST /deals/{id}. DELETE is used for strategy/campaign settings
+    under the BYOA API only.
+  bulk:
+    detail: >-
+      Bulk operations exist as distinct endpoints (bulk-update-campaigns,
+      bulk-update-concepts, bulk-update-atomic-creatives, Bulk-Create-Deal,
+      Bulk-Create-Publishers) and can return HTTP 207 Multi-Status.
+
+rate_limit_signaling:
+  headers_on_all_responses:
+    - X-RateLimit-Limit
+    - X-RateLimit-Remaining
+    - X-RateLimit-Reset
+  headers_on_writes:
+    - X-Concurrency-Limit
+    - X-Concurrency-Remaining
+  headers_on_error:
+    - Retry-After
+  exhaustion_status: 429
+  overload_status: 503
+  note: >-
+    Header values are PER-POD (5 production pods), while the documented limits
+    are cluster-wide. A client reading X-RateLimit-Limit sees 10 where the
+    documented safe sustained rate is 40 req/s.
+  see: rate-limits/mediamath-rate-limits.yml
+
+content_types:
+  request: application/json
+  response: application/json
+  other:
+    - application/protobuf (Custom Bid Router bid requests and win notifications)
+    - text/csv (Reporting API result sets)
+
+cross_references:
+  errors: errors/mediamath-problem-types.yml
+  lifecycle: lifecycle/mediamath-lifecycle.yml
+  authentication: authentication/mediamath-authentication.yml
+  scopes: scopes/mediamath-scopes.yml
+  rate_limits: rate-limits/mediamath-rate-limits.yml
+  data_model: data-model/mediamath-data-model.yml

@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers General API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/healthcheck"
+          },
+          "docs": "Health endpoint to check availability"
+        },
+        {
+          "info": {
+            "name": "List Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/roles"
+          },
+          "docs": "Get list of roles"
+        },
+        {
+          "info": {
+            "name": "Search Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/search",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of elements in the collection to retrieve"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "search term"
+              },
+              {
+                "name": "active_only",
+                "value": "",
+                "type": "query",
+                "description": "only show active entities"
+              },
+              {
+                "name": "terminated",
+                "value": "",
+                "type": "query",
+                "description": "show terminated entities"
+              }
+            ]
+          },
+          "docs": "Search organizations, agencies or advertisers by name"
+        },
+        {
+          "info": {
+            "name": "List Target Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/target_values",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Search name"
+              }
+            ]
+          },
+          "docs": "Get list of target values"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

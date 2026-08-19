@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Campaign Plans API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Campaign Plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/campaign_plans"
+          },
+          "docs": "Get a list of campaign plans"
+        },
+        {
+          "info": {
+            "name": "Create Campaign Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/campaign_plans",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a campaign plan"
+        },
+        {
+          "info": {
+            "name": "Get a Campaign Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/campaign_plans/:campaign_plan_id",
+            "params": [
+              {
+                "name": "campaign_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the campaign plan"
+              }
+            ]
+          },
+          "docs": "Get a campaign plan by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Campaign Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/campaign_plans/:campaign_plan_id",
+            "params": [
+              {
+                "name": "campaign_plan_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the campaign plan object to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a campaign plan by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

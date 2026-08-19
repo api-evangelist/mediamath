@@ -1,0 +1,1157 @@
+{
+  "item": [
+    {
+      "id": "fc73ffa5-9b5d-43ee-bbba-1bc5bf3595e0",
+      "name": "Marketplaces",
+      "description": {
+        "content": "Marketplaces",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "21906470-8989-41ed-9c89-dc7c5606d56a",
+          "name": "Get a Marketplace",
+          "request": {
+            "name": "Get a Marketplace",
+            "description": {
+              "content": "Get a marketplace by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplaces",
+                ":marketplace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "marketplace_id",
+                  "description": "(Required) Numeric ID of the marketplace to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ced7dd6-55fd-4655-88c1-65b34b1dfd7d",
+              "name": "Marketplace response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 33,\n    \"version\": 3,\n    \"created_on\": \"2017-09-07T15:25:07.430Z\",\n    \"updated_on\": \"1985-12-20T14:34:52.528Z\",\n    \"name\": \"string\",\n    \"supply_type\": \"string\",\n    \"status\": false,\n    \"rtb_enabled\": true,\n    \"strategy_id\": 5,\n    \"code\": \"string\",\n    \"bidder_exchange_identifier\": 8,\n    \"rtb_type\": \"string\",\n    \"has_display\": true,\n    \"has_mobile_display\": false,\n    \"has_video\": false,\n    \"has_mobile_video\": true,\n    \"requires_creative_audit\": true,\n    \"has_desktop_video\": true,\n    \"has_connected_tv\": false,\n    \"mma_free\": false,\n    \"private\": false,\n    \"mkt_sell_price\": 9562.57846691668,\n    \"mkt_sell_price_currency_code\": \"USD\",\n    \"permission_organizations\": [\n      7,\n      7\n    ],\n    \"permission_agencies\": [\n      9,\n      9\n    ]\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b421cf20-649c-4424-952c-e8c8a143c94f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c64e9e0c-1151-4102-a5b5-e02c5b585e0c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0b36c5b-103f-446a-bffc-69fa824fb6fa",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "865a742d-d4cc-497f-81ca-fae77a77d0a9",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b91c0db-1feb-4926-a834-b27e95bcc446",
+          "name": "Update a Marketplace",
+          "request": {
+            "name": "Update a Marketplace",
+            "description": {
+              "content": "Update a marketplace by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplaces",
+                ":marketplace_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "marketplace_id",
+                  "description": "(Required) Numeric ID of the marketplace to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5a38b82b-87dc-40ee-b3d1-373d291d71dc",
+              "name": "Marketplace response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 33,\n    \"version\": 3,\n    \"created_on\": \"1971-08-06T12:47:46.943Z\",\n    \"updated_on\": \"2016-03-07T18:09:35.798Z\",\n    \"name\": \"<string>\",\n    \"supply_type\": \"<string>\",\n    \"status\": \"<boolean>\",\n    \"rtb_enabled\": \"<boolean>\",\n    \"strategy_id\": 5,\n    \"code\": \"<string>\",\n    \"bidder_exchange_identifier\": 8,\n    \"rtb_type\": \"<string>\",\n    \"has_display\": \"<boolean>\",\n    \"has_mobile_display\": \"<boolean>\",\n    \"has_video\": \"<boolean>\",\n    \"has_mobile_video\": \"<boolean>\",\n    \"requires_creative_audit\": \"<boolean>\",\n    \"has_desktop_video\": \"<boolean>\",\n    \"has_connected_tv\": \"<boolean>\",\n    \"mma_free\": \"<boolean>\",\n    \"private\": \"<boolean>\",\n    \"mkt_sell_price\": \"<float>\",\n    \"mkt_sell_price_currency_code\": \"USD\",\n    \"permission_organizations\": [\n      7,\n      7\n    ],\n    \"permission_agencies\": [\n      9,\n      9\n    ]\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22671dff-2319-48ba-93a2-1e40727f7a5b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "356c3b9a-589d-419c-ac11-0e6e94e3d781",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "638ba745-2969-4d26-9b96-6e3c91ab098f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdf9e977-7878-4173-83eb-47355dc19262",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c5add2a-a01b-43a4-a14a-ddf120491b61",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces",
+                    ":marketplace_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "marketplace_id",
+                      "description": "(Required) Numeric ID of the marketplace to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f44236b-337f-4213-8b4b-d720252999b3",
+          "name": "List Marketplaces",
+          "request": {
+            "name": "List Marketplaces",
+            "description": {
+              "content": "Get a list of marketplaces",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e9a80d3-6375-485b-b5d5-be2a0854b113",
+              "name": "List marketplaces response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 33,\n      \"version\": 3,\n      \"created_on\": \"2009-10-31T22:59:40.012Z\",\n      \"updated_on\": \"1968-04-05T08:35:54.208Z\",\n      \"name\": \"<string>\",\n      \"supply_type\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"rtb_enabled\": \"<boolean>\",\n      \"strategy_id\": 5,\n      \"code\": \"<string>\",\n      \"bidder_exchange_identifier\": 8,\n      \"rtb_type\": \"<string>\",\n      \"has_display\": \"<boolean>\",\n      \"has_mobile_display\": \"<boolean>\",\n      \"has_video\": \"<boolean>\",\n      \"has_mobile_video\": \"<boolean>\",\n      \"requires_creative_audit\": \"<boolean>\",\n      \"has_desktop_video\": \"<boolean>\",\n      \"has_connected_tv\": \"<boolean>\",\n      \"mma_free\": \"<boolean>\",\n      \"private\": \"<boolean>\",\n      \"mkt_sell_price\": \"<float>\",\n      \"mkt_sell_price_currency_code\": \"USD\",\n      \"permission_organizations\": [\n        7,\n        7\n      ],\n      \"permission_agencies\": [\n        9,\n        9\n      ]\n    },\n    {\n      \"id\": 33,\n      \"version\": 3,\n      \"created_on\": \"1995-10-21T18:15:51.766Z\",\n      \"updated_on\": \"1989-10-26T03:18:46.378Z\",\n      \"name\": \"<string>\",\n      \"supply_type\": \"<string>\",\n      \"status\": \"<boolean>\",\n      \"rtb_enabled\": \"<boolean>\",\n      \"strategy_id\": 5,\n      \"code\": \"<string>\",\n      \"bidder_exchange_identifier\": 8,\n      \"rtb_type\": \"<string>\",\n      \"has_display\": \"<boolean>\",\n      \"has_mobile_display\": \"<boolean>\",\n      \"has_video\": \"<boolean>\",\n      \"has_mobile_video\": \"<boolean>\",\n      \"requires_creative_audit\": \"<boolean>\",\n      \"has_desktop_video\": \"<boolean>\",\n      \"has_connected_tv\": \"<boolean>\",\n      \"mma_free\": \"<boolean>\",\n      \"private\": \"<boolean>\",\n      \"mkt_sell_price\": \"<float>\",\n      \"mkt_sell_price_currency_code\": \"USD\",\n      \"permission_organizations\": [\n        7,\n        7\n      ],\n      \"permission_agencies\": [\n        9,\n        9\n      ]\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0dfac8e-ea52-432f-a36e-d6d46c9b750b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ac0e206-b158-47a6-95f5-65ad4d8a331f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddcd586f-c9b1-41ef-b76c-9cb9979386aa",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f35011cb-eb44-41a3-88fb-1dd8ee80bc52",
+          "name": "Create a Marketplace",
+          "request": {
+            "name": "Create a Marketplace",
+            "description": {
+              "content": "Create a marketplace",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81356696-7f48-4be8-b20a-a7c59eb3184c",
+              "name": "Marketplace response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 33,\n    \"version\": 3,\n    \"created_on\": \"1971-08-06T12:47:46.943Z\",\n    \"updated_on\": \"2016-03-07T18:09:35.798Z\",\n    \"name\": \"<string>\",\n    \"supply_type\": \"<string>\",\n    \"status\": \"<boolean>\",\n    \"rtb_enabled\": \"<boolean>\",\n    \"strategy_id\": 5,\n    \"code\": \"<string>\",\n    \"bidder_exchange_identifier\": 8,\n    \"rtb_type\": \"<string>\",\n    \"has_display\": \"<boolean>\",\n    \"has_mobile_display\": \"<boolean>\",\n    \"has_video\": \"<boolean>\",\n    \"has_mobile_video\": \"<boolean>\",\n    \"requires_creative_audit\": \"<boolean>\",\n    \"has_desktop_video\": \"<boolean>\",\n    \"has_connected_tv\": \"<boolean>\",\n    \"mma_free\": \"<boolean>\",\n    \"private\": \"<boolean>\",\n    \"mkt_sell_price\": \"<float>\",\n    \"mkt_sell_price_currency_code\": \"USD\",\n    \"permission_organizations\": [\n      7,\n      7\n    ],\n    \"permission_agencies\": [\n      9,\n      9\n    ]\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54effbe2-65b6-40be-88b1-9d65a80e2612",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0088171-1d29-4fe8-a0c8-016459f0b822",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fa47105-803d-484d-956f-773551e29a40",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "77daca6d-0b98-45e3-b83c-1d89203fbae3",
+    "name": "Campaigns Ad Servers Marketplaces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Marketplaces API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Marketplaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Marketplace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/marketplaces/:marketplace_id",
+            "params": [
+              {
+                "name": "marketplace_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the marketplace to get"
+              }
+            ]
+          },
+          "docs": "Get a marketplace by ID"
+        },
+        {
+          "info": {
+            "name": "Update a Marketplace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/marketplaces/:marketplace_id",
+            "params": [
+              {
+                "name": "marketplace_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the marketplace to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a marketplace by ID"
+        },
+        {
+          "info": {
+            "name": "List Marketplaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/marketplaces"
+          },
+          "docs": "Get a list of marketplaces"
+        },
+        {
+          "info": {
+            "name": "Create a Marketplace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/marketplaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a marketplace"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

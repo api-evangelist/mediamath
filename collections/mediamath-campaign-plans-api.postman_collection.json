@@ -1,0 +1,1177 @@
+{
+  "item": [
+    {
+      "id": "6a11199b-880c-4c31-aa7b-f22460898476",
+      "name": "Campaign Plans",
+      "description": {
+        "content": "Campaign Plans",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e2658f17-e9e9-4465-95c0-e163d1a22ed1",
+          "name": "List Campaign Plans",
+          "request": {
+            "name": "List Campaign Plans",
+            "description": {
+              "content": "Get a list of campaign plans",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6e1d226-eae6-47e2-8b83-b85db1fa399e",
+              "name": "List campaign plans response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"version\": 2100,\n      \"id\": 8583,\n      \"advertiser_id\": 7565,\n      \"created_on\": \"1963-06-18T12:25:08.584Z\",\n      \"updated_on\": \"1981-01-12T12:13:37.279Z\",\n      \"name\": \"string\",\n      \"duration\": {\n        \"start_date\": \"1972-01-25T19:32:52.560Z\",\n        \"end_date\": \"2015-08-14T08:50:51.974Z\"\n      },\n      \"budget\": {\n        \"total_budget\": 70481746485231.38,\n        \"currency_code\": \"string\"\n      },\n      \"zone_name\": \"string\"\n    },\n    {\n      \"version\": 253,\n      \"id\": 7372,\n      \"advertiser_id\": 9309,\n      \"created_on\": \"1963-09-05T13:20:56.749Z\",\n      \"updated_on\": \"1999-08-31T01:58:00.707Z\",\n      \"name\": \"string\",\n      \"duration\": {\n        \"start_date\": \"2017-04-29T20:24:17.505Z\",\n        \"end_date\": \"2013-04-05T12:11:38.769Z\"\n      },\n      \"budget\": {\n        \"total_budget\": 23036232921980.57,\n        \"currency_code\": \"string\"\n      },\n      \"zone_name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "413b727b-f21b-434a-a59b-df5084bde8b3",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5236f7d-be5e-4be3-82a9-528b2a74a234",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa871f2b-c9f2-4760-8689-f706ee6e3ea9",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e6b95fc-e4bd-4616-bf52-9b41efe1d4de",
+          "name": "Create Campaign Plan",
+          "request": {
+            "name": "Create Campaign Plan",
+            "description": {
+              "content": "Create a campaign plan",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"advertiser_id\": \"<integer>\",\n  \"duration\": {\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  },\n  \"budget\": {\n    \"total_budget\": \"<float>\",\n    \"currency_code\": \"<string>\"\n  },\n  \"zone_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d30c5795-e13e-4c9b-bfc8-7cc5963c0068",
+              "name": "Campaign plan created response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"advertiser_id\": 190,\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"version\": 6654,\n    \"id\": 1488,\n    \"advertiser_id\": 2002,\n    \"created_on\": \"2008-04-04T00:53:33.590Z\",\n    \"updated_on\": \"1971-09-03T17:04:50.705Z\",\n    \"name\": \"string\",\n    \"duration\": {\n      \"start_date\": \"2017-05-26T13:18:32.763Z\",\n      \"end_date\": \"2022-11-18T14:50:38.558Z\"\n    },\n    \"budget\": {\n      \"total_budget\": 6743723506321.196,\n      \"currency_code\": \"string\"\n    },\n    \"zone_name\": \"string\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abe53952-a018-4921-b1cd-9bc51ef18b83",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"advertiser_id\": 190,\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23af6643-6940-457d-b7fd-5c6144d69ea8",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"advertiser_id\": 190,\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d4a55ae-6100-48e6-b51c-6edf4edde4e3",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"advertiser_id\": 190,\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9081665d-1dee-42c8-9878-20e1fd4fdfdd",
+          "name": "Get a Campaign Plan",
+          "request": {
+            "name": "Get a Campaign Plan",
+            "description": {
+              "content": "Get a campaign plan by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_plans",
+                ":campaign_plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign_plan_id",
+                  "description": "(Required) Numeric ID of the campaign plan"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37bc3657-f823-4a53-bfcc-befb64302c9d",
+              "name": "Campaign plan response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"version\": 6654,\n    \"id\": 1488,\n    \"advertiser_id\": 2002,\n    \"created_on\": \"2008-04-04T00:53:33.590Z\",\n    \"updated_on\": \"1971-09-03T17:04:50.705Z\",\n    \"name\": \"string\",\n    \"duration\": {\n      \"start_date\": \"2017-05-26T13:18:32.763Z\",\n      \"end_date\": \"2022-11-18T14:50:38.558Z\"\n    },\n    \"budget\": {\n      \"total_budget\": 6743723506321.196,\n      \"currency_code\": \"string\"\n    },\n    \"zone_name\": \"string\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8272fb54-14eb-48d1-b22c-16b3545ee20a",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a3099e0-1c0c-49b3-9ff2-376886e17e36",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ccd6fac-2327-4f6e-aa6f-df803b66915e",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9677fc46-26fa-486b-a8da-b26d10a46f2d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9ff4405-66c5-4599-8dad-79f7344bbe4d",
+          "name": "Update a Campaign Plan",
+          "request": {
+            "name": "Update a Campaign Plan",
+            "description": {
+              "content": "Update a campaign plan by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_plans",
+                ":campaign_plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign_plan_id",
+                  "description": "(Required) Numeric ID of the campaign plan object to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"duration\": {\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  },\n  \"budget\": {\n    \"total_budget\": \"<float>\",\n    \"currency_code\": \"<string>\"\n  },\n  \"zone_name\": \"<string>\",\n  \"version\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "865b8a61-a7a2-424c-bfa0-fbbb00f962ae",
+              "name": "Campaign plane updated response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"version\": 6654,\n    \"id\": 1488,\n    \"advertiser_id\": 2002,\n    \"created_on\": \"2008-04-04T00:53:33.590Z\",\n    \"updated_on\": \"1971-09-03T17:04:50.705Z\",\n    \"name\": \"string\",\n    \"duration\": {\n      \"start_date\": \"2017-05-26T13:18:32.763Z\",\n      \"end_date\": \"2022-11-18T14:50:38.558Z\"\n    },\n    \"budget\": {\n      \"total_budget\": 6743723506321.196,\n      \"currency_code\": \"string\"\n    },\n    \"zone_name\": \"string\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42132fc8-66e8-442a-b2bb-11ece05ddd7d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "787934f3-705c-4832-b54c-22d4b7032c3d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92996226-0957-4c50-a3ec-e1b527c06ba9",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d06c0149-26bb-463d-a7be-ecb7a07b63b1",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_plans",
+                    ":campaign_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_plan_id",
+                      "description": "(Required) Numeric ID of the campaign plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"valid campaign plan\",\n  \"duration\": {\n    \"start_date\": \"2050-01-01T10:00:00Z\",\n    \"end_date\": \"2050-01-10T23:59:00Z\"\n  },\n  \"budget\": {\n    \"currency_code\": \"USD\",\n    \"total_budget\": 100\n  },\n  \"zone_name\": \"America/New_York\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a394b81a-93ec-4152-bf19-49e3623dc953",
+    "name": "Campaigns Ad Servers Campaign Plans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}

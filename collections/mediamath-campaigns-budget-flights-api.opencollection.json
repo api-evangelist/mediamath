@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Campaigns Budget Flights API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns Budget Flights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bulk Update Budget Flights",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/bulk_update/budget_flights",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update multiple budget flights"
+        },
+        {
+          "info": {
+            "name": "List Budget Flights",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/campaigns/:campaign_id/budget_flights",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "full",
+                "value": "",
+                "type": "query",
+                "description": "To return all fields, set the value to `*`. For example, `full=*` will include all properties.\n"
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the campaign"
+              }
+            ]
+          },
+          "docs": "Get a list of budget flights"
+        },
+        {
+          "info": {
+            "name": "Budget Flights for a given Campaign Audit Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/campaigns/:campaign_id/budget_flights/history",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the campaign"
+              }
+            ]
+          },
+          "docs": "Get a list changes to this campaign's budget flights"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

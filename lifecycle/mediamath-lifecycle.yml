@@ -1,0 +1,153 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://apidocs.mediamath.com/apis/audience-taxonomies,
+  https://apidocs.mediamath.com/apis/reporting-api-v1,
+  https://apidocs.mediamath.com/guides/marketplaces,
+  https://apidocs.mediamath.com/legal/terms,
+  openapi/*.yml
+summary: >-
+  MediaMath publishes DATED deprecation notices in-line on the affected API
+  pages — two APIs currently carry hard removal dates in 2026 — but it publishes
+  no deprecation POLICY, no notice period, no Sunset/Deprecation response
+  headers, no changelog, no status page and no SLA. Deprecation is announced
+  where you happen to be reading, not where a machine can watch.
+
+versioning:
+  scheme: uri-path
+  current:
+    - api: Campaign Management API
+      version: 3.0.1807
+      base: https://api.mediamath.com/api/v3.0
+    - api: Reporting API V2
+      version: 1.0.0
+      base: https://api.mediamath.com/reporting/v2
+    - api: Marketplaces API V2.0
+      version: '2.0'
+      base: https://api.mediamath.com/deals/v1.0
+      note: Product version 2.0 is served on a /deals/v1.0 path.
+    - api: Audience Segments API
+      version: '2.0'
+      base: https://api.mediamath.com/dmp/v2.0
+    - api: BOF Config API
+      version: '2.0'
+      base: https://api.mediamath.com/opportunity-firehose/v2.0
+    - api: Component Creatives API
+      version: '3.0'
+      base: https://api.mediamath.com
+    - api: Video Creatives
+      version: v1.0
+      base: https://api.mediamath.com
+    - api: BYOA / Custom Bid Router
+      version: null
+      base: https://api.byoa.mediamath.com
+  secondary_scheme:
+    style: query-parameter
+    example: '?v1 / ?v2 on the Reporting V1 Device Technology report'
+
+deprecation_policy:
+  published: false
+  notice_period: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation policy page exists. The API Usage Terms reserve the right to
+    "revoke your license and access to the APIs without notice". Individual
+    deprecations are announced as admonition blocks on the affected API's own
+    documentation page, with a date and a migration target, but nothing surfaces
+    them in HTTP responses or in a feed.
+
+deprecations:
+  - api: Audience Segments API
+    version: '2.0'
+    status: deprecated
+    announced_on_page: https://apidocs.mediamath.com/apis/audience-taxonomies
+    deprecated_as_of: '2026-08-01'
+    removal_date: null
+    replacement: https://apidocs.mediamath.com/apis/campaigns-api/openapi
+    statement: >-
+      "This API is deprecated as of 1st August 2026. The functionality has been
+      built into the V3 Campaign Management API."
+    spec: openapi/mediamath-audience-segments-api-openapi.yml
+    note: >-
+      Deprecated 12 days before this pass and still served, still documented, and
+      still returned by the documentation MCP's list-apis. The spec itself
+      carries no `deprecated: true` on any operation.
+  - api: Reporting API V1
+    status: deprecated
+    announced_on_page: https://apidocs.mediamath.com/apis/reporting-api-v1
+    deprecated_as_of: null
+    removal_date: '2026-07-31'
+    removal_statement: >-
+      "This API is deprecated and will be removed in July 2026."
+    replacement: https://apidocs.mediamath.com/apis/reporting-api
+    spec: openapi/mediamath-reporting-api-v1-openapi.yml
+    note: >-
+      The stated removal month (July 2026) has PASSED, yet all 30 operations
+      remain published and the definition is still served by the documentation
+      MCP server. Either the removal slipped or the notice is stale; nothing in
+      the docs says which. removal_date is recorded as the last day of the
+      stated month.
+
+deprecated_fields:
+  - entity: campaign
+    field: attribution.merit_pixel_id
+    replacement: attribution.merit_pixels[]
+    source: https://apidocs.mediamath.com/guides/mcp/tool-reference
+    note: >-
+      Single merit pixel superseded by 1-10 weighted merit_pixels entries.
+      Sending both fields in one request is documented as invalid.
+  - entity: deals (Marketplaces)
+    field: null
+    change: >-
+      V2.0 made ?owner.organization_id a REQUIRED parameter and dropped support
+      for ?full, ?with and the /limit/ path component that V1.0 accepted.
+    source: https://apidocs.mediamath.com/guides/marketplaces
+
+deprecated_operations_in_spec:
+  count: 0
+  note: >-
+    No operation in any of the 44 OpenAPI documents carries `deprecated: true`,
+    including every operation in the two APIs the docs declare deprecated. The
+    specs and the prose disagree.
+
+status_page:
+  published: false
+  probed:
+    - url: https://status.mediamath.com/
+      status: 000
+      note: DNS/connection failure — host does not resolve.
+    - url: https://status.infillion.com/
+      status: 000
+      note: DNS/connection failure — host does not resolve.
+    - url: https://mediamath.statuspage.io/
+      status: 200
+      note: Redirects to atlassian.com/software/statuspage — the vendor's marketing site, not a MediaMath status page.
+  note: >-
+    No public status page exists for MediaMath or Infillion. The Agent Connector
+    docs point agents at an in-band `healthcheck` MCP tool instead, which only
+    works once you are already connected and enrolled in the closed beta.
+
+sla:
+  published: false
+  note: No public uptime or support-response SLA. The API Usage Terms disclaim availability commitments.
+
+support:
+  channel: https://support.infillion.com/s/submit-a-case
+  note: Case submission through the Infillion support portal; requires an account.
+
+changelog:
+  published: false
+  note: >-
+    No dated changelog or release-notes page. The only version history in the
+    docs is a "Changes with V2.0" narrative section inside the Marketplaces
+    guide and a 2017-dated note about Device Technology report v2 fields. The
+    Campaign Management spec version (3.0.1807) is the only build-level signal.
+
+gaps:
+  - No Deprecation or Sunset response headers (RFC 8594) on the two deprecated APIs.
+  - No deprecation policy or notice-period commitment.
+  - Reporting API V1's stated removal month has passed with the API still live and no updated notice.
+  - No status page, no incident history, no SLA.
+  - No changelog to subscribe to; deprecations are discoverable only by re-reading each API page.

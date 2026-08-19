@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Datasets API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "All Dimensions and Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/all-dimensions-and-metrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nStandard performance metrics in campaign currency and broken out by our widest array of dimensions.\nAvailable in custom date ranges or intervals with the option to aggregate by day, week, or month.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`|`by_day`, `by_week`, `by_month`|\n|`ads_txt_type`<br>Ads.txt Type|Any|Any|\n|`ads_txt_verified`<br>Ads.txt Verified|Any|An"
+        },
+        {
+          "info": {
+            "name": "Brain Feature Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/brain-feature-summary",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nBrain Feature Summary Report\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`yesterday`, `last_X_days`, `month_to_date`|`by_day`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`feature`<br>|Any|Any|\n|`index`<br>|Any|Any|\n|`model_goal`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`organization_"
+        },
+        {
+          "info": {
+            "name": "Brain Feature Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/brain-feature-value",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nBrain Feature Value Report\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`yesterday`, `last_X_days`, `month_to_date`|`by_day`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`bid_impact`<br>|Any|Any|\n|`campaign_id`<br>|Any|Any|\n|`campaign_name`<br>|Any|Any|\n|`feature`<br>|Any|Any|\n|`feature_report_type`<br>|Any|Any|\n|`feature_value`<br>|Any|Any|\n|`ind"
+        },
+        {
+          "info": {
+            "name": "Day Part",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/day-part",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nStandard performance metrics broken out by time of day and day of week. Available in standard intervals.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign"
+        },
+        {
+          "info": {
+            "name": "Deals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/deals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nMetrics that describe the path from a matched bid opportunity (biddable) to a delivered impression (win) for private marketplace deals. \nThe data is stored in UTC timezone and is available by hour.\n\n**NOTE: this dataset requires the use of filter `organization_id` with exactly 1 value, and `deal_id` with at least 1 value.**\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `last_X_days`, `yes"
+        },
+        {
+          "info": {
+            "name": "Performance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/performance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nStandard Aggregated Performance Report in Campaign Currency\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_con"
+        },
+        {
+          "info": {
+            "name": "Performance Hourly",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/performance-hourly",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nStandard Aggregated Performance Report in Campaign Currency\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campa"
+        },
+        {
+          "info": {
+            "name": "Pixel Loads",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/pixel-loads",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nLoads and Uniques metrics for `data` and `event` pixels, broken out by referrer and referrer rank, available by day.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`|`by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`organization_id`<br>|Any|Any|\n|`pixel_cost_cpm`<br"
+        },
+        {
+          "info": {
+            "name": "Reach and Frequency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/reach-frequency",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nBasic performance metrics as well as the \"uniques\" metric, broken out by frequency of ad exposure.  Available in standard intervals.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|Any|Any|\n|`campaign_archived`<br>|Any|Any|\n|`campaign_conversion_type`<br>|Any|Any|\n|`campaign_conversion_variable_minutes`<br>|Any|Any|\n|`campaign_create"
+        },
+        {
+          "info": {
+            "name": "Win/Loss",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/win-loss",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nMetrics describe the auction before a win or even a bid has taken place.  Broken out by strategy, exchange, and deal dimensions and available by hour.\n\n### Fields\n\n| Field | Time Windows \t| Rollups \t|\n|-------|---------------|-----------|\n|**Dimensions**|\n|`agg_timestamp`|`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|\n|`advertiser_id`<br>|Any|Any|\n|`advertiser_name`<br>|Any|Any|\n|`agency_id`<br>|Any|Any|\n|`agency_name`<br>|"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

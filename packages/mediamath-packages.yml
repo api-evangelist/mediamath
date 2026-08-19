@@ -1,0 +1,137 @@
+generated: '2026-08-13'
+method: searched
+source: https://pypi.org/project/terminalone/, https://www.npmjs.com/package/@mediamath/terminalone,
+  https://packagist.org/packages/mediamath/t1-php, https://github.com/MediaMath
+note: >-
+  MediaMath's first-party client libraries were all published under the legacy
+  "TerminalOne" (T1) platform brand. Every one of them is stale relative to the
+  APIs it wraps: the Campaign Management API is on v3.0.1807 and the Reporting
+  API V2 shipped after all of these releases. The Python package is the only one
+  released in the last five years, and its GitHub source repository
+  (MediaMath/t1-python) now returns 404 while the PyPI distribution remains
+  published — a package a consumer can still install from a repository that no
+  longer exists. No first-party SDK exists for the Marketplaces, BYOA, Component
+  Creatives, Video Creatives or Audience Segments APIs, and none exists for the
+  Infillion Agent Connector (MCP).
+packages:
+  - language: python
+    registry: pypi
+    name: terminalone
+    url: https://pypi.org/project/terminalone/
+    install: pip install terminalone
+    official: true
+    version: 1.9.20
+    published: '2024-03-13'
+    source_code: https://github.com/MediaMath/t1-python
+    note: >-
+      "A package for interacting with MediaMath's TerminalOne API."
+      home_page on PyPI is http://www.mediamath.com. The declared GitHub source
+      repository https://github.com/MediaMath/t1-python returned HTTP 404 when
+      probed on 2026-08-13; the PyPI distribution is still published and
+      installable.
+
+  - language: javascript
+    registry: npm
+    name: "@mediamath/terminalone"
+    url: https://www.npmjs.com/package/@mediamath/terminalone
+    install: npm install @mediamath/terminalone
+    official: true
+    version: 0.7.1
+    published: '2018-05-17'
+    source_code: https://github.com/MediaMath/t1-node
+    note: >-
+      "Connection Module for T1 API written in node.js", published under the
+      vendor-controlled @mediamath npm scope. Last release 2018-05-17. The
+      declared source repository https://github.com/MediaMath/t1-node returned
+      HTTP 404 when probed on 2026-08-13.
+
+  - language: php
+    registry: packagist
+    name: mediamath/t1-php
+    url: https://packagist.org/packages/mediamath/t1-php
+    install: composer require mediamath/t1-php
+    official: true
+    version: 1.0.6
+    published: '2017-08-15'
+    source_code: https://github.com/MediaMath/t1-php
+    note: >-
+      "PHP SDK for MediaMath Platform APIs". Source repo is live but its last
+      push was 2017-08-15, matching the last Packagist release. 7,661 total
+      downloads.
+
+  - language: javascript
+    registry: npm
+    name: "@mediamath/t1proxy"
+    url: https://www.npmjs.com/package/@mediamath/t1proxy
+    install: npm install @mediamath/t1proxy
+    official: true
+    version: 1.0.8
+    published: '2017-10-06'
+    source_code: https://github.com/conoverm/t1proxy
+    note: >-
+      Development proxy to the T1 APIs using http-proxy-middleware. Published
+      under the vendor-controlled @mediamath npm scope, but the declared
+      repository is a personal account (conoverm/t1proxy), so first-party status
+      rests on the npm scope alone. A dev tool, not a client library.
+
+  - language: swift
+    registry: null
+    name: MediaMath iOS SDK
+    url: https://github.com/MediaMath/ios-sdk
+    install: null
+    official: true
+    version: null
+    published: '2019-08-01'
+    source_code: https://github.com/MediaMath/ios-sdk
+    note: >-
+      Mobile Pixel SDK for Apple iOS, documented at
+      https://apidocs.mediamath.com/guides/mobile-pixel-sdk. Distributed as a
+      GitHub repository only — no CocoaPods, Swift Package Manager or Carthage
+      registry entry was found, so there is no registry metadata endpoint to
+      read a version from. `version: null` records that the distribution is
+      unversioned, not that it was unchecked. Last repository push 2019-08-01.
+      This is a pixel/tracking SDK, not a client for the REST APIs.
+
+third_party:
+  - language: javascript
+    registry: npm
+    name: node-mediamath
+    url: https://www.npmjs.com/package/node-mediamath
+    official: false
+    version: 1.0.4
+    published: '2016-02-29'
+    source_code: https://github.com/AgencyPMG/node-mediamath
+    note: Community Node SDK for the MediaMath Reporting API, by Agency PMG. Not first-party.
+  - language: javascript
+    registry: npm
+    name: "@segment/analytics.js-integration-mediamath"
+    url: https://www.npmjs.com/package/@segment/analytics.js-integration-mediamath
+    official: false
+    version: 2.0.3
+    published: '2021-07-09'
+    note: Segment's analytics.js destination integration for MediaMath. Published by Segment, not MediaMath.
+
+registries_probed:
+  - registry: pypi
+    endpoint: https://pypi.org/pypi/terminalone/json
+    result: hit
+  - registry: npm
+    endpoint: https://registry.npmjs.org/-/v1/search?text=mediamath
+    result: hit
+  - registry: packagist
+    endpoint: https://packagist.org/packages/mediamath/t1-php.json
+    result: hit
+  - registry: rubygems
+    endpoint: https://rubygems.org/api/v1/search.json?query=mediamath
+    result: no first-party package
+  - registry: maven-central
+    result: no first-party package
+  - registry: nuget
+    result: no first-party package
+  - registry: crates.io
+    result: no first-party package
+  - registry: pkg.go.dev
+    result: >-
+      No first-party MediaMath API client. The MediaMath GitHub org publishes
+      several Go infrastructure libraries (goavro, restful, stats, govent) but
+      none is a client for the MediaMath Platform APIs.

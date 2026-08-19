@@ -1,0 +1,405 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml (44 documents, 380 component schemas, 353 operations),
+  https://apidocs.mediamath.com/apis/campaigns-api/openapi,
+  https://apidocs.mediamath.com/guides/marketplaces
+note: >-
+  Entity-relationship graph derived from id-reference fields declared across the
+  OpenAPI component schemas and from the collection/sub-collection path shapes.
+  MediaMath's model is a strict four-level ownership tree (organization ->
+  agency -> advertiser -> campaign -> strategy) with creative, inventory,
+  audience and measurement objects hanging off it. Every entity uses integer
+  surrogate IDs — there are NO type-prefixed identifiers, so an ID alone does not
+  tell an agent what it points at.
+
+conventions:
+  identifier_type: integer
+  id_prefixes: none
+  id_field_pattern: '{entity}_id'
+  audit: >-
+    Most entities expose an /{collection}/{id}/audit_log operation and several
+    expose a bulk audit-log variant.
+  soft_delete: >-
+    Entities carry a boolean `status` rather than being deleted; DELETE exists
+    only on BYOA campaign/strategy settings.
+  timestamps: created_on / updated_on on most entities.
+
+entities:
+  - name: organization
+    api: Campaign Management
+    collection: /organizations
+    operations: [list-organizations, create-organization, get-organization, update-organization, organization-audit-log, list-settings-organization, update-settings-organization]
+    description: Top of the ownership tree. Holds contract controls, identity policy, exchange seats and billing configuration.
+    relationships:
+      - has_many: agency
+        via: organization_id
+      - has_many: contract
+        via: organization_id
+      - has_many: user_permission
+        via: organization_id
+
+  - name: agency
+    api: Campaign Management
+    collection: /agencies
+    operations: [list-agencies, create-agency, get-agency, update-agency, agency-audit-log]
+    relationships:
+      - belongs_to: organization
+        via: organization_id
+      - has_many: advertiser
+        via: agency_id
+    note: Carries data-sharing settings and MFA inheritance from its organization.
+
+  - name: advertiser
+    api: Campaign Management
+    collection: /advertisers
+    operations: [list-advertisers, create-advertiser, get-advertiser, update-advertiser, advertiser-audit-log, list-advertisers-pixel-x-advertisers]
+    relationships:
+      - belongs_to: agency
+        via: agency_id
+      - has_many: campaign
+        via: advertiser_id
+      - has_many: concept
+        via: advertiser_id
+      - has_many: atomic_creative
+        via: advertiser_id
+      - has_many: pixel_bundle
+        via: advertiser_id
+    note: >-
+      The most-referenced foreign key in the model (advertiser_id appears in 9
+      component schemas). Carries cross-strategy settings, MFA inheritance and
+      vendor attribution pixels.
+
+  - name: campaign
+    api: Campaign Management
+    collection: /campaigns
+    operations: [list-campaigns, get-campaign, create-campaign, update-campaign, bulk-update-campaigns, campaign-audit-log, campaign-audit-log-bulk]
+    relationships:
+      - belongs_to: advertiser
+        via: advertiser_id
+      - has_many: strategy
+        via: campaign_id
+      - has_many: campaign_budget_flight
+        via: campaign_id
+      - has_one: merit_pixel
+        via: attribution.merit_pixel_id
+        deprecated: true
+      - has_many: merit_pixel
+        via: attribution.merit_pixels[].pixel_id
+        note: 1-10 weighted entries, weight 0.00-10.00, optional funnel_position 1-10.
+    fields_of_note: [goals, budget, pacing, frequency, attribution, flights, identity settings]
+
+  - name: campaign_plan
+    api: Campaign Management
+    collection: /campaign_plans
+    operations: [list-campaign-plans, create-campaign-plan, get-campaign-plan, update-campaign-plan]
+    relationships:
+      - belongs_to: campaign
+        via: campaign_id
+
+  - name: campaign_budget_flight
+    api: Campaign Management
+    operations: [campaign-budget-flights-audit-log]
+    relationships:
+      - belongs_to: campaign
+        via: campaign_id
+
+  - name: strategy
+    api: Campaign Management
+    collection: /strategies
+    operations: [list-strategies, get-strategy, create-strategy, update-strategy, get-strategy-targeting-expression, list-strategy-target-values, list-strategy-concepts]
+    relationships:
+      - belongs_to: campaign
+        via: campaign_id
+      - has_many: target_value
+        via: target_value_id
+        through: targeting attachment
+      - has_many: concept
+        via: concept_id
+        through: strategy_concepts
+      - has_many: deal
+        via: deal_id
+        through: strategy_deals
+      - has_many: site_list
+        via: site_list_id
+      - has_many: supply_source
+        via: supply_source_id
+    business_rules:
+      - goal_type cannot be roi or cpa unless use_optimization is true AND the parent campaign has a merit pixel.
+      - goal_type spend is only supported when use_optimization is false.
+    source_for_rules: https://apidocs.mediamath.com/guides/mcp/tool-reference
+
+  - name: strategy_group
+    api: Campaign Management
+    collection: /new_strategy_groups
+    operations: [list-new-strategy-groups, create-new-strategy-group, get-new-strategy-group, update-new-strategy-group, delete-new-strategy-group, new-strategy-group-audit-log]
+    relationships:
+      - has_many: strategy
+        via: strategy_id
+
+  - name: concept
+    aliases: [creative group]
+    api: Campaign Management
+    collection: /concepts
+    operations: [list-concepts, create-concept, get-concept, update-concept, bulk-update-concepts, concepts-audit-log]
+    relationships:
+      - belongs_to: advertiser
+        via: advertiser_id
+      - has_many: atomic_creative
+        via: concept_id
+    note: '"Creative group" and "concept" are interchangeable terms, per the provider.'
+
+  - name: atomic_creative
+    api: Campaign Management
+    collection: /atomic_creatives
+    operations: [list-atomic-creatives, post-atomic_creatives, get-atomic-creative, post-atomic_creatives-atomic_creative_id, bulk-update-atomic-creatives, atomic-creatives-healthcheck, atomic-creative-audit-log, creatives-atomic_creative_id-include-previews]
+    relationships:
+      - belongs_to: advertiser
+        via: advertiser_id
+      - belongs_to: concept
+        via: concept_id
+      - has_one: ad_server
+        via: ad_server_id
+    note: >-
+      Base creative object for display, video and native. Exchange approval state
+      is read through atomic-creatives-healthcheck (AppNexus, Google AdX, MoPub,
+      Microsoft Ad Exchange and others), not stored as a single field.
+
+  - name: component_creative
+    api: Component Creatives API
+    spec: openapi/mediamath-component-creatives-api-openapi.yml
+    relationships:
+      - has_many: component
+        via: component_id
+
+  - name: video_creative
+    api: Video Creatives
+    spec: openapi/mediamath-video-creatives-api-openapi.yml
+    collection: /video/v2.0/creatives
+    operations: [Get_video_asset_upload_S3_URL, POST_video-v2-0-creatives-video_id-upload, GET_video-v2-0-creatives-video_id-status, GET_video-v2-0-creatives-video_id-variants, GET_video-v2-0-creatives-video_id-companions, POST_video-v2-0-creatives-validateVAST, Get-Video-creative-VAST-XML]
+    relationships:
+      - has_many: video_variant
+        via: variant_id
+      - has_many: companion_creative
+        via: companion_id
+      - has_one: asset
+        via: asset_id
+    lifecycle:
+      states: [Pending, Processing, Finished]
+      note: Upload is a two-step create + presigned S3 PUT, then poll status.
+
+  - name: deal
+    api: Marketplaces V2.0
+    spec: openapi/mediamath-marketplaces-api-v2-openapi.yml
+    collection: /deals
+    operations: [LIST-deals, POST-deal, GET-deal, PUT-deal, Bulk-Create-Deal, Update-Bulk-Deal, Bulk-Create-or-Update-Deal, LIST-deals-and-reporting-data, List-Deal-Strategies]
+    relationships:
+      - belongs_to: organization
+        via: owner.organization_id
+        required: true
+      - belongs_to: deal_group
+        via: deal_group_id
+      - has_one: publisher
+        via: publisher_id
+      - has_one: supply_source
+        via: supply_source_id
+      - has_many: strategy
+        via: strategy_deals
+
+  - name: deal_group
+    api: Marketplaces V2.0
+    collection: /deal_groups
+    operations: [LIST-deal-groups, POST-deal-group, GET-deal-group, PUT-deal-group, List-deal-group-strategies]
+    relationships:
+      - has_many: deal
+        via: deal_group_id
+
+  - name: publisher
+    api: Marketplaces V2.0
+    collection: /publishers
+    operations: [POST_publishers, Retrieve_publishers, Retrieve_a_publisher_by_ID, Delete_publisher, Bulk-Create-Publishers]
+    relationships:
+      - has_many: deal
+        via: publisher_id
+
+  - name: channel
+    api: Marketplaces V2.0
+    collection: /channels
+    operations: [List_channels]
+
+  - name: supply_source
+    api: Campaign Management
+    collection: /supply_sources
+    operations: [list-supply-sources, get-supply-source]
+    relationships:
+      - has_many: supply_source
+        via: sub_supply_source_id
+        note: Self-referential parent/child exchange hierarchy.
+
+  - name: site_list
+    api: Campaign Management
+    collection: /site_lists
+    operations: [list-site-lists, get-site-list, upload-create-site-lists, upload-update-site-lists, download-site-lists, get-site-list-assignments]
+    relationships:
+      - has_many: strategy
+        via: get-site-list-assignments
+
+  - name: target_value
+    api: Campaign Management
+    collection: /target_values
+    operations: [list-target-values, list-targets, create-target, get-target-legacy, update-target-legacy, delete-target-legacy]
+    relationships:
+      - belongs_to: target_dimension
+        via: target_id
+    note: The generic targeting vocabulary — geo, daypart, technology, contextual.
+
+  - name: audience_segment
+    api: Audience Segments (dmp/v2.0) and Campaign Management targeting
+    spec: openapi/mediamath-audience-segments-api-openapi.yml
+    operations: [GET_audience_segments, POST_audience_segments, GET_audience_segments-taxonomy_id, POST_audience_segments-taxonomy_id, 'GET_audience_segments-grants-$vendor_org_id']
+    relationships:
+      - belongs_to: audience_segment
+        via: parent_audience_segment_id
+        note: Segments form a hierarchical taxonomy tree rooted at the data provider.
+      - belongs_to: vendor
+        via: vendor_id
+    note: >-
+      Two exposure modes — global taxonomies (visible to all customers) and
+      permissioned taxonomies / external data segments (shared to named
+      organizations, agencies or advertisers). Revenue share is set per data
+      vendor and can be overridden per taxonomy.
+
+  - name: segment_group
+    api: Campaign Management
+    collection: /segment_groups
+    operations: [create-segment-group, list-segment-groups, update-segment-group, get-segment-group, segment-groups-audit-log, get-segment-group-assignments]
+    relationships:
+      - has_many: audience_segment
+        via: audience_segment_id
+
+  - name: targeting_segment
+    api: Campaign Management
+    relationships:
+      - belongs_to: strategy
+        via: strategy_id
+      - references: audience_segment
+        via: targeting_segment_id
+
+  - name: pixel_bundle
+    api: Campaign Management
+    collection: /pixel_bundles
+    operations: [create-pixel-bundle, list-pixel-bundles, update-pixel-bundle, get-pixel-bundle, pixel-bundle-audit-log]
+    relationships:
+      - belongs_to: advertiser
+        via: advertiser_id
+      - belongs_to: pixel_provider
+        via: pixel_provider_id
+      - referenced_by: campaign
+        via: attribution.merit_pixels[].pixel_id
+
+  - name: pixel_provider
+    api: Campaign Management
+    collection: /pixel_providers
+    operations: [list-pixel-providers]
+
+  - name: vendor
+    api: Campaign Management
+    collection: /vendors
+    operations: [list-vendors, get-vendor, list-audience-vendors, create-audience-vendor, get-audience-vendor, update-audience-vendor]
+    relationships:
+      - has_many: vendor_contract
+        via: vendor_id
+
+  - name: contract
+    api: Campaign Management
+    collection: /contracts
+    operations: [create-contract, list-contracts, update-contract, get-contract, contract-audit-log, list-vendor-contracts]
+    relationships:
+      - belongs_to: organization
+        via: organization_id
+    note: >-
+      Carries the full fee model — platform access, cross-device, DBA
+      optimization, audio/video platform access, partnership rebate, country tax
+      withholding and MFA fees, each with cpm/pct/unit variants.
+
+  - name: user
+    api: Campaign Management
+    collection: /users
+    operations: [list-users, get-user, get-user-settings]
+    relationships:
+      - has_many: user_permission
+        via: user_id
+
+  - name: user_permission
+    api: Campaign Management
+    collection: /permissions
+    operations: [list-user-permissions, list-user-permissions-filtered, update-permissions-user, list-user-permissions-organization, list-user-permissions-agency, list-user-permissions-advertiser, list-user-permissions-campaign, list-user-permissions-strategy]
+    relationships:
+      - belongs_to: user
+        via: user_id
+      - scopes_to: [organization, agency, advertiser, campaign, strategy]
+    note: >-
+      Permissions are granted at any level of the ownership tree and inherit
+      downward. The Agent Connector explicitly inherits the calling user's scope.
+
+  - name: bof_consumer
+    api: BOF Config API
+    spec: openapi/mediamath-bof-config-api-openapi.yml
+    description: Bid Request Firehose consumer configuration — filters, channel types, geos, delivery bucket and role ARN.
+    relationships:
+      - belongs_to: organization
+        via: organization_id
+
+  - name: custom_bid_router_executor
+    api: BYOA
+    spec: openapi/mediamath-byoa-api-openapi.yml
+    base: https://api.byoa.mediamath.com
+    relationships:
+      - belongs_to: organization
+        via: org_id
+      - has_many: endpoint
+        via: endpoint_type
+        note: endpoint_type is "bid" or "win"; sample_rate is set per executor.
+    see: asyncapi/mediamath-webhooks.yml
+
+reference_collections:
+  note: >-
+    Static/validation collections an agent must read before a write will succeed.
+    None of these has an Agent Connector tool.
+  entities:
+    - name: currency_rates
+      operations: [list-currency-rates]
+    - name: timezones
+      operations: [list-timezones]
+    - name: verticals
+      operations: [list-verticals]
+    - name: iab_attributes
+      api: Video Creatives
+      operations: [GET_static_data-v1-0-iab_attributes, Get-IAB-Attribute]
+    - name: iab_verticals
+      api: Video Creatives
+      operations: [GET_static_data-v1-0-iab_verticals, GET_static_data-v1-0-iab_verticals-vertical_id]
+    - name: languages
+      api: Video Creatives
+      operations: [GET_static_data-v1-0-language, GET_static_data-v1-0-language-language_id]
+
+reporting_dimensions:
+  note: >-
+    Reporting API V2 datasets are POST-only and carry no operationIds in the
+    published spec. Captured examples live in examples/.
+  datasets:
+    - all-dimensions-and-metrics
+    - brain-feature-summary
+    - brain-feature-value
+    - day-part
+    - deals
+    - performance
+    - performance-hourly
+    - pixel-loads
+    - reach-frequency
+    - win-loss
+
+gaps:
+  - No type-prefixed identifiers; an integer ID is ambiguous without its collection.
+  - No published ERD or object-reference page; this graph is derived, not copied.
+  - Native creative objects are exposed through the Agent Connector but absent from every published spec.

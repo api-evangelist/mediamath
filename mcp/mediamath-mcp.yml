@@ -1,0 +1,153 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: >-
+  https://apidocs.mediamath.com/mcp (live tools/list probe, HTTP 200),
+  https://apidocs.mediamath.com/guides/mcp/overview,
+  https://apidocs.mediamath.com/guides/mcp/getting-connected,
+  https://apidocs.mediamath.com/guides/mcp/tool-reference
+
+deployment:
+  mode: remote
+  endpoint: https://apidocs.mediamath.com/mcp
+  auth: none
+  verified: probed
+  note: >-
+    MediaMath (Infillion) operates TWO distinct MCP surfaces and only one of them
+    is reachable today. The `deployment` block above describes the one an agent
+    can call right now: the DOCUMENTATION MCP server at
+    https://apidocs.mediamath.com/mcp, which answered an anonymous
+    `tools/list` with HTTP 200 on 2026-08-13 and returned six real tools with
+    full inputSchemas. Its `initialize` handshake reports
+    serverInfo.name "Infillion API Docs", version "2026-08-13",
+    protocolVersion "2025-06-18". No credentials were needed.
+
+    The second surface — the Infillion Agent Connector, the actual media-buying
+    execution layer with 60+ tools — is REMOTE and SSE-based but its endpoint URL
+    is NOT published: the provider's own docs say the URL is handed out
+    individually during closed-beta onboarding. No endpoint is recorded for it
+    below, and none was guessed.
+
+servers:
+  - name: Infillion API Docs MCP
+    kind: documentation
+    status: published
+    mode: remote
+    endpoint: https://apidocs.mediamath.com/mcp
+    transport: streamable-http (SSE responses; Accept application/json, text/event-stream)
+    auth: none
+    protocol_version: '2025-06-18'
+    server_info:
+      name: Infillion API Docs
+      version: '2026-08-13'
+    verified: probed
+    probe:
+      method: POST
+      body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+      http_status: 200
+      fetched: '2026-08-13'
+      tools_returned: 6
+    tools_file: mediamath-docs-mcp-tools.json
+    tools:
+      - name: list-apis
+        description: Lists available APIs with their context and purpose
+        read_only: true
+      - name: get-endpoints
+        description: Get all endpoints for a specific API
+        read_only: true
+      - name: get-endpoint-info
+        description: Get comprehensive information about specific endpoint including parameters, security, and examples
+        read_only: true
+      - name: get-security-schemes
+        description: Get the security schemes for a specific API
+        read_only: true
+      - name: get-full-api-description
+        description: Get the complete OpenAPI description
+        read_only: true
+      - name: search
+        description: Search across the documentation to fetch relevant content for a given query
+        read_only: true
+    note: >-
+      This server is the reason seven previously-uncaptured MediaMath OpenAPI
+      definitions are now in openapi/. `list-apis` enumerates nine published
+      APIs and `get-full-api-description` returns each one's complete OpenAPI
+      3.0.0 document. The docs host renders client-side and serves an HTML shell
+      for /openapi.json, so the MCP server is currently the only machine-readable
+      route to those contracts. The authorization server that fronts it is
+      recorded at well-known/mediamath-oauth-authorization-server.json; it is
+      advertised but not enforced on tools/list.
+
+  - name: Infillion Agent Connector
+    kind: execution
+    status: closed-beta
+    mode: remote
+    endpoint: null
+    transport: SSE
+    auth: platform-credentials
+    verified: searched
+    docs: https://apidocs.mediamath.com/guides/mcp/overview
+    product_page: https://infillion.com/infillion-agent-connector/
+    announcement: https://infillion.com/blog/infillion-launches-infillion-agent-connector-a-new-way-of-managing-ai-controlled-buying-that-runs-on-the-first-agent-native-composable-platform-in-adtech/
+    tool_count_documented: 69
+    tool_count_claimed: '60+'
+    note: >-
+      Endpoint deliberately left null. The provider states the server URL is
+      "provided during onboarding" by a Client Services representative and the
+      published Claude Desktop config example uses the literal placeholder
+      <MCP_SERVER_URL_PROVIDED_DURING_ONBOARDING>. No URL was guessed and no
+      endpoint was probed for this server. Authentication is described as
+      handled inside the MCP handshake using the caller's MediaMath Platform
+      credentials — no separate API key or OAuth2 client registration — and all
+      operations inherit the calling user's existing platform permissions, with
+      no privilege escalation path.
+    tool_categories:
+      - name: Organization & Entity Management
+        tools: [find_organizations, get_organization_info, find_agencies, get_agency_info, find_advertisers, get_advertiser_info]
+      - name: Campaign Management
+        tools: [find_campaigns, get_campaign_info, campaign_create, campaign_update]
+      - name: Strategy Management
+        tools: [find_strategies, get_strategy_info, strategy_create, strategy_update]
+      - name: Concepts (Creative Groups)
+        tools: [find_concepts, get_concept_info, creative_group_create]
+      - name: Creative Management
+        tools: [find_atomic_creatives, get_atomic_creative_info, get_atomic_creative_preview, atomic_creative_create,
+                atomic_creative_update, atomic_creative_healthcheck, mmas_creative_upload, mmas_creative_video_upload,
+                find_native_creatives, get_native_creative_info, native_creative_create, native_creative_update,
+                get_native_creative_approvals, get_video_creative_info, list_video_creatives, video_creative_create,
+                video_creative_update, video_creative_bulk_create, video_creative_bulk_update]
+      - name: Inventory & Supply
+        tools: [find_supply_sources, get_supply_source_info, find_site_lists, get_site_list_info, site_list_create,
+                site_list_update, find_publishers, find_target_values, get_channels_info, find_deals, get_deal_info,
+                deal_create, deal_update, find_deal_strategies, find_deal_groups, get_deal_group_info,
+                deal_group_create, deal_group_update]
+      - name: Pixels & Tracking
+        tools: [find_pixel_bundles, get_pixel_bundle_info, get_pixel_providers]
+      - name: Audience & Data
+        tools: [find_audience_segments, find_contextual_segments]
+      - name: Reporting & Analytics
+        tools: [get_dataset_schema, query_performance_report, query_hourly_performance_report,
+                query_all_dimensions_report, query_win_loss_report, query_pixel_loads_report]
+      - name: User & Permissions
+        tools: [find_user, get_user_info, get_user_permissions]
+      - name: System
+        tools: [healthcheck]
+    ui_resources:
+      - uri: ui://display-creative-upload
+        note: MCP App form opened by mmas_creative_upload when no public file URL is supplied.
+      - uri: ui://video-creative-upload
+        note: MCP App form opened by mmas_creative_video_upload when no public file URL is supplied.
+    conventions:
+      naming: >-
+        find_* for search/discovery, get_*_info for detailed inspection,
+        *_create / *_update for mutations. Documented workflow shape is
+        Discover -> Inspect -> Act.
+      pagination: find_campaigns returns up to 25 results per call and paginates.
+      response_modes: find_* tools accept full=true and extended=true for richer payloads.
+
+limitations:
+  - The Agent Connector tool list is transcribed from the provider's published Tool
+    Reference. Input schemas were NOT captured because the server is not publicly
+    reachable — a live tools/list against the beta endpoint is required to record
+    real inputSchema objects.
+  - The provider warns that the Tool Reference lags the deployed tool set and that
+    agents should re-discover tools on each connection, so this list is a snapshot.

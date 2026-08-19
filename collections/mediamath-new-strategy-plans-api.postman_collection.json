@@ -1,0 +1,2542 @@
+{
+  "item": [
+    {
+      "id": "6414b12a-e496-4272-9be6-aeaf97de7297",
+      "name": "New Strategy Plans",
+      "description": {
+        "content": "New Strategy Plans",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "521148bd-0d9a-4c5f-aa43-a9520097e039",
+          "name": "Post Ephemeral New Strategy Plan to Run a Forecast",
+          "request": {
+            "name": "Post Ephemeral New Strategy Plan to Run a Forecast",
+            "description": {
+              "content": "Post a new strategy plan object to run forecast without saving the strategy plan",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plans",
+                "forecast"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"advertiser_id\": \"<integer>\",\n  \"campaign_plan_id\": \"<integer>\",\n  \"channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"feature_compatibility\": \"<string>\",\n  \"device_graph_only\": \"<boolean>\",\n  \"zone_name\": \"<string>\",\n  \"campaign_service_type\": \"<string>\",\n  \"type\": \"<string>\",\n  \"duration\": {\n    \"use_campaign_start\": \"<boolean>\",\n    \"use_campaign_end\": \"<boolean>\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  },\n  \"budget\": {\n    \"budget\": \"<float>\",\n    \"currency_code\": \"<string>\"\n  },\n  \"goals\": {\n    \"goal_type\": \"<string>\",\n    \"goal_value\": \"<float>\",\n    \"min_bid\": \"<float>\",\n    \"max_bid\": \"<float>\",\n    \"roi_target\": \"<double>\",\n    \"bid_min_devices\": \"<integer>\",\n    \"bid_aggressiveness\": \"<integer>\",\n    \"bid_price_is_media_only\": \"<boolean>\",\n    \"max_bid_wm\": \"<float>\",\n    \"use_bid_shading\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"frequency_type\": \"<string>\",\n    \"frequency_interval\": \"<string>\",\n    \"frequency_amount\": \"<integer>\",\n    \"frequency_optimization\": \"<boolean>\"\n  },\n  \"inventory\": {\n    \"run_on_all_pmp\": \"<boolean>\",\n    \"run_on_all_exchanges\": \"<boolean>\",\n    \"site_restriction_transparent_urls\": \"<boolean>\",\n    \"domain_restrictions\": {\n      \"include\": [\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"exclude\": [\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"site_lists\": [\n      {\n        \"site_list_id\": \"<integer>\",\n        \"assigned\": \"<boolean>\"\n      },\n      {\n        \"site_list_id\": \"<integer>\",\n        \"assigned\": \"<boolean>\"\n      }\n    ],\n    \"deals\": [\n      {\n        \"deal_id\": \"<integer>\"\n      },\n      {\n        \"deal_id\": \"<integer>\"\n      }\n    ],\n    \"deal_groups\": [\n      {\n        \"deal_group_id\": \"<integer>\"\n      },\n      {\n        \"deal_group_id\": \"<integer>\"\n      }\n    ],\n    \"supply_sources\": [\n      {\n        \"supply_source_id\": \"<integer>\"\n      },\n      {\n        \"supply_source_id\": \"<integer>\"\n      }\n    ]\n  },\n  \"targeting\": \"<object>\",\n  \"creatives\": {\n    \"ad_expandable\": \"<boolean>\",\n    \"ad_formats\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ad_sizes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7943bacf-b2c0-4a16-bdb7-f6cd941d5d1a",
+              "name": "New strategy plan response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"campaign_start_date\": \"1989-08-03T21:17:44.705Z\",\n    \"campaign_end_date\": \"1988-01-06T08:14:36.623Z\",\n    \"campaign_zone_name\": \"string\",\n    \"name\": \"<string>\",\n    \"feature_compatibility\": \"<string>\",\n    \"device_graph_only\": \"<boolean>\",\n    \"zone_name\": \"America/New_York\",\n    \"campaign_service_type\": \"<string>\",\n    \"type\": \"<string>\",\n    \"duration\": {\n      \"use_campaign_start\": \"<boolean>\",\n      \"use_campaign_end\": \"<boolean>\",\n      \"start_date\": \"<dateTime>\",\n      \"end_date\": \"<dateTime>\"\n    },\n    \"budget\": {\n      \"budget\": \"<float>\",\n      \"currency_code\": \"<string>\"\n    },\n    \"goals\": {\n      \"goal_type\": \"<string>\",\n      \"goal_value\": \"<float>\",\n      \"min_bid\": \"<float>\",\n      \"max_bid\": \"<float>\",\n      \"roi_target\": \"<double>\",\n      \"bid_min_devices\": 1,\n      \"bid_aggressiveness\": \"<integer>\",\n      \"bid_price_is_media_only\": \"<boolean>\",\n      \"max_bid_wm\": \"<float>\",\n      \"use_bid_shading\": \"<boolean>\"\n    },\n    \"frequency\": {\n      \"frequency_type\": \"<string>\",\n      \"frequency_interval\": \"<string>\",\n      \"frequency_amount\": 5,\n      \"frequency_optimization\": \"<boolean>\"\n    },\n    \"inventory\": {\n      \"run_on_all_pmp\": \"<boolean>\",\n      \"run_on_all_exchanges\": \"<boolean>\",\n      \"site_restriction_transparent_urls\": \"<boolean>\",\n      \"domain_restrictions\": {\n        \"include\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"exclude\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"site_lists\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deals\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deal_groups\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"supply_sources\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"targeting\": {\n      \"fold_position\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"audience\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"contextual\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"postal_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"geofence\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"my_data\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"location\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"technology\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ip_addresses\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"day_parts\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"recency\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"language_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"creatives\": {\n      \"ad_expandable\": \"<boolean>\",\n      \"ad_formats\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"ad_sizes\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"id\": 33,\n    \"version\": 3,\n    \"campaign_id\": 8\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be6dcfb3-68ff-41e7-b3fc-444da4c163f5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e390ec2-1bf7-48d3-9f82-a7a0136b678c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b34203b0-d9f4-4231-931d-b68e51b3e94d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd4779d2-5661-4314-a3d9-89f814f72e03",
+          "name": "Run and Update Forecast for Given New Strategy Plan",
+          "request": {
+            "name": "Run and Update Forecast for Given New Strategy Plan",
+            "description": {
+              "content": "Run and update forecast for given new strategy plan ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plans",
+                ":strategy_plan_id",
+                "forecast"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "strategy_plan_id",
+                  "description": "(Required) Numeric ID of the strategy_plan object to run a forecast"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54adbbd9-94d8-4d8e-8678-c04a4d2a7ff6",
+              "name": "New strategy plan response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to run a forecast"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"campaign_start_date\": \"1989-08-03T21:17:44.705Z\",\n    \"campaign_end_date\": \"1988-01-06T08:14:36.623Z\",\n    \"campaign_zone_name\": \"string\",\n    \"name\": \"<string>\",\n    \"feature_compatibility\": \"<string>\",\n    \"device_graph_only\": \"<boolean>\",\n    \"zone_name\": \"America/New_York\",\n    \"campaign_service_type\": \"<string>\",\n    \"type\": \"<string>\",\n    \"duration\": {\n      \"use_campaign_start\": \"<boolean>\",\n      \"use_campaign_end\": \"<boolean>\",\n      \"start_date\": \"<dateTime>\",\n      \"end_date\": \"<dateTime>\"\n    },\n    \"budget\": {\n      \"budget\": \"<float>\",\n      \"currency_code\": \"<string>\"\n    },\n    \"goals\": {\n      \"goal_type\": \"<string>\",\n      \"goal_value\": \"<float>\",\n      \"min_bid\": \"<float>\",\n      \"max_bid\": \"<float>\",\n      \"roi_target\": \"<double>\",\n      \"bid_min_devices\": 1,\n      \"bid_aggressiveness\": \"<integer>\",\n      \"bid_price_is_media_only\": \"<boolean>\",\n      \"max_bid_wm\": \"<float>\",\n      \"use_bid_shading\": \"<boolean>\"\n    },\n    \"frequency\": {\n      \"frequency_type\": \"<string>\",\n      \"frequency_interval\": \"<string>\",\n      \"frequency_amount\": 5,\n      \"frequency_optimization\": \"<boolean>\"\n    },\n    \"inventory\": {\n      \"run_on_all_pmp\": \"<boolean>\",\n      \"run_on_all_exchanges\": \"<boolean>\",\n      \"site_restriction_transparent_urls\": \"<boolean>\",\n      \"domain_restrictions\": {\n        \"include\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"exclude\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"site_lists\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deals\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deal_groups\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"supply_sources\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"targeting\": {\n      \"fold_position\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"audience\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"contextual\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"postal_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"geofence\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"my_data\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"location\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"technology\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ip_addresses\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"day_parts\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"recency\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"language_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"creatives\": {\n      \"ad_expandable\": \"<boolean>\",\n      \"ad_formats\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"ad_sizes\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"id\": 33,\n    \"version\": 3,\n    \"campaign_id\": 8\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fff90659-0055-4688-a362-54beca742422",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to run a forecast"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70c84647-1048-43e6-913b-6703e708047c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to run a forecast"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e1746b4-bfa7-4cc8-a8e7-4bf359577231",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id",
+                    "forecast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to run a forecast"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59b18f73-c0a2-48e6-9275-df348d88dbd5",
+          "name": "Get a New Strategy Plan",
+          "request": {
+            "name": "Get a New Strategy Plan",
+            "description": {
+              "content": "Get a new strategy plan by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plans",
+                ":strategy_plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "strategy_plan_id",
+                  "description": "(Required) Numeric ID of the strategy_plan object to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64f572c0-b744-43b9-9105-4dfdee875bf2",
+              "name": "New strategy plan response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"campaign_start_date\": \"1982-11-02T02:04:29.115Z\",\n    \"campaign_end_date\": \"2010-05-03T22:12:58.627Z\",\n    \"campaign_zone_name\": \"string\",\n    \"name\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"feature_compatibility\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"device_graph_only\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"zone_name\": \"America/New_York\",\n    \"campaign_service_type\": \"<string>\",\n    \"type\": \"<string>\",\n    \"duration\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"budget\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"goals\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"frequency\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"inventory\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"targeting\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"creatives\": {\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    },\n    \"id\": 33,\n    \"version\": 3,\n    \"campaign_id\": 8\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14bd57f4-354a-4ab3-8676-63bc4c08a69f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "251b6cbb-1cc0-46ff-8957-0016c76e5771",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b33132b-d88b-4237-9818-97b74d8c02d8",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "768b2f7d-a913-4560-b256-283d6c055ef2",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ce47d82-b7f0-4a28-84de-1b486a1c7a5f",
+          "name": "Update a New Strategy Plan",
+          "request": {
+            "name": "Update a New Strategy Plan",
+            "description": {
+              "content": "Update a new strategy plan by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plans",
+                ":strategy_plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "strategy_plan_id",
+                  "description": "(Required) Numeric ID of the strategy_plan object to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<integer>\",\n  \"channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"feature_compatibility\": \"<string>\",\n  \"device_graph_only\": \"<boolean>\",\n  \"zone_name\": \"<string>\",\n  \"campaign_service_type\": \"<string>\",\n  \"type\": \"<string>\",\n  \"duration\": {\n    \"use_campaign_start\": \"<boolean>\",\n    \"use_campaign_end\": \"<boolean>\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  },\n  \"budget\": {\n    \"budget\": \"<float>\",\n    \"currency_code\": \"<string>\"\n  },\n  \"goals\": {\n    \"goal_type\": \"<string>\",\n    \"goal_value\": \"<float>\",\n    \"min_bid\": \"<float>\",\n    \"max_bid\": \"<float>\",\n    \"roi_target\": \"<double>\",\n    \"bid_min_devices\": \"<integer>\",\n    \"bid_aggressiveness\": \"<integer>\",\n    \"bid_price_is_media_only\": \"<boolean>\",\n    \"max_bid_wm\": \"<float>\",\n    \"use_bid_shading\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"frequency_type\": \"<string>\",\n    \"frequency_interval\": \"<string>\",\n    \"frequency_amount\": \"<integer>\",\n    \"frequency_optimization\": \"<boolean>\"\n  },\n  \"inventory\": {\n    \"run_on_all_pmp\": \"<boolean>\",\n    \"run_on_all_exchanges\": \"<boolean>\",\n    \"site_restriction_transparent_urls\": \"<boolean>\",\n    \"domain_restrictions\": {\n      \"include\": [\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"exclude\": [\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"site_lists\": [\n      {\n        \"site_list_id\": \"<integer>\",\n        \"assigned\": \"<boolean>\"\n      },\n      {\n        \"site_list_id\": \"<integer>\",\n        \"assigned\": \"<boolean>\"\n      }\n    ],\n    \"deals\": [\n      {\n        \"deal_id\": \"<integer>\"\n      },\n      {\n        \"deal_id\": \"<integer>\"\n      }\n    ],\n    \"deal_groups\": [\n      {\n        \"deal_group_id\": \"<integer>\"\n      },\n      {\n        \"deal_group_id\": \"<integer>\"\n      }\n    ],\n    \"supply_sources\": [\n      {\n        \"supply_source_id\": \"<integer>\"\n      },\n      {\n        \"supply_source_id\": \"<integer>\"\n      }\n    ]\n  },\n  \"targeting\": \"<object>\",\n  \"creatives\": {\n    \"ad_expandable\": \"<boolean>\",\n    \"ad_formats\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ad_sizes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed660bd2-9b0b-45d7-92a8-f2a63d6bb3db",
+              "name": "New strategy plan response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"campaign_start_date\": \"1989-08-03T21:17:44.705Z\",\n    \"campaign_end_date\": \"1988-01-06T08:14:36.623Z\",\n    \"campaign_zone_name\": \"string\",\n    \"name\": \"<string>\",\n    \"feature_compatibility\": \"<string>\",\n    \"device_graph_only\": \"<boolean>\",\n    \"zone_name\": \"America/New_York\",\n    \"campaign_service_type\": \"<string>\",\n    \"type\": \"<string>\",\n    \"duration\": {\n      \"use_campaign_start\": \"<boolean>\",\n      \"use_campaign_end\": \"<boolean>\",\n      \"start_date\": \"<dateTime>\",\n      \"end_date\": \"<dateTime>\"\n    },\n    \"budget\": {\n      \"budget\": \"<float>\",\n      \"currency_code\": \"<string>\"\n    },\n    \"goals\": {\n      \"goal_type\": \"<string>\",\n      \"goal_value\": \"<float>\",\n      \"min_bid\": \"<float>\",\n      \"max_bid\": \"<float>\",\n      \"roi_target\": \"<double>\",\n      \"bid_min_devices\": 1,\n      \"bid_aggressiveness\": \"<integer>\",\n      \"bid_price_is_media_only\": \"<boolean>\",\n      \"max_bid_wm\": \"<float>\",\n      \"use_bid_shading\": \"<boolean>\"\n    },\n    \"frequency\": {\n      \"frequency_type\": \"<string>\",\n      \"frequency_interval\": \"<string>\",\n      \"frequency_amount\": 5,\n      \"frequency_optimization\": \"<boolean>\"\n    },\n    \"inventory\": {\n      \"run_on_all_pmp\": \"<boolean>\",\n      \"run_on_all_exchanges\": \"<boolean>\",\n      \"site_restriction_transparent_urls\": \"<boolean>\",\n      \"domain_restrictions\": {\n        \"include\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"exclude\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"site_lists\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deals\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deal_groups\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"supply_sources\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"targeting\": {\n      \"fold_position\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"audience\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"contextual\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"postal_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"geofence\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"my_data\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"location\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"technology\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ip_addresses\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"day_parts\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"recency\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"language_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"creatives\": {\n      \"ad_expandable\": \"<boolean>\",\n      \"ad_formats\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"ad_sizes\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"id\": 33,\n    \"version\": 3,\n    \"campaign_id\": 8\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70897f55-c7e0-40d1-a331-44c844ce4d6c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b776e3c-ddc3-43ed-bf53-ad63024f0ca7",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ff436b7-2b1e-415e-bd37-66b45a14e131",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1008087-6037-4021-9aea-dccc56931194",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "daf86554-2519-4aaf-a60f-303d325e18ed",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Numeric ID of the strategy_plan object to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0eca7560-0127-4def-a08d-72e3d404fa5e",
+          "name": "Delete a New Strategy Plan",
+          "request": {
+            "name": "Delete a New Strategy Plan",
+            "description": {
+              "content": "Delete a new strategy plan by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plans",
+                ":strategy_plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "strategy_plan_id",
+                  "description": "(Required) Array numeric IDs of the strategy_plan object to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59ae4875-6585-4580-9ef0-ad154ea20b2d",
+              "name": "Strategy plans deleted response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Array numeric IDs of the strategy_plan object to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d95ea783-1558-4e86-a3ff-efc18a64cf6b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Array numeric IDs of the strategy_plan object to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f672b2c-3c74-483c-80b5-080b7fdb0452",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Array numeric IDs of the strategy_plan object to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7750761d-dd68-47a1-8867-0dfec8a57824",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Array numeric IDs of the strategy_plan object to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73d8b753-fb3f-4111-9b65-c04b2d94de82",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans",
+                    ":strategy_plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "strategy_plan_id",
+                      "description": "(Required) Array numeric IDs of the strategy_plan object to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11500735-715f-4601-89ca-819d23487e6e",
+          "name": "List New Strategy Plans",
+          "request": {
+            "name": "List New Strategy Plans",
+            "description": {
+              "content": "Get a list of new strategy plans",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<integer>",
+                  "description": "Numeric ID of the organization to get campaign plans for"
+                },
+                {
+                  "disabled": false,
+                  "key": "agency_id",
+                  "value": "<integer>",
+                  "description": "Numeric ID of the agency to get campaign plans for"
+                },
+                {
+                  "disabled": false,
+                  "key": "advertiser_id",
+                  "value": "<integer>",
+                  "description": "Numeric ID of the advertiser to get campaign plans for"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "528946dd-ef3e-426e-b927-466643cdc49b",
+              "name": "List new strategy plans response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "agency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "advertiser_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"feature_compatibility\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"device_graph_only\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"zone_name\": \"America/New_York\",\n      \"campaign_service_type\": \"<string>\",\n      \"type\": \"<string>\",\n      \"duration\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"budget\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"goals\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"frequency\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"inventory\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"targeting\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"creatives\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": 33,\n      \"version\": 3,\n      \"campaign_id\": 8\n    },\n    {\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"feature_compatibility\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"device_graph_only\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"zone_name\": \"America/New_York\",\n      \"campaign_service_type\": \"<string>\",\n      \"type\": \"<string>\",\n      \"duration\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"budget\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"goals\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"frequency\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"inventory\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"targeting\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"creatives\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": 33,\n      \"version\": 3,\n      \"campaign_id\": 8\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8c0480b-f4bd-4d27-83f7-10bb8c2e2bf3",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "agency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "advertiser_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33e9d7c6-b01f-4aa0-961d-f452c6778f3c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "agency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "advertiser_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b2f6b6b-d354-4105-9270-c3ac4eccdc30",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "agency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "advertiser_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69db996f-a868-4d00-818c-fce657c2087e",
+          "name": "Create a New Strategy Plan",
+          "request": {
+            "name": "Create a New Strategy Plan",
+            "description": {
+              "content": "Create a new strategy plan",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"advertiser_id\": \"<integer>\",\n  \"campaign_plan_id\": \"<integer>\",\n  \"channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"feature_compatibility\": \"<string>\",\n  \"device_graph_only\": \"<boolean>\",\n  \"zone_name\": \"<string>\",\n  \"campaign_service_type\": \"<string>\",\n  \"type\": \"<string>\",\n  \"duration\": {\n    \"use_campaign_start\": \"<boolean>\",\n    \"use_campaign_end\": \"<boolean>\",\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\"\n  },\n  \"budget\": {\n    \"budget\": \"<float>\",\n    \"currency_code\": \"<string>\"\n  },\n  \"goals\": {\n    \"goal_type\": \"<string>\",\n    \"goal_value\": \"<float>\",\n    \"min_bid\": \"<float>\",\n    \"max_bid\": \"<float>\",\n    \"roi_target\": \"<double>\",\n    \"bid_min_devices\": \"<integer>\",\n    \"bid_aggressiveness\": \"<integer>\",\n    \"bid_price_is_media_only\": \"<boolean>\",\n    \"max_bid_wm\": \"<float>\",\n    \"use_bid_shading\": \"<boolean>\"\n  },\n  \"frequency\": {\n    \"frequency_type\": \"<string>\",\n    \"frequency_interval\": \"<string>\",\n    \"frequency_amount\": \"<integer>\",\n    \"frequency_optimization\": \"<boolean>\"\n  },\n  \"inventory\": {\n    \"run_on_all_pmp\": \"<boolean>\",\n    \"run_on_all_exchanges\": \"<boolean>\",\n    \"site_restriction_transparent_urls\": \"<boolean>\",\n    \"domain_restrictions\": {\n      \"include\": [\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"exclude\": [\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"domain\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"target_type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    \"site_lists\": [\n      {\n        \"site_list_id\": \"<integer>\",\n        \"assigned\": \"<boolean>\"\n      },\n      {\n        \"site_list_id\": \"<integer>\",\n        \"assigned\": \"<boolean>\"\n      }\n    ],\n    \"deals\": [\n      {\n        \"deal_id\": \"<integer>\"\n      },\n      {\n        \"deal_id\": \"<integer>\"\n      }\n    ],\n    \"deal_groups\": [\n      {\n        \"deal_group_id\": \"<integer>\"\n      },\n      {\n        \"deal_group_id\": \"<integer>\"\n      }\n    ],\n    \"supply_sources\": [\n      {\n        \"supply_source_id\": \"<integer>\"\n      },\n      {\n        \"supply_source_id\": \"<integer>\"\n      }\n    ]\n  },\n  \"targeting\": \"<object>\",\n  \"creatives\": {\n    \"ad_expandable\": \"<boolean>\",\n    \"ad_formats\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ad_sizes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "00123c65-af6c-4059-9a2d-c944d8ed1c4f",
+              "name": "New strategy plan response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"campaign_start_date\": \"1989-08-03T21:17:44.705Z\",\n    \"campaign_end_date\": \"1988-01-06T08:14:36.623Z\",\n    \"campaign_zone_name\": \"string\",\n    \"name\": \"<string>\",\n    \"feature_compatibility\": \"<string>\",\n    \"device_graph_only\": \"<boolean>\",\n    \"zone_name\": \"America/New_York\",\n    \"campaign_service_type\": \"<string>\",\n    \"type\": \"<string>\",\n    \"duration\": {\n      \"use_campaign_start\": \"<boolean>\",\n      \"use_campaign_end\": \"<boolean>\",\n      \"start_date\": \"<dateTime>\",\n      \"end_date\": \"<dateTime>\"\n    },\n    \"budget\": {\n      \"budget\": \"<float>\",\n      \"currency_code\": \"<string>\"\n    },\n    \"goals\": {\n      \"goal_type\": \"<string>\",\n      \"goal_value\": \"<float>\",\n      \"min_bid\": \"<float>\",\n      \"max_bid\": \"<float>\",\n      \"roi_target\": \"<double>\",\n      \"bid_min_devices\": 1,\n      \"bid_aggressiveness\": \"<integer>\",\n      \"bid_price_is_media_only\": \"<boolean>\",\n      \"max_bid_wm\": \"<float>\",\n      \"use_bid_shading\": \"<boolean>\"\n    },\n    \"frequency\": {\n      \"frequency_type\": \"<string>\",\n      \"frequency_interval\": \"<string>\",\n      \"frequency_amount\": 5,\n      \"frequency_optimization\": \"<boolean>\"\n    },\n    \"inventory\": {\n      \"run_on_all_pmp\": \"<boolean>\",\n      \"run_on_all_exchanges\": \"<boolean>\",\n      \"site_restriction_transparent_urls\": \"<boolean>\",\n      \"domain_restrictions\": {\n        \"include\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"exclude\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"site_lists\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deals\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"deal_groups\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"supply_sources\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"targeting\": {\n      \"fold_position\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"audience\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"contextual\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"postal_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"geofence\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"my_data\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"location\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"technology\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ip_addresses\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"day_parts\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"recency\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"language_codes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"creatives\": {\n      \"ad_expandable\": \"<boolean>\",\n      \"ad_formats\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"ad_sizes\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"id\": 33,\n    \"version\": 3,\n    \"campaign_id\": 8\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a66439ec-fa5d-4578-9d92-0f5c49089a79",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "266f38a2-8a8c-491f-bd26-f9574e74a7ae",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce1ba4e0-ec18-46cd-bfb4-517d1ad1e70a",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d58945e-1461-431e-b073-f01ebe674924",
+          "name": "List New Strategy Plan Target Values",
+          "request": {
+            "name": "List New Strategy Plan Target Values",
+            "description": {
+              "content": "Get a list of new strategy plan target values",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "new_strategy_plan_target_values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "<string>",
+                  "description": "To return all fields, set the value to `*`. For example, `full=*` will include all properties.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f3da53c-d335-4bee-88d8-e6542acf9a73",
+              "name": "List target values response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plan_target_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 2563,\n      \"entity_type\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": 2692,\n      \"entity_type\": \"string\",\n      \"name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fdddb18-f8b8-4334-83fa-4ef02f32e0bc",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plan_target_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2ea21fb-06bc-4345-922f-ab0f1d8d92e4",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plan_target_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f21f7bb-6fa6-4e47-8073-14bbd274134d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plan_target_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4897461-7e7c-4f15-96f7-635686a5d4de",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "new_strategy_plan_target_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "id, -id, name, -name"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "full",
+                      "value": "*"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9caa830a-4aad-425d-9053-9bc4365c0110",
+    "name": "Campaigns Ad Servers New Strategy Plans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}

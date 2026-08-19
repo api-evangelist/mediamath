@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Enterprise Controls API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enterprise Controls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Entity Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/entity_groups"
+          },
+          "docs": "Get a list of entity groups"
+        },
+        {
+          "info": {
+            "name": "Get an Entity Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/entity_groups/:entity_group_id",
+            "params": [
+              {
+                "name": "entity_group_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an entity group by ID"
+        },
+        {
+          "info": {
+            "name": "Get Entity Group Controls by Entity Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/entity_groups/:entity_group_id/controls/:entity_type",
+            "params": [
+              {
+                "name": "entity_group_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entity_type",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get controls of entity group by entity type"
+        },
+        {
+          "info": {
+            "name": "Entity Group Audit Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/entity_groups/:entity_group_id/history",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "entity_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the entity group"
+              }
+            ]
+          },
+          "docs": "Get a list changes to this entity group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

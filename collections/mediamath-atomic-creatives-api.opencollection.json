@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Atomic Creatives API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Atomic Creatives",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Preview creative assets before uploading",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/creative_draft",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "filename",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "metadata",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This endpoint allows you to preview creative assets before they are permanently uploaded to the system. \nIt validates the files and metadata, returning a preview of what will be created without actually \nstoring the creatives. This is useful for verifying that your files and metadata are correct before \ncommitting to the upload.\n"
+        },
+        {
+          "info": {
+            "name": "Creative assets upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/creative_upload",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "filename",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "metadata",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload creative assets to the system and create atomic creatives. This endpoint processes the uploaded \nfiles and metadata, validates them, and stores them permanently in the system. Once uploaded, the \ncreatives can be associated with campaigns and strategies.\n"
+        },
+        {
+          "info": {
+            "name": "List Atomic Creatives",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/atomic_creatives",
+            "params": [
+              {
+                "name": "extended",
+                "value": "",
+                "type": "query",
+                "description": "Get extended properties in response"
+              }
+            ]
+          },
+          "docs": "Get a list of atomic creatives"
+        },
+        {
+          "info": {
+            "name": "Create atomic creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/atomic_creatives",
+            "params": [
+              {
+                "name": "extended",
+                "value": "",
+                "type": "query",
+                "description": "Get extended properties in response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an atomic creative"
+        },
+        {
+          "info": {
+            "name": "Get an Atomic Creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/atomic_creatives/:atomic_creative_id",
+            "params": [
+              {
+                "name": "extended",
+                "value": "",
+                "type": "query",
+                "description": "Get extended properties in response"
+              },
+              {
+                "name": "atomic_creative_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the atomic creative to get"
+              }
+            ]
+          },
+          "docs": "Get an atomic creative by ID"
+        },
+        {
+          "info": {
+            "name": "Update an atomic creative",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/atomic_creatives/:atomic_creative_id",
+            "params": [
+              {
+                "name": "extended",
+                "value": "",
+                "type": "query",
+                "description": "Get extended properties in response"
+              },
+              {
+                "name": "atomic_creative_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the atomic creative to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an atomic creative by ID"
+        },
+        {
+          "info": {
+            "name": "Atomic Creative Audit Log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/atomic_creatives/:atomic_creative_id/history",
+            "params": [
+              {
+                "name": "page_limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of elements in the collection to retrieve"
+              },
+              {
+                "name": "page_offset",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first element in the collection to retrieve"
+              },
+              {
+                "name": "atomic_creative_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the atomic creative"
+              }
+            ]
+          },
+          "docs": "Get a list changes to this atomic creative"
+        },
+        {
+          "info": {
+            "name": "Healthcheck for Atomic Creatives",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/atomic_creatives/healthcheck",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Query parameter to specify the atomic creative ID(s).\nFormat:\n- For multiple IDs: `atomic_creative_id==(id1, id2)`\n- For a single ID: `atomic_creative_id==id`\n"
+              }
+            ]
+          },
+          "docs": "Endpoint to check the health of atomic creatives by ID(s)."
+        },
+        {
+          "info": {
+            "name": "Bulk Update Atomic Creatives",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mediamath.com/api/v3.0/bulk_update/atomic_creatives",
+            "params": [
+              {
+                "name": "extended",
+                "value": "",
+                "type": "query",
+                "description": "Get extended properties in response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update multiple atomic creatives"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

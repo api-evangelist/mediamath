@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Campaigns Ad Servers Targeting Segment Objectives API",
+    "version": "3.0.1807"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.mediamath.com/authorize",
+      "accessTokenUrl": "https://auth.mediamath.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Targeting Segment Objectives",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Targeting Segment Objectives",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/targeting_segment_objectives"
+          },
+          "docs": "Get a list of targeting segment objectives"
+        },
+        {
+          "info": {
+            "name": "Get a Targeting Segment Objective",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mediamath.com/api/v3.0/targeting_segment_objectives/:objective_id",
+            "params": [
+              {
+                "name": "objective_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the targeting_segment_objective to get"
+              }
+            ]
+          },
+          "docs": "Get a targeting segment objective by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

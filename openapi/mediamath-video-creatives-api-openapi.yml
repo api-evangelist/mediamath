@@ -1,0 +1,3555 @@
+openapi: 3.0.0
+info:
+  title: Video Creatives
+  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication
+    token](/guides/authentication).
+
+
+    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs)
+    and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
+
+
+    *Example HTTPie command to list all video creatives.*
+
+    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
+
+
+    ## Migration Notice
+
+
+    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
+
+
+    | Deprecated V2.0 Endpoint | Use Instead |
+
+    |---|---|
+
+    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
+
+    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
+
+    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}`
+    |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions`
+    |
+
+    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions`
+    |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}`
+    |
+
+    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field
+    (returns a pre-signed S3 upload URL) |
+
+    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
+
+
+    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1.0
+paths:
+  /video/v2.0/creatives/{video_id}/companions:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Companions
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/creatives/{creativeId}/companions` instead.
+
+
+        Get Video Creative Companions
+
+        '
+      operationId: GET_video-v2-0-creatives-video_id-companions
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanionsResponse'
+        '404':
+          description: Creative not found
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Create Video Creative Companions
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives/{creativeId}/companions` instead.
+
+
+        Create Video Creative Companions
+
+        '
+      operationId: POST_video-v2-0-creatives-video_id-companions
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/ModifyCompanionRequest'
+      responses:
+        '201':
+          description: Companion created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCompanionResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+  /static_data/v1.0/iab_attributes:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Attributes List
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_attributes` instead.
+
+
+        Get IAB Attributes List
+
+        '
+      operationId: GET_static_data-v1-0-iab_attributes
+      responses:
+        '200':
+          description: ''
+          content:
+            text/plain:
+              examples:
+                response:
+                  value:
+                  - id: 101
+                    name: Rotating Advertisers
+                    parent: 0
+                    children: []
+                  - id: 10
+                    name: Shaky, Flashing, Flickering, Extreme Animation, Smileys
+                    parent: 0
+                    children: []
+                  - id: 14
+                    name: Windows Dialog or Alert Style
+                    parent: 0
+                    children: []
+                  - id: 6
+                    name: In-Banner Video Ad (Auto Play)
+                    parent: 0
+                    children: []
+                  - id: 102
+                    name: 'Animated: between 0 and 15 seconds'
+                    parent: 0
+                    children: []
+                  - id: 9
+                    name: Provocative or Suggestive Imagery
+                    parent: 0
+                    children: []
+                  - id: 13
+                    name: User Interactive (e.g., Embedded Games)
+                    parent: 0
+                    children: []
+                  - id: 2
+                    name: Audio Ad (User Initiated)
+                    parent: 0
+                    children: []
+                  - id: 12
+                    name: Text Only
+                    parent: 0
+                    children: []
+                  - id: 7
+                    name: In-Banner Video Ad (User Initiated)
+                    parent: 0
+                    children: []
+                  - id: 103
+                    name: 'Animated: between 15 and 30 seconds'
+                    parent: 0
+                    children: []
+                  - id: 16
+                    name: Ad can be skipped (e.g., skip button on preroll video)
+                    parent: 0
+                    children: []
+                  - id: 11
+                    name: Surveys
+                    parent: 0
+                    children: []
+                  - id: 104
+                    name: 'Animated: more than 30 seconds'
+                    parent: 0
+                    children: []
+                  - id: 8
+                    name: Pop (e.g., Over, Under, or upon Exit)
+                    parent: 0
+                    children: []
+                  - id: 999
+                    name: None Apply
+                    parent: 0
+                    children: []
+                  - id: 15
+                    name: Has audio on/off button
+                    parent: 0
+                    children: []
+                  - id: 100
+                    name: Auto redirect
+                    parent: 0
+                    children: []
+  /classification/v1.0/{creative_id}/inflate:
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Get Inflated Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/{cid}/inflate` instead.
+
+
+        Get Inflated Classification
+
+        '
+      operationId: GET_classification-v1-0-creative_id-inflate
+      parameters:
+      - name: creative_id
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+  /video/v2.0/creatives/{video_id}/upload:
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Upload Video Creative
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives` (Create a new video creative - V3)
+
+        > and supply the `fileName` field to receive a pre-signed S3 upload URL.
+
+
+        Upload Video Creative
+
+        '
+      operationId: POST_video-v2-0-creatives-video_id-upload
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      - name: fileName
+        in: query
+        description: File name for the upload
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: The video file to upload
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File uploaded successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/variants:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Variants
+      description: Get all encoded video variants for the creative, including asset path and video info.
+      operationId: GET_video-v2-0-creatives-video_id-variants
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Variants retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCreativeVariantsResponse'
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/variants/{variant_id}:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Variant
+      description: Get Video Creative Variant
+      operationId: GET_video-v2-0-creatives-video_id-variants-variant_id
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      - name: variant_id
+        in: path
+        description: Variant ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Variant retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegacyEncoding'
+        '404':
+          description: Creative or variant not found
+  /video/v2.0/creatives/{video_id}/status:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Status
+      description: Includes upload status, encoding info, encoding percent.
+      operationId: GET_video-v2-0-creatives-video_id-status
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Creative status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativeStatusResponse'
+        '404':
+          description: Creative not found
+  /classification/v1.0/bulk/{creative_ids}/inflate:
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Bulk Inflated Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/bulk/{cids}/inflate` instead.
+
+
+        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing
+        creatives.
+
+        '
+      operationId: GET_classification-v1-0-bulk-creative_ids-inflate
+      parameters:
+      - name: creative_ids
+        in: path
+        description: A comma separated list of integers, e.g. 1,243,351,41932.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+  /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Delete Video Creative Companion
+      description: '> **⚠️ Deprecated** — Use `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}`
+        instead.
+
+
+        Delete companion ad for the specified creative.
+
+        '
+      operationId: GET_video-v2-0-creatives-video_id-companions-companion_id-delete
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      - name: companion_id
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companion deleted successfully
+        '404':
+          description: Creative or companion not found
+  /static_data/v1.0/language/{language_id}:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Language
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/language/{id}` instead.
+
+
+        Get IAB Language
+
+        '
+      operationId: GET_static_data-v1-0-language-language_id
+      parameters:
+      - name: language_id
+        in: path
+        description: Language ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/GET_static_data-v1-0-language-language_idBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    alpha2: en
+                    bibliographic: eng
+                    id: 1
+                    name: English
+                    nameFr: anglais
+                    terminologic: ''
+  /classification/v1.0/bulk/{creative_ids}:
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Bulk Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/bulk/{cids}` instead.
+
+
+        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing
+        creatives.
+
+        '
+      operationId: GET_classification-v1-0-bulk-creative_ids
+      parameters:
+      - name: creative_ids
+        in: path
+        description: 'A comma separated list of integers, e.g. 1,243,351,41932.
+
+          '
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+  /static_data/v1.0/iab_verticals:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: List IAB Verticals
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_verticals` instead.
+
+
+        List IAB Verticals
+
+        '
+      operationId: GET_static_data-v1-0-iab_verticals
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - children:
+                    - 215
+                    - 216
+                    - 217
+                    - 218
+                    - 219
+                    - 220
+                    - 221
+                    - 222
+                    code: IAB14
+                    description: Society
+                    id: 214
+                    parent: 0
+                  - children:
+                    - 224
+                    - 225
+                    - 226
+                    - 227
+                    - 228
+                    - 229
+                    - 230
+                    - 231
+                    - 232
+                    - 233
+                    code: IAB15
+                    description: Science
+                    id: 223
+                    parent: 0
+                  - children:
+                    - 235
+                    - 236
+                    - 237
+                    - 238
+                    - 239
+                    - 240
+                    - 241
+                    code: IAB16
+                    description: Pets
+                    id: 234
+                    parent: 0
+                  - children: []
+                    code: IAB13-2
+                    description: Credit/Debt & Loans
+                    id: 203
+                    parent: 201
+                  - children: []
+                    code: IAB13-3
+                    description: Financial News
+                    id: 204
+                    parent: 201
+                  - children: []
+                    code: IAB13-4
+                    description: Financial Planning
+                    id: 205
+                    parent: 201
+                  - children: []
+                    code: IAB13-5
+                    description: Hedge Fund
+                    id: 206
+                    parent: 201
+                  - children: []
+                    code: IAB13-6
+                    description: Insurance
+                    id: 207
+                    parent: 201
+                  - children: []
+                    code: IAB13-7
+                    description: Investing
+                    id: 208
+                    parent: 201
+                  - children: []
+                    code: IAB13-8
+                    description: Mutual Funds
+                    id: 209
+                    parent: 201
+                  - children: []
+                    code: IAB14-1
+                    description: Dating
+                    id: 215
+                    parent: 214
+                  - children: []
+                    code: IAB14-2
+                    description: Divorce Support
+                    id: 216
+                    parent: 214
+                  - children: []
+                    code: IAB14-3
+                    description: Gay Life
+                    id: 217
+                    parent: 214
+                  - children: []
+                    code: IAB14-4
+                    description: Marriage
+                    id: 218
+                    parent: 214
+                  - children: []
+                    code: IAB14-5
+                    description: Senior Living
+                    id: 219
+                    parent: 214
+                  - children: []
+                    code: IAB14-6
+                    description: Teens
+                    id: 220
+                    parent: 214
+                  - children: []
+                    code: IAB14-7
+                    description: Weddings
+                    id: 221
+                    parent: 214
+                  - children: []
+                    code: IAB14-8
+                    description: Ethnic Specific
+                    id: 222
+                    parent: 214
+                  - children: []
+                    code: IAB15-1
+                    description: Astrology
+                    id: 224
+                    parent: 223
+                  - children: []
+                    code: IAB15-10
+                    description: Weather
+                    id: 233
+                    parent: 223
+                  - children: []
+                    code: IAB15-2
+                    description: Biology
+                    id: 225
+                    parent: 223
+                  - children: []
+                    code: IAB15-3
+                    description: Chemistry
+                    id: 226
+                    parent: 223
+                  - children: []
+                    code: IAB15-4
+                    description: Geology
+                    id: 227
+                    parent: 223
+                  - children: []
+                    code: IAB15-5
+                    description: Paranormal Phenomena
+                    id: 228
+                    parent: 223
+                  - children: []
+                    code: IAB15-6
+                    description: Physics
+                    id: 229
+                    parent: 223
+                  - children: []
+                    code: IAB15-7
+                    description: Space/Astronomy
+                    id: 230
+                    parent: 223
+                  - children: []
+                    code: IAB15-8
+                    description: Geography
+                    id: 231
+                    parent: 223
+                  - children: []
+                    code: IAB15-9
+                    description: Botany
+                    id: 232
+                    parent: 223
+                  - children: []
+                    code: IAB16-1
+                    description: Aquariums
+                    id: 235
+                    parent: 234
+                  - children: []
+                    code: IAB16-2
+                    description: Birds
+                    id: 236
+                    parent: 234
+                  - children: []
+                    code: IAB16-3
+                    description: Cats
+                    id: 237
+                    parent: 234
+                  - children: []
+                    code: IAB16-4
+                    description: Dogs
+                    id: 238
+                    parent: 234
+                  - children: []
+                    code: IAB16-5
+                    description: Large Animals
+                    id: 239
+                    parent: 234
+                  - children: []
+                    code: IAB16-6
+                    description: Reptiles
+                    id: 240
+                    parent: 234
+                  - children: []
+                    code: IAB16-7
+                    description: Veterinary Medicine
+                    id: 241
+                    parent: 234
+                  - children: []
+                    code: IAB17-1
+                    description: Auto Racing
+                    id: 243
+                    parent: 242
+                  - children: []
+                    code: IAB17-10
+                    description: Figure Skating
+                    id: 252
+                    parent: 242
+                  - children: []
+                    code: IAB17-11
+                    description: Fly Fishing
+                    id: 253
+                    parent: 242
+                  - children: []
+                    code: IAB17-12
+                    description: Football
+                    id: 254
+                    parent: 242
+                  - children: []
+                    code: IAB17-13
+                    description: Freshwater Fishing
+                    id: 255
+                    parent: 242
+                  - children: []
+                    code: IAB17-14
+                    description: Game & Fish
+                    id: 256
+                    parent: 242
+                  - children: []
+                    code: IAB17-15
+                    description: Golf
+                    id: 257
+                    parent: 242
+                  - children: []
+                    code: IAB17-16
+                    description: Horse Racing
+                    id: 258
+                    parent: 242
+                  - children: []
+                    code: IAB17-17
+                    description: Horses
+                    id: 259
+                    parent: 242
+                  - children: []
+                    code: IAB17-18
+                    description: Hunting/Shooting
+                    id: 260
+                    parent: 242
+                  - children: []
+                    code: IAB4-3
+                    description: Financial Aid
+                    id: 49
+                    parent: 46
+                  - children: []
+                    code: IAB4-4
+                    description: Job Fairs
+                    id: 50
+                    parent: 46
+                  - children: []
+                    code: IAB4-5
+                    description: Job Search
+                    id: 51
+                    parent: 46
+                  - children: []
+                    code: IAB4-6
+                    description: Resume Writing/Advice
+                    id: 52
+                    parent: 46
+                  - children: []
+                    code: IAB6-1
+                    description: Adoption
+                    id: 75
+                    parent: 74
+                  - children: []
+                    code: IAB6-2
+                    description: Babies & Toddlers
+                    id: 76
+                    parent: 74
+                  - children: []
+                    code: IAB6-3
+                    description: Daycare/Pre School
+                    id: 77
+                    parent: 74
+                  - children: []
+                    code: IAB6-4
+                    description: Family Internet
+                    id: 78
+                    parent: 74
+                  - children: []
+                    code: IAB6-5
+                    description: Parenting - K-6 Kids
+                    id: 79
+                    parent: 74
+                  - children: []
+                    code: IAB6-9
+                    description: Eldercare
+                    id: 83
+                    parent: 74
+                  - children: []
+                    code: IAB7-1
+                    description: Exercise
+                    id: 85
+                    parent: 84
+                  - children: []
+                    code: IAB7-10
+                    description: Brain Tumor
+                    id: 94
+                    parent: 84
+                  - children: []
+                    code: IAB7-11
+                    description: Cancer
+                    id: 95
+                    parent: 84
+                  - children: []
+                    code: IAB7-12
+                    description: Cholesterol
+                    id: 96
+                    parent: 84
+                  - children: []
+                    code: IAB7-20
+                    description: Diabetes
+                    id: 104
+                    parent: 84
+                  - children: []
+                    code: IAB7-21
+                    description: Epilepsy
+                    id: 105
+                    parent: 84
+                  - children: []
+                    code: IAB7-22
+                    description: GERD/Acid Reflux
+                    id: 106
+                    parent: 84
+                  - children: []
+                    code: IAB7-23
+                    description: Headaches/Migraines
+                    id: 107
+                    parent: 84
+                  - children: []
+                    code: IAB7-24
+                    description: Heart Disease
+                    id: 108
+                    parent: 84
+                  - children: []
+                    code: IAB7-25
+                    description: Herbs for Health
+                    id: 109
+                    parent: 84
+                  - children: []
+                    code: IAB8-2
+                    description: Barbecues & Grilling
+                    id: 132
+                    parent: 130
+                  - children: []
+                    code: IAB8-3
+                    description: Cajun/Creole
+                    id: 133
+                    parent: 130
+                  - children: []
+                    code: IAB8-4
+                    description: Chinese Cuisine
+                    id: 134
+                    parent: 130
+                  - children: []
+                    code: IAB8-5
+                    description: Cocktails/Beer
+                    id: 135
+                    parent: 130
+                  - children: []
+                    code: IAB8-6
+                    description: Coffee/Tea
+                    id: 136
+                    parent: 130
+                  - children: []
+                    code: IAB8-7
+                    description: Cuisine-Specific
+                    id: 137
+                    parent: 130
+                  - children: []
+                    code: IAB8-8
+                    description: Desserts & Baking
+                    id: 138
+                    parent: 130
+                  - children: []
+                    code: IAB8-9
+                    description: Dining Out
+                    id: 139
+                    parent: 130
+                  - children: []
+                    code: IAB9-1
+                    description: Art/Technology
+                    id: 150
+                    parent: 149
+                  - children: []
+                    code: IAB9-22
+                    description: Painting
+                    id: 171
+                    parent: 149
+                  - children: []
+                    code: IAB9-23
+                    description: Photography
+                    id: 172
+                    parent: 149
+                  - children: []
+                    code: IAB9-24
+                    description: Radio
+                    id: 173
+                    parent: 149
+                  - children: []
+                    code: IAB9-25
+                    description: Roleplaying Games
+                    id: 174
+                    parent: 149
+                  - children: []
+                    code: IAB9-26
+                    description: Sci-Fi & Fantasy
+                    id: 175
+                    parent: 149
+                  - children: []
+                    code: IAB9-27
+                    description: Scrapbooking
+                    id: 176
+                    parent: 149
+                  - children: []
+                    code: IAB9-28
+                    description: Screenwriting
+                    id: 177
+                    parent: 149
+                  - children: []
+                    code: IAB9-29
+                    description: Stamps & Coins
+                    id: 178
+                    parent: 149
+                  - children: []
+                    code: IAB9-3
+                    description: Beadwork
+                    id: 152
+                    parent: 149
+                  - children: []
+                    code: IAB9-30
+                    description: Video & Computer Games
+                    id: 179
+                    parent: 149
+                  - children: []
+                    code: IAB9-31
+                    description: Woodworking
+                    id: 180
+                    parent: 149
+                  - children: []
+                    code: IAB9-4
+                    description: Birdwatching
+                    id: 153
+                    parent: 149
+                  - children: []
+                    code: IAB9-5
+                    description: Board Games/Puzzles
+                    id: 154
+                    parent: 149
+                  - children: []
+                    code: IAB9-6
+                    description: Candle & Soap Making
+                    id: 155
+                    parent: 149
+                  - children: []
+                    code: IAB9-7
+                    description: Card Games
+                    id: 156
+                    parent: 149
+                  - children: []
+                    code: IAB9-8
+                    description: Chess
+                    id: 157
+                    parent: 149
+                  - children: []
+                    code: IAB9-9
+                    description: Cigars
+                    id: 158
+                    parent: 149
+  /classification/v1.0/bulk:
+    post:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Bulk Update Classification
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/classification/bulk` instead.
+
+
+        Prior to creating or updating the classification record of any creative, those creatives must
+        exist.
+
+
+        Unlike in the single creative classifiction, no creative IDs are passed in the url itself.'
+      operationId: POST_classification-v1-0-bulk
+      requestBody:
+        $ref: '#/components/requestBodies/GET_static_data-v1-0-language-language_idBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            example-1:
+              examples:
+                response:
+                  value:
+                    records:
+                    - atomic_creative_id: 0
+                      details:
+                        attributes:
+                        - {}
+                        language: 0
+                        verticals:
+                        - {}
+  /video/v2.0/creatives/validateVAST:
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Validate VAST XML
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives/validateVAST` instead.
+
+
+        Validates the provided VAST XML content and returns any errors or warnings.
+
+        '
+      operationId: POST_video-v2-0-creatives-validateVAST
+      requestBody:
+        $ref: '#/components/requestBodies/POST_video-v2-0-creatives-validateVASTBody'
+      responses:
+        '200':
+          description: VAST validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateVASTResponse'
+  /static_data/v1.0/iab_verticals/{vertical_id}:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Vertical
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_verticals/{id}` instead.
+
+
+        Get IAB Vertical
+
+        '
+      operationId: GET_static_data-v1-0-iab_verticals-vertical_id
+      parameters:
+      - name: vertical_id
+        in: path
+        description: Vertical ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    children: []
+                    code: IAB22-2
+                    description: Couponing
+                    id: 365
+                    parent: 363
+  /classification/v1.0/{creative_id}:
+    post:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Update Classification
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/classification/{cid}` instead.
+
+
+        Update Classification
+
+        '
+      operationId: POST_classification-v1-0-creative_id
+      parameters:
+      - name: creative_id
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/GET_static_data-v1-0-language-language_idBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            example-1:
+              examples:
+                response:
+                  value:
+                    attributes:
+                    - 0
+                    language: 0
+                    verticals:
+                    - 0
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Get Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/{cid}` instead.
+
+
+        Get Classification
+
+        '
+      operationId: GET_classification-v1-0-creative_id
+      parameters:
+      - name: creative_id
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    status:
+                      code: auth_required
+                      reason: not_logged_in
+                      message: failed parsing session from request
+  /static_data/v1.0/language:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: List IAB Languages
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/language` instead.
+
+
+        List IAB Languages
+
+        '
+      operationId: GET_static_data-v1-0-language
+      responses:
+        '200':
+          description: ''
+          content:
+            text/plain:
+              examples:
+                response:
+                  value:
+                  - alpha2: ''
+                    bibliographic: awa
+                    id: 36
+                    name: Awadhi
+                    nameFr: awadhi
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: bho
+                    id: 53
+                    name: Bhojpuri
+                    nameFr: bhojpuri
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: ceb
+                    id: 74
+                    name: Cebuano
+                    nameFr: cebuano
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: hil
+                    id: 175
+                    name: Hiligaynon
+                    nameFr: hiligaynon
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: hmn
+                    id: 179
+                    name: Hmong
+                    nameFr: hmong
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: kok
+                    id: 228
+                    name: Konkani
+                    nameFr: konkani
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mad
+                    id: 263
+                    name: Madurese
+                    nameFr: madourais
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mag
+                    id: 264
+                    name: Magahi
+                    nameFr: magahi
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mai
+                    id: 266
+                    name: Maithili
+                    nameFr: maithili
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mos
+                    id: 290
+                    name: Mossi
+                    nameFr: moré
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mwr
+                    id: 295
+                    name: Marwari
+                    nameFr: marvari
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: sms
+                    id: 393
+                    name: Skolt Sami
+                    nameFr: sami skolt
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: tmh
+                    id: 434
+                    name: Tamashek
+                    nameFr: tamacheq
+                    terminologic: ''
+                  - alpha2: ak
+                    bibliographic: aka
+                    id: 12
+                    name: Akan
+                    nameFr: akan
+                    terminologic: ''
+                  - alpha2: am
+                    bibliographic: amh
+                    id: 18
+                    name: Amharic
+                    nameFr: amharique
+                    terminologic: ''
+                  - alpha2: ar
+                    bibliographic: ara
+                    id: 22
+                    name: Arabic
+                    nameFr: arabe
+                    terminologic: ''
+                  - alpha2: as
+                    bibliographic: asm
+                    id: 30
+                    name: Assamese
+                    nameFr: assamais
+                    terminologic: ''
+                  - alpha2: az
+                    bibliographic: aze
+                    id: 38
+                    name: Azerbaijani
+                    nameFr: azéri
+                    terminologic: ''
+                  - alpha2: be
+                    bibliographic: bel
+                    id: 49
+                    name: Belarusian
+                    nameFr: biélorusse
+                    terminologic: ''
+                  - alpha2: bn
+                    bibliographic: ben
+                    id: 51
+                    name: Bengali
+                    nameFr: bengali
+                    terminologic: ''
+                  - alpha2: cs
+                    bibliographic: cze
+                    id: 102
+                    name: Czech
+                    nameFr: tchèque
+                    terminologic: ces
+                  - alpha2: de
+                    bibliographic: ger
+                    id: 150
+                    name: German
+                    nameFr: allemand
+                    terminologic: deu
+                  - alpha2: el
+                    bibliographic: gre
+                    id: 164
+                    name: Greek
+                    nameFr: grec
+                    terminologic: ell
+                  - alpha2: en
+                    bibliographic: eng
+                    id: 1
+                    name: English
+                    nameFr: anglais
+                    terminologic: ''
+                  - alpha2: es
+                    bibliographic: spa
+                    id: 401
+                    name: Spanish; Castilian
+                    nameFr: espagnol; castillan
+                    terminologic: ''
+                  - alpha2: fa
+                    bibliographic: per
+                    id: 342
+                    name: Persian
+                    nameFr: persan
+                    terminologic: fas
+                  - alpha2: ff
+                    bibliographic: ful
+                    id: 143
+                    name: Fulah
+                    nameFr: peul
+                    terminologic: ''
+                  - alpha2: fr
+                    bibliographic: fre
+                    id: 137
+                    name: French
+                    nameFr: français
+                    terminologic: fra
+                  - alpha2: gu
+                    bibliographic: guj
+                    id: 167
+                    name: Gujarati
+                    nameFr: goudjrati
+                    terminologic: ''
+                  - alpha2: ha
+                    bibliographic: hau
+                    id: 171
+                    name: Hausa
+                    nameFr: haoussa
+                    terminologic: ''
+                  - alpha2: hi
+                    bibliographic: hin
+                    id: 177
+                    name: Hindi
+                    nameFr: hindi
+                    terminologic: ''
+                  - alpha2: ht
+                    bibliographic: hat
+                    id: 170
+                    name: Haitian Creole
+                    nameFr: créole haïtien
+                    terminologic: ''
+                  - alpha2: hu
+                    bibliographic: hun
+                    id: 183
+                    name: Hungarian
+                    nameFr: hongrois
+                    terminologic: ''
+                  - alpha2: ig
+                    bibliographic: ibo
+                    id: 186
+                    name: Igbo
+                    nameFr: igbo
+                    terminologic: ''
+                  - alpha2: it
+                    bibliographic: ita
+                    id: 202
+                    name: Italian
+                    nameFr: italien
+                    terminologic: ''
+                  - alpha2: ja
+                    bibliographic: jpn
+                    id: 205
+                    name: Japanese
+                    nameFr: japonais
+                    terminologic: ''
+                  - alpha2: jv
+                    bibliographic: jav
+                    id: 203
+                    name: Javanese
+                    nameFr: javanais
+                    terminologic: ''
+                  - alpha2: kk
+                    bibliographic: kaz
+                    id: 218
+                    name: Kazakh
+                    nameFr: kazakh
+                    terminologic: ''
+                  - alpha2: km
+                    bibliographic: khm
+                    id: 222
+                    name: Central Khmer
+                    nameFr: khmer central
+                    terminologic: ''
+                  - alpha2: kn
+                    bibliographic: kan
+                    id: 213
+                    name: Kannada
+                    nameFr: kannada
+                    terminologic: ''
+                  - alpha2: ko
+                    bibliographic: kor
+                    id: 231
+                    name: Korean
+                    nameFr: coréen
+                    terminologic: ''
+                  - alpha2: ku
+                    bibliographic: kur
+                    id: 240
+                    name: Kurdish
+                    nameFr: kurde
+                    terminologic: ''
+                  - alpha2: mg
+                    bibliographic: mlg
+                    id: 283
+                    name: Malagasy
+                    nameFr: malgache
+                    terminologic: ''
+                  - alpha2: ml
+                    bibliographic: mal
+                    id: 268
+                    name: Malayalam
+                    nameFr: malayalam
+                    terminologic: ''
+                  - alpha2: mr
+                    bibliographic: mar
+                    id: 272
+                    name: Marathi
+                    nameFr: marathe
+                    terminologic: ''
+                  - alpha2: ms
+                    bibliographic: may
+                    id: 274
+                    name: Malay
+                    nameFr: malais
+                    terminologic: msa
+                  - alpha2: my
+                    bibliographic: bur
+                    id: 67
+                    name: Burmese
+                    nameFr: birman
+                    terminologic: mya
+                  - alpha2: ne
+                    bibliographic: nep
+                    id: 307
+                    name: Nepali
+                    nameFr: népalais
+                    terminologic: ''
+                  - alpha2: nl
+                    bibliographic: dut
+                    id: 117
+                    name: Dutch
+                    nameFr: néerlandais
+                    terminologic: nld
+                  - alpha2: ny
+                    bibliographic: nya
+                    id: 321
+                    name: Chewa
+                    nameFr: chewa
+                    terminologic: ''
+                  - alpha2: om
+                    bibliographic: orm
+                    id: 329
+                    name: Oromo
+                    nameFr: galla
+                    terminologic: ''
+                  - alpha2: or
+                    bibliographic: ori
+                    id: 328
+                    name: Oriya
+                    nameFr: oriya
+                    terminologic: ''
+                  - alpha2: pa
+                    bibliographic: pan
+                    id: 338
+                    name: Punjabi
+                    nameFr: pendjabi
+                    terminologic: ''
+                  - alpha2: pl
+                    bibliographic: pol
+                    id: 346
+                    name: Polish
+                    nameFr: polonais
+                    terminologic: ''
+                  - alpha2: ps
+                    bibliographic: pus
+                    id: 351
+                    name: Pashto
+                    nameFr: pachto
+                    terminologic: ''
+                  - alpha2: pt
+                    bibliographic: por
+                    id: 348
+                    name: Portuguese
+                    nameFr: portugais
+                    terminologic: ''
+                  - alpha2: qu
+                    bibliographic: que
+                    id: 353
+                    name: Quechua
+                    nameFr: quechua
+                    terminologic: ''
+                  - alpha2: ro
+                    bibliographic: rum
+                    id: 360
+                    name: Romanian
+                    nameFr: roumain
+                    terminologic: ron
+                  - alpha2: ru
+                    bibliographic: rus
+                    id: 363
+                    name: Russian
+                    nameFr: russe
+                    terminologic: ''
+                  - alpha2: rw
+                    bibliographic: kin
+                    id: 225
+                    name: Kinyarwanda
+                    nameFr: rwanda
+                    terminologic: ''
+                  - alpha2: sd
+                    bibliographic: snd
+                    id: 395
+                    name: Sindhi
+                    nameFr: sindhi
+                    terminologic: ''
+                  - alpha2: si
+                    bibliographic: sin
+                    id: 381
+                    name: Sinhala; Sinhalese
+                    nameFr: singhalais
+                    terminologic: ''
+                  - alpha2: sn
+                    bibliographic: sna
+                    id: 394
+                    name: Shona
+                    nameFr: shona
+                    terminologic: ''
+                  - alpha2: so
+                    bibliographic: som
+                    id: 398
+                    name: Somali
+                    nameFr: somali
+                    terminologic: ''
+                  - alpha2: su
+                    bibliographic: sun
+                    id: 409
+                    name: Sundanese
+                    nameFr: soundanais
+                    terminologic: ''
+                  - alpha2: sv
+                    bibliographic: swe
+                    id: 413
+                    name: Swedish
+                    nameFr: suédois
+                    terminologic: ''
+                  - alpha2: ta
+                    bibliographic: tam
+                    id: 418
+                    name: Tamil
+                    nameFr: tamoul
+                    terminologic: ''
+                  - alpha2: te
+                    bibliographic: tel
+                    id: 420
+                    name: Telugu
+                    nameFr: télougou
+                    terminologic: ''
+                  - alpha2: th
+                    bibliographic: tha
+                    id: 426
+                    name: Thai
+                    nameFr: thaï
+                    terminologic: ''
+                  - alpha2: tk
+                    bibliographic: tuk
+                    id: 441
+                    name: Turkmen
+                    nameFr: turkmène
+                    terminologic: ''
+                  - alpha2: tl
+                    bibliographic: tgl
+                    id: 425
+                    name: Tagalog
+                    nameFr: tagalog
+                    terminologic: ''
+                  - alpha2: tr
+                    bibliographic: tur
+                    id: 444
+                    name: Turkish
+                    nameFr: turc
+                    terminologic: ''
+                  - alpha2: ug
+                    bibliographic: uig
+                    id: 451
+                    name: Uyghur
+                    nameFr: ouïgour
+                    terminologic: ''
+                  - alpha2: uk
+                    bibliographic: ukr
+                    id: 452
+                    name: Ukrainian
+                    nameFr: ukrainien
+                    terminologic: ''
+                  - alpha2: ur
+                    bibliographic: urd
+                    id: 455
+                    name: Urdu
+                    nameFr: ourdou
+                    terminologic: ''
+                  - alpha2: uz
+                    bibliographic: uzb
+                    id: 456
+                    name: Uzbek
+                    nameFr: ouszbek
+                    terminologic: ''
+                  - alpha2: vi
+                    bibliographic: vie
+                    id: 459
+                    name: Vietnamese
+                    nameFr: vietnamien
+                    terminologic: ''
+                  - alpha2: xh
+                    bibliographic: xho
+                    id: 471
+                    name: Xhosa
+                    nameFr: xhosa
+                    terminologic: ''
+                  - alpha2: yo
+                    bibliographic: yor
+                    id: 475
+                    name: Yoruba
+                    nameFr: yoruba
+                    terminologic: ''
+                  - alpha2: za
+                    bibliographic: zha
+                    id: 481
+                    name: Zhuang
+                    nameFr: zhuang
+                    terminologic: ''
+                  - alpha2: zh
+                    bibliographic: chi
+                    id: 80
+                    name: Chinese
+                    nameFr: chinois
+                    terminologic: zho
+                  - alpha2: zu
+                    bibliographic: zul
+                    id: 483
+                    name: Zulu
+                    nameFr: zoulou
+                    terminologic: ''
+  /static_data/v1.0/iab_attributes/{id}:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Attribute
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_attributes/{id}` instead.
+
+
+        Get IAB Attribute
+
+        '
+      operationId: Get-IAB-Attribute
+      parameters:
+      - name: id
+        in: path
+        description: ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    children: []
+                    id: 14
+                    name: Windows Dialog or Alert Style
+                    parent: 0
+  /video/v2.0/creatives/{video_id}/vast:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video creative VAST XML
+      description: This get endpoint returns an XML of video creative instead of a JSON
+      operationId: Get-Video-creative-VAST-XML
+      parameters:
+      - name: video_id
+        in: path
+        description: The creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: VAST XML template retrieved successfully
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/vast/extension:
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Update creative VAST with Extension node
+      description: Add extension XML to the creative's VAST template.
+      operationId: Update-creative-VAST-with-Extension-node
+      parameters:
+      - name: video_id
+        in: path
+        description: The creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: string
+        description: Extension XML to add to the VAST template
+      responses:
+        '200':
+          description: VAST extension added successfully
+        '400':
+          description: Bad request
+        '404':
+          description: Creative not found
+  /v3.0/creatives/bulk:
+    put:
+      tags:
+      - Video Creative Management (V3)
+      summary: Bulk create video creatives
+      description: Create a set of video creatives (bulk upload) - V3
+      operationId: PUT_v3-0-creatives-bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkNewCreativeRequest'
+        description: List of creative objects to create
+      responses:
+        '201':
+          description: Bulk creatives created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+    patch:
+      tags:
+      - Video Creative Management (V3)
+      summary: Bulk update video creatives
+      description: Update a set of video creatives (bulk update) - V3
+      operationId: PATCH_v3-0-creatives-bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUpdateCreativeRequest'
+        description: List of creative objects to update
+      responses:
+        '201':
+          description: Bulk creatives updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+  /v3.0/creatives:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Create a new video creative
+      description: "Create a new video creative - V3.\n\n### Uploading a video file\n\nTo upload a video,\
+        \ supply the `fileName` field in the request body\n(see the **Create with fileName** sample in\
+        \ the *Request samples* panel).\nThe response then includes a pre-signed S3 `uploadUrl` (valid\
+        \ for\n`expiresIn` seconds), which the client uses to `PUT` the file directly to S3:\n\n```bash\n\
+        curl -X PUT \\\n    -H \"x-amz-acl: public-read\" \\\n    -H \"x-amz-meta-creative: {{CREATIVE_ID}}\"\
+        \ \\\n    -H \"Content-Type: {{UPLOADED_FILE_CONTENT_TYPE}}\" \\\n    --upload-file \"{{UPLOADED_FILE_PATH/File.mp4}}\"\
+        \ \\\n    \"{{S3_PRESIGNED_URL}}\"\n```\n\nThe `x-amz-acl: public-read` and `x-amz-meta-creative:\
+        \ <creativeId>` headers\nare required (both are signed into the pre-signed URL).\n"
+      operationId: POST_v3-0-creatives
+      x-codeSamples:
+      - lang: cURL
+        label: Create with fileName (video upload)
+        source: "curl --location 'https://api.mediamath.com/video/v3.0/creatives' \\\n--header 'Authorization:\
+          \ Bearer TOKEN' \\\n--header 'Content-Type: application/json' \\\n--data '{\n  \"active\": false,\n\
+          \  \"advertiser\": 0,\n  \"name\": \"string\",\n  \"concept\": 0,\n  \"startTime\": 0,\n  \"\
+          endTime\": 0,\n  \"clickthroughUrl\": \"string\",\n  \"viewabilityTemplate\": \"string\",\n\
+          \  \"landingUrl\": \"string\",\n  \"eventPixels\": [\n    {\n      \"typ\": \"string\",\n  \
+          \    \"url\": \"string\"\n    }\n  ],\n  \"vendors\": [\n    0\n  ],\n  \"vastVersion\": \"\
+          VAST2\",\n  \"disabledVariants\": [\n    0\n  ],\n  \"clockNumber\": \"string\",\n  \"fileName\"\
+          : \"string\"\n}'\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V3CreateCreativeRequest'
+        description: Creative object to create
+      responses:
+        '201':
+          description: Creative created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+  /v3.0/creatives/list:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Bulk get creatives by IDs
+      description: Retrieve multiple video creatives by their IDs
+      operationId: POST_v3-0-creatives-list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkGetRequest'
+        description: List of creative IDs to retrieve
+      responses:
+        '200':
+          description: Bulk creative details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+  /v3.0/creatives/{creativeId}:
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: Get creative details
+      description: Get status/details for the video creative - V3
+      operationId: GET_v3-0-creatives-creativeId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Creative details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativeDetailsResponseWrapper'
+        '404':
+          description: Creative not found
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Update video creative (full update)
+      description: Update the video creative - must post all data, any omitted fields will be removed
+      operationId: POST_v3-0-creatives-creativeId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V3UpdateCreativeRequest'
+        description: Creative update data
+      responses:
+        '200':
+          description: Creative updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+    patch:
+      tags:
+      - Video Creative Management (V3)
+      summary: Update video creative (partial update)
+      description: Allows partial updates to a video creative - V3
+      operationId: PATCH_v3-0-creatives-creativeId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchCreativeUpdate'
+        description: Partial creative update data
+      responses:
+        '201':
+          description: Creative updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativeDetailsResponseWrapper'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+  /v3.0/creatives/validateVAST:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Validate VAST XML - V3
+      description: Validates the provided VAST XML content and returns any errors or warnings.
+      operationId: POST_v3-0-creatives-validateVAST
+      requestBody:
+        $ref: '#/components/requestBodies/POST_video-v2-0-creatives-validateVASTBody'
+      responses:
+        '200':
+          description: VAST validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateVASTResponse'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+  /v3.0/creatives/{creativeId}/history:
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: List history for a creative - V3
+      description: List history for a creative
+      operationId: GET_v3-0-creatives-creativeId-history
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of history entries per page
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - name: offset
+        in: query
+        description: Page offset
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - name: created_after
+        in: query
+        description: Filter entries created after this timestamp (epoch)
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: created_before
+        in: query
+        description: Filter entries created before this timestamp (epoch)
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: History retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryResponse'
+        '404':
+          description: Creative not found
+    delete:
+      tags:
+      - Video Creative Management (V3)
+      summary: Delete history entry for creative - V3
+      description: Delete history entry for creative
+      operationId: DELETE_v3-0-creatives-creativeId-history
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: History deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Creative not found
+  /v3.0/creatives/{creativeId}/companions:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Create companion ad - V3
+      description: 'Post new companion details and receive the new companion ID.
+
+        Regenerates the creative''s MetaVAST document after the companion is created.
+
+        '
+      operationId: POST_v3-0-creatives-creativeId-companions
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/ModifyCompanionRequest'
+      responses:
+        '201':
+          description: Companion created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCompanionResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative not found
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: Get all companions - V3
+      description: Get all companion ads for the creative.
+      operationId: GET_v3-0-creatives-creativeId-companions
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanionsResponse'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative not found
+  /v3.0/creatives/{creativeId}/companions/{companionId}:
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: Get specific companion - V3
+      description: Get a specific companion ad for the creative.
+      operationId: GET_v3-0-creatives-creativeId-companions-companionId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: companionId
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companion retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanionAd'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative or companion not found
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Update companion - V3
+      description: 'Update an existing companion''s details.
+
+        Regenerates the creative''s MetaVAST document after the companion is updated.
+
+        '
+      operationId: POST_v3-0-creatives-creativeId-companions-companionId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: companionId
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/ModifyCompanionRequest'
+      responses:
+        '200':
+          description: Companion updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative or companion not found
+    delete:
+      tags:
+      - Video Creative Management (V3)
+      summary: Delete companion - V3
+      description: 'Delete a companion from the creative.
+
+        Regenerates the creative''s MetaVAST document after the companion is deleted.
+
+        '
+      operationId: DELETE_v3-0-creatives-creativeId-companions-companionId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: companionId
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companion deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative or companion not found
+  /v3.0/classification/{cid}:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get a Classification by ID
+      description: Retrieve a classification object using the atomic creative ID.
+      operationId: GET_v3-0-classification-cid
+      parameters:
+      - name: cid
+        in: path
+        description: Atomic creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+    post:
+      tags:
+      - Classification (V3)
+      summary: Save a Classification
+      description: Save a classification object using the atomic creative ID.
+      operationId: POST_v3-0-classification-cid
+      parameters:
+      - name: cid
+        in: path
+        description: Atomic creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classification'
+        description: Classification object to save
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/{cid}/force-publish:
+    post:
+      tags:
+      - Classification (V3)
+      summary: Force-publish a Classification
+      description: Force-publish the classification for the given atomic creative ID.
+      operationId: POST_v3-0-classification-cid-force-publish
+      parameters:
+      - name: cid
+        in: path
+        description: Classification ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/{cid}/inflate:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get an Inflated Classification by ID
+      description: Retrieve an inflated classification object using the atomic creative ID.
+      operationId: GET_v3-0-classification-cid-inflate
+      parameters:
+      - name: cid
+        in: path
+        description: Atomic creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/bulk:
+    post:
+      tags:
+      - Classification (V3)
+      summary: Save Bulk Classification
+      description: Save multiple classification objects using a bulk request.
+      operationId: POST_v3-0-classification-bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkClassificationResponse'
+        description: Bulk classification records to save
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkInflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/bulk/{cids}:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get Bulk Classification by IDs
+      description: Retrieve multiple classification objects using a comma-separated list of atomic creative
+        IDs.
+      operationId: GET_v3-0-classification-bulk-cids
+      parameters:
+      - name: cids
+        in: path
+        description: Comma-separated list of atomic creative IDs
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/bulk/{cids}/inflate:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get Bulk Inflated Classification by IDs
+      description: Retrieve multiple inflated classification objects using a comma-separated list of atomic
+        creative IDs.
+      operationId: GET_v3-0-classification-bulk-cids-inflate
+      parameters:
+      - name: cids
+        in: path
+        description: Comma-separated list of atomic creative IDs
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkInflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/static_data/{category}:
+    get:
+      tags:
+      - IAB Data (V3)
+      summary: Get IAB Data by Category
+      description: Retrieve IAB data for a category (e.g., iab_verticals, language, iab_attributes).
+      operationId: GET_v3-0-static_data-category
+      parameters:
+      - name: category
+        in: path
+        description: Category type (e.g., iab_verticals, language, iab_attributes)
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        description: Search key for the category
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/static_data/{category}/{id}:
+    get:
+      tags:
+      - IAB Data (V3)
+      summary: Get IAB Data Item by Category and ID
+      description: Retrieve a single IAB data item for a category (e.g., iab_verticals, language, iab_attributes).
+      operationId: GET_v3-0-static_data-category-id
+      parameters:
+      - name: category
+        in: path
+        description: Category type (e.g., iab_verticals, language, iab_attributes)
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Category ID
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        description: Search key for the category
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+tags:
+- name: Video Creative Management (V2)
+  description: V2.0 video creative endpoints (legacy)
+- name: Video Creative Management (V3)
+  description: V3.0 video creative management endpoints
+- name: Classification (V1.0 - Deprecated)
+  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July\
+    \ 2026\" %}\n  Please migrate to the **Classification API v3.0** documented below.\n{% /admonition\
+    \ %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\"\
+    \ %}\n  The use of cookie `adama_session` for authentication has been discontinued and it's not supported\
+    \ in Classification API v3.0.\n  We ask all of our clients who have not yet migrated to **Bearer (JWT)\
+    \ Authentication** to do so as soon as possible.\n{% /admonition %}\n\nCreative classification endpoints\
+    \ (V1.0 — deprecated).\n"
+- name: Classification (V3)
+  description: V3.0 creative classification endpoints. Uses Bearer (JWT) authentication.
+- name: IAB (V1.0 - Deprecated)
+  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July\
+    \ 2026\" %}\n  Please migrate to the **IAB Data API v3.0** (`GET /v3.0/static_data/{category}`) documented\
+    \ below.\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with\
+    \ cookie adama_session\" %}\n  The use of cookie `adama_session` for authentication has been discontinued\
+    \ and it's not supported in V3.0.\n  We ask all of our clients who have not yet migrated to **Bearer\
+    \ (JWT) Authentication** to do so as soon as possible.\n{% /admonition %}\n\nIAB static data endpoints\
+    \ (V1.0 — deprecated).\n"
+- name: IAB Data (V3)
+  description: 'V3.0 IAB data endpoints. A single pair of endpoints serves all categories
+
+    (`iab_verticals`, `iab_attributes`, `language`). Uses Bearer (JWT) authentication.
+
+    '
+servers:
+- url: https://api.mediamath.com
+components:
+  parameters:
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      in: header
+      description: _
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
+    trait_jsonResponse_Accept:
+      name: Accept
+      in: header
+      description: _
+      required: false
+      schema:
+        type: string
+        default: application/vnd.mediamath.v1+json
+    trait_oAuth2Jwt_Authorization:
+      name: Authorization
+      in: header
+      description: The OAuth2 token. See https://mediamath-auth.api-docs.io/v2/oauth2/oauth2-api-access
+        for more information.
+      required: true
+      schema:
+        type: string
+        pattern: Bearer .*
+    trait_limit_page_limit:
+      name: page_limit
+      in: query
+      description: _
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    trait_limit_page_offset:
+      name: page_offset
+      in: query
+      description: Index of the first element in the collection to retrieve
+      required: false
+      schema:
+        type: integer
+    trait_querying_q:
+      name: q
+      in: query
+      description: _
+      required: false
+      schema:
+        type: string
+    trait_returnAdditionalEntityProperties_full:
+      name: full
+      in: query
+      description: To include all properties for all entities returned by the API call, use `full=*:`
+      required: false
+      schema:
+        type: string
+        default: ''
+    trait_returnAdditionalEntityProperties_with:
+      name: with
+      in: query
+      description: _
+      required: false
+      schema:
+        type: string
+    trait_sorting_sort_by:
+      name: sort_by
+      in: query
+      description: name
+      required: false
+      schema:
+        type: string
+  requestBodies:
+    POST_video-v2-0-creatives-validateVASTBody:
+      content:
+        text/plain:
+          schema:
+            type: string
+      description: VAST XML content to validate
+    ModifyCompanionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ModifyCompanionRequest'
+      description: Companion ad details
+      required: true
+    GET_static_data-v1-0-language-language_idBody:
+      content:
+        application/json:
+          schema: {}
+      description: _
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com
+          scopes: {}
+  schemas:
+    ModifyCompanionRequest:
+      type: object
+      required:
+      - details
+      properties:
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+          description: File extension
+        fileName:
+          type: string
+          description: File name
+        resourceUrl:
+          type: string
+          description: Resource URL for all other companion types
+        resourceData:
+          type: string
+          description: Resource data encoded in Data URI Scheme for static companion types
+    CompanionDetails:
+      type: object
+      required:
+      - adServer
+      - typ
+      - width
+      - height
+      - landingUrl
+      properties:
+        adServer:
+          type: string
+          description: AdServer tag name
+        typ:
+          type: string
+          description: Companion type (static, iframe, or html)
+          enum:
+          - static
+          - iframe
+          - html
+        width:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Width in pixels
+        height:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Height in pixels
+        landingUrl:
+          type: string
+          description: Declared landing URL
+        iFrameUrlOrHTML:
+          type: string
+          description: iFrame URL (for iframe type) or HTML content (for html type)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required for static companions; must be null for iframe/html)
+    ValidateVASTResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: VAST validation error message, omitted if no errors present
+        warnings:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: A set of VAST validation warnings
+    CreativeStatusResponse:
+      type: object
+      properties:
+        uploadInfo:
+          $ref: '#/components/schemas/FileInfo'
+        encodingStatus:
+          $ref: '#/components/schemas/GetStatusResponse'
+    FileInfo:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Upload status
+        size:
+          type: integer
+          format: int64
+          description: File size in bytes
+        percent:
+          type: number
+          description: Upload percent complete (0-100)
+          default: 0
+        name:
+          type: string
+          description: File name
+        path:
+          type: string
+          description: File path
+        mirrorPath:
+          type: array
+          items:
+            type: string
+          description: Mirror paths (asset URLs)
+        hash:
+          type: string
+          description: File hash
+    GetStatusResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Overall encoding progress (0-100)
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetStatusResponse_Encoding'
+    GetStatusResponse_Encoding:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        id:
+          type: integer
+          format: int64
+          description: Encoding ID
+        statusMessage:
+          type: string
+          description: Status message (e.g. error details)
+    GetCreativeVariantsResponse:
+      type: object
+      properties:
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/LegacyEncoding'
+    LegacyEncoding:
+      type: object
+      properties:
+        videoCodec:
+          type: string
+        audioCodec:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        bitrateKbps:
+          type: integer
+        format:
+          type: string
+        id:
+          type: integer
+        contentMd5:
+          type: string
+        outputUrl:
+          type: string
+          description: Asset URL
+        encode:
+          type: boolean
+          default: true
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        currentEvent:
+          type: string
+        currentEventPercent:
+          type: number
+        s3ResourceName:
+          type: string
+        stored:
+          type: boolean
+        active:
+          type: boolean
+        copiedUrl:
+          type: string
+          description: Asset URL (copied)
+        sizeBytes:
+          type: integer
+          default: -1
+        errorMessage:
+          type: string
+    CompanionAd:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Companion ID
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+        mimeType:
+          type: string
+        fileName:
+          type: string
+        resourceBlob:
+          type: string
+          description: Data blob used for images
+        resourceUrl:
+          type: string
+          description: URL for external resources
+    CompanionsResponse:
+      type: object
+      properties:
+        companions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CompanionAd'
+          description: Map of companion ID (string) to companion details
+    CreateCompanionResponse:
+      type: object
+      properties:
+        companionId:
+          type: integer
+    ErrorInfoList:
+      type: object
+      properties:
+        field_error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorInfo'
+    ErrorInfo:
+      type: object
+      properties:
+        error:
+          type: string
+        index:
+          type: integer
+          description: Index in bulk request (for bulk operations)
+        code:
+          type: string
+        name:
+          type: string
+        field:
+          type: string
+    EncodingStatus:
+      type: string
+      enum:
+      - Pending
+      - Processing
+      - Finished
+      - Waiting
+      - Storing
+      - Details
+      - Error
+    V3CreateCreativeRequest:
+      type: object
+      required:
+      - advertiser
+      - name
+      - concept
+      properties:
+        active:
+          type: boolean
+          default: false
+        advertiser:
+          type: integer
+          format: int64
+          description: T1 Advertiser ID
+        name:
+          type: string
+          maxLength: 256
+          description: Creative name (required, max 256 chars)
+        concept:
+          type: integer
+          format: int64
+          description: T1 Concept ID (mandatory for creation)
+        startTime:
+          type: integer
+          format: int64
+          description: Creative start date (Unix timestamp, must be >= 0 and < year 10000)
+        endTime:
+          type: integer
+          format: int64
+          description: Creative end date (Unix timestamp, must be >= startTime)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required unless customVAST or customVASTUrl is set)
+        customVAST:
+          type: string
+          description: VAST XML content (mutually exclusive with customVASTUrl)
+        customVASTUrl:
+          type: string
+          description: URL to VAST XML content (mutually exclusive with customVAST)
+        viewabilityTemplate:
+          type: string
+          description: VAST XML template for BYOT viewability (must contain __VPAID_AD_PARAMETERS.URL__
+            macro)
+        landingUrl:
+          type: string
+          description: Declared landing page. If empty, landing URL will be fetched from VAST XML.
+        eventPixels:
+          type: array
+          description: Additional pixels
+          items:
+            $ref: '#/components/schemas/EventPixelRequest'
+        vendors:
+          type: array
+          description: T1 Vendor IDs
+          items:
+            type: integer
+            format: int64
+          uniqueItems: true
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          description: Disabled variant IDs
+          items:
+            type: integer
+          uniqueItems: true
+        externalIdentifier:
+          type: string
+          maxLength: 64
+          description: External Identifier (requires customVAST or customVASTUrl)
+        clockNumber:
+          type: string
+          maxLength: 15
+          description: Clock Number for Clearcast (UK freewheel broadcasters)
+        customVASTExtensionXML:
+          type: string
+          description: Custom VAST Extension XML
+        fileName:
+          type: string
+          description: 'Optional. File name including extension (e.g. my-video.mp4).
+
+            When provided, a pre-signed S3 PUT URL is returned in the response.
+
+            Mutually exclusive with customVAST and customVASTUrl.
+
+            The S3 PUT request must include headers x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
+
+            '
+    V3UpdateCreativeRequest:
+      type: object
+      required:
+      - advertiser
+      - name
+      properties:
+        active:
+          type: boolean
+          default: false
+        advertiser:
+          type: integer
+          format: int64
+          description: T1 Advertiser ID
+        name:
+          type: string
+          maxLength: 256
+        concept:
+          type: integer
+          format: int64
+          description: T1 Concept ID
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        clickthroughUrl:
+          type: string
+        customVAST:
+          type: string
+        customVASTUrl:
+          type: string
+        viewabilityTemplate:
+          type: string
+        landingUrl:
+          type: string
+        eventPixels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventPixelRequest'
+        vendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+          uniqueItems: true
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          items:
+            type: integer
+          uniqueItems: true
+        externalIdentifier:
+          type: string
+          maxLength: 64
+        clockNumber:
+          type: string
+          maxLength: 15
+        customVASTExtensionXML:
+          type: string
+    PatchCreativeUpdate:
+      type: object
+      description: Partial update request - only provided fields will be updated. Set field to null to
+        clear it.
+      properties:
+        id:
+          type: integer
+          description: Creative ID (required for bulk update)
+        active:
+          type: boolean
+          nullable: true
+        advertiser:
+          type: integer
+          format: int64
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        concept:
+          type: integer
+          format: int64
+          nullable: true
+        startTime:
+          type: integer
+          format: int64
+          nullable: true
+        endTime:
+          type: integer
+          format: int64
+          nullable: true
+        clickthroughUrl:
+          type: string
+          nullable: true
+        customVAST:
+          type: string
+          nullable: true
+        customVASTUrl:
+          type: string
+          nullable: true
+        viewabilityTemplate:
+          type: string
+          nullable: true
+        landingUrl:
+          type: string
+          nullable: true
+        eventPixels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventPixelRequest'
+          nullable: true
+        vendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+          nullable: true
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          items:
+            type: integer
+          nullable: true
+        externalIdentifier:
+          type: string
+          nullable: true
+        customVASTExtensionXML:
+          type: string
+          nullable: true
+        clockNumber:
+          type: string
+          nullable: true
+    BulkNewCreativeRequest:
+      type: object
+      required:
+      - creatives
+      properties:
+        creatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/V3CreateCreativeRequest'
+    BulkUpdateCreativeRequest:
+      type: object
+      required:
+      - creatives
+      properties:
+        creatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatchCreativeUpdate'
+    BulkGetRequest:
+      type: object
+      required:
+      - creativeIds
+      properties:
+        creativeIds:
+          type: array
+          items:
+            type: integer
+    EventPixelRequest:
+      type: object
+      required:
+      - typ
+      - url
+      properties:
+        typ:
+          type: string
+          description: Pixel event type (must be a valid pixel type)
+        url:
+          type: string
+          description: Pixel URL
+    EventPixel:
+      type: object
+      properties:
+        typ:
+          type: string
+        url:
+          type: string
+    VASTVersion:
+      type: string
+      enum:
+      - VAST2
+      - VAST3
+      - VAST4
+      default: VAST2
+    NewCreativeResponse:
+      type: object
+      properties:
+        creativeId:
+          type: integer
+        uploadUrl:
+          type: string
+          description: 'Pre-signed S3 PUT URL (only present when fileName was provided in the request).
+
+            Valid for expiresIn seconds. The PUT request must include headers
+
+            x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
+
+            '
+        expiresIn:
+          type: integer
+          description: Seconds until uploadUrl expires (900). Only present when uploadUrl is set.
+        status:
+          $ref: '#/components/schemas/Status'
+    InsecureVendorURLs:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        urls:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        vendorName:
+          type: string
+    CreativeDetails:
+      type: object
+      properties:
+        active:
+          type: boolean
+        advertiser:
+          type: integer
+          format: int64
+        name:
+          type: string
+        concept:
+          type: integer
+          format: int64
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        clickthroughUrl:
+          type: string
+        customVAST:
+          type: string
+        customVASTUrl:
+          type: string
+        viewabilityTemplate:
+          type: string
+        landingUrl:
+          type: string
+        landingUrlIsCalculated:
+          type: boolean
+        eventPixels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventPixel'
+        vendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          items:
+            type: integer
+        externalIdentifier:
+          type: string
+        customVASTExtensionXML:
+          type: string
+        clockNumber:
+          type: string
+    CreativeDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Creative ID (used in bulk create to show which creative was created)
+        details:
+          $ref: '#/components/schemas/CreativeDetails'
+        companionIds:
+          type: array
+          items:
+            type: integer
+          uniqueItems: true
+        duration:
+          type: number
+          description: Duration in seconds
+        isUploaded:
+          type: boolean
+        unsecureUrls:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InsecureVendorURLs'
+          description: Associates unsecured URLs (non-https) with their respective vendors
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        readyToServe:
+          type: boolean
+          description: True when creative details/variants are stable
+        thumbnail:
+          type: string
+        autoVendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Automatically detected vendors (MM Vendor ID)
+        percent:
+          type: number
+          description: Combined upload/conversion progress (0-100)
+        isSecure:
+          type: boolean
+        isRotating:
+          type: boolean
+        isDynamic:
+          type: boolean
+        isAudio:
+          type: boolean
+        vpaidVersion:
+          type: integer
+        hasCompanions:
+          type: boolean
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        t1as:
+          type: boolean
+        updatedOn:
+          type: string
+    CreativeDetailsResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CreativeDetailsResponse'
+        errors:
+          $ref: '#/components/schemas/ErrorInfoList'
+    BulkResponseMeta:
+      type: object
+      properties:
+        status:
+          type: string
+        count:
+          type: integer
+    Status:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    BulkCreativeResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreativeDetailsResponse'
+        errors:
+          $ref: '#/components/schemas/ErrorInfoList'
+        meta:
+          $ref: '#/components/schemas/BulkResponseMeta'
+        status:
+          $ref: '#/components/schemas/Status'
+    HistoryResponse:
+      type: object
+      properties:
+        with:
+          $ref: '#/components/schemas/WithPart'
+        log_entries:
+          $ref: '#/components/schemas/LogEntriesWrapper'
+    WithPart:
+      type: object
+      properties:
+        count:
+          type: integer
+        log_entries:
+          type: array
+          items:
+            type: string
+    LogEntriesWrapper:
+      type: object
+      properties:
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntryResponse'
+        count:
+          type: integer
+        start:
+          type: integer
+    LogEntryResponse:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        user_name:
+          type: string
+        action:
+          type: string
+        date:
+          type: string
+        field:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldChangeEntry'
+    FieldChangeEntry:
+      type: object
+      properties:
+        name:
+          type: string
+        old_value:
+          type: string
+        new_value:
+          type: string
+    Classification:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            type: integer
+        language:
+          type: integer
+        verticals:
+          type: array
+          items:
+            type: integer
+    ClassificationAttribute:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            type: integer
+        id:
+          type: integer
+        name:
+          type: string
+        parent:
+          type: string
+    ClassificationLanguage:
+      type: object
+      properties:
+        alpha2:
+          type: string
+        bibliographic:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        name_fr:
+          type: string
+        terminologic:
+          type: string
+    ClassificationVertical:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            type: integer
+        code:
+          type: string
+        description:
+          type: string
+        id:
+          type: integer
+        parent:
+          type: string
+    InflatedClassificationResponse:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationAttribute'
+        language:
+          $ref: '#/components/schemas/ClassificationLanguage'
+        verticals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationVertical'
+    InflatedDetails:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationAttribute'
+        language:
+          $ref: '#/components/schemas/ClassificationLanguage'
+        verticals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationVertical'
+    ClassificationDetail:
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/Classification'
+    BulkInflatedRecord:
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/InflatedDetails'
+    BulkClassificationResponse:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationDetail'
+    BulkInflatedClassificationResponse:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkInflatedRecord'
+    UIErrorType:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIError'
+    UIError:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        reasonCode:
+          type: integer
+        resource:
+          type: string

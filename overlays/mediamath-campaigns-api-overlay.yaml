@@ -1,0 +1,62 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Ad Servers Campaigns API
+  version: 1.0.0
+extends: ./../openapi/mediamath-campaigns-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/mediamath-campaigns-api-openapi.yml
+actions:
+- target: $.info
+  description: Record API Evangelist provenance and the enrichment pass that captured this contract.
+  update:
+    x-apievangelist:
+      provider: mediamath
+      aid: mediamath
+      enriched: '2026-08-13'
+      captured_from: openapi/_original/campaigns-api-openapi.yaml
+      artifacts:
+      - conventions/mediamath-conventions.yml
+      - errors/mediamath-problem-types.yml
+      - lifecycle/mediamath-lifecycle.yml
+      - authentication/mediamath-authentication.yml
+      - rate-limits/mediamath-rate-limits.yml
+      - data-model/mediamath-data-model.yml
+- target: $.info
+  description: Attach the documented cross-cutting runtime semantics that the raw contract does not state.
+  update:
+    x-conventions:
+      idempotency:
+        supported: false
+        note: No Idempotency-Key header or client-supplied request key is documented anywhere in the MediaMath
+          developer documentation. Read back before retrying a create.
+      error_envelope: '{"meta":{"status":"error","uuid":"..."},"errors":[{"code":"...","message":"...","details":{}}]}'
+      rate_limit_headers:
+      - X-RateLimit-Limit
+      - X-RateLimit-Remaining
+      - X-RateLimit-Reset
+      - X-Concurrency-Limit
+      - X-Concurrency-Remaining
+      - Retry-After
+      rate_limit_note: Header values are per-pod (5 production pods); documented safe sustained rate is
+        40 req/s cluster-wide.
+      pagination:
+        style: offset
+        params:
+        - page_limit
+        - page_offset
+        - sort_by
+        - q
+      update_method: POST (not PUT/PATCH)
+      bulk_partial_success: HTTP 207 Multi-Status
+- target: $.info
+  description: Record the token endpoint and the legacy dual-auth requirement the specs do not express.
+  update:
+    x-authentication:
+      token_endpoint: https://auth.mediamath.com/oauth/token
+      authorize_endpoint: https://auth.mediamath.com/authorize
+      audience: https://api.mediamath.com/
+      token_lifetime_seconds: 86400
+      provider: Auth0
+      legacy_session_cookie: Some APIs are not fully migrated to OAuth2. GET https://api.mediamath.com/api/v2.0/session
+        with the bearer token and send the returned adama_session cookie alongside the Authorization header.

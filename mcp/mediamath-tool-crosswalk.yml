@@ -1,0 +1,508 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/mediamath-mcp.yml, https://apidocs.mediamath.com/guides/mcp/tool-reference,
+  openapi/*.yml (353 operationIds across 44 documents), graphql/mediamath-schema.graphql
+note: >-
+  Binds each Infillion Agent Connector MCP tool to the MediaMath REST
+  operationId(s) that back it. The Agent Connector is CLOSED BETA and its
+  endpoint is not published, so a live tools/list could not be run against it;
+  every binding below is mapped by tool name and by the semantics in the
+  provider's own Tool Reference against operationIds verified present in
+  openapi/. Confidence is set accordingly and is never "high" unless the tool
+  name, the documented behaviour and the REST operation all agree.
+  The documentation MCP server (https://apidocs.mediamath.com/mcp) is a
+  meta-surface over the specs themselves — it exposes no business operations and
+  is therefore listed under mcp_only[] rather than crosswalked.
+
+surfaces:
+  openapi:
+    path: openapi/
+    documents: 44
+    operations: 353
+    gated: false
+  graphql:
+    path: graphql/mediamath-schema.graphql
+    endpoint: null
+    gated: true
+    note: >-
+      Schema captured previously in graphql/. No public introspection endpoint
+      was reachable during this pass.
+  mcp:
+    - name: Infillion API Docs MCP
+      url: https://apidocs.mediamath.com/mcp
+      gated: false
+      tools: 6
+    - name: Infillion Agent Connector
+      url: null
+      gated: true
+      tools: 69
+      note: Closed beta; endpoint issued at onboarding.
+
+crosswalk:
+  - tool: find_organizations
+    category: Organization & Entity Management
+    rest: [list-organizations]
+    binding: direct
+    confidence: high
+  - tool: get_organization_info
+    category: Organization & Entity Management
+    rest: [get-organization, list-settings-organization]
+    binding: composite
+    confidence: medium
+    note: Tool returns contract controls, identity policies, exchange seats and billing config — spans the organization entity plus its settings collection.
+  - tool: find_agencies
+    category: Organization & Entity Management
+    rest: [list-agencies]
+    binding: direct
+    confidence: high
+  - tool: get_agency_info
+    category: Organization & Entity Management
+    rest: [get-agency]
+    binding: direct
+    confidence: high
+  - tool: find_advertisers
+    category: Organization & Entity Management
+    rest: [list-advertisers]
+    binding: direct
+    confidence: high
+  - tool: get_advertiser_info
+    category: Organization & Entity Management
+    rest: [get-advertiser]
+    binding: direct
+    confidence: high
+
+  - tool: find_campaigns
+    category: Campaign Management
+    rest: [list-campaigns]
+    binding: direct
+    confidence: high
+    note: full=true / extended=true map to the REST ?full and ?with query conventions; 25-per-call paging maps to page_limit/page_offset.
+  - tool: get_campaign_info
+    category: Campaign Management
+    rest: [get-campaign]
+    binding: direct
+    confidence: high
+  - tool: campaign_create
+    category: Campaign Management
+    rest: [create-campaign]
+    binding: direct
+    confidence: high
+  - tool: campaign_update
+    category: Campaign Management
+    rest: [update-campaign, bulk-update-campaigns]
+    binding: direct
+    confidence: high
+    note: >-
+      REST update is POST /campaigns/{campaign_id}, not PUT/PATCH. bulk-update-campaigns
+      is the batch sibling the tool may fan out to.
+
+  - tool: find_strategies
+    category: Strategy Management
+    rest: [list-strategies]
+    binding: direct
+    confidence: high
+  - tool: get_strategy_info
+    category: Strategy Management
+    rest: [get-strategy, get-strategy-targeting-expression, list-strategy-target-values, list-strategy-concepts]
+    binding: composite
+    confidence: medium
+    note: extended=true is documented to return audience/contextual group details and full targeting breakdowns, which live on separate REST collections.
+  - tool: strategy_create
+    category: Strategy Management
+    rest: [create-strategy]
+    binding: direct
+    confidence: high
+  - tool: strategy_update
+    category: Strategy Management
+    rest: [update-strategy]
+    binding: direct
+    confidence: high
+
+  - tool: find_concepts
+    category: Concepts (Creative Groups)
+    rest: [list-concepts]
+    binding: direct
+    confidence: high
+  - tool: get_concept_info
+    category: Concepts (Creative Groups)
+    rest: [get-concept]
+    binding: direct
+    confidence: high
+  - tool: creative_group_create
+    category: Concepts (Creative Groups)
+    rest: [create-concept]
+    binding: renamed
+    confidence: high
+    note: '"Creative group" and "concept" are interchangeable terms in MediaMath, per the provider''s own note.'
+
+  - tool: find_atomic_creatives
+    category: Creative Management
+    rest: [list-atomic-creatives]
+    binding: direct
+    confidence: high
+  - tool: get_atomic_creative_info
+    category: Creative Management
+    rest: [get-atomic-creative]
+    binding: direct
+    confidence: high
+  - tool: get_atomic_creative_preview
+    category: Creative Management
+    rest: [creatives-atomic_creative_id-include-previews]
+    binding: direct
+    confidence: medium
+  - tool: atomic_creative_create
+    category: Creative Management
+    rest: [post-atomic_creatives]
+    binding: direct
+    confidence: high
+    note: Documented as 3PAS/TPAS display creation from a third-party ad server tag.
+  - tool: atomic_creative_update
+    category: Creative Management
+    rest: [post-atomic_creatives-atomic_creative_id, bulk-update-atomic-creatives]
+    binding: direct
+    confidence: high
+  - tool: atomic_creative_healthcheck
+    category: Creative Management
+    rest: [atomic-creatives-healthcheck]
+    binding: direct
+    confidence: high
+    note: Bulk mode accepts up to 100 creative IDs.
+  - tool: mmas_creative_upload
+    category: Creative Management
+    rest: [post-atomic_creatives]
+    binding: composite
+    confidence: low
+    note: >-
+      Hosted MMAS display/HTML5 upload. The public Campaign Management spec does
+      not document an MMAS binary upload operation; the tool wraps a server-side
+      fetch plus creative creation and, in file-picker mode, an MCP App form.
+      Treat the REST binding as partial.
+  - tool: mmas_creative_video_upload
+    category: Creative Management
+    rest: [Get_video_asset_upload_S3_URL, POST_video-v2-0-creatives-video_id-upload, GET_video-v2-0-creatives-video_id-status]
+    binding: composite
+    confidence: medium
+    note: >-
+      Documented flow — reserve a creative record, receive a presigned S3 URL,
+      PUT the asset, then poll status Pending -> Processing -> Finished — matches
+      the Video Creatives API upload operations now captured in openapi/.
+  - tool: find_native_creatives
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+  - tool: get_native_creative_info
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+  - tool: native_creative_create
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+  - tool: native_creative_update
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+  - tool: get_native_creative_approvals
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+  - tool: get_video_creative_info
+    category: Creative Management
+    rest: [GET_video-v2-0-creatives-video_id-status, GET_video-v2-0-creatives-video_id-variants]
+    binding: composite
+    confidence: medium
+  - tool: list_video_creatives
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+    note: No list operation for video creatives is present in the published Video Creatives spec.
+  - tool: video_creative_create
+    category: Creative Management
+    rest: [Get_video_asset_upload_S3_URL]
+    binding: composite
+    confidence: low
+  - tool: video_creative_update
+    category: Creative Management
+    rest: [POST_video-v2-0-creatives-video_id-companions]
+    binding: composite
+    confidence: low
+  - tool: video_creative_bulk_create
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+  - tool: video_creative_bulk_update
+    category: Creative Management
+    rest: []
+    binding: unmapped
+    confidence: low
+
+  - tool: find_supply_sources
+    category: Inventory & Supply
+    rest: [list-supply-sources]
+    binding: direct
+    confidence: high
+  - tool: get_supply_source_info
+    category: Inventory & Supply
+    rest: [get-supply-source]
+    binding: direct
+    confidence: high
+  - tool: find_site_lists
+    category: Inventory & Supply
+    rest: [list-site-lists]
+    binding: direct
+    confidence: high
+  - tool: get_site_list_info
+    category: Inventory & Supply
+    rest: [get-site-list, get-site-list-assignments]
+    binding: composite
+    confidence: medium
+  - tool: site_list_create
+    category: Inventory & Supply
+    rest: [upload-create-site-lists]
+    binding: direct
+    confidence: medium
+    note: REST site-list creation is an upload operation, not a plain JSON POST.
+  - tool: site_list_update
+    category: Inventory & Supply
+    rest: [upload-update-site-lists]
+    binding: direct
+    confidence: medium
+  - tool: find_publishers
+    category: Inventory & Supply
+    rest: [Retrieve_publishers]
+    binding: direct
+    confidence: high
+  - tool: find_target_values
+    category: Inventory & Supply
+    rest: [list-target-values]
+    binding: direct
+    confidence: high
+  - tool: get_channels_info
+    category: Inventory & Supply
+    rest: [List_channels]
+    binding: direct
+    confidence: high
+  - tool: find_deals
+    category: Inventory & Supply
+    rest: [LIST-deals, LIST-deals-and-reporting-data]
+    binding: direct
+    confidence: high
+  - tool: get_deal_info
+    category: Inventory & Supply
+    rest: [GET-deal]
+    binding: direct
+    confidence: high
+  - tool: deal_create
+    category: Inventory & Supply
+    rest: [POST-deal, Bulk-Create-Deal]
+    binding: direct
+    confidence: high
+  - tool: deal_update
+    category: Inventory & Supply
+    rest: [PUT-deal, Update-Bulk-Deal]
+    binding: direct
+    confidence: high
+  - tool: find_deal_strategies
+    category: Inventory & Supply
+    rest: [List-Deal-Strategies]
+    binding: direct
+    confidence: high
+  - tool: find_deal_groups
+    category: Inventory & Supply
+    rest: [LIST-deal-groups]
+    binding: direct
+    confidence: high
+  - tool: get_deal_group_info
+    category: Inventory & Supply
+    rest: [GET-deal-group]
+    binding: direct
+    confidence: high
+  - tool: deal_group_create
+    category: Inventory & Supply
+    rest: [POST-deal-group]
+    binding: direct
+    confidence: high
+  - tool: deal_group_update
+    category: Inventory & Supply
+    rest: [PUT-deal-group]
+    binding: direct
+    confidence: high
+
+  - tool: find_pixel_bundles
+    category: Pixels & Tracking
+    rest: [list-pixel-bundles]
+    binding: direct
+    confidence: high
+  - tool: get_pixel_bundle_info
+    category: Pixels & Tracking
+    rest: [get-pixel-bundle]
+    binding: direct
+    confidence: high
+  - tool: get_pixel_providers
+    category: Pixels & Tracking
+    rest: [list-pixel-providers]
+    binding: direct
+    confidence: high
+
+  - tool: find_audience_segments
+    category: Audience & Data
+    rest: [GET_audience_segments, GET_audience_segments-taxonomy_id]
+    binding: direct
+    confidence: medium
+    note: >-
+      Two REST surfaces cover audience segments — the Audience Segments API
+      (dmp/v2.0) and the Campaign Management targeting collection. The tool most
+      likely fronts the latter for read/search.
+  - tool: find_contextual_segments
+    category: Audience & Data
+    rest: [contextual-segments-cpm-estimate]
+    binding: composite
+    confidence: low
+
+  - tool: get_dataset_schema
+    category: Reporting & Analytics
+    rest: [GET_report-meta]
+    binding: direct
+    confidence: medium
+    note: >-
+      Reporting API V2 datasets are POST-only and carry no operationIds in the
+      published spec (see rest_only note); GET_report-meta from Reporting API V1
+      is the closest published metadata operation.
+  - tool: query_performance_report
+    category: Reporting & Analytics
+    rest: [GET_performance]
+    binding: direct
+    confidence: medium
+    note: Reporting API V2 exposes POST /performance with no operationId; the V1 GET_performance operation is the identified equivalent.
+  - tool: query_hourly_performance_report
+    category: Reporting & Analytics
+    rest: []
+    binding: unmapped
+    confidence: low
+    note: Reporting API V2 POST /performance-hourly carries no operationId in the published spec.
+  - tool: query_all_dimensions_report
+    category: Reporting & Analytics
+    rest: []
+    binding: unmapped
+    confidence: low
+    note: Reporting API V2 POST /all-dimensions-and-metrics carries no operationId in the published spec.
+  - tool: query_win_loss_report
+    category: Reporting & Analytics
+    rest: [GET_win_loss, GET_win_loss_creative]
+    binding: direct
+    confidence: medium
+  - tool: query_pixel_loads_report
+    category: Reporting & Analytics
+    rest: []
+    binding: unmapped
+    confidence: low
+    note: Reporting API V2 POST /pixel-loads carries no operationId in the published spec.
+
+  - tool: find_user
+    category: User & Permissions
+    rest: [list-users]
+    binding: direct
+    confidence: high
+  - tool: get_user_info
+    category: User & Permissions
+    rest: [get-user, get-user-settings]
+    binding: composite
+    confidence: high
+  - tool: get_user_permissions
+    category: User & Permissions
+    rest: [list-user-permissions, list-user-permissions-filtered]
+    binding: direct
+    confidence: high
+
+  - tool: healthcheck
+    category: System
+    rest: []
+    binding: unmapped
+    confidence: low
+    note: >-
+      Connectivity/latency/connection-pool probe of the MCP server itself.
+      No public REST equivalent; this is an MCP-layer operation.
+
+mcp_only:
+  - tool: healthcheck
+    reason: MCP transport health probe, not a platform resource.
+  - tool: mmas_creative_upload
+    reason: >-
+      Interactive file-picker mode renders an MCP App (ui://display-creative-upload)
+      and streams file bytes as base64 over the MCP connection. There is no REST
+      equivalent for the in-browser upload path.
+  - tool: mmas_creative_video_upload
+    reason: >-
+      Same MCP App pattern (ui://video-creative-upload). Only the public-URL mode
+      has a REST analogue.
+  - tool: find_native_creatives
+    reason: No native-creative operations are present in any published MediaMath OpenAPI.
+  - tool: get_native_creative_info
+    reason: No native-creative operations are present in any published MediaMath OpenAPI.
+  - tool: native_creative_create
+    reason: No native-creative operations are present in any published MediaMath OpenAPI.
+  - tool: native_creative_update
+    reason: No native-creative operations are present in any published MediaMath OpenAPI.
+  - tool: get_native_creative_approvals
+    reason: No native-creative operations are present in any published MediaMath OpenAPI.
+  - tool: list_video_creatives
+    reason: Published Video Creatives API has no list/collection operation.
+  - tool: video_creative_bulk_create
+    reason: No bulk video-creative operation in the published spec.
+  - tool: video_creative_bulk_update
+    reason: No bulk video-creative operation in the published spec.
+  - tool: list-apis
+    reason: Documentation MCP meta-tool — enumerates published API definitions, not platform data.
+  - tool: get-endpoints
+    reason: Documentation MCP meta-tool.
+  - tool: get-endpoint-info
+    reason: Documentation MCP meta-tool.
+  - tool: get-security-schemes
+    reason: Documentation MCP meta-tool.
+  - tool: get-full-api-description
+    reason: Documentation MCP meta-tool — returns whole OpenAPI documents.
+  - tool: search
+    reason: Documentation MCP meta-tool — full-text search over the docs corpus.
+
+rest_only:
+  summary: >-
+    The Agent Connector covers roughly 60 of 353 published REST operationIds.
+    Whole product areas have no tool at all.
+  areas:
+    - area: Audit logs
+      note: Every entity exposes an audit-log operation (organization-audit-log, agency-audit-log, advertiser-audit-log, campaign-audit-log, concepts-audit-log, atomic-creative-audit-log, segment-groups-audit-log, and bulk variants). No MCP tool reads them.
+    - area: Contracts and vendor contracts
+      note: list-vendor-contracts, list-contracts and the fee/rebate model behind them have no tool.
+    - area: Bid Request Firehose (BOF Config API)
+      note: 13 operations across consumer configuration, channel-type filters and geo filters. No tool.
+    - area: BYOA / Custom Bid Router
+      note: 14 operations on api.byoa.mediamath.com covering executors, endpoints, campaign settings and Custom Brain. No tool, despite BYOA being the platform's algorithmic differentiator.
+    - area: Component Creatives API
+      note: 27 operations. No tool.
+    - area: Currency rates, timezones, verticals, enterprise controls
+      note: Reference/static-data collections used to validate campaign and strategy payloads. No tools, so an agent must guess valid values or fail on write.
+    - area: Reporting API V1
+      note: 30 GET report operations plus per-report /meta. The Agent Connector exposes six curated report tools instead.
+    - area: Creative classification and IAB static data
+      note: Video Creatives API classification/v1.0 and static_data/v1.0 operations have no tool.
+
+coverage:
+  mcp_tools_total: 75
+  agent_connector_tools: 69
+  docs_mcp_tools: 6
+  tools_bound_to_rest: 52
+  tools_unmapped: 17
+  bindings_high_confidence: 33
+  bindings_medium_confidence: 12
+  bindings_low_confidence: 7
+  rest_operations_total: 353
+  rest_operations_referenced: 71
+  rest_coverage_pct: 20

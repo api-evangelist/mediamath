@@ -1,0 +1,147 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://apidocs.mediamath.com/guides/byoa/custom-bid-router/win-notification,
+  https://apidocs.mediamath.com/guides/byoa/custom-bid-router/about,
+  https://apidocs.mediamath.com/guides/byoa/custom-bid-router/request-and-response-examples,
+  https://apidocs.mediamath.com/guides/server-to-server,
+  https://github.com/MediaMath/bid-valuator-endpoint-java
+asyncapi_published: false
+note: >-
+  MediaMath publishes no AsyncAPI document. It DOES operate a real
+  provider-to-customer push surface: the Custom Bid Router delivers bid requests
+  and win notifications to customer-hosted HTTPS endpoints, with a published
+  protobuf schema and a documented latency budget. That surface is captured here
+  as a webhook catalog rather than fabricated into an AsyncAPI document.
+
+  This is not a conventional "webhook" product — there is no subscribe-by-URL
+  self-service. Endpoints are registered through the BYOA Custom Bid Router
+  configuration API and the traffic is real-time bidding, so the operational
+  characteristics (400ms deadline, no retries, sampling) are unlike a normal
+  event webhook and are recorded explicitly.
+
+transport:
+  protocol: HTTPS
+  direction: MediaMath -> customer endpoint
+  content_types:
+    - application/json
+    - application/protobuf
+  note: Content type is fixed per endpoint at configuration time.
+
+webhooks:
+  - name: bid-request
+    title: Custom Bid Router bid request
+    description: >-
+      MediaMath forwards live bid opportunities to a customer-operated Custom Bid
+      Router endpoint, which returns a bid valuation. OpenRTB-shaped.
+    docs: https://apidocs.mediamath.com/guides/byoa/custom-bid-router/about
+    schema:
+      format: protobuf
+      file: null
+      reference: https://github.com/MediaMath/bid-valuator-endpoint-java/blob/master/src/main/proto/google/openrtb/openrtb.proto
+      note: Vendored google/openrtb/openrtb.proto in the reference endpoint implementation. Not copied into this repo — it is the IAB/Google OpenRTB schema, not a MediaMath-authored one.
+    endpoint_type: bid
+    latency_budget_ms: null
+    retries: null
+    logging: S3 delivery of bid request/response logs is configurable.
+    logging_docs: https://apidocs.mediamath.com/guides/byoa/custom-bid-router/setting-up-s3-logs
+
+  - name: win-notice
+    title: Win Notification
+    description: >-
+      Delivered to configured Custom Bid Router endpoints within seconds of
+      winning an auction, carrying auction, pricing, entity and user identifiers.
+    docs: https://apidocs.mediamath.com/guides/byoa/custom-bid-router/win-notification
+    endpoint_type: win
+    schema:
+      format: protobuf
+      syntax: proto2
+      message: com.mediamath.winnotice.WinNotification
+      file: grpc/mediamath-winnotice.proto
+      source: https://github.com/MediaMath/bid-valuator-endpoint-java/blob/master/src/main/proto/mediamath/winnotice/winnotice.proto
+      fields:
+        - name: ExchangeAuctionID
+          type: string
+          description: Exchange auction ID as received from the SSP.
+        - name: AuctionID
+          type: int64
+          description: MediaMath-unique auction ID.
+        - name: BidPriceCpm
+          type: double
+          description: Bid price at CPM level in USD.
+        - name: ClearPriceCpm
+          type: double
+          description: CPM cost reported by the SSP after winning.
+        - name: TotalSpend
+          type: double
+          description: Total spend CPM including all tracked fees.
+        - name: MmUuid
+          type: string
+          description: Identifier for the user who received the ad.
+        - name: AdvertiserID
+          type: int64
+        - name: CampaignID
+          type: int64
+        - name: StrategyID
+          type: int64
+        - name: CreativeID
+          type: int64
+        - name: BidTimestamp
+          type: string
+          description: Unix timestamp at second resolution, UTC.
+    delivery:
+      timing: within seconds of the win
+      request_headers:
+        - 'Content-Type: application/protobuf'
+        - 'X-Timeout: 400'
+      deadline_ms: 400
+      deadline_behaviour: >-
+        Custom Bid Router sets a 400ms deadline for the win-notification
+        response. Exceeding it logs an error on the Grafana dashboard.
+      retries: false
+      retry_note: >-
+        "Custom Bid Router does not implement a retry logic in case the Win
+        Notification does not deliver successfully." A missed win notice is lost.
+      s3_logging: false
+      s3_logging_note: Logging to S3 is not supported for win notifications.
+    sampling:
+      default_rate: 100
+      configurable: true
+      scope: Adjustable collectively for all endpoints of an executor.
+      example_call: >-
+        PATCH https://api.byoa.mediamath.com/custombidrouter/{org_id}/executors/{id}
+        with {"sample_rate": 75, "endpoint_type": "win"}
+    configuration:
+      registered_via: BYOA Custom Bid Router configuration API
+      spec: openapi/mediamath-byoa-api-openapi.yml
+      required_field: endpoint_type must be set to "win"
+
+adjacent_data_surfaces:
+  - name: Server-to-Server Data Distribution
+    kind: batch/streaming ingest (customer -> MediaMath)
+    docs: https://apidocs.mediamath.com/guides/server-to-server
+    base: https://s2s-api.datasvc.mediamath.com
+    note: Audience/segment data ingest, not an event push from MediaMath.
+  - name: Audience Event Onboarding
+    kind: real-time ingest (customer -> MediaMath)
+    docs: https://apidocs.mediamath.com/guides/audience-onboarding
+    base: https://ingest-default.prod.octane.mediamath.com
+  - name: Bid Request Firehose (BOF)
+    kind: streaming egress (MediaMath -> third-party consumer)
+    docs: https://apidocs.mediamath.com/apis/bof-api-v1
+    spec: openapi/mediamath-bof-config-api-openapi.yml
+    note: >-
+      Ingests bid opportunities from MediaMath bidders and filters/batches them
+      to third parties per a consumer config. The config API is captured; the
+      stream format itself is not published.
+  - name: Log Level Data Service
+    kind: batch file delivery
+    docs: https://apidocs.mediamath.com/apis/log-level-data-service
+  - name: Cloud File Transfer
+    kind: batch file delivery
+    docs: https://apidocs.mediamath.com/guides/cloud-file-transfer
+
+gaps:
+  - No AsyncAPI document for any of the push or streaming surfaces.
+  - No general-purpose entity webhooks (campaign/strategy/creative state changes) — an agent cannot subscribe to platform events, only poll.
+  - Win notifications have no retry and no dead-letter path; delivery is best-effort.

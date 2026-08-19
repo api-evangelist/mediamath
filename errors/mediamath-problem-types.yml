@@ -1,0 +1,152 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml (44 documents, 353 operations),
+  https://apidocs.mediamath.com/guides/api-rate-limiting
+format: vendor
+rfc9457: false
+media_type: application/json
+note: >-
+  MediaMath does not use RFC 9457 application/problem+json. Errors are returned
+  in a vendor envelope carrying a request uuid and an errors[] array whose
+  `code` field is the machine-actionable key. The named codes below are the ones
+  the provider documents by name; the rest of the catalog is derived from the
+  4xx/5xx responses declared across the OpenAPI documents, where every error
+  response resolves to a shared `#/components/responses/error` schema rather
+  than per-condition types. That is the notable gap: 269 declared 400s, 241
+  401s, 209 403s and 177 404s all share one untyped error shape, so an agent
+  cannot distinguish "advertiser_id missing" from "goal_type invalid" without
+  parsing prose in errors[].message.
+
+envelope:
+  shape: |
+    {
+      "meta": { "status": "error", "uuid": "request-uuid" },
+      "errors": [
+        { "code": "string", "message": "string", "details": { } }
+      ]
+    }
+  fields:
+    - name: meta.status
+      value: error
+    - name: meta.uuid
+      description: Server-assigned per-request identifier. Quote this to support.
+    - name: errors[].code
+      description: Machine-actionable error code.
+    - name: errors[].message
+      description: Human-readable message.
+    - name: errors[].details
+      description: Condition-specific object; present on rate-limit and concurrency errors.
+
+named_codes:
+  - code: rate-limit-exceeded
+    status: 429
+    title: Rate limit exceeded
+    message: Rate limit exceeded, please slow down
+    details_fields: [limit, burst, window]
+    remediation: >-
+      Read Retry-After and back off exponentially (1s -> 2s -> 4s ... max 60s).
+      Note the values in details are PER-POD (10 req/s, burst 50); cluster-wide
+      safe sustained rate is 40 req/s.
+    source: https://apidocs.mediamath.com/guides/api-rate-limiting
+  - code: too-many-concurrent-writes
+    status: 429
+    title: Too many concurrent write operations
+    message: Too many concurrent write operations, please retry
+    details_fields: [limit]
+    applies_to: [POST, PUT, PATCH, DELETE]
+    remediation: >-
+      Submit writes sequentially or in small batches. Per-pod limit is 30
+      concurrent writes; cluster-wide limit is 150.
+    source: https://apidocs.mediamath.com/guides/api-rate-limiting
+  - code: service-overloaded
+    status: 503
+    title: Service temporarily overloaded
+    message: Service temporarily overloaded, please retry later
+    remediation: >-
+      System-level overload, not user-specific. Honour Retry-After and retry with
+      exponential backoff; the system recovers automatically.
+    source: https://apidocs.mediamath.com/guides/api-rate-limiting
+
+status_catalog:
+  - status: 400
+    title: Bad Request
+    occurrences: 269
+    schema: shared error response
+    typical_causes:
+      - Missing required field on create (e.g. advertiser_id, name, goals)
+      - Invalid enum value against a reference collection (currency, timezone, vertical)
+      - Business-rule violation (goal_type roi/cpa without use_optimization and a campaign merit pixel; spend goal_type with use_optimization true)
+      - Sending both attribution.merit_pixels and the deprecated attribution.merit_pixel_id in one request
+    remediation: Validate against the reference collections (currency-rates, timezones, verticals, target_values) before writing.
+  - status: 401
+    title: Unauthorized
+    occurrences: 241
+    typical_causes:
+      - Missing or expired bearer token (tokens expire after 86400s)
+      - OAuth2-migrated endpoint called without the adama_session cookie on a not-yet-migrated API
+    remediation: Re-run the token request; for legacy APIs also refresh the adama_session cookie via GET /api/v2.0/session.
+  - status: 403
+    title: Forbidden
+    occurrences: 209
+    typical_causes:
+      - User lacks the role required for the entity (read-only user attempting a write)
+      - Entity outside the caller's organization/agency/advertiser permission scope
+    remediation: Check list-user-permissions for the calling user before attempting the write.
+  - status: 404
+    title: Not Found
+    occurrences: 177
+    typical_causes:
+      - Entity ID does not exist or is not visible to the caller's permission scope
+    note: >-
+      403 and 404 are not cleanly separated — an entity outside permission scope
+      may present as either.
+  - status: 409
+    title: Conflict
+    occurrences: 21
+    typical_causes:
+      - Duplicate name within a parent entity
+      - Concurrent modification of the same entity
+    remediation: >-
+      Read the entity back before retrying. There is NO idempotency key, so a
+      blind retry of a create can produce a duplicate rather than a 409.
+  - status: 500
+    title: Internal Server Error
+    occurrences: 22
+    remediation: Retry with backoff; quote meta.uuid to support if persistent.
+  - status: 503
+    title: Service Unavailable
+    occurrences: 5
+    remediation: See service-overloaded above.
+  - status: '5XX'
+    title: Server error range
+    occurrences: 10
+    note: Ten operations declare the wildcard 5XX range rather than specific codes.
+
+partial_success:
+  - status: 207
+    title: Multi-Status
+    occurrences: 7
+    applies_to:
+      - bulk-update-campaigns
+      - bulk-update-concepts
+      - bulk-update-atomic-creatives
+      - Bulk-Create-Deal
+      - Update-Bulk-Deal
+      - Bulk-Create-or-Update-Deal
+      - Bulk-Create-Publishers
+    note: >-
+      Bulk endpoints can succeed partially. An agent MUST inspect the per-item
+      results in the 207 body — a 207 is not a success.
+
+caching:
+  - status: 304
+    title: Not Modified
+    occurrences: 13
+    note: Conditional GET is supported on a subset of operations.
+
+gaps:
+  - No RFC 9457 problem+json representation.
+  - No stable error-code registry published as a page or machine-readable file; only three codes are documented by name, all rate-limit related.
+  - 4xx responses across all 44 specs share a single untyped error schema, so validation failures are not machine-distinguishable.
+  - No documented Retry-After on 409, only on 429/503.

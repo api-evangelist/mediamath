@@ -1,0 +1,175 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of /.well-known/* on every apis.yml and OpenAPI servers[] host
+note: >-
+  One real document was served: an RFC 8414 OAuth 2.0 Authorization Server
+  Metadata document at https://apidocs.mediamath.com/.well-known/oauth-authorization-server.
+  Its `issuer` is https://auth.cloud.redocly.com (Redocly Cloud, the platform
+  MediaMath's developer portal runs on), but every runtime endpoint it advertises
+  is on MediaMath's own host — /_mcp/oauth2/auth, /_mcp/oauth2/token-portal and
+  /_mcp/register on apidocs.mediamath.com — and it is the authorization server
+  that fronts the live MediaMath documentation MCP server at
+  https://apidocs.mediamath.com/mcp. It is therefore recorded as a MediaMath
+  surface, with the third-party issuer stated plainly rather than hidden.
+  It is NOT the authorization server for the MediaMath Platform REST APIs; those
+  authenticate against Auth0 at https://auth.mediamath.com/ (see
+  authentication/mediamath-authentication.yml).
+
+  Every /.well-known/agent-card.json and /.well-known/agent.json probe missed.
+  Note that www.mediamath.com and platform.mediamath.com answer HTTP 200 with an
+  HTML single-page-app shell for EVERY /.well-known/* path, including paths that
+  cannot exist. Those 200s are catch-alls, not documents, and are recorded below
+  as misses.
+
+hosts:
+  - host: https://apidocs.mediamath.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: mediamath-oauth-authorization-server.json
+        real_document: true
+      - path: /.well-known/security.txt
+        status: 404
+        real_document: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        real_document: false
+      - path: /.well-known/api-catalog
+        status: 404
+        real_document: false
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        real_document: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        real_document: false
+      - path: /.well-known/agent.json
+        status: 404
+        real_document: false
+
+  - host: https://api.mediamath.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        real_document: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        real_document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        real_document: false
+      - path: /.well-known/api-catalog
+        status: 404
+        real_document: false
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        real_document: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        real_document: false
+      - path: /.well-known/agent.json
+        status: 404
+        real_document: false
+
+  - host: https://www.mediamath.com
+    note: >-
+      Redirects to https://infillion.com/products/infillion-mediamath/. Returns
+      HTTP 200 with a 350KB HTML page for arbitrary /.well-known/* paths — an SPA
+      catch-all. Treated as a miss on every path.
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/agent.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/security.txt
+        status: 404
+        real_document: false
+
+  - host: https://platform.mediamath.com
+    note: >-
+      The MediaMath Platform login application. Returns HTTP 200 with the same
+      1KB HTML app shell for every /.well-known/* path. Treated as a miss.
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/agent.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        content_type: text/html
+        real_document: false
+
+  - host: https://infillion.com
+    note: Parent company site. Every /.well-known/* path 404s.
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 404
+        real_document: false
+      - path: /.well-known/agent.json
+        status: 404
+        real_document: false
+      - path: /.well-known/security.txt
+        status: 404
+        real_document: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        real_document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        real_document: false
+      - path: /.well-known/api-catalog
+        status: 404
+        real_document: false
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        real_document: false
+
+summary:
+  real_documents: 1
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: true
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false

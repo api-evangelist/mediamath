@@ -1,0 +1,2705 @@
+{
+  "item": [
+    {
+      "id": "c0432825-c91d-4850-8b15-7e62364db8ba",
+      "name": "Atomic Creatives",
+      "description": {
+        "content": "Atomic Creatives",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b46a3550-28d3-48bd-9bcc-4ff873bf6807",
+          "name": "Preview creative assets before uploading",
+          "request": {
+            "name": "Preview creative assets before uploading",
+            "description": {
+              "content": "This endpoint allows you to preview creative assets before they are permanently uploaded to the system. \nIt validates the files and metadata, returning a preview of what will be created without actually \nstoring the creatives. This is useful for verifying that your files and metadata are correct before \ncommitting to the upload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creative_draft"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "filename",
+                  "value": "[\"<binary>\"]",
+                  "type": "text",
+                  "description": "(Required) Creative asset files to upload"
+                },
+                {
+                  "key": "metadata",
+                  "value": "{\"advertiser_id\":\"<integer>\",\"is_https\":true,\"submissions\":[{\"name\":\"<string>\",\"click_through_url\":\"<uri>\",\"landing_page\":\"<uri>\",\"concept_id\":\"<integer>\",\"backup\":\"<string>\"},{\"name\":\"<string>\",\"click_through_url\":\"<uri>\",\"landing_page\":\"<uri>\",\"concept_id\":\"<integer>\",\"backup\":\"<string>\"}]}",
+                  "type": "text",
+                  "description": "(Required) JSON string containing metadata for all files"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4301b3a5-f920-46a1-882e-97ac52c38e12",
+              "name": "Preview generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creative_draft"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Creative asset files to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "filename",
+                      "value": "[\"banner_300x250.jpg\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) JSON string containing metadata for all files",
+                        "type": "text/plain"
+                      },
+                      "key": "metadata",
+                      "value": "{\"advertiser_id\":100212,\"is_https\":true,\"submissions\":[{\"name\":\"banner_300x250.jpg\",\"click_through_url\":\"https://example.com/click\",\"landing_page\":\"https://example.com/landing\",\"concept_id\":4157184}]}",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"uploaded_files\": [\n      {\n        \"name\": \"banner_300x250.jpg\"\n      }\n    ],\n    \"metadata\": {\n      \"advertiser_id\": 100212,\n      \"is_https\": true,\n      \"submissions\": [\n        {\n          \"name\": \"banner_300x250.jpg\",\n          \"landing_page\": \"https://example.com/landing\",\n          \"click_through_url\": \"https://example.com/click\",\n          \"concept_id\": 4157184\n        }\n      ]\n    }\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cb8a962-3a9d-4c15-bf3d-56790196ee08",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creative_draft"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Creative asset files to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "filename",
+                      "value": "[\"banner_300x250.jpg\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) JSON string containing metadata for all files",
+                        "type": "text/plain"
+                      },
+                      "key": "metadata",
+                      "value": "{\"advertiser_id\":100212,\"is_https\":true,\"submissions\":[{\"name\":\"banner_300x250.jpg\",\"click_through_url\":\"https://example.com/click\",\"landing_page\":\"https://example.com/landing\",\"concept_id\":4157184}]}",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"status\": \"error\",\n    \"error\": \"Missing required field: advertiser_id\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f3edd24-6766-46d1-8fbd-9fbb3bc236ea",
+          "name": "Creative assets upload",
+          "request": {
+            "name": "Creative assets upload",
+            "description": {
+              "content": "Upload creative assets to the system and create atomic creatives. This endpoint processes the uploaded \nfiles and metadata, validates them, and stores them permanently in the system. Once uploaded, the \ncreatives can be associated with campaigns and strategies.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "creative_upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "filename",
+                  "value": "[\"<binary>\"]",
+                  "type": "text",
+                  "description": "(Required) Creative asset files to upload"
+                },
+                {
+                  "key": "metadata",
+                  "value": "{\"advertiser_id\":\"<integer>\",\"submissions\":[{\"name\":\"<string>\",\"click_through_url\":\"<uri>\",\"concept_id\":\"<integer>\",\"landing_page\":\"<uri>\",\"backup\":\"<string>\",\"creative_name\":\"<string>\"}],\"is_https\":true}",
+                  "type": "text",
+                  "description": "(Required) JSON string containing metadata for all files"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "52d47daf-d80a-4e21-b0ec-f3f0d10f932a",
+              "name": "Upload completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creative_upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Creative asset files to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "filename",
+                      "value": "[\"holiday_banner_728x90.jpg\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) JSON string containing metadata for all files",
+                        "type": "text/plain"
+                      },
+                      "key": "metadata",
+                      "value": "{\"advertiser_id\":100212,\"is_https\":true,\"submissions\":[{\"name\":\"holiday_banner_728x90.jpg\",\"click_through_url\":\"https://shop.example.com/holiday-sale\",\"landing_page\":\"https://shop.example.com/landing/holiday\",\"concept_id\":1001}]}",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 11990780,\n      \"version\": 0,\n      \"entity_type\": \"atomic_creative\",\n      \"advertiser_id\": 100212,\n      \"concept_id\": 4253705,\n      \"concept_name\": \"Concept A\",\n      \"name\": \"banner_300x250.jpg\",\n      \"width\": 300,\n      \"height\": 250,\n      \"file_type\": \"jpg\",\n      \"is_https\": true,\n      \"is_multi_creative\": false,\n      \"has_sound\": false,\n      \"rich_media\": false,\n      \"status\": true,\n      \"built\": false,\n      \"build_date\": \"2025-12-12T19:17:31Z\",\n      \"built_by_user_id\": 22612,\n      \"created_on\": \"2025-12-12T19:17:31Z\",\n      \"last_modified\": \"2025-12-12T19:17:31Z\",\n      \"external_identifier\": \"mm12345.678901\",\n      \"tpas_ad_tag_name\": \"banner_300x250\",\n      \"updated_on\": \"2025-12-12T19:17:31Z\",\n      \"click_url\": \"https://example.com\",\n      \"ad_format\": \"DISPLAY\",\n      \"expansion_trigger\": \"MOUSEOVER\",\n      \"expansion_direction\": \"NONRESTRICTED\",\n      \"ad_server_type\": \"TERMINALONE\",\n      \"t1as\": true,\n      \"edited_tag\": \"\",\n      \"click_through_url\": \"https://example.com/click\",\n      \"approval_status\": \"PENDING\",\n      \"media_type\": \"display\",\n      \"is_mraid\": false,\n      \"sizmek_tag_status\": \"NOT_USED\",\n      \"sizmek_creative_status\": \"NOT_USED\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 1,\n    \"total_count\": 1,\n    \"offset\": 0,\n    \"next_page\": \"https://api.mediamath.com/creative_upload?page_offset=0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88eae61f-5d49-40d3-b98e-b1383d9fe9a2",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "creative_upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Creative asset files to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "filename",
+                      "value": "[\"holiday_banner_728x90.jpg\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) JSON string containing metadata for all files",
+                        "type": "text/plain"
+                      },
+                      "key": "metadata",
+                      "value": "{\"advertiser_id\":100212,\"is_https\":true,\"submissions\":[{\"name\":\"holiday_banner_728x90.jpg\",\"click_through_url\":\"https://shop.example.com/holiday-sale\",\"landing_page\":\"https://shop.example.com/landing/holiday\",\"concept_id\":1001}]}",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": null,\n  \"meta\": {\n    \"status\": \"error\",\n    \"error\": \"Invalid metadata: submissions array cannot be empty\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c53da96-7f36-44c2-8dad-a03720e0f7b9",
+          "name": "List Atomic Creatives",
+          "request": {
+            "name": "List Atomic Creatives",
+            "description": {
+              "content": "Get a list of atomic creatives",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "atomic_creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ee8742a-e7a5-40a0-96d5-62da15f41ac3",
+              "name": "Atomic creative collection response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 1937,\n      \"version\": 9260,\n      \"entity_type\": \"string\",\n      \"advertiser_id\": 8015,\n      \"name\": \"string\",\n      \"width\": 3779,\n      \"height\": 1928,\n      \"file_type\": \"string\",\n      \"is_https\": false,\n      \"is_multi_creative\": true,\n      \"has_sound\": true,\n      \"rich_media\": false,\n      \"built\": true,\n      \"created_on\": \"1966-03-23T17:42:26.399Z\",\n      \"last_modified\": \"string\",\n      \"tpas_ad_tag_name\": \"string\",\n      \"updated_on\": \"1948-11-02T19:32:02.382Z\",\n      \"ad_format\": \"string\",\n      \"expansion_trigger\": \"MOUSEOVER\",\n      \"expansion_direction\": \"NONRESTRICTED\",\n      \"t1as\": false,\n      \"approval_status\": \"string\",\n      \"media_type\": \"string\",\n      \"is_mraid\": false,\n      \"sizmek_tag_status\": \"string\",\n      \"sizmek_creative_status\": \"string\",\n      \"concept_id\": 7137,\n      \"concept_name\": \"string\",\n      \"creative_import_file_id\": 7781,\n      \"rich_media_provider\": \"string\",\n      \"status\": false,\n      \"archived\": false,\n      \"build_date\": \"string\",\n      \"built_by_user_id\": 8119,\n      \"build_errors\": \"string\",\n      \"external_identifier\": \"string\",\n      \"expand\": \"string\",\n      \"click_url\": \"string\",\n      \"ad_server_type\": \"string\",\n      \"tpas_ad_tag\": \"string\",\n      \"edited_tag\": \"string\",\n      \"click_through_url\": \"string\",\n      \"rejected_reason\": \"string\",\n      \"start_date\": \"string\",\n      \"end_date\": \"string\",\n      \"vast_version\": 2.20080966677635,\n      \"last_payload_modified\": \"string\",\n      \"is_audio\": true,\n      \"tag\": \"string\",\n      \"tag_type\": \"string\"\n    },\n    {\n      \"id\": 7421,\n      \"version\": 9084,\n      \"entity_type\": \"string\",\n      \"advertiser_id\": 3954,\n      \"name\": \"string\",\n      \"width\": 6614,\n      \"height\": 968,\n      \"file_type\": \"string\",\n      \"is_https\": true,\n      \"is_multi_creative\": true,\n      \"has_sound\": true,\n      \"rich_media\": false,\n      \"built\": false,\n      \"created_on\": \"2012-06-27T16:39:36.554Z\",\n      \"last_modified\": \"string\",\n      \"tpas_ad_tag_name\": \"string\",\n      \"updated_on\": \"2014-05-05T15:55:53.602Z\",\n      \"ad_format\": \"string\",\n      \"expansion_trigger\": \"MOUSEOVER\",\n      \"expansion_direction\": \"NONRESTRICTED\",\n      \"t1as\": true,\n      \"approval_status\": \"string\",\n      \"media_type\": \"string\",\n      \"is_mraid\": true,\n      \"sizmek_tag_status\": \"string\",\n      \"sizmek_creative_status\": \"string\",\n      \"concept_id\": 1364,\n      \"concept_name\": \"string\",\n      \"creative_import_file_id\": 7414,\n      \"rich_media_provider\": \"string\",\n      \"status\": true,\n      \"archived\": true,\n      \"build_date\": \"string\",\n      \"built_by_user_id\": 8718,\n      \"build_errors\": \"string\",\n      \"external_identifier\": \"string\",\n      \"expand\": \"string\",\n      \"click_url\": \"string\",\n      \"ad_server_type\": \"string\",\n      \"tpas_ad_tag\": \"string\",\n      \"edited_tag\": \"string\",\n      \"click_through_url\": \"string\",\n      \"rejected_reason\": \"string\",\n      \"start_date\": \"string\",\n      \"end_date\": \"string\",\n      \"vast_version\": 4.180711932785396,\n      \"last_payload_modified\": \"string\",\n      \"is_audio\": false,\n      \"tag\": \"string\",\n      \"tag_type\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30afcbda-7e04-4a03-ade6-ab5f84869ed2",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cc41014-0d49-43c2-ad50-74a8a2b7c4c9",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0291f98a-6482-4a74-93f7-0e8c4fe6ee2f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17e51c24-3f83-4fd8-b017-ebe78bdd2362",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eed50b7d-e547-418c-ba1c-a57ef24658cf",
+          "name": "Create atomic creative",
+          "request": {
+            "name": "Create atomic creative",
+            "description": {
+              "content": "Create an atomic creative",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "atomic_creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"width\": \"<integer>\",\n  \"height\": \"<integer>\",\n  \"advertiser_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"creative_import_file_id\": \"<integer>\",\n  \"file_type\": \"unknown\",\n  \"is_multi_creative\": false,\n  \"has_sound\": false,\n  \"rich_media\": false,\n  \"rich_media_provider\": \"<string>\",\n  \"built\": false,\n  \"build_date\": \"<string>\",\n  \"build_errors\": \"<string>\",\n  \"external_identifier\": \"<string>\",\n  \"expand\": \"<string>\",\n  \"expansion_trigger\": \"MOUSEOVER\",\n  \"tpas_ad_tag\": \"<string>\",\n  \"edited_tag\": \"<string>\",\n  \"click_through_url\": \"<uri>\",\n  \"concept_id\": \"<integer>\",\n  \"status\": true,\n  \"archived\": false,\n  \"is_mraid\": false,\n  \"is_https\": false,\n  \"t1as\": false,\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"vast_version\": \"<float>\",\n  \"is_audio\": \"<boolean>\",\n  \"expansion_direction\": \"NONRESTRICTED\",\n  \"media_type\": \"display\",\n  \"ad_server_type\": \"<string>\",\n  \"ad_format\": \"DISPLAY\",\n  \"tpas_ad_tag_name\": \"<string>\",\n  \"click_url\": \"<uri>\",\n  \"sizmek_tag_status\": \"NOT_USED\",\n  \"sizmek_creative_status\": \"NOT_USED\",\n  \"tag\": \"<string>\",\n  \"tag_type\": \"<string>\",\n  \"vendor_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bd8ddd93-91ed-4d5e-8899-5e461db53a3c",
+              "name": "Atomic creative response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4213,\n    \"version\": 9005,\n    \"entity_type\": \"string\",\n    \"advertiser_id\": 2185,\n    \"name\": \"string\",\n    \"width\": 1009,\n    \"height\": 8553,\n    \"file_type\": \"string\",\n    \"is_https\": true,\n    \"is_multi_creative\": false,\n    \"has_sound\": false,\n    \"rich_media\": true,\n    \"built\": false,\n    \"created_on\": \"2025-12-29T04:16:40.079Z\",\n    \"last_modified\": \"string\",\n    \"tpas_ad_tag_name\": \"string\",\n    \"updated_on\": \"1969-03-26T13:55:06.224Z\",\n    \"ad_format\": \"string\",\n    \"expansion_trigger\": \"MOUSEOVER\",\n    \"expansion_direction\": \"NONRESTRICTED\",\n    \"t1as\": true,\n    \"approval_status\": \"string\",\n    \"media_type\": \"string\",\n    \"is_mraid\": true,\n    \"sizmek_tag_status\": \"string\",\n    \"sizmek_creative_status\": \"string\",\n    \"concept_id\": 6437,\n    \"concept_name\": \"string\",\n    \"creative_import_file_id\": 3510,\n    \"rich_media_provider\": \"string\",\n    \"status\": true,\n    \"archived\": false,\n    \"build_date\": \"string\",\n    \"built_by_user_id\": 4871,\n    \"build_errors\": \"string\",\n    \"external_identifier\": \"string\",\n    \"expand\": \"string\",\n    \"click_url\": \"string\",\n    \"ad_server_type\": \"string\",\n    \"tpas_ad_tag\": \"string\",\n    \"edited_tag\": \"string\",\n    \"click_through_url\": \"string\",\n    \"rejected_reason\": \"string\",\n    \"start_date\": \"string\",\n    \"end_date\": \"string\",\n    \"vast_version\": 0.15951410767903543,\n    \"last_payload_modified\": \"string\",\n    \"is_audio\": true,\n    \"tag\": \"string\",\n    \"tag_type\": \"string\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad0ddbb4-5444-4abb-bedf-c1123c69fa8a",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fc3237f-3d0c-467a-a1c3-ceb621b7b11b",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9053034d-5030-42f0-8c20-df98342b1bf5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "068ff606-4398-48aa-911a-c478982171bc",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a36c992-04c2-49c8-8f9e-c035f18ef395",
+          "name": "Get an Atomic Creative",
+          "request": {
+            "name": "Get an Atomic Creative",
+            "description": {
+              "content": "Get an atomic creative by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "atomic_creatives",
+                ":atomic_creative_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "atomic_creative_id",
+                  "description": "(Required) Numeric ID of the atomic creative to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26f6b9d2-ecba-4221-a6a8-f489cd4d67d6",
+              "name": "Atomic creative response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4213,\n    \"version\": 9005,\n    \"entity_type\": \"string\",\n    \"advertiser_id\": 2185,\n    \"name\": \"string\",\n    \"width\": 1009,\n    \"height\": 8553,\n    \"file_type\": \"string\",\n    \"is_https\": true,\n    \"is_multi_creative\": false,\n    \"has_sound\": false,\n    \"rich_media\": true,\n    \"built\": false,\n    \"created_on\": \"2025-12-29T04:16:40.079Z\",\n    \"last_modified\": \"string\",\n    \"tpas_ad_tag_name\": \"string\",\n    \"updated_on\": \"1969-03-26T13:55:06.224Z\",\n    \"ad_format\": \"string\",\n    \"expansion_trigger\": \"MOUSEOVER\",\n    \"expansion_direction\": \"NONRESTRICTED\",\n    \"t1as\": true,\n    \"approval_status\": \"string\",\n    \"media_type\": \"string\",\n    \"is_mraid\": true,\n    \"sizmek_tag_status\": \"string\",\n    \"sizmek_creative_status\": \"string\",\n    \"concept_id\": 6437,\n    \"concept_name\": \"string\",\n    \"creative_import_file_id\": 3510,\n    \"rich_media_provider\": \"string\",\n    \"status\": true,\n    \"archived\": false,\n    \"build_date\": \"string\",\n    \"built_by_user_id\": 4871,\n    \"build_errors\": \"string\",\n    \"external_identifier\": \"string\",\n    \"expand\": \"string\",\n    \"click_url\": \"string\",\n    \"ad_server_type\": \"string\",\n    \"tpas_ad_tag\": \"string\",\n    \"edited_tag\": \"string\",\n    \"click_through_url\": \"string\",\n    \"rejected_reason\": \"string\",\n    \"start_date\": \"string\",\n    \"end_date\": \"string\",\n    \"vast_version\": 0.15951410767903543,\n    \"last_payload_modified\": \"string\",\n    \"is_audio\": true,\n    \"tag\": \"string\",\n    \"tag_type\": \"string\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34bea6ea-9473-41bf-a723-6ba9e811ee5c",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73b762bd-a734-4ebc-b5b3-3df086fbdebe",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c9825a5-596e-48c5-b1a2-77bf66810fb5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5588cb5-8e09-462a-b82d-0a29cc78da81",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "296e8cbd-f9ac-452c-92cb-ae99f2e0d11a",
+          "name": "Update an atomic creative",
+          "request": {
+            "name": "Update an atomic creative",
+            "description": {
+              "content": "Update an atomic creative by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "atomic_creatives",
+                ":atomic_creative_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "atomic_creative_id",
+                  "description": "(Required) Numeric ID of the atomic creative to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"version\": \"<integer>\",\n  \"external_identifier\": \"<string>\",\n  \"width\": \"<integer>\",\n  \"height\": \"<integer>\",\n  \"concept_id\": \"<integer>\",\n  \"status\": \"<boolean>\",\n  \"archived\": \"<boolean>\",\n  \"is_mraid\": \"<boolean>\",\n  \"is_https\": \"<boolean>\",\n  \"t1as\": \"<boolean>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"vast_version\": \"<float>\",\n  \"is_audio\": \"<boolean>\",\n  \"expansion_direction\": \"NONRESTRICTED\",\n  \"expansion_trigger\": \"MOUSEOVER\",\n  \"media_type\": \"<string>\",\n  \"ad_server_type\": \"<string>\",\n  \"ad_format\": \"DISPLAY\",\n  \"tpas_ad_tag\": \"<string>\",\n  \"tpas_ad_tag_name\": \"<string>\",\n  \"click_through_url\": \"<uri>\",\n  \"click_url\": \"<uri>\",\n  \"edited_tag\": \"<string>\",\n  \"tag\": \"<string>\",\n  \"tag_type\": \"<string>\",\n  \"vendor_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "004a7b9b-be7a-43bb-997c-d97d95ed4679",
+              "name": "Atomic creative response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 4213,\n    \"version\": 9005,\n    \"entity_type\": \"string\",\n    \"advertiser_id\": 2185,\n    \"name\": \"string\",\n    \"width\": 1009,\n    \"height\": 8553,\n    \"file_type\": \"string\",\n    \"is_https\": true,\n    \"is_multi_creative\": false,\n    \"has_sound\": false,\n    \"rich_media\": true,\n    \"built\": false,\n    \"created_on\": \"2025-12-29T04:16:40.079Z\",\n    \"last_modified\": \"string\",\n    \"tpas_ad_tag_name\": \"string\",\n    \"updated_on\": \"1969-03-26T13:55:06.224Z\",\n    \"ad_format\": \"string\",\n    \"expansion_trigger\": \"MOUSEOVER\",\n    \"expansion_direction\": \"NONRESTRICTED\",\n    \"t1as\": true,\n    \"approval_status\": \"string\",\n    \"media_type\": \"string\",\n    \"is_mraid\": true,\n    \"sizmek_tag_status\": \"string\",\n    \"sizmek_creative_status\": \"string\",\n    \"concept_id\": 6437,\n    \"concept_name\": \"string\",\n    \"creative_import_file_id\": 3510,\n    \"rich_media_provider\": \"string\",\n    \"status\": true,\n    \"archived\": false,\n    \"build_date\": \"string\",\n    \"built_by_user_id\": 4871,\n    \"build_errors\": \"string\",\n    \"external_identifier\": \"string\",\n    \"expand\": \"string\",\n    \"click_url\": \"string\",\n    \"ad_server_type\": \"string\",\n    \"tpas_ad_tag\": \"string\",\n    \"edited_tag\": \"string\",\n    \"click_through_url\": \"string\",\n    \"rejected_reason\": \"string\",\n    \"start_date\": \"string\",\n    \"end_date\": \"string\",\n    \"vast_version\": 0.15951410767903543,\n    \"last_payload_modified\": \"string\",\n    \"is_audio\": true,\n    \"tag\": \"string\",\n    \"tag_type\": \"string\"\n  },\n  \"meta\": {\n    \"status\": \"success\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef921fc5-bba4-463f-ae0e-8e96ee2c45c7",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e639def-7e4e-4be8-b509-8279383f1a3d",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c82130f6-a080-439a-8601-9b6dad250bd2",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c9ad012-c1e6-454c-9970-86faff9e3de2",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af11873c-37f0-4043-a81a-4e3bb6596f6e",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a033fe5c-7a2d-499c-8d4a-98edbec6e281",
+          "name": "Atomic Creative Audit Log",
+          "request": {
+            "name": "Atomic Creative Audit Log",
+            "description": {
+              "content": "Get a list changes to this atomic creative",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "atomic_creatives",
+                ":atomic_creative_id",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_limit",
+                  "value": "<integer>",
+                  "description": "Number of elements in the collection to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_offset",
+                  "value": "<integer>",
+                  "description": "Index of the first element in the collection to retrieve"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "atomic_creative_id",
+                  "description": "(Required) Numeric ID of the atomic creative"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fbde2ce0-3323-4430-b109-73298b9ba7b7",
+              "name": "Audit log response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"action\": \"string\",\n      \"date\": \"2000-09-10T22:11:20.741Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 8356,\n      \"collection\": \"string\",\n      \"entity_id\": 6673,\n      \"tool_name\": \"string\"\n    },\n    {\n      \"action\": \"string\",\n      \"date\": \"1987-09-08T14:12:31.662Z\",\n      \"fields\": [\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        },\n        {\n          \"field_name\": \"string\",\n          \"old_value\": \"string\",\n          \"new_value\": \"string\"\n        }\n      ],\n      \"user_name\": \"string\",\n      \"user_id\": 1953,\n      \"collection\": \"string\",\n      \"entity_id\": 9220,\n      \"tool_name\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb36694a-a2e2-4662-8344-979af45959e5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74a8b36f-e930-4eb1-9e55-cc1454916191",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f98ef84b-52e4-4148-9441-ab59f5782087",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bba49910-7ad3-4036-bc5d-6158f03bed2a",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    ":atomic_creative_id",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page_offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "atomic_creative_id",
+                      "description": "(Required) Numeric ID of the atomic creative"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae4b3b2b-e9da-40e5-bda5-0cef51ca6f60",
+          "name": "Healthcheck for Atomic Creatives",
+          "request": {
+            "name": "Healthcheck for Atomic Creatives",
+            "description": {
+              "content": "Endpoint to check the health of atomic creatives by ID(s).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "atomic_creatives",
+                "healthcheck"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Query parameter to specify the atomic creative ID(s).\nFormat:\n- For multiple IDs: `atomic_creative_id==(id1, id2)`\n- For a single ID: `atomic_creative_id==id`\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8d2c766-76d1-406a-a0df-3518a3262aa8",
+              "name": "Atomic creative healthcheck response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "atomic_creative_id==11884513"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"AdxOpenAuction\": \"string\",\n      \"AtomicCreativeID\": 2347,\n      \"Freakout\": \"string\",\n      \"MicrosoftAdExchange\": \"string\",\n      \"AdxDeals\": \"string\",\n      \"MoPubDirect\": \"string\",\n      \"RightMediaExchange\": \"string\",\n      \"BrightrollForDisplay\": \"string\",\n      \"AppNexus\": \"string\",\n      \"EntityType\": \"string\",\n      \"NetStatus\": \"string\",\n      \"CreativeName\": \"string\",\n      \"AdvertiserID\": 4376,\n      \"AdvertiserName\": \"string\"\n    },\n    {\n      \"AdxOpenAuction\": \"string\",\n      \"AtomicCreativeID\": 5174,\n      \"Freakout\": \"string\",\n      \"MicrosoftAdExchange\": \"string\",\n      \"AdxDeals\": \"string\",\n      \"MoPubDirect\": \"string\",\n      \"RightMediaExchange\": \"string\",\n      \"BrightrollForDisplay\": \"string\",\n      \"AppNexus\": \"string\",\n      \"EntityType\": \"string\",\n      \"NetStatus\": \"string\",\n      \"CreativeName\": \"string\",\n      \"AdvertiserID\": 69,\n      \"AdvertiserName\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "191ddfa3-7197-42a4-8366-c43314d42643",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "atomic_creative_id==11884513"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b04b4945-4da4-45b5-ac30-a01528723a6f",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "atomic_creative_id==11884513"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb8dd71f-1217-4640-9b48-4e590468dba5",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "atomic_creative_id==11884513"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64dc2bc5-9edf-44bd-95fe-561c75ed7f6e",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "atomic_creatives",
+                    "healthcheck"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "atomic_creative_id==11884513"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ec1e6ad-d5ab-4815-917b-2785843413a0",
+          "name": "Bulk Update Atomic Creatives",
+          "request": {
+            "name": "Bulk Update Atomic Creatives",
+            "description": {
+              "content": "Update multiple atomic creatives",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bulk_update",
+                "atomic_creatives"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extended",
+                  "value": "<boolean>",
+                  "description": "Get extended properties in response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"atomic_creatives\": {\n    \"create\": [\n      {\n        \"width\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"advertiser_id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"creative_import_file_id\": \"<integer>\",\n        \"file_type\": \"unknown\",\n        \"is_multi_creative\": false,\n        \"has_sound\": false,\n        \"rich_media\": false,\n        \"rich_media_provider\": \"<string>\",\n        \"built\": false,\n        \"build_date\": \"<string>\",\n        \"build_errors\": \"<string>\",\n        \"external_identifier\": \"<string>\",\n        \"expand\": \"<string>\",\n        \"expansion_trigger\": \"MOUSEOVER\",\n        \"tpas_ad_tag\": \"<string>\",\n        \"edited_tag\": \"<string>\",\n        \"click_through_url\": \"<uri>\",\n        \"concept_id\": \"<integer>\",\n        \"status\": true,\n        \"archived\": false,\n        \"is_mraid\": false,\n        \"is_https\": false,\n        \"t1as\": false,\n        \"start_date\": \"<string>\",\n        \"end_date\": \"<string>\",\n        \"vast_version\": \"<float>\",\n        \"is_audio\": \"<boolean>\",\n        \"expansion_direction\": \"NONRESTRICTED\",\n        \"media_type\": \"display\",\n        \"ad_server_type\": \"<string>\",\n        \"ad_format\": \"DISPLAY\",\n        \"tpas_ad_tag_name\": \"<string>\",\n        \"click_url\": \"<uri>\",\n        \"sizmek_tag_status\": \"NOT_USED\",\n        \"sizmek_creative_status\": \"NOT_USED\",\n        \"tag\": \"<string>\",\n        \"tag_type\": \"<string>\",\n        \"vendor_ids\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      {\n        \"width\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"advertiser_id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"creative_import_file_id\": \"<integer>\",\n        \"file_type\": \"unknown\",\n        \"is_multi_creative\": false,\n        \"has_sound\": false,\n        \"rich_media\": false,\n        \"rich_media_provider\": \"<string>\",\n        \"built\": false,\n        \"build_date\": \"<string>\",\n        \"build_errors\": \"<string>\",\n        \"external_identifier\": \"<string>\",\n        \"expand\": \"<string>\",\n        \"expansion_trigger\": \"MOUSEOVER\",\n        \"tpas_ad_tag\": \"<string>\",\n        \"edited_tag\": \"<string>\",\n        \"click_through_url\": \"<uri>\",\n        \"concept_id\": \"<integer>\",\n        \"status\": true,\n        \"archived\": false,\n        \"is_mraid\": false,\n        \"is_https\": false,\n        \"t1as\": false,\n        \"start_date\": \"<string>\",\n        \"end_date\": \"<string>\",\n        \"vast_version\": \"<float>\",\n        \"is_audio\": \"<boolean>\",\n        \"expansion_direction\": \"NONRESTRICTED\",\n        \"media_type\": \"display\",\n        \"ad_server_type\": \"<string>\",\n        \"ad_format\": \"DISPLAY\",\n        \"tpas_ad_tag_name\": \"<string>\",\n        \"click_url\": \"<uri>\",\n        \"sizmek_tag_status\": \"NOT_USED\",\n        \"sizmek_creative_status\": \"NOT_USED\",\n        \"tag\": \"<string>\",\n        \"tag_type\": \"<string>\",\n        \"vendor_ids\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    ],\n    \"update\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"version\": \"<integer>\",\n        \"external_identifier\": \"<string>\",\n        \"width\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"concept_id\": \"<integer>\",\n        \"status\": \"<boolean>\",\n        \"archived\": \"<boolean>\",\n        \"is_mraid\": \"<boolean>\",\n        \"is_https\": \"<boolean>\",\n        \"t1as\": \"<boolean>\",\n        \"start_date\": \"<dateTime>\",\n        \"end_date\": \"<dateTime>\",\n        \"vast_version\": \"<float>\",\n        \"is_audio\": \"<boolean>\",\n        \"expansion_direction\": \"NONRESTRICTED\",\n        \"expansion_trigger\": \"MOUSEOVER\",\n        \"media_type\": \"<string>\",\n        \"ad_server_type\": \"<string>\",\n        \"ad_format\": \"DISPLAY\",\n        \"tpas_ad_tag\": \"<string>\",\n        \"tpas_ad_tag_name\": \"<string>\",\n        \"click_through_url\": \"<uri>\",\n        \"click_url\": \"<uri>\",\n        \"edited_tag\": \"<string>\",\n        \"tag\": \"<string>\",\n        \"tag_type\": \"<string>\",\n        \"vendor_ids\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"version\": \"<integer>\",\n        \"external_identifier\": \"<string>\",\n        \"width\": \"<integer>\",\n        \"height\": \"<integer>\",\n        \"concept_id\": \"<integer>\",\n        \"status\": \"<boolean>\",\n        \"archived\": \"<boolean>\",\n        \"is_mraid\": \"<boolean>\",\n        \"is_https\": \"<boolean>\",\n        \"t1as\": \"<boolean>\",\n        \"start_date\": \"<dateTime>\",\n        \"end_date\": \"<dateTime>\",\n        \"vast_version\": \"<float>\",\n        \"is_audio\": \"<boolean>\",\n        \"expansion_direction\": \"NONRESTRICTED\",\n        \"expansion_trigger\": \"MOUSEOVER\",\n        \"media_type\": \"<string>\",\n        \"ad_server_type\": \"<string>\",\n        \"ad_format\": \"DISPLAY\",\n        \"tpas_ad_tag\": \"<string>\",\n        \"tpas_ad_tag_name\": \"<string>\",\n        \"click_through_url\": \"<uri>\",\n        \"click_url\": \"<uri>\",\n        \"edited_tag\": \"<string>\",\n        \"tag\": \"<string>\",\n        \"tag_type\": \"<string>\",\n        \"vendor_ids\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7168632b-6d81-4bc9-b025-b540d5941038",
+              "name": "Atomic creative bulk response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 6431,\n      \"version\": 1216,\n      \"entity_type\": \"string\",\n      \"advertiser_id\": 4325,\n      \"name\": \"string\",\n      \"width\": 5460,\n      \"height\": 2166,\n      \"file_type\": \"string\",\n      \"is_https\": false,\n      \"is_multi_creative\": true,\n      \"has_sound\": true,\n      \"rich_media\": true,\n      \"built\": true,\n      \"created_on\": \"2005-04-12T03:19:25.589Z\",\n      \"last_modified\": \"string\",\n      \"tpas_ad_tag_name\": \"string\",\n      \"updated_on\": \"2018-04-21T06:00:30.043Z\",\n      \"ad_format\": \"string\",\n      \"expansion_trigger\": \"MOUSEOVER\",\n      \"expansion_direction\": \"NONRESTRICTED\",\n      \"t1as\": false,\n      \"approval_status\": \"string\",\n      \"media_type\": \"string\",\n      \"is_mraid\": false,\n      \"sizmek_tag_status\": \"string\",\n      \"sizmek_creative_status\": \"string\",\n      \"concept_id\": 1977,\n      \"concept_name\": \"string\",\n      \"creative_import_file_id\": 9235,\n      \"rich_media_provider\": \"string\",\n      \"status\": false,\n      \"archived\": true,\n      \"build_date\": \"string\",\n      \"built_by_user_id\": 6496,\n      \"build_errors\": \"string\",\n      \"external_identifier\": \"string\",\n      \"expand\": \"string\",\n      \"click_url\": \"string\",\n      \"ad_server_type\": \"string\",\n      \"tpas_ad_tag\": \"string\",\n      \"edited_tag\": \"string\",\n      \"click_through_url\": \"string\",\n      \"rejected_reason\": \"string\",\n      \"start_date\": \"string\",\n      \"end_date\": \"string\",\n      \"vast_version\": 7.056326798175793,\n      \"last_payload_modified\": \"string\",\n      \"is_audio\": true,\n      \"tag\": \"string\",\n      \"tag_type\": \"string\"\n    },\n    {\n      \"id\": 2776,\n      \"version\": 6868,\n      \"entity_type\": \"string\",\n      \"advertiser_id\": 6628,\n      \"name\": \"string\",\n      \"width\": 1706,\n      \"height\": 6713,\n      \"file_type\": \"string\",\n      \"is_https\": false,\n      \"is_multi_creative\": true,\n      \"has_sound\": true,\n      \"rich_media\": false,\n      \"built\": true,\n      \"created_on\": \"2005-02-19T21:36:25.101Z\",\n      \"last_modified\": \"string\",\n      \"tpas_ad_tag_name\": \"string\",\n      \"updated_on\": \"1973-11-18T02:15:45.088Z\",\n      \"ad_format\": \"string\",\n      \"expansion_trigger\": \"MOUSEOVER\",\n      \"expansion_direction\": \"NONRESTRICTED\",\n      \"t1as\": true,\n      \"approval_status\": \"string\",\n      \"media_type\": \"string\",\n      \"is_mraid\": true,\n      \"sizmek_tag_status\": \"string\",\n      \"sizmek_creative_status\": \"string\",\n      \"concept_id\": 5968,\n      \"concept_name\": \"string\",\n      \"creative_import_file_id\": 1375,\n      \"rich_media_provider\": \"string\",\n      \"status\": true,\n      \"archived\": false,\n      \"build_date\": \"string\",\n      \"built_by_user_id\": 9207,\n      \"build_errors\": \"string\",\n      \"external_identifier\": \"string\",\n      \"expand\": \"string\",\n      \"click_url\": \"string\",\n      \"ad_server_type\": \"string\",\n      \"tpas_ad_tag\": \"string\",\n      \"edited_tag\": \"string\",\n      \"click_through_url\": \"string\",\n      \"rejected_reason\": \"string\",\n      \"start_date\": \"string\",\n      \"end_date\": \"string\",\n      \"vast_version\": 5.525242713950527,\n      \"last_payload_modified\": \"string\",\n      \"is_audio\": true,\n      \"tag\": \"string\",\n      \"tag_type\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"id\": 334,\n      \"action\": \"string\",\n      \"entity_type\": \"string\",\n      \"index\": 1751,\n      \"errors\": [\n        {\n          \"id\": 5257,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"id\": 5546,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 9817,\n      \"action\": \"string\",\n      \"entity_type\": \"string\",\n      \"index\": 7032,\n      \"errors\": [\n        {\n          \"id\": 4500,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"id\": 8960,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8e78ff3-5399-43e4-b874-0c66013779f3",
+              "name": "Atomic creative bulk response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 9762,\n      \"version\": 4069,\n      \"entity_type\": \"string\",\n      \"advertiser_id\": 907,\n      \"name\": \"string\",\n      \"width\": 7999,\n      \"height\": 5660,\n      \"file_type\": \"string\",\n      \"is_https\": true,\n      \"is_multi_creative\": false,\n      \"has_sound\": false,\n      \"rich_media\": true,\n      \"built\": true,\n      \"created_on\": \"1947-03-10T18:06:10.744Z\",\n      \"last_modified\": \"string\",\n      \"tpas_ad_tag_name\": \"string\",\n      \"updated_on\": \"1948-05-21T13:00:31.372Z\",\n      \"ad_format\": \"string\",\n      \"expansion_trigger\": \"MOUSEOVER\",\n      \"expansion_direction\": \"NONRESTRICTED\",\n      \"t1as\": true,\n      \"approval_status\": \"string\",\n      \"media_type\": \"string\",\n      \"is_mraid\": false,\n      \"sizmek_tag_status\": \"string\",\n      \"sizmek_creative_status\": \"string\",\n      \"concept_id\": 6914,\n      \"concept_name\": \"string\",\n      \"creative_import_file_id\": 568,\n      \"rich_media_provider\": \"string\",\n      \"status\": true,\n      \"archived\": false,\n      \"build_date\": \"string\",\n      \"built_by_user_id\": 5118,\n      \"build_errors\": \"string\",\n      \"external_identifier\": \"string\",\n      \"expand\": \"string\",\n      \"click_url\": \"string\",\n      \"ad_server_type\": \"string\",\n      \"tpas_ad_tag\": \"string\",\n      \"edited_tag\": \"string\",\n      \"click_through_url\": \"string\",\n      \"rejected_reason\": \"string\",\n      \"start_date\": \"string\",\n      \"end_date\": \"string\",\n      \"vast_version\": 2.537498315613092,\n      \"last_payload_modified\": \"string\",\n      \"is_audio\": true,\n      \"tag\": \"string\",\n      \"tag_type\": \"string\"\n    },\n    {\n      \"id\": 4667,\n      \"version\": 5495,\n      \"entity_type\": \"string\",\n      \"advertiser_id\": 8346,\n      \"name\": \"string\",\n      \"width\": 6419,\n      \"height\": 8586,\n      \"file_type\": \"string\",\n      \"is_https\": false,\n      \"is_multi_creative\": false,\n      \"has_sound\": true,\n      \"rich_media\": true,\n      \"built\": false,\n      \"created_on\": \"2005-02-02T01:50:48.348Z\",\n      \"last_modified\": \"string\",\n      \"tpas_ad_tag_name\": \"string\",\n      \"updated_on\": \"2008-02-08T15:01:35.964Z\",\n      \"ad_format\": \"string\",\n      \"expansion_trigger\": \"MOUSEOVER\",\n      \"expansion_direction\": \"NONRESTRICTED\",\n      \"t1as\": false,\n      \"approval_status\": \"string\",\n      \"media_type\": \"string\",\n      \"is_mraid\": false,\n      \"sizmek_tag_status\": \"string\",\n      \"sizmek_creative_status\": \"string\",\n      \"concept_id\": 584,\n      \"concept_name\": \"string\",\n      \"creative_import_file_id\": 5011,\n      \"rich_media_provider\": \"string\",\n      \"status\": true,\n      \"archived\": true,\n      \"build_date\": \"string\",\n      \"built_by_user_id\": 3733,\n      \"build_errors\": \"string\",\n      \"external_identifier\": \"string\",\n      \"expand\": \"string\",\n      \"click_url\": \"string\",\n      \"ad_server_type\": \"string\",\n      \"tpas_ad_tag\": \"string\",\n      \"edited_tag\": \"string\",\n      \"click_through_url\": \"string\",\n      \"rejected_reason\": \"string\",\n      \"start_date\": \"string\",\n      \"end_date\": \"string\",\n      \"vast_version\": 5.888247800402282,\n      \"last_payload_modified\": \"string\",\n      \"is_audio\": false,\n      \"tag\": \"string\",\n      \"tag_type\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"success\",\n    \"count\": 10,\n    \"total_count\": 100,\n    \"offset\": 0,\n    \"next_page\": \"string\",\n    \"prev_page\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"id\": 2648,\n      \"action\": \"string\",\n      \"entity_type\": \"string\",\n      \"index\": 7344,\n      \"errors\": [\n        {\n          \"id\": 596,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"id\": 3007,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 9213,\n      \"action\": \"string\",\n      \"entity_type\": \"string\",\n      \"index\": 622,\n      \"errors\": [\n        {\n          \"id\": 4772,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        },\n        {\n          \"id\": 1,\n          \"code\": \"string\",\n          \"field\": \"string\",\n          \"message\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b39985d3-896f-47f6-92e2-c59b597efca6",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fa428a7-d7d8-4c5e-b560-d199beb1c61e",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b7a5f85-5416-467b-b5a5-77336941e000",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bulk_update",
+                    "atomic_creatives"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extended",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"status\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mediamath.com/api/v3.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "offline_access manage:services"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://auth.mediamath.com/authorize?scope=offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.mediamath.com/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.mediamath.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3fdbb66f-b1ed-4fb2-97bf-2d57ef6522d2",
+    "name": "Campaigns Ad Servers Atomic Creatives API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MediaMath Campaign Management API\n\n[Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)\n",
+      "type": "text/plain"
+    }
+  }
+}
