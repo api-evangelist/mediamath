@@ -4,6 +4,18 @@ description: MediaMath (by Infillion) is a programmatic advertising DSP with RES
   targeting, bidding strategies, creative trafficking, audience segments, and performance analytics. The
   platform provides an API-first composable architecture supporting campaign management, reporting, audience
   onboarding, marketplaces access, and custom bidding algorithms.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
@@ -1920,6 +1932,9 @@ apis:
   - type: Documentation
     url: https://apidocs.mediamath.com/apis/video-creatives
 common:
+- type: CapabilityMap
+  url: capabilities/mediamath-capability-edges.yml
+  name: MediaMath Business Capability Map
 - type: AgenticAccess
   url: agentic-access/mediamath-agentic-access.yml
 - type: DomainSecurity
