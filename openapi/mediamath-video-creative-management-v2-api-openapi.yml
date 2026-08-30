@@ -1,0 +1,615 @@
+openapi: 3.2.0
+info:
+  title: Video Creatives Video Creative Management (V2) API
+  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication token](/guides/authentication).
+
+
+    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs) and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
+
+
+    *Example HTTPie command to list all video creatives.*
+
+    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
+
+
+    ## Migration Notice
+
+
+    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
+
+
+    | Deprecated V2.0 Endpoint | Use Instead |
+
+    |---|---|
+
+    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
+
+    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
+
+    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions` |
+
+    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field (returns a pre-signed S3 upload URL) |
+
+    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
+
+
+    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1.0
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: Video Creative Management (V2)
+  description: V2.0 video creative endpoints (legacy)
+paths:
+  /video/v2.0/creatives/{video_id}/companions:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Companions
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/creatives/{creativeId}/companions` instead.
+
+
+        Get Video Creative Companions
+
+        '
+      operationId: GET_video-v2-0-creatives-video_id-companions
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanionsResponse'
+        '404':
+          description: Creative not found
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Create Video Creative Companions
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives/{creativeId}/companions` instead.
+
+
+        Create Video Creative Companions
+
+        '
+      operationId: POST_video-v2-0-creatives-video_id-companions
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/ModifyCompanionRequest'
+      responses:
+        '201':
+          description: Companion created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCompanionResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/upload:
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Upload Video Creative
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives` (Create a new video creative - V3)
+
+        > and supply the `fileName` field to receive a pre-signed S3 upload URL.
+
+
+        Upload Video Creative
+
+        '
+      operationId: POST_video-v2-0-creatives-video_id-upload
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      - name: fileName
+        in: query
+        description: File name for the upload
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: The video file to upload
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File uploaded successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/variants:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Variants
+      description: Get all encoded video variants for the creative, including asset path and video info.
+      operationId: GET_video-v2-0-creatives-video_id-variants
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Variants retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCreativeVariantsResponse'
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/variants/{variant_id}:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Variant
+      description: Get Video Creative Variant
+      operationId: GET_video-v2-0-creatives-video_id-variants-variant_id
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      - name: variant_id
+        in: path
+        description: Variant ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Variant retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegacyEncoding'
+        '404':
+          description: Creative or variant not found
+  /video/v2.0/creatives/{video_id}/status:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video Creative Status
+      description: Includes upload status, encoding info, encoding percent.
+      operationId: GET_video-v2-0-creatives-video_id-status
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Creative status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativeStatusResponse'
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Delete Video Creative Companion
+      description: '> **⚠️ Deprecated** — Use `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` instead.
+
+
+        Delete companion ad for the specified creative.
+
+        '
+      operationId: GET_video-v2-0-creatives-video_id-companions-companion_id-delete
+      parameters:
+      - name: video_id
+        in: path
+        description: Video ID
+        required: true
+        schema:
+          type: integer
+      - name: companion_id
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companion deleted successfully
+        '404':
+          description: Creative or companion not found
+  /video/v2.0/creatives/validateVAST:
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Validate VAST XML
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives/validateVAST` instead.
+
+
+        Validates the provided VAST XML content and returns any errors or warnings.
+
+        '
+      operationId: POST_video-v2-0-creatives-validateVAST
+      requestBody:
+        $ref: '#/components/requestBodies/POST_video-v2-0-creatives-validateVASTBody'
+      responses:
+        '200':
+          description: VAST validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateVASTResponse'
+  /video/v2.0/creatives/{video_id}/vast:
+    get:
+      tags:
+      - Video Creative Management (V2)
+      summary: Get Video creative VAST XML
+      description: This get endpoint returns an XML of video creative instead of a JSON
+      operationId: Get-Video-creative-VAST-XML
+      parameters:
+      - name: video_id
+        in: path
+        description: The creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: VAST XML template retrieved successfully
+        '404':
+          description: Creative not found
+  /video/v2.0/creatives/{video_id}/vast/extension:
+    post:
+      tags:
+      - Video Creative Management (V2)
+      summary: Update creative VAST with Extension node
+      description: Add extension XML to the creative's VAST template.
+      operationId: Update-creative-VAST-with-Extension-node
+      parameters:
+      - name: video_id
+        in: path
+        description: The creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: string
+        description: Extension XML to add to the VAST template
+      responses:
+        '200':
+          description: VAST extension added successfully
+        '400':
+          description: Bad request
+        '404':
+          description: Creative not found
+components:
+  schemas:
+    ErrorInfoList:
+      type: object
+      properties:
+        field_error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorInfo'
+    ErrorInfo:
+      type: object
+      properties:
+        error:
+          type: string
+        index:
+          type: integer
+          description: Index in bulk request (for bulk operations)
+        code:
+          type: string
+        name:
+          type: string
+        field:
+          type: string
+    ValidateVASTResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: VAST validation error message, omitted if no errors present
+        warnings:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: A set of VAST validation warnings
+    CompanionAd:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Companion ID
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+        mimeType:
+          type: string
+        fileName:
+          type: string
+        resourceBlob:
+          type: string
+          description: Data blob used for images
+        resourceUrl:
+          type: string
+          description: URL for external resources
+    CreativeStatusResponse:
+      type: object
+      properties:
+        uploadInfo:
+          $ref: '#/components/schemas/FileInfo'
+        encodingStatus:
+          $ref: '#/components/schemas/GetStatusResponse'
+    CreateCompanionResponse:
+      type: object
+      properties:
+        companionId:
+          type: integer
+    ModifyCompanionRequest:
+      type: object
+      required:
+      - details
+      properties:
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+          description: File extension
+        fileName:
+          type: string
+          description: File name
+        resourceUrl:
+          type: string
+          description: Resource URL for all other companion types
+        resourceData:
+          type: string
+          description: Resource data encoded in Data URI Scheme for static companion types
+    FileInfo:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Upload status
+        size:
+          type: integer
+          format: int64
+          description: File size in bytes
+        percent:
+          type: number
+          description: Upload percent complete (0-100)
+          default: 0
+        name:
+          type: string
+          description: File name
+        path:
+          type: string
+          description: File path
+        mirrorPath:
+          type: array
+          items:
+            type: string
+          description: Mirror paths (asset URLs)
+        hash:
+          type: string
+          description: File hash
+    LegacyEncoding:
+      type: object
+      properties:
+        videoCodec:
+          type: string
+        audioCodec:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        bitrateKbps:
+          type: integer
+        format:
+          type: string
+        id:
+          type: integer
+        contentMd5:
+          type: string
+        outputUrl:
+          type: string
+          description: Asset URL
+        encode:
+          type: boolean
+          default: true
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        currentEvent:
+          type: string
+        currentEventPercent:
+          type: number
+        s3ResourceName:
+          type: string
+        stored:
+          type: boolean
+        active:
+          type: boolean
+        copiedUrl:
+          type: string
+          description: Asset URL (copied)
+        sizeBytes:
+          type: integer
+          default: -1
+        errorMessage:
+          type: string
+    GetStatusResponse_Encoding:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        id:
+          type: integer
+          format: int64
+          description: Encoding ID
+        statusMessage:
+          type: string
+          description: Status message (e.g. error details)
+    GetStatusResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Overall encoding progress (0-100)
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetStatusResponse_Encoding'
+    GetCreativeVariantsResponse:
+      type: object
+      properties:
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/LegacyEncoding'
+    CompanionsResponse:
+      type: object
+      properties:
+        companions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CompanionAd'
+          description: Map of companion ID (string) to companion details
+    EncodingStatus:
+      type: string
+      enum:
+      - Pending
+      - Processing
+      - Finished
+      - Waiting
+      - Storing
+      - Details
+      - Error
+    CompanionDetails:
+      type: object
+      required:
+      - adServer
+      - typ
+      - width
+      - height
+      - landingUrl
+      properties:
+        adServer:
+          type: string
+          description: AdServer tag name
+        typ:
+          type: string
+          description: Companion type (static, iframe, or html)
+          enum:
+          - static
+          - iframe
+          - html
+        width:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Width in pixels
+        height:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Height in pixels
+        landingUrl:
+          type: string
+          description: Declared landing URL
+        iFrameUrlOrHTML:
+          type: string
+          description: iFrame URL (for iframe type) or HTML content (for html type)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required for static companions; must be null for iframe/html)
+  requestBodies:
+    POST_video-v2-0-creatives-validateVASTBody:
+      content:
+        text/plain:
+          schema:
+            type: string
+      description: VAST XML content to validate
+    ModifyCompanionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ModifyCompanionRequest'
+      description: Companion ad details
+      required: true
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com
+          scopes: {}

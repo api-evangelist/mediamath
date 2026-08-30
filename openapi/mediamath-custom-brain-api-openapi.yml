@@ -1,0 +1,554 @@
+openapi: 3.2.0
+info:
+  title: BYOA Custom Brain API
+  description: '# Custom Brain
+
+
+    Custom Brain allows the client to use the BYOA API to upload a set of logistic coefficients corresponding to any of the variables currently in use by the MediaMath Brain.  These coefficients will then be used by participating strategies to calculate the predicted response rate for each impression.  The bidder will calculate bid price by multipling the predicted response rate by the strategy''s goal value.  Goal values can be modified using the MediaMath Platform campaign management API.
+
+
+    It is best for you to contact us early in your process by emailing developers@mediamath.com, as it may take about 48 hours before you are granted API access to begin work on your model.
+
+
+    ![BYOM](https://mediamath.github.io/api-docs/images/BYOA-CustomBrain.png "BYOM Architecture")'
+  contact:
+    name: BYOA API Support
+    url: http://devblog.mediamath.com
+    email: byoa@mediamath.com
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+  version: ''
+servers:
+- url: https://api.byoa.mediamath.com
+tags:
+- name: Custom Brain
+  description: In Customized Brain, the client uses the BYOA API to upload a set of logistic coefficients corresponding to any of the variables currently in use by the MediaMath Brain. These coefficients will then be used by participating strategies to calculate the predicted response rate for each impression. The bidder will calculate bid price by multiplying the predicted response rate by the strategy's goal value. Goal values can be modified using the T1 campaign management API.
+paths:
+  /data/{namespace}/models/{model_id}:
+    delete:
+      tags:
+      - Custom Brain
+      summary: Model Data Delete
+      description: Delete a model
+      operationId: DELETE_data-namespace-models-model_id
+      parameters:
+      - name: model_id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        description: namespace
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      created_on:
+                        type: string
+                        format: date-time
+                      data_size:
+                        type: integer
+                      updated_on:
+                        type: string
+                        format: date-time
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                      created_on: '2017-07-05T15:21:03.228289Z'
+                      data_size: 30878
+                      updated_on: '2017-07-05T15:21:03.228289Z'
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_ModelData
+                      message: ModelData with namespace(mm), model_id(fake_model) not found.
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+    get:
+      tags:
+      - Custom Brain
+      summary: Model Data Details
+      description: Get Model details
+      operationId: GET_data-namespace-models-model_id
+      parameters:
+      - name: model_id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        description: namespace
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The Data parameter has been drastically shortened for this example.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      brain_type_id:
+                        type: integer
+                      created_on:
+                        type: string
+                        format: date-time
+                      Data:
+                        type: string
+                      model_id:
+                        type: string
+                      Namespace:
+                        type: string
+                      updated_on:
+                        type: string
+                        format: date-time
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                      brain_type_id: 3
+                      created_on: '2019-06-04T19:10:37.951112Z'
+                      Data: DAAA...
+                      model_id: aggregate_2
+                      Namespace: '100667'
+                      updated_on: '2019-08-17T16:13:35.445614Z'
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_ModelData
+                      message: ModelData with namespace(mm), model_id(fake_model) not found.
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+    put:
+      tags:
+      - Custom Brain
+      summary: Model Data Create/Modify
+      description: Upload Model data
+      operationId: PUT_data-namespace-models-model_id
+      parameters:
+      - name: model_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        description: _
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                brain_type_id:
+                  type: integer
+                  minimum: 1000
+                  maximum: 1004
+              required:
+              - data
+              - brain_type_id
+        description: 'Note: the data field in the example below has been radically shortened for space concerns'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      created_on:
+                        type: string
+                        format: date-time
+                      data_size:
+                        type: integer
+                      updated_on:
+                        type: string
+                        format: date-time
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                      created_on: '2019-07-05T10:18:43.250498Z'
+                      data_size: 2538
+                      updated_on: '2019-07-05T10:18:43.250498Z'
+                    meta:
+                      status: success
+      security:
+      - oauth2: []
+  /data/decode/{namespace}/models/{model_id}:
+    get:
+      tags:
+      - Custom Brain
+      summary: Model Data Decode
+      description: Get Model details
+      operationId: GET_data-decode-namespace-models-model_id
+      parameters:
+      - name: model_id
+        in: path
+        description: model ID
+        required: true
+        schema:
+          type: string
+      - name: namespace
+        in: path
+        description: namespace
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The Features (under Data under data) in the example below have been extremely abbreviated for easier readability.  GoalType (under Data) is case-insensitive.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      brain_type_id:
+                        type: integer
+                      created_on:
+                        type: string
+                        format: date-time
+                      Data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            Beta:
+                              type: array
+                              items:
+                                type: number
+                            Boundaries: {}
+                            Features:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  VAR_NAME:
+                                    type: number
+                                    description: VAR_NAME changes with each entry.  The number tends to either be 0 or a Float64 close to 0 that goes over 10 digits past the right of the decimal.
+                            GoalType:
+                              type: string
+                              enum:
+                              - cpa
+                              - cpe
+                              - cpc
+                              - ctr
+                              - roi
+                              - vcr
+                              - vcpm
+                              - viewability_rate
+                              - CPA
+                              - CPE
+                              - CPC
+                              - ROI
+                              - VCR
+                              - VCPM
+                              - VIEWABILITY_RATE
+                              description: Strategy Goal Type.  The values are case-insensitive.
+                            Predictions:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: number
+                      model_id:
+                        type: string
+                      Namespace:
+                        type: string
+                      updated_on:
+                        type: string
+                        format: date-time
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    data:
+                      brain_type_id: 3
+                      created_on: '2019-06-04T19:10:37.951112Z'
+                      Data:
+                      - Beta:
+                        - -0.6969433426856995
+                        - 0.001734119956381619
+                        - 0.9618840217590332
+                        Boundaries: null
+                        Features:
+                        - __const: 0.035219017416238785
+                          bidder_pixel_frequency^am:1013008: 0.08368363976478577
+                          bidder_pixel_frequency^am:1024846: -0.011259343475103378
+                          bidder_pixel_frequency^am:1024856: -0.03232333064079285
+                          video_skippability^0: 0.03521893545985222
+                          week_part^0: 0.041367363184690475
+                          week_part^1: -0.008225390687584877
+                        GoalType: ctr
+                        Predictions: null
+                      - Beta:
+                        - -8.242341995239258
+                        - 0.00010720000136643648
+                        - 0.09820403158664703
+                        Boundaries: null
+                        Features:
+                        - __const: -0.07225784659385681
+                          bidder_pixel_frequency^am:1013008: 0.02445729449391365
+                          bidder_pixel_frequency^am:1024846: 0.18239469826221466
+                          bidder_pixel_frequency^am:1024856: -0.08111409842967987
+                          video_skippability^0: -0.07225784659385681
+                          week_part^0: 0.17733316123485565
+                          week_part^1: -0.21395796537399292
+                        GoalType: cpa
+                        Predictions: null
+                      model_id: aggregate_2
+                      Namespace: '100667'
+                      updated_on: '2019-08-17T16:13:35.445614Z'
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_ModelData
+                      message: ModelData with namespace(mm), model_id(fake_model) not found.
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+  /data/{namespace}:
+    get:
+      tags:
+      - Custom Brain
+      summary: Model Data Details for Namespace
+      description: Get all Models and data for a specific namespace
+      operationId: GET_data-namespace
+      parameters:
+      - name: namespace
+        in: path
+        description: namespace
+        required: true
+        schema:
+          type: integer
+      - name: model_id
+        in: query
+        description: Model ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The parameter Data had a very long value, which has been shortened for readabiltiy here.  Really the same as doing a GET /data/{namespace}/models/{model_id}.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      brain_type_id:
+                        type: integer
+                      created_on:
+                        type: string
+                        format: date-time
+                      Data:
+                        type: string
+                      model_id:
+                        type: string
+                      Namespace:
+                        type: string
+                      updated_on:
+                        type: string
+                        format: date-time
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                      brain_type_id: 3
+                      created_on: '2019-06-04T19:10:37.951112Z'
+                      Data: DAAA...
+                      model_id: aggregate_2
+                      Namespace: '100667'
+                      updated_on: '2019-08-17T16:13:35.445614Z'
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Invalid_model_id
+                      message: No valid model_id provided in query
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+components:
+  securitySchemes:
+    adama-session-header:
+      type: apiKey
+      description: 'Authentication is provided through OAuth2. You''ll need to request a Client ID and Secret key.
+
+
+        After Authentication is established make a request to https://api.mediamath.com/api/v2.0/session with the Authorization:"Bearer ACCESS_TOKEN header, and copy the adama_session cookie header from the response. Use both the Authorization:"Bearer ACCESS_TOKEN" header and adama_session= cookie in all future requests'
+      name: adama_session
+      in: header
+    oauth2:
+      type: oauth2
+      description: exchange an Authorization Code for a Token
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com/oath/token
+          scopes: {}

@@ -1,0 +1,265 @@
+openapi: 3.2.0
+info:
+  version: ''
+  contact:
+    name: API Support
+    url: https://www.mediamath.com/contact-us/
+    email: support@mediamath.com
+  title: Reporting API V1 Metadata API
+  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\" %}\n  The use of cookie adama_session for authentication has been discontinued and it's not supported in Reporting API V2. \n  We ask all of our clients who have not yet migrated to [OAuth2 Authentication](https://apidocs.mediamath.com/guides/authentication) to do so as soon as possible.\n{% /admonition %}\n\nThe Reports API on MediaMath Platform allows advertisers to access, query and aggregate reporting data.  It is also the API that powers all reporting seen on our MediaMath Platform flagship UI.\n\nThe Reports API offers a number of reports.  Each report offers its own pre-aggregated, time-based metrics on entities that users can query.  A query can filter, aggregate, sort, paginate, and format this data.\n\nIt is a read-only system meaning no request against it can alter the data in any way.\n\nIt is also a metadata-driven system.  The supported reports are described in a human- and machine-readable format.  This ensures easy one-off and repeatable programmatic data querying.  It also provides a way for clients to adapt to changes in reports programmatically.  This gives client-developers the ability to create UIs that provide useful operational feedback in a navigable and understandable way.  \n\nThe $API_BASE for the V1 version of Reports API is `https://api.mediamath.com/reporting/v1/std`\n\n## Authentication\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nSee [OAuth Authentication](https://apidocs.mediamath.com/guides/authentication)\n\n## Fields\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nReport data is stored and output in a tabular format.  This means that the output consists of rows and columns.  Every row has a value for every column.\n\nThe `structure` object can be used to determine the columns a report can output.  Its fields are divided among three mappings - `time_field`, `dimensions`, and `metrics`. \n\n```json\n{\n  \n  \"time_rollups\" : [ \"by_day\", \"by_week\", \"by_month\", \"all\" ],\n  \"time_windows\" : [ \"yesterday\", \"last_X_days\", \"month_to_date\", \"campaign_to_date\" ],\n  \"timezone\" : \"campaign timezone\",\n  \"time_aggregation\" : \"by_day\",\n  \"structure\" : { \n    \"time_field\" : { \n      \"date\" : { \n        \"name\" : \"Date\",\n        \"type\" : \"datetime\"\n      }\n    },  \n    \"dimensions\" : {\n      \"campaign_id\" : { ... },\n      \"campaign_name\" : { ... },\n      \"strategy_id\" : { ... },\n      \"strategy_name\" : { ... }\n    },  \n    \"metrics\" : { \n      \"clicks\" : { ... },\n      \"impressions\" : { ... }\n    }\n  }\n  ...\n}\n```\n\n---\n**Time Field**\n\nThe time field represents the time-component of the report's metrics.  There is (currently) only one time field for each report.  It can be of one of these data types: `datetime` or `interval`.  Its data type determines the type of report (**datetime** or **interval** based report).\n\n**Note:** The type of report is not to be confused with the `Type` attribute.  The `Type` attribute is purely informational.\n\nThe time field was distinguished from the dimension fields to allow its use in grouping and filtering rows easier to understand.  It gets its own set of parameters and language.\n\n---\n**datetime-typed Time Fields**\n\nDatetime-typed time fields contains a combination of year, month, day, and possibly down to hour, minute and second.  The `time_aggregation` property indicates the field's finest grain (by_hour, by_day, etc).  The `time_rollups` property indicates the available grouping options that can go beyond the `time_aggregation` of the report.\n\n```\ntime_rollup=by_week     ### group rows by the week  -  week starts on Monday \ntime_rollup=by_month    ### group rows by the month\ntime_rollup=all         ### produces at most one row of output per combination of dimension fields\n                        ### listed in the dimensions parameter\n```\n\nThe time field for these reports are typically represented in the output by a start_date and end_date column.  The format of the column will depend on the time window and `time_rollup`.\n\n* YYYY-MM-DD\n* YYYY-MM-DD hh:mi:ss\n\nThe only exception to this rule is detailed in the Special Time Windows section.\n\nThe timezone of the start_date and end_date columns will match the `timezone` property.\n\n---\n**interval-typed Time Fields**\n\n`interval`-typed time fields, contain a predefined non-calendar date based aggregation (1 day, 7 days, 30 days, and so on).  In this case, the only accepted way to specify a time interval is by using the parameter `time_window`.  The only value supported for the parameter `time_rollup` for interval-based reports is `all`.\n\nThe time field for these reports are represented in the output by a interval column.  The value of the column will depend on the `time_window` chosen.  The following gives example column values based on the time_window.\n\n* yesterday - 1\n* last_7_days - 7\n* last_30_days - 30\n* campaign_to_date - CTD\n* flight_to_date - FTD\n\n---\n**Filtering with the Time Field**\n\nThe API requires the specification of a time window in order to narrow the data set operated on. A time window must be specified in one of the two possible ways.\n\n* `start_date` and `end_date` (optional - defaults to \"yesterday\").\n* `time_window` may be set to one of the formats defined by the `time_windows` attribute.\n\n```\n###  operate on data timestamped between Jan 01, 2013 and Feb 01, 2013, inclusive\nstart_date=2013-01-01&end_date=2013-02-01  \n###  operate on data timestamped between May 05, 2013 and yesterday, inclusive\nstart_date=2013-05-01  \n###  other usage examples \ntime_window=last_30_days \ntime_window=month_to_date \ntime_window=yesterday \n```\n\n---\n**start_date and end_date**\n\n`start_date` and `end_date` may only be used when the report's time field is of the `datetime` type.  They may not be used when the report's time field is of the `interval` data type.  This is because the `time_windows` are pre-defined intervals that cannot be split.\n\nThe `start_date` and `end_date` parameters define inclusive boundaries for the data.  In order to ease the burden of calculating an inclusive end, the inputs may be specified at various granularities.\n\n*   month - YYYY-MM\n*   day - YYYY-MM-DD\n*   hour - YYYY-MM-DDThh\n*   minute - YYYY-MM-DDThh:mi\n*   second - YYYY-MM-DDThh:mi:ss\n\nEach granularity matches a substring of the ISO 8601 format.\n\nIf the report is at a coarser granularity (see `time_aggregation`) than the input, the input will be taken to mean the entirety of the time unit.\n\n```\nstart_date=2016-04-12T01%3A30%3A00&end_date=2016-04-12T02%3A30%3A00\n# ie. start_date=2016-04-12T01:30:00&end_date=2016-04-12T02:30:00\n# For a report with a time_aggregation of by_hour:\n# 2016-04-12T01:00:00 to 2016-04-12T02:59:59.\n \n# For a report with a time_aggregation of by_day:\n# 2016-04-12T00:00:00 to 2016-04-12T23:59:59\n```\n\n---\n**time_window**\n\nAll values mentioned in the `time_windows` array will be accepted verbatim by the time_window parameter with the exception of any time window that starts with `last_X_`.  They may be interpreted as such.\n\n* The `last_X_days` time window ends yesterday (inclusive) and starts X days before that.\n* The `last_X_hours` time window ends at the previous hour (inclusive) and starts X hours before that.\n\nFuture windows of this type may be defined following this nomenclature, but for different units.  Rules for the time window may vary slightly.\n\n---\n**Special Time Windows**\n\nThe following `time_windows` are considered to be special time windows.\n\n* `campaign_to_date`\n* `flight_to_date`\n\nFor reports with a `datetime`-typed `time_field`, the start_date and end_date columns that would normally be present, will be replaced by the interval column. Additionally, the following validation rules apply when a special `time_window` is chosen.\n\n* The results will have an `interval` column instead of `start_date` and `end_date` columns.\n* The `time_rollup` parameter must be set to `all`.\n* Any mention of the `time_field` for the report in the `order` parameter will be rejected.\n\n---\n**Dimension Fields**\n\nDimension fields describe an entity.  The example reports provide dimension fields for campaign, and strategy entities.  Dimension fields are used to group rows during aggregation in conjunction with the time field.\n\n---\n**Metric Fields**\n\nOnce the rows have been grouped.  The metric fields are calculated based on the values of the group's underlying rows.  These calculations are generally sums or averages.  These fields are usually a numeric data type.\n\nPlease note that fees (eg: managed_service_fee, optimization_fee, platform_access_fee, and mm_total_fee), cost (eg: adserving_cost, adverification_cost, media_cost, and tota_ad_cost), and margin data are only available to users who have “edit margin” access.\n\n# Data Types\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nThe `id` type allows any character except whitespace.\n\nThe `datetime` type may be filtered by dates, or datetimes in either of the following ISO 8601 based formats.\n\n*   date - YYYY-MM-DD\n*   datetime - YYYY-MM-DDThh:mi:ss\n\nYear, month, and day are all 1-based.  Hour, minute, and second are all 0-based.  Valid hours are 0-23.\n\nThe dimension fields of the `datetime` type will always be output in the aforementioned datetime format.  The output columns for the time field will be output in the same format, but without the separating 'T'.\n\n---\n**Field Data Type Groupings**\n\nThis documentation may refer to multiple data types via a group name.  The following table details the group names.\n\n|Group|Data Types|\n|--- |--- |\n|float|float, money, percent, ratio|\n|integer|integer, count, rank|\n|numeric|float and integer groups|\n|date|datetime|\n|string|string, interval|\n|id|id|\n|bool|bool, boolean|\n"
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+servers:
+- url: https://api.mediamath.com/reporting/v1/std
+tags:
+- name: Metadata
+  description: _
+paths:
+  /meta:
+    get:
+      operationId: GET_meta
+      summary: Reports List
+      tags:
+      - Metadata
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nIn order to obtain a list of reports which are currently supported by the Reports API, issue the following API call:\n\n`$API_BASE/meta`\n\nAll metadata in Reports API is represented in JSON format (content-type: application/json; charset=UTF-8).  The schema for the response follows the example.\n\n## Reports Meta\n\nThe example has been formatted for easy reading.\n\n``` json\n{\n    \"reports\": {\n        \"app_transparency\": {\n            \"Description\": \"Standard performance metrics broken out by App ID. Non-app inventory shown as N/A app_id\",\n            \"Name\": \"App Transparency Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/app_transparency\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/app_transparency/meta\",\n            \"Version\": 1\n        },\n        \"audience_index\": {\n            \"Description\": \"Special index metrics for comparing your ads' viewers to 3rd party segments.  Broken out by audience name, as well as standard dimensions down to campaign and strategy.  Currently available in one interval: last 14 days.\",\n            \"Name\": \"Audience Index Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/audience_index\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/audience_index/meta\",\n            \"Version\": 1\n        },\n        \"audience_index_pixel\": {\n            \"Description\": \"Special index metrics for comparing your site visitors to 3rd party segments.  Broken out by audience name and pixel.  Currently available in one interval: last 14 days.\",\n            \"Name\": \"Audience Index Pixel Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/audience_index_pixel\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/audience_index_pixel/meta\",\n            \"Version\": 1\n        },\n        \"by_hour\": {\n            \"Description\": \"Standard performance metrics broken out by standard dimensions, available in precise time windows - down to the hour - with the option to aggregate by hour or day.\",\n            \"Name\": \"By Hour Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/by_hour\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/by_hour/meta\",\n            \"Version\": 1\n        },\n        \"contextual_insights\": {\n            \"Description\": \"Standard performance metrics broken out by contextual categories that strategies are targeting\",\n            \"Name\": \"Contextual Insights\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/contextual_insights\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/contextual_insights/meta\",\n            \"Version\": 1\n        },\n        \"data_pixel_loads\": {\n            \"Description\": \"Loads and Uniques metrics for data pixels, broken out by referrer and referrer rank, available by day.\",\n            \"Name\": \"Data Pixel Loads Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/data_pixel_loads\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/data_pixel_loads/meta\",\n            \"Version\": 1\n        },\n        \"day_part\": {\n            \"Description\": \"Standard performance metrics broken out by time of day and day of week. Available in standard intervals.\",\n            \"Name\": \"Day Part Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/day_part\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/day_part/meta\",\n            \"Version\": 2\n        },\n        \"device_technology\": {\n            \"Description\": \"Standard performance metrics broken out by technology dimensions including browser, operating system, and connection type.  Available in custom date ranges or intervals with the option to aggregate by day, week, or month.\",\n            \"Name\": \"Device Technology Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/device_technology\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/device_technology/meta\",\n            \"Version\": 1\n        },\n        \"event_pixel_loads\": {\n            \"Description\": \"Loads and Uniques metrics for event pixels, broken out by referrer and referrer rank, available by day.\",\n            \"Name\": \"Event Pixel Loads Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/event_pixel_loads\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/event_pixel_loads/meta\",\n            \"Version\": 1\n        },\n        \"geo\": {\n            \"Description\": \"Standard performance metrics broken out by geographic dimensions including country, region, and metro area.  Available in standard intervals.\",\n            \"Name\": \"Geo Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/geo\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/geo/meta\",\n            \"Version\": 2\n        },\n        \"hyperlocal\": {\n            \"Description\": \"Standard performance metrics broken out by Hyperlocal Targeting objects created via third party.\",\n            \"Name\": \"Hyperlocal Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/hyperlocal\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/hyperlocal/meta\",\n            \"Version\": 1\n        },\n        \"performance\": {\n            \"Description\": \"Standard performance metrics in campaign currency and broken out by our widest array of dimensions.  Available in custom date ranges or intervals with the option to aggregate by day, week, or month.\",\n            \"Name\": \"Performance Report in Campaign Currency\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/performance\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/performance/meta\",\n            \"Version\": 1\n        },\n        \"reach_frequency\": {\n            \"Description\": \"Basic performance metrics as well as the \\\"uniques\\\" metric, broken out by frequency of ad exposure.  Available in standard intervals.\",\n            \"Name\": \"Reach and Frequency Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/reach_frequency\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/reach_frequency/meta\",\n            \"Version\": 1\n        },\n        \"site_transparency\": {\n            \"Description\": \"Standard performance metrics broken out by the domain of the inventory.  Available in standard intervals.\",\n            \"Name\": \"Site Transparency Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/site_transparency\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/site_transparency/meta\",\n            \"Version\": 2\n        },\n        \"video\": {\n            \"Description\": \"Video-specific metrics such as completion rate, skips, and fullscreens broken out by a wide array of dimensions.  Available in custom date-ranges or intervals with the option to aggregate by day, week, or month.\",\n            \"Name\": \"Video Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/video\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/video/meta\",\n            \"Version\": 1\n        },\n        \"watermark\": {\n            \"Description\": \"Watermark metrics show how many impressions and how much spend went towards the brain's learning activities.  Viewable by campaign and strategy dimensions and available by day.\",\n            \"Name\": \"Watermark Report in US Dollars\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/watermark\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/watermark/meta\",\n            \"Version\": 1\n        },\n        \"win_loss\": {\n            \"Description\": \"Metrics describe the auction before a win or even a bid has taken place.  Broken out by strategy, exchange, and deal dimensions and available by hour.\",\n            \"Name\": \"Win/Loss Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/win_loss\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/win_loss/meta\",\n            \"Version\": 2\n        },\n        \"win_loss_creative\": {\n            \"Description\": \"Metrics describe the auction before a win has taken place. Broken out by creative dimensions and available by hour.\",\n            \"Name\": \"Win/Loss Creative Report\",\n            \"URI_Data\": \"https://api.mediamath.com/reporting/v1/std/win_loss_creative\",\n            \"URI_Meta\": \"https://api.mediamath.com/reporting/v1/std/win_loss_creative/meta\",\n            \"Version\": 1\n        }\n    }\n}\n\n```"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/reports-list'
+  /{report}/meta:
+    parameters:
+    - name: report
+      in: path
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nThis must be a report discoverable from https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_meta."
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GET_report-meta
+      summary: Report Meta
+      tags:
+      - Metadata
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nThe examples used in this section are truncated versions of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>. \nThe use of \"...\" in an example is meant to indicate truncation of other properties.  The Definition section of this endpoint provides information \nabout how the metadata may vary from report to report.  The Definition section of the <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> \nprovides a reference to the query string parameters that it accepts.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+components:
+  schemas:
+    full-report-description:
+      title: Full Report Description
+      allOf:
+      - $ref: '#/components/schemas/brief-report-description'
+      - type: object
+        properties:
+          Type:
+            type: string
+          currency:
+            type: string
+            description: 'Provides information about the currency of the `metrics` fields typed as "money".
+
+
+              When set to "campaign currency", the currency varies from record to record.  To determine the currency for a particular record, the campaign_currency_code `dimensions` field should be requested, if available for the report.
+
+
+              Any other value should be taken to be the currency for all records of the report.'
+          data_retention:
+            type: string
+            description: Indicates how far back data is available.  This can be a date, datetime, or time window as specified by the "time_window" and "Special Time Windows" sections of <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>.  This property should be used very loosely.  It may not be accurate.  It is meant to give a general idea.
+          default_metrics:
+            type: array
+            description: This is the list of metrics that will be returned if the `metrics` parameter is not specified in a call to the <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report>.
+            items:
+              type: string
+          structure:
+            type: object
+            required:
+            - time_field
+            - dimensions
+            - metrics
+            properties:
+              time_field:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/field-description'
+                description: Mapping of field names seen in <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>
+              dimensions:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/field-description'
+                description: Mapping of field names seen in <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>
+              metrics:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/field-description'
+                description: Mapping of field names seen in <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>
+          time_aggregation:
+            type: string
+            description: This property indicates the finest granularity of the `time_field`.  For reports with a `time_field` of the `datetime` type, this will be "by_hour", "by_day", etc.  When the type is `interval`, this will be "various".
+          time_rollups:
+            type: array
+            description: This property indicates the available levels of granularity for the `time_field`.  It lists the valid values of the `time_rollup` parameter used for the <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.  For reports with a `time_field` of the `datetime` type, this tends to be a combination of "by_hour", "by_day", "by_week", "by_month", "all", etc.  When the type is `interval`, this will only include "all".
+            items:
+              type: string
+          time_windows:
+            type: array
+            description: Lists the acceptable formats for the `time_window` parameter used by the <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report>.  Some values may be used as is, others may need to be modified.  For details see the time_window section of  <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>.
+            items:
+              type: string
+          timezone:
+            type: string
+            description: 'Provides information about the timezone of the `time_field` for the report.
+
+
+              When set to "campaign timezone", the timezone varies from record to record.  To determine the currency for a particular record, the campaign_timezone `dimensions` field should be requested, if available for the report.
+
+
+              Any other value should be taken to be the timezone for all records of the report.'
+        required:
+        - default_metrics
+        - structure
+        - time_rollups
+        - time_windows
+      x-stoplight:
+        id: 8plabb85jgk95
+    brief-report-description:
+      title: Brief Report Description
+      type: object
+      properties:
+        Name:
+          type: string
+          description: This is the human-readable name of the report.  It is not recognized by any API input.
+        Version:
+          type: integer
+          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+        Description:
+          type: string
+        URI_Data:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
+        URI_Meta:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+        Transition:
+          type: object
+          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            replaced_by:
+              type: string
+              format: uri
+              description: The URL where the metadata for the next version of the report may be found.
+            transition_date:
+              type: string
+              format: date-time
+              description: After this GMT time the current version of the report will no longer be available.
+            next_version:
+              type: integer
+              description: The version replacing the current version of the report.
+          required:
+          - replaced_by
+          - transition_date
+          - next_version
+        Deprecation:
+          type: object
+          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            superseded_by:
+              type: string
+              format: uri
+              description: Optionally provides the metadata URI for the superseding report.
+            deprecation_date:
+              type: string
+              format: date-time
+              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
+          required:
+          - deprecation_date
+      required:
+      - Name
+      - Version
+      - URI_Data
+      - URI_Meta
+      x-stoplight:
+        id: k6iyargwoudhr
+    field-description:
+      title: Field Description
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the human-readable name of the field.
+        type:
+          type: string
+          enum:
+          - float
+          - money
+          - percent
+          - ratio
+          - integer
+          - count
+          - rank
+          - datetime
+          - string
+          - interval
+          - id
+          - bool
+          - boolean
+        access:
+          type: boolean
+          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
+        description:
+          type: string
+        maxLength:
+          type: number
+          description: This property describes the allowable length for string-typed fields.
+        values:
+          type: array
+          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
+          items:
+            type: string
+      required:
+      - name
+      - type
+      x-stoplight:
+        id: ay5bipqhvuzoi
+    reports-list:
+      title: Reports List
+      type: object
+      properties:
+        reports:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/brief-report-description'
+          description: This is a mapping of report names to <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+      x-stoplight:
+        id: dnol54v50tvke
+  parameters:
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      description: _
+      in: header
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
+  securitySchemes:
+    API_Key_-_1:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          scopes: {}
+x-stoplight:
+  id: bmaieg1p7ctvh

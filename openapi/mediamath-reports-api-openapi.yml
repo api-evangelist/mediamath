@@ -1,0 +1,1886 @@
+openapi: 3.2.0
+info:
+  version: ''
+  contact:
+    name: API Support
+    url: https://www.mediamath.com/contact-us/
+    email: support@mediamath.com
+  title: Reporting API V1 Reports API
+  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\" %}\n  The use of cookie adama_session for authentication has been discontinued and it's not supported in Reporting API V2. \n  We ask all of our clients who have not yet migrated to [OAuth2 Authentication](https://apidocs.mediamath.com/guides/authentication) to do so as soon as possible.\n{% /admonition %}\n\nThe Reports API on MediaMath Platform allows advertisers to access, query and aggregate reporting data.  It is also the API that powers all reporting seen on our MediaMath Platform flagship UI.\n\nThe Reports API offers a number of reports.  Each report offers its own pre-aggregated, time-based metrics on entities that users can query.  A query can filter, aggregate, sort, paginate, and format this data.\n\nIt is a read-only system meaning no request against it can alter the data in any way.\n\nIt is also a metadata-driven system.  The supported reports are described in a human- and machine-readable format.  This ensures easy one-off and repeatable programmatic data querying.  It also provides a way for clients to adapt to changes in reports programmatically.  This gives client-developers the ability to create UIs that provide useful operational feedback in a navigable and understandable way.  \n\nThe $API_BASE for the V1 version of Reports API is `https://api.mediamath.com/reporting/v1/std`\n\n## Authentication\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nSee [OAuth Authentication](https://apidocs.mediamath.com/guides/authentication)\n\n## Fields\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nReport data is stored and output in a tabular format.  This means that the output consists of rows and columns.  Every row has a value for every column.\n\nThe `structure` object can be used to determine the columns a report can output.  Its fields are divided among three mappings - `time_field`, `dimensions`, and `metrics`. \n\n```json\n{\n  \n  \"time_rollups\" : [ \"by_day\", \"by_week\", \"by_month\", \"all\" ],\n  \"time_windows\" : [ \"yesterday\", \"last_X_days\", \"month_to_date\", \"campaign_to_date\" ],\n  \"timezone\" : \"campaign timezone\",\n  \"time_aggregation\" : \"by_day\",\n  \"structure\" : { \n    \"time_field\" : { \n      \"date\" : { \n        \"name\" : \"Date\",\n        \"type\" : \"datetime\"\n      }\n    },  \n    \"dimensions\" : {\n      \"campaign_id\" : { ... },\n      \"campaign_name\" : { ... },\n      \"strategy_id\" : { ... },\n      \"strategy_name\" : { ... }\n    },  \n    \"metrics\" : { \n      \"clicks\" : { ... },\n      \"impressions\" : { ... }\n    }\n  }\n  ...\n}\n```\n\n---\n**Time Field**\n\nThe time field represents the time-component of the report's metrics.  There is (currently) only one time field for each report.  It can be of one of these data types: `datetime` or `interval`.  Its data type determines the type of report (**datetime** or **interval** based report).\n\n**Note:** The type of report is not to be confused with the `Type` attribute.  The `Type` attribute is purely informational.\n\nThe time field was distinguished from the dimension fields to allow its use in grouping and filtering rows easier to understand.  It gets its own set of parameters and language.\n\n---\n**datetime-typed Time Fields**\n\nDatetime-typed time fields contains a combination of year, month, day, and possibly down to hour, minute and second.  The `time_aggregation` property indicates the field's finest grain (by_hour, by_day, etc).  The `time_rollups` property indicates the available grouping options that can go beyond the `time_aggregation` of the report.\n\n```\ntime_rollup=by_week     ### group rows by the week  -  week starts on Monday \ntime_rollup=by_month    ### group rows by the month\ntime_rollup=all         ### produces at most one row of output per combination of dimension fields\n                        ### listed in the dimensions parameter\n```\n\nThe time field for these reports are typically represented in the output by a start_date and end_date column.  The format of the column will depend on the time window and `time_rollup`.\n\n* YYYY-MM-DD\n* YYYY-MM-DD hh:mi:ss\n\nThe only exception to this rule is detailed in the Special Time Windows section.\n\nThe timezone of the start_date and end_date columns will match the `timezone` property.\n\n---\n**interval-typed Time Fields**\n\n`interval`-typed time fields, contain a predefined non-calendar date based aggregation (1 day, 7 days, 30 days, and so on).  In this case, the only accepted way to specify a time interval is by using the parameter `time_window`.  The only value supported for the parameter `time_rollup` for interval-based reports is `all`.\n\nThe time field for these reports are represented in the output by a interval column.  The value of the column will depend on the `time_window` chosen.  The following gives example column values based on the time_window.\n\n* yesterday - 1\n* last_7_days - 7\n* last_30_days - 30\n* campaign_to_date - CTD\n* flight_to_date - FTD\n\n---\n**Filtering with the Time Field**\n\nThe API requires the specification of a time window in order to narrow the data set operated on. A time window must be specified in one of the two possible ways.\n\n* `start_date` and `end_date` (optional - defaults to \"yesterday\").\n* `time_window` may be set to one of the formats defined by the `time_windows` attribute.\n\n```\n###  operate on data timestamped between Jan 01, 2013 and Feb 01, 2013, inclusive\nstart_date=2013-01-01&end_date=2013-02-01  \n###  operate on data timestamped between May 05, 2013 and yesterday, inclusive\nstart_date=2013-05-01  \n###  other usage examples \ntime_window=last_30_days \ntime_window=month_to_date \ntime_window=yesterday \n```\n\n---\n**start_date and end_date**\n\n`start_date` and `end_date` may only be used when the report's time field is of the `datetime` type.  They may not be used when the report's time field is of the `interval` data type.  This is because the `time_windows` are pre-defined intervals that cannot be split.\n\nThe `start_date` and `end_date` parameters define inclusive boundaries for the data.  In order to ease the burden of calculating an inclusive end, the inputs may be specified at various granularities.\n\n*   month - YYYY-MM\n*   day - YYYY-MM-DD\n*   hour - YYYY-MM-DDThh\n*   minute - YYYY-MM-DDThh:mi\n*   second - YYYY-MM-DDThh:mi:ss\n\nEach granularity matches a substring of the ISO 8601 format.\n\nIf the report is at a coarser granularity (see `time_aggregation`) than the input, the input will be taken to mean the entirety of the time unit.\n\n```\nstart_date=2016-04-12T01%3A30%3A00&end_date=2016-04-12T02%3A30%3A00\n# ie. start_date=2016-04-12T01:30:00&end_date=2016-04-12T02:30:00\n# For a report with a time_aggregation of by_hour:\n# 2016-04-12T01:00:00 to 2016-04-12T02:59:59.\n \n# For a report with a time_aggregation of by_day:\n# 2016-04-12T00:00:00 to 2016-04-12T23:59:59\n```\n\n---\n**time_window**\n\nAll values mentioned in the `time_windows` array will be accepted verbatim by the time_window parameter with the exception of any time window that starts with `last_X_`.  They may be interpreted as such.\n\n* The `last_X_days` time window ends yesterday (inclusive) and starts X days before that.\n* The `last_X_hours` time window ends at the previous hour (inclusive) and starts X hours before that.\n\nFuture windows of this type may be defined following this nomenclature, but for different units.  Rules for the time window may vary slightly.\n\n---\n**Special Time Windows**\n\nThe following `time_windows` are considered to be special time windows.\n\n* `campaign_to_date`\n* `flight_to_date`\n\nFor reports with a `datetime`-typed `time_field`, the start_date and end_date columns that would normally be present, will be replaced by the interval column. Additionally, the following validation rules apply when a special `time_window` is chosen.\n\n* The results will have an `interval` column instead of `start_date` and `end_date` columns.\n* The `time_rollup` parameter must be set to `all`.\n* Any mention of the `time_field` for the report in the `order` parameter will be rejected.\n\n---\n**Dimension Fields**\n\nDimension fields describe an entity.  The example reports provide dimension fields for campaign, and strategy entities.  Dimension fields are used to group rows during aggregation in conjunction with the time field.\n\n---\n**Metric Fields**\n\nOnce the rows have been grouped.  The metric fields are calculated based on the values of the group's underlying rows.  These calculations are generally sums or averages.  These fields are usually a numeric data type.\n\nPlease note that fees (eg: managed_service_fee, optimization_fee, platform_access_fee, and mm_total_fee), cost (eg: adserving_cost, adverification_cost, media_cost, and tota_ad_cost), and margin data are only available to users who have “edit margin” access.\n\n# Data Types\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nThe `id` type allows any character except whitespace.\n\nThe `datetime` type may be filtered by dates, or datetimes in either of the following ISO 8601 based formats.\n\n*   date - YYYY-MM-DD\n*   datetime - YYYY-MM-DDThh:mi:ss\n\nYear, month, and day are all 1-based.  Hour, minute, and second are all 0-based.  Valid hours are 0-23.\n\nThe dimension fields of the `datetime` type will always be output in the aforementioned datetime format.  The output columns for the time field will be output in the same format, but without the separating 'T'.\n\n---\n**Field Data Type Groupings**\n\nThis documentation may refer to multiple data types via a group name.  The following table details the group names.\n\n|Group|Data Types|\n|--- |--- |\n|float|float, money, percent, ratio|\n|integer|integer, count, rank|\n|numeric|float and integer groups|\n|date|datetime|\n|string|string, interval|\n|id|id|\n|bool|bool, boolean|\n"
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+servers:
+- url: https://api.mediamath.com/reporting/v1/std
+tags:
+- name: Reports
+  description: _
+paths:
+  /app_transparency:
+    get:
+      operationId: GET_app_transparency
+      summary: App Transparency
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nSee or query the Meta Endpoint for required fields and parameters.\n"
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema: {}
+  /app_transparency/meta:
+    get:
+      operationId: GET_app_transparency-meta
+      summary: App Transparency Meta
+      tags:
+      - Reports
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  Description:
+                    type: string
+                    description: Standard performance metrics in campaign currency and broken out by our widest array of dimensions.  Available in custom date ranges or intervals with the option to aggregate by day, week, or month.
+                  Name:
+                    type: string
+                    description: Performance Report in Campaign Currency
+                  Type:
+                    type: string
+                  URI_Data:
+                    type: string
+                    default: https://api.mediamath.com/reporting/v1/std/performance
+                  URI_Meta:
+                    type: string
+                    default: https://api.mediamath.com/reporting/v1/std/performance/meta
+                  Version:
+                    type: integer
+                  currency:
+                    type: string
+                    description: campaign currency
+                  data_retention:
+                    type: string
+                  default_metrics:
+                    type: array
+                    items:
+                      type: string
+                  structure:
+                    type: object
+                    properties:
+                      dimensions:
+                        type: object
+                        properties:
+                          advertiser_id:
+                            type: object
+                            properties:
+                              access:
+                                type: boolean
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          advertiser_name:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          agency_id:
+                            type: object
+                            properties:
+                              access:
+                                type: boolean
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          agency_name:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          app_id:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          attribution_group:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                          campaign_budget:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_currency_code:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_end_date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_goal_type:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                          campaign_goal_value:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_id:
+                            type: object
+                            properties:
+                              access:
+                                type: boolean
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_initial_start_date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_name:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_start_date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_timezone:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          campaign_timezone_code:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          exchange_id:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          exchange_name:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          organization_id:
+                            type: object
+                            properties:
+                              access:
+                                type: boolean
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          organization_name:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          strategy_budget:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          strategy_channel:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                          strategy_end_date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          strategy_goal_type:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                          strategy_goal_value:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          strategy_id:
+                            type: object
+                            properties:
+                              access:
+                                type: boolean
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          strategy_name:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          strategy_start_date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          strategy_supply_type:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                          strategy_type:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                      metrics:
+                        type: object
+                        properties:
+                          clicks:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          ctc:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          ctr:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          impressions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          media_cost:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          media_cost_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          media_cost_cpc:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          media_cost_cpm:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          media_cost_pc_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          media_cost_pv_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          post_click_conversions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          post_view_conversions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          rr_per_1k_imps:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_ad_cost:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_ad_cost_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_ad_cost_cpc:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_ad_cost_cpm:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_ad_cost_pc_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_ad_cost_pv_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_conversions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_spend:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_spend_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_spend_cpc:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_spend_cpm:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_spend_pc_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          total_spend_pv_cpa:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_close:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_collapse:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_companion_clicks:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_companion_ctr:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_companion_impressions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_complete:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_complete_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_engaged_impressions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_engaged_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_expand:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_first_quartile:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_first_quartile_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_fullscreen:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_midpoint:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_midpoint_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_mute:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_pause:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_play_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_resume:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_rewind:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_skip:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_skippable_impressions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_skipped_impressions:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_skipped_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_start:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_third_quartile:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_third_quartile_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          video_unmute:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                      time_field:
+                        type: object
+                        properties:
+                          date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                  time_aggregation:
+                    type: string
+                  time_rollups:
+                    type: array
+                    items:
+                      type: string
+                  time_windows:
+                    type: array
+                    items:
+                      type: string
+                  timezone:
+                    type: string
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n   The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n {% /admonition %}\n\n Get App Transparency Meta\n"
+  /brain_feature_summary/meta:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties: {}
+      summary: Brain Feature Summary report
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n## The Brain Feature Summary report\n\nSample usage: GET https://api.mediamath.com/reporting/v1/std/brain_feature_summary/meta?v1\n\n### Background\n\nThe Brain Feature Summary report provides transparency into how the Brain optimizes.  The Brain Feature Summary Report centralizes impression features, such as Exchange, Site, Creative Size or Day of Week, that have the largest predictive impact.  Features are a column of dataset used as an input to the model. For example; device_model, day_of_week or browser. Descriptions of Current Brain Features are available [here](https://apidocs.mediamath.com/byoa/custom-brain/available-features).  Feature values are not listed in the report. This report gives you transparency into the importance of each Brain Feature at the aggregated level.\n\nThe information in this report is provided when a new Brain model is generated, but some days in the reporting period may be missing (which is normal). Depending on the training data, we may not always generate a new model so you may see gaps (not all days will generate the report). The report time rollups are updated daily, typically before 18:00 UTC. The data contained for the date in the report will be for the latest model picked up on that day and loaded into reporting.  Retention is on a rolling 30 days, with a date range therefore of up to 30 days.  T1 continues to train Brain models just in case the campaign is set live again, maximizing your opportunity to take advantage of the Brain Optimization on spend. Once there is no more training data (after 23 days of no activity) T1 will stop generating new models until spend recommences.\n\nThe information included in the Brain Feature Summary report is not relevant in the following circumstances:\n* Campaigns powered by a Custom Brain\n* CPA/ROI strategies within a campaign using 3rd-party attribution\n* CPA strategies within a campaign with post-view attribution discounted below 100%\n\n### How to run a Brain Feature Summary report via T1 instead of by API:\n1. Navigate to the Reports module\n2. Click on the Data Export tab\n3. Type the name of the report in the File Name field\n4. Select the Brain Feature Summary report from the Report Type drop-down list\n5. Select the date range you want your report to cover\n6. Select Agency, Advertiser and Campaign from the relevant drop-down lists\n7. Select your preferred Dimensions\n\n### The Brain Feature Summary report itself\nThis report exports multiple campaigns and Goal Types at once.\n\n### Sample CSV view of a Brain Feature Summary report\n\n| | A | B | C | D | E | F | G | H | I |\n|---|---|---|---|---|---|---|---|---|---|---|\n| 1 | start_date | end_date | organization_id | advertiser_id | agency_id | campaign_id | model_goal | feature |\n| 2 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | category_id |\n| 3 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | id_vintage |\n| 4 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | week_part |\n| 5 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | exchange_viewability_rate |\n| 6 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | region_id |\n| 7 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | conn_speed |\n| 8 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | day_of_week |\n| 9 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | browser_version |\n| 10 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | site_id |\n| 11 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | exchange_id_cs_site_id |\n| 12 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | day_part |\n| 13 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | dma_id |\n| 14 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | deal_id |\n| 15 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | os_id |\n\n### What's in the Brain Feature Summary report\n| Column | Example* | Description |\n|---|---|---|\n| Start Date | 8/31/2019 | Date when these values were being used in bidding. |\n| End Date | 8/31/2019 | Date when these values were being used in bidding. |\n| Organization ID | 100001 | |\n| Agency ID | 10002 |\n| Advertiser ID | 10003 |\n| Campaign ID | 111111 | MediaMath unique ID for campaign. |\n| Model Goal | CPA, ROI, CPC, etc. | The Goal Type that the model was trained for. Each Goal Type will have a different Brain model. |\n| Feature |isp_id, day_of_week, size, week_part, category_id | The Dimension used as input into the Brain Machine Learning model. For a full list, see [here](https://apidocs.mediamath.com/byoa/custom-brain/available-features). |\n| Position | 0, 1, 2, 3, 4, ..., 99 | For bottom_features, a Position of 0 means it had the lowest \"Mean\".  For top_features, a Position of 0 means it had the highest \"Mean\". |\n| Index | 2.1925095 | The index column gives you a comparative indication of the relative importance of features based on normalized attribution, at an aggregated level. While the values might not make much sense for a global understanding of the model, the index gives an indication of what the model sees as important features when its trained. The higher the Index number, the higher the importance. |\n\n*Note: Only 1 value will appear, not a comma-delimited list, although feature_value may be a pipe-delimited list)\n"
+      operationId: Generate-Brain-Feature-Summary-report
+      tags:
+      - Reports
+  /brain_feature_value/meta:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties: {}
+      summary: Brain Feature Value report
+      operationId: Generate-Brain-Feature-Value-report
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n## Brain Feature Value Report\n\nSample usage: GET https://api.mediamath.com/reporting/v1/std/brain_feature_value/meta?v1\n\n### Background\nThe Brain Feature Value report gives you transparency into the top 100 and bottom 100 feature values (e.g. site A, creative 123, exchange 1) that impact predictions for each optimization Goal Type (for example, ROI, CPA, VCR).  This shows how each Brain Feature Value directly influences and informs impression prediction and pricing.  Descriptions of Current Brain Features themselves are available [here](https://apidocs.mediamath.com/byoa/custom-brain/available-features). When T1 generates a Brain, there can be 200K+ predictions for Feature Values. To make these predictions more accessible, T1 selects the top 100 and bottom 100 Feature Values (which can vary daily) generated for that day for your viewing per optimization goal.\n\nThe information in this report is provided when a new Brain model is generated, but some days in the reporting period may be missing (which is normal). Depending on the training data, we may not always generate a new model so you may see gaps (not all days will generate the report). The report time rollups are updated daily, typically before 18:00 UTC. The data contained for the date in the report will be for the latest model picked up on that day and loaded into reporting.  Retention is on a rolling 30 days, with a date range therefore of up to 30 days.  T1 continues to train Brain models just in case the campaign is set live again, maximizing your opportunity to take advantage of the Brain Optimization on spend. Once there is no more training data (after 23 days of no activity) T1 will stop generating new models until spend recommences.\n\nThe information included in the Brain Feature Value report is not relevant in the following circumstances:\n* Campaigns powered by a Custom Brain (for more on Custom Brain see [here](https://apidocs.mediamath.com/byoa/custom-brain/about))\n* CPA/ROI strategies within a campaign using 3rd-party attribution\n* CPA strategies within a campaign with post-view attribution discounted below 100%\n\n### How to run a Brain Feature Value report via T1 instead of by API:\n1. Navigate to the Reports module\n2. Click on the Data Export tab\n3. Type the name of the report in the File Name field\n4. Select the Brain Feature Value report from the Report Type drop-down list\n5. Select the date range you want your report to cover\n6. Select Agency, Advertiser and Campaign from the relevant drop-down lists\n7. Select your preferred Dimensions\n\n### The Brain Feature Value report itself\nThis report exports multiple campaigns and Goal Types at once.\n\n### Sample CSV view of a Brain Feature Value report\n| | A | B | C | D | E | F | G | H | I |\n|---|---|---|---|---|---|---|---|---|---|---|\n| 1 | start_date | end_date | organization_id | advertiser_id | agency_id | campaign_id | model_goal | feature_report_type | feature |\n| 2 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | top_features |  conn_speed |\n| 3 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | top_features |  exchange_id |\n| 4 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | top_features |  dma_id |\n| 5 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | top_features |  fold_position |\n| 6 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | top_features |  size |\n| 7 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | top_features |  os |\n| 8 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | top_features |  site_id |\n| 9 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | bottom_features |  id_vintage |\n| 10 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | bottom_features |  region_id |\n| 11 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | bottom_features |  day_of_week |\n| 12 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | bottom_features |  size |\n| 13 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | bottom_features |  device_id |\n| 14 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | bottom_features |  channel_type |\n| 15 | 10/8/2019 | 10/8/2019 | 100001 | 10002 | 10003 | 111111 | cpa | bottom_features |  country_id |\n\n### What's in the Brain Feature Value report\n\n| Column | Example* | Description |\n|---|---|---|\n| Start Date | 8/31/2019 | Date when these values were being used in bidding. |\n| End Date | 8/31/2019\\t| Date when these values were being used in bidding. |\n| Organization ID | 100000 | |\n| Agency ID | 10001 | User-specified (Step 6, below). |\n| Advertiser ID | 20000 | User-specified (Step 6, below). |\n| Campaign ID | 30000 | MediaMath unique ID for campaign. User-specified (Step 6, below). |\n| Model Goal | CPA, ROI, CPC, etc | The Goal Type that the model was trained for. Each Goal Type will have a different Brain model. |\n| Feature Report Type | bottom_features or \ntop_feature | bottom_features: a feature value that was in the bottom 100 (lowest \\\"Mean\\\").  top_features: a feature value that as in the top 100 (highest \\\"Mean\\\") |\n| Position | 0, 1, 2, 3, 4, ..., 9 | For bottom_features, a Position of 0 means it had the lowest \\\"Mean\\\".  For top_features, a Position of 0 means it had the highest \\\"Mean\\\". |\n| Feature | isp_id, day_of_week, size | The Feature that the next column’s Feature Value belongs to, used as input into the Brain Machine Learning model. For a full Feature list, see [here](https://apidocs.mediamath.com/campaigns/byoa/custom-brain/available-features). |\n| Feature Value| Verizon, Tuesday, 728x90 | Readable name of the Feature Value. Some Feature Values display in the report as hashed or otherwise manipulated in a way that does not accurately map back to a human-readable name, fields including Site ID, Category ID, and Region ID. In Q1 2020 or later, we hope to change the hashing to return these back to human readable names but until then it is in the backlog. Please provide feedback if you would find this an important feature to support sooner. The pipe character 'I' indicating that hashing has been applied may occur when there is a large number of Feature Values in a given Feature.  For example; site_id: \\\"539409862I130821751I231186\\\" or isp_id: \\\"WindstreamITelefonica\\\" |\n| Is Numeric | Y, N | A few of the Features (data types used in the prediction) are numerical in nature and will have a different impact on the prediction depending on the actual number (Y = Yes, it is numeric; N = No, it isn't numeric). One example is \\\"id_vintage\\\" which represents how long we’ve had an ID for the particular user we’re trying to predict the Response Rate for. Longer time means better quality (as they don't clear cookies/cache etc.) and improves the odds of conversions. The \\\"id_vintage\\\" field simplifies the large time spectrum into 4 specific ranges. |\n| Index | 123.855316, -60.73726 | This is based on the Mean. The index column gives you a comparative indication of the relative importance of features based on normalized attribution. While the mean values might not make much sense for a global understanding of the model, the index gives an indication of what the model sees as important features when its trained. The higher the Index number, the higher the importance. |\n| Mean | 0.00000648, -0.00000308 | When we train a model, we run a sample of the available data through our proprietary machine learning algorithm. The mean shown in this report is the Mean Attribution of the feature across samples of attribution. While technical, it may interest Data Science users. For the layman, it describes the \\\"average\\\" contribution of that Feature Value to the Predicted Response Rate. |\n| Bid Impact | 1.27748963, 0.93687577 | The marginal multiplicative contribution (> 1.0 increases, > 1.0 decreases) of a feature value (e.g. a particular exchange or site or creative) to a Predicted Response Rate (norm_rr).  The bid_impact is helpful for understanding pricing impact on that feature value, and to calculate CPM. An oversimplification: the baseline score is also impacted by a calibration coefficient. ***normrr = [campaign baseline score] x [bid impact of feature value #1] x [bid impact of feature value #2] …* *CPM = normrr x [strategy’s goal value] x 1,000*** T1 logs the predicted Action Rate of specific impressions in the Log Level Data Service under a field called “norm_rr”. Please speak to your MediaMath Account representative for more information about accessing this data. |\n\n*Note: Only 1 value will appear, not a comma-delimited list, although feature_value may be a pipe-delimited list)\n"
+  /by_hour:
+    get:
+      operationId: GET_by_hour
+      summary: By Hour
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nStandard performance metrics broken out by standard dimensions, available in precise time windows - down to the hour - with the option to aggregate by hour or day.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /by_hour/meta:
+    get:
+      operationId: GET_by_hour-meta
+      summary: By Hour Meta
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nGet By Hour Meta\n"
+  /day_part:
+    get:
+      operationId: GET_day_part
+      summary: Day Part
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nStandard performance metrics broken out by time of day and day of week. Available in standard intervals.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /day_part/meta:
+    get:
+      operationId: GET_day_part-meta
+      summary: Day Part Meta
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nGet Day Part Meta\n"
+  /deals:
+    get:
+      operationId: GET_deals
+      summary: Deals
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nSee or query the Meta Endpoint for required fields and parameters.\n\nBackground:\n\nThe Deals endpoint contains metrics describing the path from a matched bid opportunity (biddable) to a delivered impression (win) for private marketplace deals. Metrics from this endpoint will allow traders to observe the health of one or more deals. This will allow traders to make a more informed decision about what deals would be an ideal supply source for a particular strategy before committing test budget to it. Additionally, these metrics will help traders troubleshoot strategies targeting PMPs by providing deal win/loss metrics in isolation rather than having them tied to a creative or strategy. This helps traders understand how a deal is affecting their ability to scale more quickly and accurately.\n\nUpdate Times:\n\nThis endpoint refreshes at the top of every hour, adding 1 hour of data within every refresh, on a one hour delay. For example, data from 1:00 – 1:59 AM will become available at roughly 3:00 AM.\n\nAuthorization:\n\nThe deals endpoint uses the Private Marketplace Exchange (PMP-E) api for authorization - https://mediamath-pmp.api-docs.io/v1/private-marketplace-exchange-pmp-e/deals. Through the /deals endpoint, users can only receive reporting on deals in which their user is permissioned to the owner entity of the deal. A user permissioned to the owner entity of a deal indicates that the user has both read and write access of the deal. \n\nTo check what deals your user has read and write access to within a particular organization, please make the following get request to the Private Marketplace Exchange API:\nhttps://api.mediamath.com/media/v1.0/deals?owner.organization_id=[organization_id]\n\nRequired Access Fields\n\nAPI calls must filter by the combination of organization id and deal id. Calls can include only one organization id and one to many deal id's as long as all of the deals belong to the organization. For example:\n\nfilter=organization_id%3D[organization_id]%26deal_id%3D[deal_id]%2C[deal_id]\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /deals/meta:
+    get:
+      operationId: GET_deals-meta
+      summary: Deals Meta
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  Description:
+                    type: string
+                  Name:
+                    type: string
+                  Type:
+                    type: string
+                  URI_Data:
+                    type: string
+                  URI_Meta:
+                    type: string
+                  Version:
+                    type: integer
+                  currency:
+                    type: string
+                  data_retention:
+                    type: string
+                  default_metrics:
+                    type: array
+                    items:
+                      type: string
+                  structure:
+                    type: object
+                    properties:
+                      dimensions:
+                        type: object
+                        properties:
+                          deal_currency_code:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          deal_end_date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          deal_external_id:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          deal_id:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          deal_name:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          deal_price:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          deal_price_method:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                          deal_price_type:
+                            type: object
+                            properties:
+                              maxLength:
+                                type: integer
+                              name:
+                                type: string
+                              type:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                          deal_start_date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          exchange_id:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          organization_id:
+                            type: object
+                            properties:
+                              access:
+                                type: boolean
+                              name:
+                                type: string
+                              type:
+                                type: string
+                      metrics:
+                        type: object
+                        properties:
+                          bid_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          biddables:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          bids:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          win_rate:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                          wins:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                      time_field:
+                        type: object
+                        properties:
+                          date:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              type:
+                                type: string
+                  time_aggregation:
+                    type: string
+                  time_rollups:
+                    type: array
+                    items:
+                      type: string
+                  time_windows:
+                    type: array
+                    items:
+                      type: string
+                  timezone:
+                    type: string
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nGet Deals Meta\n"
+  /device_technology:
+    get:
+      operationId: GET_device_technology
+      summary: Device Technology
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nStandard performance metrics broken out by technology dimensions including browser, operating system, and connection type.  Available in custom date ranges or intervals with the option to aggregate by day, week, or month.\n\n## Versions\n\nThe API allows you to determine the version of the Device Technology Report by presenting a query parameter of `?v1` or `?v2`.\n\nStarting October 3rd, 2017 `v2` reports will include:\n\n- Device Brand – eg: Apple, Amazon, and Google\n- Device Model – eg: iPhone, Kindle Fire, Pixel\n- Browser Version – eg: Google Chrome\n- OS Version – eg: Windows 10\n\nThis insight will allow you to plan and assess performance based on device and browser, now inclusive of Mobile devices.  Please note this release does not include targeting for these fields.\n\nThe `v2` reports will return data starting from September 2nd, 2017. New data will be added to the reports moving forward, accumulating to the full 90 days of data; the max number of days a user is currently able to pull technology report data for.\n\n* All existing saved/scheduled technology reports in Data Export will continue to pull data from the old reporting framework until November 1st, 2017. However, these reports will no longer be editable, meaning you may only export or deactivate the reports in the interim.\n* Additionally, all currently saved/scheduled technology reports will be **automatically deactivated on November 1st, 2017.**\n* From November 1st, 2017 technology reports will pull data from the `v2` version of the reports by default.\n* From November 1st, 2017 technology reports that query the `v1` version will result in a 304\n* The export will also contain 31 days of data starting from September 2nd, 2017 and accumulate to the full 90 days.\n\n\n## Migration\n\nAfter November 1st, any requests to the `device_technology` endpoint that specify removed metrics *will fail with an 'invalid request' error*. It is strongly recommended that you compare the v1 and v2 definitions of the device technology report /meta endpoint.\n\n## Dimensions\n\n- Added `device_type`\n- Added `os_version`\n- Added `operating_system`\n- Added `inventory_type`\n- Added `device_model`\n- Added `device_make`\n- Added `browser_version`\n- Added `browser`\n\n- Removed `browser_id`\n- Removed `browser_name`\n- Removed `device_id`\n- Removed `device_name`\n- Removed `inventory_type_id`\n- Removed `inventory_type_name`\n- Removed `os_id`\n- Removed `os_name`\n\n\n## Metrics\n\n- Added `viewability_rate_100_percent`\n- Added `viewability_rate`\n- Added `in_view`\n- Added `in_view_100_percent`\n- Added `in_view_15_seconds`\n- Added `in_view_15_seconds_rate`\n- Added `in_view_5_seconds`\n- Added `in_view_5_seconds_rate`\n- Added `measurability_rate`\n- Added `measurable`\n- Added `media_cost_vcpm`\n- Added `total_ad_cost_vcpm`\n- Added `total_spend_vcpm`\n\n## Time Windows\n\n- Added `campaign_to_date`"
+      parameters:
+      - name: v1
+        in: query
+        description: _
+        schema:
+          type: string
+      - name: v2
+        in: query
+        description: _
+        schema:
+          type: string
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /device_technology/meta:
+    get:
+      operationId: GET_device_technology-meta
+      summary: Device Technology Meta
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n## Versions\n\nThe API allows you to determine the version of the Device Technology Report by presenting a query parameter of `?v1` or `?v2`.\n\nStarting October 3rd, 2017 `v2` reports will include:\n\n- Device Brand – eg: Apple, Amazon, and Google\n- Device Model – eg: iPhone, Kindle Fire, Pixel\n- Browser Version – eg: Google Chrome\n- OS Version – eg: Windows 10\n\nThis insight will allow you to plan and assess performance based on device and browser, now inclusive of Mobile devices.  Please note this release does not include targeting for these fields.\n\nInitially, the `v2` reports will only contain 31 days of data starting from September 2nd, 2017. New data will be added to the reports moving forward, accumulating to the full 90 days of data; the max number of days a user is currently able to pull technology report data for.\n\n* All existing saved/scheduled technology reports in Data Export will continue to pull data from the old reporting framework until November 1st, 2017. However, these reports will no longer be editable, meaning you may only export or deactivate the reports in the interim.\n* Additionally, all currently saved/scheduled technology reports will be **automatically deactivated on November 1st, 2017.**\n* From November 1st, 2017 technology reports will pull data from the `v2` version of the reports by default.\n* The export will also contain 31 days of data starting from September 2nd, 2017 and accumulate to the full 90 days."
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+  /geo:
+    get:
+      operationId: GET_geo
+      summary: Geo
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n"
+  /geo/meta:
+    get:
+      operationId: GET_geo-meta
+      summary: Geo Meta
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nStandard performance metrics broken out by geographic dimensions including country, region, and metro area.  Available in standard intervals.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+  /performance:
+    get:
+      operationId: GET_performance
+      summary: Performance
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nStandard performance metrics in campaign currency and broken out by our widest array of dimensions.  Available in custom date ranges or intervals with the option to aggregate by day, week, or month.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /performance/meta:
+    get:
+      operationId: GET_performance-meta
+      summary: Performance Meta
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nGet Performance Meta\n"
+  /reach_frequency:
+    get:
+      operationId: GET_reach_frequency
+      summary: Reach Frequency
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nThe Reach and Frequency report measures the number of unique users your ads are reaching and the frequency with which your users see those ads. Use it to monitor your reach, or to understand how the number of ads a customer sees influences their click and conversion behavior.\n\n# API Endpoints\n\nThe Reach and Frequency Report is available at:\n\n`$API_BASE/reach_frequency`\n\n# Important Fields\n\n### Report-Specific Fields\n\n`frequency` - shows the average number of times a unique user saw media from the given strategy or campaign\n\n`frequency_bin` - provides bins for ranges of frequency values. It’s useful for creating a histogram to show the distribution of frequency, or for analyzing how frequency correlates to performance metrics.\n\n`uniques` - measures the number of unique users who viewed an impression from the given campaign or strategy. Uniques are identified using cookies, so this number could be slightly overstated if your audience uses many different devices or clears their cookies often.\n\nNOTE: Uniques and frequencies are only counted for campaigns and strategies. Including advertiser or organization may be useful as metadata, but if you do not include campaign or strategy, uniques will be aggregated without de-duping and your data will be inaccurate. For this reason, you should always include either the campaign or strategy dimensions.\n\n### Time Fields\n\n`reach_frequency` is available as an interval report. It supports four time windows: yesterday, `last_7_days`, `last_14_days`, `last_30_days`, `last_60_days` and `last_90_days`. The only `time_aggregation` available is “all”.\n\n# Updates\n\nData is updated daily. Check the Last-Modified date in the header for more specific timing."
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /reach_frequency/meta:
+    get:
+      operationId: GET_reach_frequency-meta
+      summary: Reach Frequency Meta
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nGet Reach Frequency Meta\n"
+  /site_transparency:
+    get:
+      operationId: GET_site_transparency
+      summary: Site Transparency
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nGet Site Transparency\n"
+  /site_transparency/meta:
+    get:
+      operationId: GET_site_transparency-meta
+      summary: Site Transparency Meta
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nStandard performance metrics broken out by the domain of the inventory.  Available in standard intervals.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+  /watermark:
+    get:
+      operationId: GET_watermark
+      summary: Watermark
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nWatermark metrics show how many impressions and how much spend went towards the brain's learning activities.  Viewable by campaign and strategy dimensions and available by day.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /watermark/meta:
+    get:
+      operationId: GET_watermark-meta
+      summary: Watermark Meta
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nGet Watermark Meta\n"
+  /win_loss:
+    get:
+      operationId: GET_win_loss
+      summary: Win Loss
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n   The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n {% /admonition %}\n\n Metrics describe the auction before a win or even a bid has taken place.  Broken out by strategy, exchange, and deal dimensions and available by hour.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /win_loss/meta:
+    get:
+      operationId: GET_win_loss-meta
+      summary: Win Loss Meta
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nMetrics describe the auction before a win or even a bid has taken place.  Broken out by strategy, exchange, and deal dimensions and available by hour.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+  /win_loss_creative:
+    get:
+      operationId: GET_win_loss_creative
+      summary: Win/Loss by Creative
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n   The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n {% /admonition %}\n\n Metrics describe the auction before a win has taken place. Broken out by creative dimensions and available by hour.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /win_loss_creative/meta:
+    get:
+      operationId: GET_win_loss_creative-meta
+      summary: Win/Loss by Creative Meta
+      tags:
+      - Reports
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nMetrics describe the auction before a win has taken place. Broken out by creative dimensions and available by hour.\n"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      responses:
+        '200':
+          description: ''
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/full-report-description'
+components:
+  parameters:
+    trait_requestsCustomTimeWindow_order:
+      name: order
+      in: query
+      description: 'Controls the sorting of the groups.
+
+
+        This should be a comma-separated list of field names.  Each field name may optionally be prefixed with a minus sign to indicate descending order.  Otherwise, ascending order is assumed.
+
+
+        The first field has the most significance in sorting.'
+      required: false
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_metrics:
+      name: metrics
+      in: query
+      description: 'Controls the selection of metric fields.
+
+
+        This should be a comma-separated list of metric field names.
+
+
+        If not specified, this will default to the metric fields specified by the `default_metrics` property of the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+
+
+        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
+      required: false
+      schema:
+        type: string
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      description: _
+      in: header
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
+    trait_requestsCustomTimeWindow_If-Modified-Since:
+      name: If-Modified-Since
+      in: header
+      description: 'If the data has not changed, the server responds with a 304 Not Modified status code and an empty response body.
+
+
+        If the same request was issued and the data had been updated since the specified time, the server responds with the data requested and a new Last-Modified header.'
+      schema:
+        type: string
+        format: date-time
+    trait_requestsCustomTimeWindow_precision:
+      name: precision
+      in: query
+      description: Controls how many digits to the right of the decimal places to display for float types.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 8
+        default: 8
+    trait_requestsCustomTimeWindow_time_window:
+      name: time_window
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_page_offset:
+      name: page_offset
+      in: query
+      description: Controls how many pages to skip.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    trait_requestsCustomTimeWindow_end_date:
+      name: end_date
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: false
+      schema:
+        type: string
+        default: yesterday
+    trait_requestsCustomTimeWindow_page_limit:
+      name: page_limit
+      in: query
+      description: 'Controls the maximum number of rows of data.
+
+
+        This parameter is required, if page_offset is one or greater.'
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+    trait_requestsCustomTimeWindow_having:
+      name: having
+      in: query
+      description: Controls filtering against metric and dimension fields.  The filtering is performed after row grouping and metric calculation.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: false
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_dimensions:
+      name: dimensions
+      in: query
+      description: 'Selects the dimension fields to use in grouping rows.
+
+
+        This should be a comma-separated list of dimension field names.
+
+
+        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_Accept-Encoding_:
+      name: 'Accept-Encoding:'
+      in: header
+      description: "If the client supports the compression methods also supported by the server (currently `gzip` and `deflate`), the response data set (`text`\\/`csv`) will be returned in a compressed format. The metadata and error responses will not be compressed.\n\nIn order to receive the data in compressed format, the client must use the HTTP request header `Accept-Encoding`, and enumerate the preferred compression methods (see [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)). If the header `Accept-Encoding` is not present in the request, or if it contains only compression methods not supported by the system, the data will be returned in an uncompressed format.\n\n    ###  request \n    Accept-Encoding: gzip,deflate   \n\n    ###  response  \n    Content-Encoding: gzip \n    Content-Type: text/csv; charset=UTF-8 "
+      schema:
+        type: string
+        enum:
+        - gzip,deflate
+    trait_requestsCustomTimeWindow_start_date:
+      name: start_date
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_filter:
+      name: filter
+      in: query
+      description: Controls filtering against dimension fields.  The filtering is performed before row grouping.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_time_rollup:
+      name: time_rollup
+      in: query
+      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+  schemas:
+    field-description:
+      title: Field Description
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the human-readable name of the field.
+        type:
+          type: string
+          enum:
+          - float
+          - money
+          - percent
+          - ratio
+          - integer
+          - count
+          - rank
+          - datetime
+          - string
+          - interval
+          - id
+          - bool
+          - boolean
+        access:
+          type: boolean
+          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
+        description:
+          type: string
+        maxLength:
+          type: number
+          description: This property describes the allowable length for string-typed fields.
+        values:
+          type: array
+          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
+          items:
+            type: string
+      required:
+      - name
+      - type
+      x-stoplight:
+        id: ay5bipqhvuzoi
+    brief-report-description:
+      title: Brief Report Description
+      type: object
+      properties:
+        Name:
+          type: string
+          description: This is the human-readable name of the report.  It is not recognized by any API input.
+        Version:
+          type: integer
+          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+        Description:
+          type: string
+        URI_Data:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
+        URI_Meta:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+        Transition:
+          type: object
+          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            replaced_by:
+              type: string
+              format: uri
+              description: The URL where the metadata for the next version of the report may be found.
+            transition_date:
+              type: string
+              format: date-time
+              description: After this GMT time the current version of the report will no longer be available.
+            next_version:
+              type: integer
+              description: The version replacing the current version of the report.
+          required:
+          - replaced_by
+          - transition_date
+          - next_version
+        Deprecation:
+          type: object
+          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            superseded_by:
+              type: string
+              format: uri
+              description: Optionally provides the metadata URI for the superseding report.
+            deprecation_date:
+              type: string
+              format: date-time
+              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
+          required:
+          - deprecation_date
+      required:
+      - Name
+      - Version
+      - URI_Data
+      - URI_Meta
+      x-stoplight:
+        id: k6iyargwoudhr
+    full-report-description:
+      title: Full Report Description
+      allOf:
+      - $ref: '#/components/schemas/brief-report-description'
+      - type: object
+        properties:
+          Type:
+            type: string
+          currency:
+            type: string
+            description: 'Provides information about the currency of the `metrics` fields typed as "money".
+
+
+              When set to "campaign currency", the currency varies from record to record.  To determine the currency for a particular record, the campaign_currency_code `dimensions` field should be requested, if available for the report.
+
+
+              Any other value should be taken to be the currency for all records of the report.'
+          data_retention:
+            type: string
+            description: Indicates how far back data is available.  This can be a date, datetime, or time window as specified by the "time_window" and "Special Time Windows" sections of <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>.  This property should be used very loosely.  It may not be accurate.  It is meant to give a general idea.
+          default_metrics:
+            type: array
+            description: This is the list of metrics that will be returned if the `metrics` parameter is not specified in a call to the <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report>.
+            items:
+              type: string
+          structure:
+            type: object
+            required:
+            - time_field
+            - dimensions
+            - metrics
+            properties:
+              time_field:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/field-description'
+                description: Mapping of field names seen in <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>
+              dimensions:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/field-description'
+                description: Mapping of field names seen in <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>
+              metrics:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/field-description'
+                description: Mapping of field names seen in <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>
+          time_aggregation:
+            type: string
+            description: This property indicates the finest granularity of the `time_field`.  For reports with a `time_field` of the `datetime` type, this will be "by_hour", "by_day", etc.  When the type is `interval`, this will be "various".
+          time_rollups:
+            type: array
+            description: This property indicates the available levels of granularity for the `time_field`.  It lists the valid values of the `time_rollup` parameter used for the <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.  For reports with a `time_field` of the `datetime` type, this tends to be a combination of "by_hour", "by_day", "by_week", "by_month", "all", etc.  When the type is `interval`, this will only include "all".
+            items:
+              type: string
+          time_windows:
+            type: array
+            description: Lists the acceptable formats for the `time_window` parameter used by the <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report>.  Some values may be used as is, others may need to be modified.  For details see the time_window section of  <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields>.
+            items:
+              type: string
+          timezone:
+            type: string
+            description: 'Provides information about the timezone of the `time_field` for the report.
+
+
+              When set to "campaign timezone", the timezone varies from record to record.  To determine the currency for a particular record, the campaign_timezone `dimensions` field should be requested, if available for the report.
+
+
+              Any other value should be taken to be the timezone for all records of the report.'
+        required:
+        - default_metrics
+        - structure
+        - time_rollups
+        - time_windows
+      x-stoplight:
+        id: 8plabb85jgk95
+  responses:
+    trait_requestsCustomTimeWindow_200:
+      description: ''
+    trait_requestsCustomTimeWindow_304:
+      description: ''
+    trait_requestsCustomTimeWindow_404:
+      description: ''
+    trait_requestsCustomTimeWindow_403:
+      description: ''
+    trait_requestsCustomTimeWindow_400:
+      description: ''
+    trait_requestsCustomTimeWindow_401:
+      description: ''
+  securitySchemes:
+    API_Key_-_1:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          scopes: {}
+x-stoplight:
+  id: bmaieg1p7ctvh

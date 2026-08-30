@@ -1,0 +1,269 @@
+openapi: 3.2.0
+info:
+  version: ''
+  contact:
+    name: API Support
+    url: https://www.mediamath.com/contact-us/
+    email: support@mediamath.com
+  title: Reporting API V1 Data Retrieval API
+  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\" %}\n  The use of cookie adama_session for authentication has been discontinued and it's not supported in Reporting API V2. \n  We ask all of our clients who have not yet migrated to [OAuth2 Authentication](https://apidocs.mediamath.com/guides/authentication) to do so as soon as possible.\n{% /admonition %}\n\nThe Reports API on MediaMath Platform allows advertisers to access, query and aggregate reporting data.  It is also the API that powers all reporting seen on our MediaMath Platform flagship UI.\n\nThe Reports API offers a number of reports.  Each report offers its own pre-aggregated, time-based metrics on entities that users can query.  A query can filter, aggregate, sort, paginate, and format this data.\n\nIt is a read-only system meaning no request against it can alter the data in any way.\n\nIt is also a metadata-driven system.  The supported reports are described in a human- and machine-readable format.  This ensures easy one-off and repeatable programmatic data querying.  It also provides a way for clients to adapt to changes in reports programmatically.  This gives client-developers the ability to create UIs that provide useful operational feedback in a navigable and understandable way.  \n\nThe $API_BASE for the V1 version of Reports API is `https://api.mediamath.com/reporting/v1/std`\n\n## Authentication\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nSee [OAuth Authentication](https://apidocs.mediamath.com/guides/authentication)\n\n## Fields\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nReport data is stored and output in a tabular format.  This means that the output consists of rows and columns.  Every row has a value for every column.\n\nThe `structure` object can be used to determine the columns a report can output.  Its fields are divided among three mappings - `time_field`, `dimensions`, and `metrics`. \n\n```json\n{\n  \n  \"time_rollups\" : [ \"by_day\", \"by_week\", \"by_month\", \"all\" ],\n  \"time_windows\" : [ \"yesterday\", \"last_X_days\", \"month_to_date\", \"campaign_to_date\" ],\n  \"timezone\" : \"campaign timezone\",\n  \"time_aggregation\" : \"by_day\",\n  \"structure\" : { \n    \"time_field\" : { \n      \"date\" : { \n        \"name\" : \"Date\",\n        \"type\" : \"datetime\"\n      }\n    },  \n    \"dimensions\" : {\n      \"campaign_id\" : { ... },\n      \"campaign_name\" : { ... },\n      \"strategy_id\" : { ... },\n      \"strategy_name\" : { ... }\n    },  \n    \"metrics\" : { \n      \"clicks\" : { ... },\n      \"impressions\" : { ... }\n    }\n  }\n  ...\n}\n```\n\n---\n**Time Field**\n\nThe time field represents the time-component of the report's metrics.  There is (currently) only one time field for each report.  It can be of one of these data types: `datetime` or `interval`.  Its data type determines the type of report (**datetime** or **interval** based report).\n\n**Note:** The type of report is not to be confused with the `Type` attribute.  The `Type` attribute is purely informational.\n\nThe time field was distinguished from the dimension fields to allow its use in grouping and filtering rows easier to understand.  It gets its own set of parameters and language.\n\n---\n**datetime-typed Time Fields**\n\nDatetime-typed time fields contains a combination of year, month, day, and possibly down to hour, minute and second.  The `time_aggregation` property indicates the field's finest grain (by_hour, by_day, etc).  The `time_rollups` property indicates the available grouping options that can go beyond the `time_aggregation` of the report.\n\n```\ntime_rollup=by_week     ### group rows by the week  -  week starts on Monday \ntime_rollup=by_month    ### group rows by the month\ntime_rollup=all         ### produces at most one row of output per combination of dimension fields\n                        ### listed in the dimensions parameter\n```\n\nThe time field for these reports are typically represented in the output by a start_date and end_date column.  The format of the column will depend on the time window and `time_rollup`.\n\n* YYYY-MM-DD\n* YYYY-MM-DD hh:mi:ss\n\nThe only exception to this rule is detailed in the Special Time Windows section.\n\nThe timezone of the start_date and end_date columns will match the `timezone` property.\n\n---\n**interval-typed Time Fields**\n\n`interval`-typed time fields, contain a predefined non-calendar date based aggregation (1 day, 7 days, 30 days, and so on).  In this case, the only accepted way to specify a time interval is by using the parameter `time_window`.  The only value supported for the parameter `time_rollup` for interval-based reports is `all`.\n\nThe time field for these reports are represented in the output by a interval column.  The value of the column will depend on the `time_window` chosen.  The following gives example column values based on the time_window.\n\n* yesterday - 1\n* last_7_days - 7\n* last_30_days - 30\n* campaign_to_date - CTD\n* flight_to_date - FTD\n\n---\n**Filtering with the Time Field**\n\nThe API requires the specification of a time window in order to narrow the data set operated on. A time window must be specified in one of the two possible ways.\n\n* `start_date` and `end_date` (optional - defaults to \"yesterday\").\n* `time_window` may be set to one of the formats defined by the `time_windows` attribute.\n\n```\n###  operate on data timestamped between Jan 01, 2013 and Feb 01, 2013, inclusive\nstart_date=2013-01-01&end_date=2013-02-01  \n###  operate on data timestamped between May 05, 2013 and yesterday, inclusive\nstart_date=2013-05-01  \n###  other usage examples \ntime_window=last_30_days \ntime_window=month_to_date \ntime_window=yesterday \n```\n\n---\n**start_date and end_date**\n\n`start_date` and `end_date` may only be used when the report's time field is of the `datetime` type.  They may not be used when the report's time field is of the `interval` data type.  This is because the `time_windows` are pre-defined intervals that cannot be split.\n\nThe `start_date` and `end_date` parameters define inclusive boundaries for the data.  In order to ease the burden of calculating an inclusive end, the inputs may be specified at various granularities.\n\n*   month - YYYY-MM\n*   day - YYYY-MM-DD\n*   hour - YYYY-MM-DDThh\n*   minute - YYYY-MM-DDThh:mi\n*   second - YYYY-MM-DDThh:mi:ss\n\nEach granularity matches a substring of the ISO 8601 format.\n\nIf the report is at a coarser granularity (see `time_aggregation`) than the input, the input will be taken to mean the entirety of the time unit.\n\n```\nstart_date=2016-04-12T01%3A30%3A00&end_date=2016-04-12T02%3A30%3A00\n# ie. start_date=2016-04-12T01:30:00&end_date=2016-04-12T02:30:00\n# For a report with a time_aggregation of by_hour:\n# 2016-04-12T01:00:00 to 2016-04-12T02:59:59.\n \n# For a report with a time_aggregation of by_day:\n# 2016-04-12T00:00:00 to 2016-04-12T23:59:59\n```\n\n---\n**time_window**\n\nAll values mentioned in the `time_windows` array will be accepted verbatim by the time_window parameter with the exception of any time window that starts with `last_X_`.  They may be interpreted as such.\n\n* The `last_X_days` time window ends yesterday (inclusive) and starts X days before that.\n* The `last_X_hours` time window ends at the previous hour (inclusive) and starts X hours before that.\n\nFuture windows of this type may be defined following this nomenclature, but for different units.  Rules for the time window may vary slightly.\n\n---\n**Special Time Windows**\n\nThe following `time_windows` are considered to be special time windows.\n\n* `campaign_to_date`\n* `flight_to_date`\n\nFor reports with a `datetime`-typed `time_field`, the start_date and end_date columns that would normally be present, will be replaced by the interval column. Additionally, the following validation rules apply when a special `time_window` is chosen.\n\n* The results will have an `interval` column instead of `start_date` and `end_date` columns.\n* The `time_rollup` parameter must be set to `all`.\n* Any mention of the `time_field` for the report in the `order` parameter will be rejected.\n\n---\n**Dimension Fields**\n\nDimension fields describe an entity.  The example reports provide dimension fields for campaign, and strategy entities.  Dimension fields are used to group rows during aggregation in conjunction with the time field.\n\n---\n**Metric Fields**\n\nOnce the rows have been grouped.  The metric fields are calculated based on the values of the group's underlying rows.  These calculations are generally sums or averages.  These fields are usually a numeric data type.\n\nPlease note that fees (eg: managed_service_fee, optimization_fee, platform_access_fee, and mm_total_fee), cost (eg: adserving_cost, adverification_cost, media_cost, and tota_ad_cost), and margin data are only available to users who have “edit margin” access.\n\n# Data Types\n\n{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\nThe `id` type allows any character except whitespace.\n\nThe `datetime` type may be filtered by dates, or datetimes in either of the following ISO 8601 based formats.\n\n*   date - YYYY-MM-DD\n*   datetime - YYYY-MM-DDThh:mi:ss\n\nYear, month, and day are all 1-based.  Hour, minute, and second are all 0-based.  Valid hours are 0-23.\n\nThe dimension fields of the `datetime` type will always be output in the aforementioned datetime format.  The output columns for the time field will be output in the same format, but without the separating 'T'.\n\n---\n**Field Data Type Groupings**\n\nThis documentation may refer to multiple data types via a group name.  The following table details the group names.\n\n|Group|Data Types|\n|--- |--- |\n|float|float, money, percent, ratio|\n|integer|integer, count, rank|\n|numeric|float and integer groups|\n|date|datetime|\n|string|string, interval|\n|id|id|\n|bool|bool, boolean|\n"
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+servers:
+- url: https://api.mediamath.com/reporting/v1/std
+tags:
+- name: Data Retrieval
+  description: _
+paths:
+  /{report}:
+    parameters:
+    - name: report
+      in: path
+      description: This must be a report discoverable from https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_meta.
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: GET_report
+      summary: Report Data
+      tags:
+      - Data Retrieval
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n# Parameters\n\nParameter names are case sensitive, (see the table below).\n\nMost parameters will fall under one of the following two formats.\n\n*   enumeration of comma-separated items (used in aggregation, selection and sorting);\n    *   example:\n        *   `dimensions=campaign_id%2Ccampaign_name%2Ccampaign_start_date` (in other words, `campaign_id,campaign_name,campaign_start_date`)\n*   list of logically AND-ed expressions, joined by ampersand (used in dimension and metric filtering);\n    *   examples:\n        *   `filter=campaign_id%3D12345%26strategy_id%3D98765` (in other words, `campaign_id=12345&strategy_id=98765`)\n        *   `having=impressions%3E%3D500%26clicks%3C100` (in other words, `impressions>=500&clicks<100`)\n\n# Query Options\n\nA query can filter, aggregate, sort, paginate, and format a report's data.\n\nFiltering is required.  It must be done on the time field, and one or more dimension fields that have their `access` property set to true.  It can be done both before and after aggregation.\n\nAggregation, like filtering, is also required.  The grouping must be performed against the time field and a combination of one or more dimension fields.\n\nSorting, pagination, and formatting are not required.  The features are controlled via the `order`, `page_limit`, `page_offset`, and `precision` parameters.  They are described in full detail in the Definition section at the end of the documentation for this endpoint.\n\n### Filtering\n\nData filtering may be performed before rows are grouped, and afterwards as well.\n\nIt can be done before grouping via the `time_window`, `start_date`, `end_date`, and `filter` parameters.  This provides finer control over what rows contribute to the metric fields of a group.\n\nFiltering can also be done after grouping, and metric calculations via the `having` parameter.\n\nFor more information about the `time_window`, `start_date`, and `end_date` parameters see the <https://apidocs.mediamath.com/apis/reporting-api-v1/section/fields> section.\n\nFor more information about the `filter` and `having` parameters see the following section.\n\n#### Predicate Parameters\n\n`filter` and `having` are predicate parameters.  One of the two parameters is required.  The parameters consist of one or more predicates.  A predicate has the following format.\n\n1.  a dimension or metric field from the report definition\n2.  an operator from the _Operators supported in filtering expressions_ table\n3.  one or more values matching the type of field\n\nAt least one predicate parameters is required.  This is because at least one of the predicates must use one of the access dimension fields in an equality test (operator `=`).\n\nThe `filter` parameter filters on dimension fields only, while the `having` parameter may filter by both dimension and metric fields.  The `filter` parameter is applied before rows are grouped, while the `having` parameter is applied after rows have been grouped, and metrics have been calculated.\n\nThe parameter `filter` is not required if access dimension fields are used in parameter `having`.  Using dimension fields in the `having` parameter causes those dimension fields to be used in grouping rows.\n\n##### Operators supported in filtering expressions\n\n|Operators|Operation|Field Data Type|\n|--- |--- |--- |\n|=, !=|equality, non-equality check|all|\n|>, <, >=, <=|inequality check|numeric|\n|~, =~|contains, case sensitive|string|\n|=:|contains, case insensitive|string|\n|!~|does not contain, case sensitive|string|\n|!:|does not contain, case insensitive|string|\n\n##### Multiple Predicates\n\nMore than one predicate may be specified in a predicate parameter.  The predicates need to be joined together with an ampersand (&).  The ampersand indicates the predicates are ANDed together.  As such, for a record to appear in the results, each predicate must evaluate to true for that record.  The following shows an example.\n\n```\n###  filtering aggregated rows by metric or dimension fields\nhaving=impressions%3E%3D500%26clicks%3C100%26campaign_id%3D12345\n###  (i.e.  impressions>=500&clicks<100&campaign_id=12345)\n\n###  filtering base rows by dimension fields\nfilter=campaign_id%3D12345%26strategy_id%3D98765%2Cstrategy_goal_type%3Dcpc\n###  (i.e.  campaign_id=12345&strategy_id=98765&strategy_goal_type=cpc)\n```\n\n##### Predicates with Multiple Values\n\nA predicate is considered true, if one or more values evaluate as true for the given field and comparison operation.  This result is then ANDed with any other predicates that exist at that level of filtering.  Values must be separated by commas.  The following shows an example.\n\n```\n### filtering records for when campaign_id is 11111, 22222, or 33333 and the campaign_name contains \"sell\"\nfilter=campaign_id%3D11111%2C22222%2C33333%26campaign_name%7Esell\n###  (i.e.  campaign_id=11111,22222,33333&campaign_name~sell)\n```\n\n##### Encoding Predicates\n\nIn order to ensure predicates and values are properly separated, a special encoding is needed for predicate values that contain any of the following characters.\n\n& , \" < > = ~ ! :\n\nThe encoding is a simple two step process.\n\n1.  Double quotes are doubled.\n2.  The resultant value is surrounded in double quotes.\n\nThe following shows an example.\n\n*   Unencoded: Jack & Jill \"Of All Trades\"\n*   Encoded: \"Jack & Jill \"\"Of All Trades\"\"\"\n\nThis special encoding may be applied to any value in the predicates.  It does not determine the type. The looseness is there to allow for URLs to be more readable.  It does however, need to be applied before URL encoding is performed.\n\n### Aggregation\n\nThrough the `dimensions`, one can indicate the way the rows must be grouped. One or more dimension fields, may be specified. The order in which the dimension fields are listed is important for the result set.\n\n```\n###  group by these fields in this order dimensions=campaign_id%2Ccampaign_name%2Ccampaign_start_date\n###  (i.e.  campaign_id,campaign_name,campaign_start_date) \n```\n\nSee the Time Field section of the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for grouping options available for the time field.\n\nGrouping by metric fields is not allowed.  Metric fields are calculated based on the underlying rows of each group.  The metrics can be chosen via the `metrics` parameter.\n\n```\n###  calculate these metrics per group dimensions=clicks%2Cimpressions\n###  (i.e.  clicks,impressions) \n```\n\n# On Success\n\nThe system returns an appropriate HTTP return code (2xx or 3xx - see [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6.1.1)). The response body is CSV-formatted (`Content-Type: text/csv`), consisting of one header row, and zero or more data rows. The response uses the HTTP 1.1 [chunking](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.6.1) feature.\n\nA data row will represent a group.  It will have a start_date/end_date format, or an interval format.  Always use the header line to determine the order of columns, as they may not match the order listed in the parameters.\n\n### start_date/end_date Format\n\n* two columns of type datetime:\n   * start_date - the start of the time rollup interval (inclusive)\n   * end_date - the end of the time rollup interval (inclusive)\n* all dimension fields specified in the parameters dimensions\n* all metric fields specified in the parameter metrics\n* all fields, dimension or metric, specified in the parameters having and order\n\nNote that the `start_date` and `end_date` will cover the whole interval specified by the parameter time_window (or `start_date` \\/ `end_date` equivalents), or the intervals generated according to the parameter `time_rollup`, even though data may not exist for the whole interval.\n\n```\nstart_date,end_date,campaign_id,campaign_name,creative_id,creative_name,clicks,impressions,total_spend\n\"2013-05-01\",\"2013-05-22\",123456,\"My Campaign Nr 10\",98765432,\"Creative No 12\",17701,171981779,45266.65\n\"2013-04-24\",\"2013-04-30\",123456,\"My Campaign Nr 10\",11223344,\"Creative Nr Five\",4101,45076933,7566.57\n\"2013-04-24\",\"2013-04-30\",123456,\"My Campaign Nr 10\",12121212,\"Creative Ten\",5220,42592353,6360.86\n\"2013-05-01\",\"2013-05-22\",123456,\"My Campaign Nr 10\",99887766,\"Creative One\",21912,41691908,61644.34 \n```\n\n### interval Format\n\n* one field of type interval:\n   * interval - the pre-aggregated interval of the group.\n* all dimension fields specified in the parameters dimensions\n* all metric fields specified in the parameter metrics\n* all fields, dimension or metric, specified in the parameters having and order\n\n```\ninterval,campaign_id,campaign_name,creative_id,creative_name,clicks,impressions,total_spend\n7,123456,\"My Campaign Nr 10\",98765432,\"Creative No 12\",17701,171981779,45266.65\n7,123456,\"My Campaign Nr 10\",11223344,\"Creative Nr Five\",4101,45076933,7566.57\n7,123456,\"My Campaign Nr 10\",12121212,\"Creative Ten\",5220,42592353,6360.86\n7,123456,\"My Campaign Nr 10\",99887766,\"Creative One\",21912,41691908,61644.34 \n```\n\n### Predicting the Format\n\n`interval` based report queries will return the interval format.\n\n`datetime` based report queries:\n* using a special time window will return the interval format.\n* using a normal time window will return the start_date/end_date format.\n\n# On Error\n\nOn error, an appropriate HTTP status code is returned (4xx or 5xx - see [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html#sec6.1.1)). The response body, which of type XML (`Content-Type: text/xml`) will contain, at the minimum (see examples below), the root element result, with at least one element named status, which in turn has an attribute named code, and a human readable text. Some error responses also contain an attribute reason, which adds more information regarding the error.\n\nThere are several types of errors:\n\n### Authentication and authorization errors\n\n```\nHTTP/1.0 401 Unauthorized\nContent-Type: text/xml; charset=UTF-8\n\n<result>\n  <status code=\"auth_required\" reason=\"not_logged_in\">Authentication Required</status>\n</result>\n```\n\n```\nHTTP/1.0 403 Forbidden\nContent-Type: text/xml; charset=UTF-8\n\n<result>\n  <entity id=\"12345\" type=\"campaign\" />\n  <status code=\"denied\">Insufficient permissions</status>\n</result>\n```\n\n### Parameter validation errors (malformed values, unknown fields, missing required parameters, etc)\n\n```\nHTTP/1.0 400 Bad Request\nContent-Type: text/xml; charset=UTF-8\n\n<result>\n  <status code=\"bad_request\" reason=\"missing_time_window\">a time window is required</status>\n</result>\n```\n\n### Non-existent entities\n\n```\nHTTP/1.0 404 Not Found\nContent-Type: text/xml; charset=UTF-8\n\n<result>\n  <entity id=\"12345\" type=\"campaign\" />\n  <status code=\"not_found\">Entity Not Found</status>\n</result>\n```\n\n### Server errors (internal error, request timeout, scheduled maintenance, server overloaded)\n\n```\nHTTP/1.0 500 Internal Server Error\nContent-Type: text/xml; charset=UTF-8\n\n<result>\n  <status code=\"error\">Internal Server Error</status>\n</result>\n```\n\n```\nHTTP/1.0 500 Internal Server Error\nContent-Type: text/xml; charset=UTF-8\n\n<result>\n  <status code=\"request_timeout\">The request timed out</status>\n</result>\n```\n\n```\nHTTP/1.0 503 Service Unavailable\nContent-Type: text/xml; charset=UTF-8\n\n<result>\n  <status code=\"unavailable\">The server is temporarily unavailable due to maintenance downtime.</status>\n</result>\n```"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+  /{report}/validate:
+    parameters:
+    - name: report
+      in: path
+      required: true
+      description: This must be a report discoverable from https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta.
+      schema:
+        type: string
+    get:
+      operationId: GET_report-validate
+      summary: Validate Report Data Request
+      tags:
+      - Data Retrieval
+      description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  The new API docs can be found here: [https://apidocs.mediamath.com/apis/reporting-api](https://apidocs.mediamath.com/apis/reporting-api)\n{% /admonition %}\n\n### Validating Data Retrieval Requests\n\nData retrieval requests can be validated and authenticated without actually requesting data, by simply appending a `/validate` path segment to the URI. **Important:** The validation process takes into account the current user's permissions. The error responses that are returned in case of validation failure are the same as the ones that would have been returned by the regular API call.\n\nThe following shows an example validation request for a request with an erroneous `organization_id` filtering parameter:\n\n```\nGET /reporting/v1/std/{report}/validate?filter=organization_id%3D12345&dimensions=campaign_id%2Corganization_id&time_window=last_7_days&time_rollup=by_day\n```\n\n```\nHTTP/1.0 404 Not Found\nContent-Type: text/xml; charset=UTF-8\n\n<?xml version='1.0' ?>\n<result>\n  <entity id=\"12345\" type=\"organization\" />\n  <status code=\"not_found\">Entity Not Found</status>\n</result>\n```\n\nBy contrast, this call shows a validation response for a valid call:\n\n```\nGET /reporting/v1/std/{report}/validate?filter=organization_id%3D12346&dimensions=campaign_id%2Corganization_id&time_window=last_7_days&time_rollup=by_day\n```\n\n```\nHTTP/1.0 200 OK\nContent-Type: text/xml; charset=UTF-8\n\n<?xml version='1.0' ?>\n<result>\n  <status code=\"ok\" />\n</result>\n```"
+      parameters:
+      - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_dimensions'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_metrics'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_filter'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_having'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_rollup'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_time_window'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_start_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_end_date'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_order'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_limit'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_page_offset'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_precision'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_Accept-Encoding_'
+      - $ref: '#/components/parameters/trait_requestsCustomTimeWindow_If-Modified-Since'
+      responses:
+        '200':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_200'
+        '304':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_304'
+        '400':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_400'
+        '401':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_401'
+        '403':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_403'
+        '404':
+          $ref: '#/components/responses/trait_requestsCustomTimeWindow_404'
+components:
+  parameters:
+    trait_requestsCustomTimeWindow_order:
+      name: order
+      in: query
+      description: 'Controls the sorting of the groups.
+
+
+        This should be a comma-separated list of field names.  Each field name may optionally be prefixed with a minus sign to indicate descending order.  Otherwise, ascending order is assumed.
+
+
+        The first field has the most significance in sorting.'
+      required: false
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_metrics:
+      name: metrics
+      in: query
+      description: 'Controls the selection of metric fields.
+
+
+        This should be a comma-separated list of metric field names.
+
+
+        If not specified, this will default to the metric fields specified by the `default_metrics` property of the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+
+
+        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
+      required: false
+      schema:
+        type: string
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      description: _
+      in: header
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
+    trait_requestsCustomTimeWindow_If-Modified-Since:
+      name: If-Modified-Since
+      in: header
+      description: 'If the data has not changed, the server responds with a 304 Not Modified status code and an empty response body.
+
+
+        If the same request was issued and the data had been updated since the specified time, the server responds with the data requested and a new Last-Modified header.'
+      schema:
+        type: string
+        format: date-time
+    trait_requestsCustomTimeWindow_precision:
+      name: precision
+      in: query
+      description: Controls how many digits to the right of the decimal places to display for float types.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 8
+        default: 8
+    trait_requestsCustomTimeWindow_time_window:
+      name: time_window
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_page_offset:
+      name: page_offset
+      in: query
+      description: Controls how many pages to skip.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    trait_requestsCustomTimeWindow_end_date:
+      name: end_date
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: false
+      schema:
+        type: string
+        default: yesterday
+    trait_requestsCustomTimeWindow_page_limit:
+      name: page_limit
+      in: query
+      description: 'Controls the maximum number of rows of data.
+
+
+        This parameter is required, if page_offset is one or greater.'
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+    trait_requestsCustomTimeWindow_having:
+      name: having
+      in: query
+      description: Controls filtering against metric and dimension fields.  The filtering is performed after row grouping and metric calculation.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: false
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_dimensions:
+      name: dimensions
+      in: query
+      description: 'Selects the dimension fields to use in grouping rows.
+
+
+        This should be a comma-separated list of dimension field names.
+
+
+        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_Accept-Encoding_:
+      name: 'Accept-Encoding:'
+      in: header
+      description: "If the client supports the compression methods also supported by the server (currently `gzip` and `deflate`), the response data set (`text`\\/`csv`) will be returned in a compressed format. The metadata and error responses will not be compressed.\n\nIn order to receive the data in compressed format, the client must use the HTTP request header `Accept-Encoding`, and enumerate the preferred compression methods (see [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)). If the header `Accept-Encoding` is not present in the request, or if it contains only compression methods not supported by the system, the data will be returned in an uncompressed format.\n\n    ###  request \n    Accept-Encoding: gzip,deflate   \n\n    ###  response  \n    Content-Encoding: gzip \n    Content-Type: text/csv; charset=UTF-8 "
+      schema:
+        type: string
+        enum:
+        - gzip,deflate
+    trait_requestsCustomTimeWindow_start_date:
+      name: start_date
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_filter:
+      name: filter
+      in: query
+      description: Controls filtering against dimension fields.  The filtering is performed before row grouping.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_time_rollup:
+      name: time_rollup
+      in: query
+      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+  responses:
+    trait_requestsCustomTimeWindow_200:
+      description: ''
+    trait_requestsCustomTimeWindow_304:
+      description: ''
+    trait_requestsCustomTimeWindow_404:
+      description: ''
+    trait_requestsCustomTimeWindow_403:
+      description: ''
+    trait_requestsCustomTimeWindow_400:
+      description: ''
+    trait_requestsCustomTimeWindow_401:
+      description: ''
+  securitySchemes:
+    API_Key_-_1:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          scopes: {}
+x-stoplight:
+  id: bmaieg1p7ctvh

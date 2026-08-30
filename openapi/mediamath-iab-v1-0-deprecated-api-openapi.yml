@@ -1,0 +1,1275 @@
+openapi: 3.2.0
+info:
+  title: Video Creatives IAB (V1.0 - Deprecated) API
+  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication token](/guides/authentication).
+
+
+    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs) and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
+
+
+    *Example HTTPie command to list all video creatives.*
+
+    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
+
+
+    ## Migration Notice
+
+
+    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
+
+
+    | Deprecated V2.0 Endpoint | Use Instead |
+
+    |---|---|
+
+    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
+
+    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
+
+    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions` |
+
+    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field (returns a pre-signed S3 upload URL) |
+
+    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
+
+
+    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1.0
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: IAB (V1.0 - Deprecated)
+  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  Please migrate to the **IAB Data API v3.0** (`GET /v3.0/static_data/{category}`) documented below.\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\" %}\n  The use of cookie `adama_session` for authentication has been discontinued and it's not supported in V3.0.\n  We ask all of our clients who have not yet migrated to **Bearer (JWT) Authentication** to do so as soon as possible.\n{% /admonition %}\n\nIAB static data endpoints (V1.0 — deprecated).\n"
+paths:
+  /static_data/v1.0/iab_attributes:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Attributes List
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_attributes` instead.
+
+
+        Get IAB Attributes List
+
+        '
+      operationId: GET_static_data-v1-0-iab_attributes
+      responses:
+        '200':
+          description: ''
+          content:
+            text/plain:
+              examples:
+                response:
+                  value:
+                  - id: 101
+                    name: Rotating Advertisers
+                    parent: 0
+                    children: []
+                  - id: 10
+                    name: Shaky, Flashing, Flickering, Extreme Animation, Smileys
+                    parent: 0
+                    children: []
+                  - id: 14
+                    name: Windows Dialog or Alert Style
+                    parent: 0
+                    children: []
+                  - id: 6
+                    name: In-Banner Video Ad (Auto Play)
+                    parent: 0
+                    children: []
+                  - id: 102
+                    name: 'Animated: between 0 and 15 seconds'
+                    parent: 0
+                    children: []
+                  - id: 9
+                    name: Provocative or Suggestive Imagery
+                    parent: 0
+                    children: []
+                  - id: 13
+                    name: User Interactive (e.g., Embedded Games)
+                    parent: 0
+                    children: []
+                  - id: 2
+                    name: Audio Ad (User Initiated)
+                    parent: 0
+                    children: []
+                  - id: 12
+                    name: Text Only
+                    parent: 0
+                    children: []
+                  - id: 7
+                    name: In-Banner Video Ad (User Initiated)
+                    parent: 0
+                    children: []
+                  - id: 103
+                    name: 'Animated: between 15 and 30 seconds'
+                    parent: 0
+                    children: []
+                  - id: 16
+                    name: Ad can be skipped (e.g., skip button on preroll video)
+                    parent: 0
+                    children: []
+                  - id: 11
+                    name: Surveys
+                    parent: 0
+                    children: []
+                  - id: 104
+                    name: 'Animated: more than 30 seconds'
+                    parent: 0
+                    children: []
+                  - id: 8
+                    name: Pop (e.g., Over, Under, or upon Exit)
+                    parent: 0
+                    children: []
+                  - id: 999
+                    name: None Apply
+                    parent: 0
+                    children: []
+                  - id: 15
+                    name: Has audio on/off button
+                    parent: 0
+                    children: []
+                  - id: 100
+                    name: Auto redirect
+                    parent: 0
+                    children: []
+  /static_data/v1.0/language/{language_id}:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Language
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/language/{id}` instead.
+
+
+        Get IAB Language
+
+        '
+      operationId: GET_static_data-v1-0-language-language_id
+      parameters:
+      - name: language_id
+        in: path
+        description: Language ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/GET_static_data-v1-0-language-language_idBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    alpha2: en
+                    bibliographic: eng
+                    id: 1
+                    name: English
+                    nameFr: anglais
+                    terminologic: ''
+  /static_data/v1.0/iab_verticals:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: List IAB Verticals
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_verticals` instead.
+
+
+        List IAB Verticals
+
+        '
+      operationId: GET_static_data-v1-0-iab_verticals
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                  - children:
+                    - 215
+                    - 216
+                    - 217
+                    - 218
+                    - 219
+                    - 220
+                    - 221
+                    - 222
+                    code: IAB14
+                    description: Society
+                    id: 214
+                    parent: 0
+                  - children:
+                    - 224
+                    - 225
+                    - 226
+                    - 227
+                    - 228
+                    - 229
+                    - 230
+                    - 231
+                    - 232
+                    - 233
+                    code: IAB15
+                    description: Science
+                    id: 223
+                    parent: 0
+                  - children:
+                    - 235
+                    - 236
+                    - 237
+                    - 238
+                    - 239
+                    - 240
+                    - 241
+                    code: IAB16
+                    description: Pets
+                    id: 234
+                    parent: 0
+                  - children: []
+                    code: IAB13-2
+                    description: Credit/Debt & Loans
+                    id: 203
+                    parent: 201
+                  - children: []
+                    code: IAB13-3
+                    description: Financial News
+                    id: 204
+                    parent: 201
+                  - children: []
+                    code: IAB13-4
+                    description: Financial Planning
+                    id: 205
+                    parent: 201
+                  - children: []
+                    code: IAB13-5
+                    description: Hedge Fund
+                    id: 206
+                    parent: 201
+                  - children: []
+                    code: IAB13-6
+                    description: Insurance
+                    id: 207
+                    parent: 201
+                  - children: []
+                    code: IAB13-7
+                    description: Investing
+                    id: 208
+                    parent: 201
+                  - children: []
+                    code: IAB13-8
+                    description: Mutual Funds
+                    id: 209
+                    parent: 201
+                  - children: []
+                    code: IAB14-1
+                    description: Dating
+                    id: 215
+                    parent: 214
+                  - children: []
+                    code: IAB14-2
+                    description: Divorce Support
+                    id: 216
+                    parent: 214
+                  - children: []
+                    code: IAB14-3
+                    description: Gay Life
+                    id: 217
+                    parent: 214
+                  - children: []
+                    code: IAB14-4
+                    description: Marriage
+                    id: 218
+                    parent: 214
+                  - children: []
+                    code: IAB14-5
+                    description: Senior Living
+                    id: 219
+                    parent: 214
+                  - children: []
+                    code: IAB14-6
+                    description: Teens
+                    id: 220
+                    parent: 214
+                  - children: []
+                    code: IAB14-7
+                    description: Weddings
+                    id: 221
+                    parent: 214
+                  - children: []
+                    code: IAB14-8
+                    description: Ethnic Specific
+                    id: 222
+                    parent: 214
+                  - children: []
+                    code: IAB15-1
+                    description: Astrology
+                    id: 224
+                    parent: 223
+                  - children: []
+                    code: IAB15-10
+                    description: Weather
+                    id: 233
+                    parent: 223
+                  - children: []
+                    code: IAB15-2
+                    description: Biology
+                    id: 225
+                    parent: 223
+                  - children: []
+                    code: IAB15-3
+                    description: Chemistry
+                    id: 226
+                    parent: 223
+                  - children: []
+                    code: IAB15-4
+                    description: Geology
+                    id: 227
+                    parent: 223
+                  - children: []
+                    code: IAB15-5
+                    description: Paranormal Phenomena
+                    id: 228
+                    parent: 223
+                  - children: []
+                    code: IAB15-6
+                    description: Physics
+                    id: 229
+                    parent: 223
+                  - children: []
+                    code: IAB15-7
+                    description: Space/Astronomy
+                    id: 230
+                    parent: 223
+                  - children: []
+                    code: IAB15-8
+                    description: Geography
+                    id: 231
+                    parent: 223
+                  - children: []
+                    code: IAB15-9
+                    description: Botany
+                    id: 232
+                    parent: 223
+                  - children: []
+                    code: IAB16-1
+                    description: Aquariums
+                    id: 235
+                    parent: 234
+                  - children: []
+                    code: IAB16-2
+                    description: Birds
+                    id: 236
+                    parent: 234
+                  - children: []
+                    code: IAB16-3
+                    description: Cats
+                    id: 237
+                    parent: 234
+                  - children: []
+                    code: IAB16-4
+                    description: Dogs
+                    id: 238
+                    parent: 234
+                  - children: []
+                    code: IAB16-5
+                    description: Large Animals
+                    id: 239
+                    parent: 234
+                  - children: []
+                    code: IAB16-6
+                    description: Reptiles
+                    id: 240
+                    parent: 234
+                  - children: []
+                    code: IAB16-7
+                    description: Veterinary Medicine
+                    id: 241
+                    parent: 234
+                  - children: []
+                    code: IAB17-1
+                    description: Auto Racing
+                    id: 243
+                    parent: 242
+                  - children: []
+                    code: IAB17-10
+                    description: Figure Skating
+                    id: 252
+                    parent: 242
+                  - children: []
+                    code: IAB17-11
+                    description: Fly Fishing
+                    id: 253
+                    parent: 242
+                  - children: []
+                    code: IAB17-12
+                    description: Football
+                    id: 254
+                    parent: 242
+                  - children: []
+                    code: IAB17-13
+                    description: Freshwater Fishing
+                    id: 255
+                    parent: 242
+                  - children: []
+                    code: IAB17-14
+                    description: Game & Fish
+                    id: 256
+                    parent: 242
+                  - children: []
+                    code: IAB17-15
+                    description: Golf
+                    id: 257
+                    parent: 242
+                  - children: []
+                    code: IAB17-16
+                    description: Horse Racing
+                    id: 258
+                    parent: 242
+                  - children: []
+                    code: IAB17-17
+                    description: Horses
+                    id: 259
+                    parent: 242
+                  - children: []
+                    code: IAB17-18
+                    description: Hunting/Shooting
+                    id: 260
+                    parent: 242
+                  - children: []
+                    code: IAB4-3
+                    description: Financial Aid
+                    id: 49
+                    parent: 46
+                  - children: []
+                    code: IAB4-4
+                    description: Job Fairs
+                    id: 50
+                    parent: 46
+                  - children: []
+                    code: IAB4-5
+                    description: Job Search
+                    id: 51
+                    parent: 46
+                  - children: []
+                    code: IAB4-6
+                    description: Resume Writing/Advice
+                    id: 52
+                    parent: 46
+                  - children: []
+                    code: IAB6-1
+                    description: Adoption
+                    id: 75
+                    parent: 74
+                  - children: []
+                    code: IAB6-2
+                    description: Babies & Toddlers
+                    id: 76
+                    parent: 74
+                  - children: []
+                    code: IAB6-3
+                    description: Daycare/Pre School
+                    id: 77
+                    parent: 74
+                  - children: []
+                    code: IAB6-4
+                    description: Family Internet
+                    id: 78
+                    parent: 74
+                  - children: []
+                    code: IAB6-5
+                    description: Parenting - K-6 Kids
+                    id: 79
+                    parent: 74
+                  - children: []
+                    code: IAB6-9
+                    description: Eldercare
+                    id: 83
+                    parent: 74
+                  - children: []
+                    code: IAB7-1
+                    description: Exercise
+                    id: 85
+                    parent: 84
+                  - children: []
+                    code: IAB7-10
+                    description: Brain Tumor
+                    id: 94
+                    parent: 84
+                  - children: []
+                    code: IAB7-11
+                    description: Cancer
+                    id: 95
+                    parent: 84
+                  - children: []
+                    code: IAB7-12
+                    description: Cholesterol
+                    id: 96
+                    parent: 84
+                  - children: []
+                    code: IAB7-20
+                    description: Diabetes
+                    id: 104
+                    parent: 84
+                  - children: []
+                    code: IAB7-21
+                    description: Epilepsy
+                    id: 105
+                    parent: 84
+                  - children: []
+                    code: IAB7-22
+                    description: GERD/Acid Reflux
+                    id: 106
+                    parent: 84
+                  - children: []
+                    code: IAB7-23
+                    description: Headaches/Migraines
+                    id: 107
+                    parent: 84
+                  - children: []
+                    code: IAB7-24
+                    description: Heart Disease
+                    id: 108
+                    parent: 84
+                  - children: []
+                    code: IAB7-25
+                    description: Herbs for Health
+                    id: 109
+                    parent: 84
+                  - children: []
+                    code: IAB8-2
+                    description: Barbecues & Grilling
+                    id: 132
+                    parent: 130
+                  - children: []
+                    code: IAB8-3
+                    description: Cajun/Creole
+                    id: 133
+                    parent: 130
+                  - children: []
+                    code: IAB8-4
+                    description: Chinese Cuisine
+                    id: 134
+                    parent: 130
+                  - children: []
+                    code: IAB8-5
+                    description: Cocktails/Beer
+                    id: 135
+                    parent: 130
+                  - children: []
+                    code: IAB8-6
+                    description: Coffee/Tea
+                    id: 136
+                    parent: 130
+                  - children: []
+                    code: IAB8-7
+                    description: Cuisine-Specific
+                    id: 137
+                    parent: 130
+                  - children: []
+                    code: IAB8-8
+                    description: Desserts & Baking
+                    id: 138
+                    parent: 130
+                  - children: []
+                    code: IAB8-9
+                    description: Dining Out
+                    id: 139
+                    parent: 130
+                  - children: []
+                    code: IAB9-1
+                    description: Art/Technology
+                    id: 150
+                    parent: 149
+                  - children: []
+                    code: IAB9-22
+                    description: Painting
+                    id: 171
+                    parent: 149
+                  - children: []
+                    code: IAB9-23
+                    description: Photography
+                    id: 172
+                    parent: 149
+                  - children: []
+                    code: IAB9-24
+                    description: Radio
+                    id: 173
+                    parent: 149
+                  - children: []
+                    code: IAB9-25
+                    description: Roleplaying Games
+                    id: 174
+                    parent: 149
+                  - children: []
+                    code: IAB9-26
+                    description: Sci-Fi & Fantasy
+                    id: 175
+                    parent: 149
+                  - children: []
+                    code: IAB9-27
+                    description: Scrapbooking
+                    id: 176
+                    parent: 149
+                  - children: []
+                    code: IAB9-28
+                    description: Screenwriting
+                    id: 177
+                    parent: 149
+                  - children: []
+                    code: IAB9-29
+                    description: Stamps & Coins
+                    id: 178
+                    parent: 149
+                  - children: []
+                    code: IAB9-3
+                    description: Beadwork
+                    id: 152
+                    parent: 149
+                  - children: []
+                    code: IAB9-30
+                    description: Video & Computer Games
+                    id: 179
+                    parent: 149
+                  - children: []
+                    code: IAB9-31
+                    description: Woodworking
+                    id: 180
+                    parent: 149
+                  - children: []
+                    code: IAB9-4
+                    description: Birdwatching
+                    id: 153
+                    parent: 149
+                  - children: []
+                    code: IAB9-5
+                    description: Board Games/Puzzles
+                    id: 154
+                    parent: 149
+                  - children: []
+                    code: IAB9-6
+                    description: Candle & Soap Making
+                    id: 155
+                    parent: 149
+                  - children: []
+                    code: IAB9-7
+                    description: Card Games
+                    id: 156
+                    parent: 149
+                  - children: []
+                    code: IAB9-8
+                    description: Chess
+                    id: 157
+                    parent: 149
+                  - children: []
+                    code: IAB9-9
+                    description: Cigars
+                    id: 158
+                    parent: 149
+  /static_data/v1.0/iab_verticals/{vertical_id}:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Vertical
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_verticals/{id}` instead.
+
+
+        Get IAB Vertical
+
+        '
+      operationId: GET_static_data-v1-0-iab_verticals-vertical_id
+      parameters:
+      - name: vertical_id
+        in: path
+        description: Vertical ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    children: []
+                    code: IAB22-2
+                    description: Couponing
+                    id: 365
+                    parent: 363
+  /static_data/v1.0/language:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: List IAB Languages
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/language` instead.
+
+
+        List IAB Languages
+
+        '
+      operationId: GET_static_data-v1-0-language
+      responses:
+        '200':
+          description: ''
+          content:
+            text/plain:
+              examples:
+                response:
+                  value:
+                  - alpha2: ''
+                    bibliographic: awa
+                    id: 36
+                    name: Awadhi
+                    nameFr: awadhi
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: bho
+                    id: 53
+                    name: Bhojpuri
+                    nameFr: bhojpuri
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: ceb
+                    id: 74
+                    name: Cebuano
+                    nameFr: cebuano
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: hil
+                    id: 175
+                    name: Hiligaynon
+                    nameFr: hiligaynon
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: hmn
+                    id: 179
+                    name: Hmong
+                    nameFr: hmong
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: kok
+                    id: 228
+                    name: Konkani
+                    nameFr: konkani
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mad
+                    id: 263
+                    name: Madurese
+                    nameFr: madourais
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mag
+                    id: 264
+                    name: Magahi
+                    nameFr: magahi
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mai
+                    id: 266
+                    name: Maithili
+                    nameFr: maithili
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mos
+                    id: 290
+                    name: Mossi
+                    nameFr: moré
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: mwr
+                    id: 295
+                    name: Marwari
+                    nameFr: marvari
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: sms
+                    id: 393
+                    name: Skolt Sami
+                    nameFr: sami skolt
+                    terminologic: ''
+                  - alpha2: ''
+                    bibliographic: tmh
+                    id: 434
+                    name: Tamashek
+                    nameFr: tamacheq
+                    terminologic: ''
+                  - alpha2: ak
+                    bibliographic: aka
+                    id: 12
+                    name: Akan
+                    nameFr: akan
+                    terminologic: ''
+                  - alpha2: am
+                    bibliographic: amh
+                    id: 18
+                    name: Amharic
+                    nameFr: amharique
+                    terminologic: ''
+                  - alpha2: ar
+                    bibliographic: ara
+                    id: 22
+                    name: Arabic
+                    nameFr: arabe
+                    terminologic: ''
+                  - alpha2: as
+                    bibliographic: asm
+                    id: 30
+                    name: Assamese
+                    nameFr: assamais
+                    terminologic: ''
+                  - alpha2: az
+                    bibliographic: aze
+                    id: 38
+                    name: Azerbaijani
+                    nameFr: azéri
+                    terminologic: ''
+                  - alpha2: be
+                    bibliographic: bel
+                    id: 49
+                    name: Belarusian
+                    nameFr: biélorusse
+                    terminologic: ''
+                  - alpha2: bn
+                    bibliographic: ben
+                    id: 51
+                    name: Bengali
+                    nameFr: bengali
+                    terminologic: ''
+                  - alpha2: cs
+                    bibliographic: cze
+                    id: 102
+                    name: Czech
+                    nameFr: tchèque
+                    terminologic: ces
+                  - alpha2: de
+                    bibliographic: ger
+                    id: 150
+                    name: German
+                    nameFr: allemand
+                    terminologic: deu
+                  - alpha2: el
+                    bibliographic: gre
+                    id: 164
+                    name: Greek
+                    nameFr: grec
+                    terminologic: ell
+                  - alpha2: en
+                    bibliographic: eng
+                    id: 1
+                    name: English
+                    nameFr: anglais
+                    terminologic: ''
+                  - alpha2: es
+                    bibliographic: spa
+                    id: 401
+                    name: Spanish; Castilian
+                    nameFr: espagnol; castillan
+                    terminologic: ''
+                  - alpha2: fa
+                    bibliographic: per
+                    id: 342
+                    name: Persian
+                    nameFr: persan
+                    terminologic: fas
+                  - alpha2: ff
+                    bibliographic: ful
+                    id: 143
+                    name: Fulah
+                    nameFr: peul
+                    terminologic: ''
+                  - alpha2: fr
+                    bibliographic: fre
+                    id: 137
+                    name: French
+                    nameFr: français
+                    terminologic: fra
+                  - alpha2: gu
+                    bibliographic: guj
+                    id: 167
+                    name: Gujarati
+                    nameFr: goudjrati
+                    terminologic: ''
+                  - alpha2: ha
+                    bibliographic: hau
+                    id: 171
+                    name: Hausa
+                    nameFr: haoussa
+                    terminologic: ''
+                  - alpha2: hi
+                    bibliographic: hin
+                    id: 177
+                    name: Hindi
+                    nameFr: hindi
+                    terminologic: ''
+                  - alpha2: ht
+                    bibliographic: hat
+                    id: 170
+                    name: Haitian Creole
+                    nameFr: créole haïtien
+                    terminologic: ''
+                  - alpha2: hu
+                    bibliographic: hun
+                    id: 183
+                    name: Hungarian
+                    nameFr: hongrois
+                    terminologic: ''
+                  - alpha2: ig
+                    bibliographic: ibo
+                    id: 186
+                    name: Igbo
+                    nameFr: igbo
+                    terminologic: ''
+                  - alpha2: it
+                    bibliographic: ita
+                    id: 202
+                    name: Italian
+                    nameFr: italien
+                    terminologic: ''
+                  - alpha2: ja
+                    bibliographic: jpn
+                    id: 205
+                    name: Japanese
+                    nameFr: japonais
+                    terminologic: ''
+                  - alpha2: jv
+                    bibliographic: jav
+                    id: 203
+                    name: Javanese
+                    nameFr: javanais
+                    terminologic: ''
+                  - alpha2: kk
+                    bibliographic: kaz
+                    id: 218
+                    name: Kazakh
+                    nameFr: kazakh
+                    terminologic: ''
+                  - alpha2: km
+                    bibliographic: khm
+                    id: 222
+                    name: Central Khmer
+                    nameFr: khmer central
+                    terminologic: ''
+                  - alpha2: kn
+                    bibliographic: kan
+                    id: 213
+                    name: Kannada
+                    nameFr: kannada
+                    terminologic: ''
+                  - alpha2: ko
+                    bibliographic: kor
+                    id: 231
+                    name: Korean
+                    nameFr: coréen
+                    terminologic: ''
+                  - alpha2: ku
+                    bibliographic: kur
+                    id: 240
+                    name: Kurdish
+                    nameFr: kurde
+                    terminologic: ''
+                  - alpha2: mg
+                    bibliographic: mlg
+                    id: 283
+                    name: Malagasy
+                    nameFr: malgache
+                    terminologic: ''
+                  - alpha2: ml
+                    bibliographic: mal
+                    id: 268
+                    name: Malayalam
+                    nameFr: malayalam
+                    terminologic: ''
+                  - alpha2: mr
+                    bibliographic: mar
+                    id: 272
+                    name: Marathi
+                    nameFr: marathe
+                    terminologic: ''
+                  - alpha2: ms
+                    bibliographic: may
+                    id: 274
+                    name: Malay
+                    nameFr: malais
+                    terminologic: msa
+                  - alpha2: my
+                    bibliographic: bur
+                    id: 67
+                    name: Burmese
+                    nameFr: birman
+                    terminologic: mya
+                  - alpha2: ne
+                    bibliographic: nep
+                    id: 307
+                    name: Nepali
+                    nameFr: népalais
+                    terminologic: ''
+                  - alpha2: nl
+                    bibliographic: dut
+                    id: 117
+                    name: Dutch
+                    nameFr: néerlandais
+                    terminologic: nld
+                  - alpha2: ny
+                    bibliographic: nya
+                    id: 321
+                    name: Chewa
+                    nameFr: chewa
+                    terminologic: ''
+                  - alpha2: om
+                    bibliographic: orm
+                    id: 329
+                    name: Oromo
+                    nameFr: galla
+                    terminologic: ''
+                  - alpha2: or
+                    bibliographic: ori
+                    id: 328
+                    name: Oriya
+                    nameFr: oriya
+                    terminologic: ''
+                  - alpha2: pa
+                    bibliographic: pan
+                    id: 338
+                    name: Punjabi
+                    nameFr: pendjabi
+                    terminologic: ''
+                  - alpha2: pl
+                    bibliographic: pol
+                    id: 346
+                    name: Polish
+                    nameFr: polonais
+                    terminologic: ''
+                  - alpha2: ps
+                    bibliographic: pus
+                    id: 351
+                    name: Pashto
+                    nameFr: pachto
+                    terminologic: ''
+                  - alpha2: pt
+                    bibliographic: por
+                    id: 348
+                    name: Portuguese
+                    nameFr: portugais
+                    terminologic: ''
+                  - alpha2: qu
+                    bibliographic: que
+                    id: 353
+                    name: Quechua
+                    nameFr: quechua
+                    terminologic: ''
+                  - alpha2: ro
+                    bibliographic: rum
+                    id: 360
+                    name: Romanian
+                    nameFr: roumain
+                    terminologic: ron
+                  - alpha2: ru
+                    bibliographic: rus
+                    id: 363
+                    name: Russian
+                    nameFr: russe
+                    terminologic: ''
+                  - alpha2: rw
+                    bibliographic: kin
+                    id: 225
+                    name: Kinyarwanda
+                    nameFr: rwanda
+                    terminologic: ''
+                  - alpha2: sd
+                    bibliographic: snd
+                    id: 395
+                    name: Sindhi
+                    nameFr: sindhi
+                    terminologic: ''
+                  - alpha2: si
+                    bibliographic: sin
+                    id: 381
+                    name: Sinhala; Sinhalese
+                    nameFr: singhalais
+                    terminologic: ''
+                  - alpha2: sn
+                    bibliographic: sna
+                    id: 394
+                    name: Shona
+                    nameFr: shona
+                    terminologic: ''
+                  - alpha2: so
+                    bibliographic: som
+                    id: 398
+                    name: Somali
+                    nameFr: somali
+                    terminologic: ''
+                  - alpha2: su
+                    bibliographic: sun
+                    id: 409
+                    name: Sundanese
+                    nameFr: soundanais
+                    terminologic: ''
+                  - alpha2: sv
+                    bibliographic: swe
+                    id: 413
+                    name: Swedish
+                    nameFr: suédois
+                    terminologic: ''
+                  - alpha2: ta
+                    bibliographic: tam
+                    id: 418
+                    name: Tamil
+                    nameFr: tamoul
+                    terminologic: ''
+                  - alpha2: te
+                    bibliographic: tel
+                    id: 420
+                    name: Telugu
+                    nameFr: télougou
+                    terminologic: ''
+                  - alpha2: th
+                    bibliographic: tha
+                    id: 426
+                    name: Thai
+                    nameFr: thaï
+                    terminologic: ''
+                  - alpha2: tk
+                    bibliographic: tuk
+                    id: 441
+                    name: Turkmen
+                    nameFr: turkmène
+                    terminologic: ''
+                  - alpha2: tl
+                    bibliographic: tgl
+                    id: 425
+                    name: Tagalog
+                    nameFr: tagalog
+                    terminologic: ''
+                  - alpha2: tr
+                    bibliographic: tur
+                    id: 444
+                    name: Turkish
+                    nameFr: turc
+                    terminologic: ''
+                  - alpha2: ug
+                    bibliographic: uig
+                    id: 451
+                    name: Uyghur
+                    nameFr: ouïgour
+                    terminologic: ''
+                  - alpha2: uk
+                    bibliographic: ukr
+                    id: 452
+                    name: Ukrainian
+                    nameFr: ukrainien
+                    terminologic: ''
+                  - alpha2: ur
+                    bibliographic: urd
+                    id: 455
+                    name: Urdu
+                    nameFr: ourdou
+                    terminologic: ''
+                  - alpha2: uz
+                    bibliographic: uzb
+                    id: 456
+                    name: Uzbek
+                    nameFr: ouszbek
+                    terminologic: ''
+                  - alpha2: vi
+                    bibliographic: vie
+                    id: 459
+                    name: Vietnamese
+                    nameFr: vietnamien
+                    terminologic: ''
+                  - alpha2: xh
+                    bibliographic: xho
+                    id: 471
+                    name: Xhosa
+                    nameFr: xhosa
+                    terminologic: ''
+                  - alpha2: yo
+                    bibliographic: yor
+                    id: 475
+                    name: Yoruba
+                    nameFr: yoruba
+                    terminologic: ''
+                  - alpha2: za
+                    bibliographic: zha
+                    id: 481
+                    name: Zhuang
+                    nameFr: zhuang
+                    terminologic: ''
+                  - alpha2: zh
+                    bibliographic: chi
+                    id: 80
+                    name: Chinese
+                    nameFr: chinois
+                    terminologic: zho
+                  - alpha2: zu
+                    bibliographic: zul
+                    id: 483
+                    name: Zulu
+                    nameFr: zoulou
+                    terminologic: ''
+  /static_data/v1.0/iab_attributes/{id}:
+    get:
+      tags:
+      - IAB (V1.0 - Deprecated)
+      summary: Get IAB Attribute
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/static_data/iab_attributes/{id}` instead.
+
+
+        Get IAB Attribute
+
+        '
+      operationId: Get-IAB-Attribute
+      parameters:
+      - name: id
+        in: path
+        description: ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    children: []
+                    id: 14
+                    name: Windows Dialog or Alert Style
+                    parent: 0
+components:
+  requestBodies:
+    GET_static_data-v1-0-language-language_idBody:
+      content:
+        application/json:
+          schema: {}
+      description: _
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com
+          scopes: {}

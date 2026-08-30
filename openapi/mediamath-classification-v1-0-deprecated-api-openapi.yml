@@ -1,0 +1,236 @@
+openapi: 3.2.0
+info:
+  title: Video Creatives Classification (V1.0 - Deprecated) API
+  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication token](/guides/authentication).
+
+
+    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs) and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
+
+
+    *Example HTTPie command to list all video creatives.*
+
+    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
+
+
+    ## Migration Notice
+
+
+    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
+
+
+    | Deprecated V2.0 Endpoint | Use Instead |
+
+    |---|---|
+
+    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
+
+    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
+
+    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions` |
+
+    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field (returns a pre-signed S3 upload URL) |
+
+    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
+
+
+    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1.0
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: Classification (V1.0 - Deprecated)
+  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  Please migrate to the **Classification API v3.0** documented below.\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\" %}\n  The use of cookie `adama_session` for authentication has been discontinued and it's not supported in Classification API v3.0.\n  We ask all of our clients who have not yet migrated to **Bearer (JWT) Authentication** to do so as soon as possible.\n{% /admonition %}\n\nCreative classification endpoints (V1.0 — deprecated).\n"
+paths:
+  /classification/v1.0/{creative_id}/inflate:
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Get Inflated Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/{cid}/inflate` instead.
+
+
+        Get Inflated Classification
+
+        '
+      operationId: GET_classification-v1-0-creative_id-inflate
+      parameters:
+      - name: creative_id
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+  /classification/v1.0/bulk/{creative_ids}/inflate:
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Bulk Inflated Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/bulk/{cids}/inflate` instead.
+
+
+        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing creatives.
+
+        '
+      operationId: GET_classification-v1-0-bulk-creative_ids-inflate
+      parameters:
+      - name: creative_ids
+        in: path
+        description: A comma separated list of integers, e.g. 1,243,351,41932.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+  /classification/v1.0/bulk/{creative_ids}:
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Bulk Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/bulk/{cids}` instead.
+
+
+        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing creatives.
+
+        '
+      operationId: GET_classification-v1-0-bulk-creative_ids
+      parameters:
+      - name: creative_ids
+        in: path
+        description: 'A comma separated list of integers, e.g. 1,243,351,41932.
+
+          '
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+  /classification/v1.0/bulk:
+    post:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Bulk Update Classification
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/classification/bulk` instead.
+
+
+        Prior to creating or updating the classification record of any creative, those creatives must exist.
+
+
+        Unlike in the single creative classifiction, no creative IDs are passed in the url itself.'
+      operationId: POST_classification-v1-0-bulk
+      requestBody:
+        $ref: '#/components/requestBodies/GET_static_data-v1-0-language-language_idBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            example-1:
+              examples:
+                response:
+                  value:
+                    records:
+                    - atomic_creative_id: 0
+                      details:
+                        attributes:
+                        - {}
+                        language: 0
+                        verticals:
+                        - {}
+  /classification/v1.0/{creative_id}:
+    post:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Update Classification
+      description: '> **⚠️ Deprecated** — Use `POST /v3.0/classification/{cid}` instead.
+
+
+        Update Classification
+
+        '
+      operationId: POST_classification-v1-0-creative_id
+      parameters:
+      - name: creative_id
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/GET_static_data-v1-0-language-language_idBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            example-1:
+              examples:
+                response:
+                  value:
+                    attributes:
+                    - 0
+                    language: 0
+                    verticals:
+                    - 0
+    get:
+      tags:
+      - Classification (V1.0 - Deprecated)
+      summary: Get Classification
+      description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/{cid}` instead.
+
+
+        Get Classification
+
+        '
+      operationId: GET_classification-v1-0-creative_id
+      parameters:
+      - name: creative_id
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    status:
+                      code: auth_required
+                      reason: not_logged_in
+                      message: failed parsing session from request
+components:
+  requestBodies:
+    GET_static_data-v1-0-language-language_idBody:
+      content:
+        application/json:
+          schema: {}
+      description: _
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com
+          scopes: {}

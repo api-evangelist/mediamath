@@ -1,0 +1,1198 @@
+openapi: 3.2.0
+info:
+  title: Video Creatives Video Creative Management (V3) API
+  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication token](/guides/authentication).
+
+
+    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs) and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
+
+
+    *Example HTTPie command to list all video creatives.*
+
+    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
+
+
+    ## Migration Notice
+
+
+    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
+
+
+    | Deprecated V2.0 Endpoint | Use Instead |
+
+    |---|---|
+
+    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
+
+    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
+
+    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions` |
+
+    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field (returns a pre-signed S3 upload URL) |
+
+    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
+
+
+    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1.0
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: Video Creative Management (V3)
+  description: V3.0 video creative management endpoints
+paths:
+  /v3.0/creatives/bulk:
+    put:
+      tags:
+      - Video Creative Management (V3)
+      summary: Bulk create video creatives
+      description: Create a set of video creatives (bulk upload) - V3
+      operationId: PUT_v3-0-creatives-bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkNewCreativeRequest'
+        description: List of creative objects to create
+      responses:
+        '201':
+          description: Bulk creatives created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+    patch:
+      tags:
+      - Video Creative Management (V3)
+      summary: Bulk update video creatives
+      description: Update a set of video creatives (bulk update) - V3
+      operationId: PATCH_v3-0-creatives-bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUpdateCreativeRequest'
+        description: List of creative objects to update
+      responses:
+        '201':
+          description: Bulk creatives updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+  /v3.0/creatives:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Create a new video creative
+      description: "Create a new video creative - V3.\n\n### Uploading a video file\n\nTo upload a video, supply the `fileName` field in the request body\n(see the **Create with fileName** sample in the *Request samples* panel).\nThe response then includes a pre-signed S3 `uploadUrl` (valid for\n`expiresIn` seconds), which the client uses to `PUT` the file directly to S3:\n\n```bash\ncurl -X PUT \\\n    -H \"x-amz-acl: public-read\" \\\n    -H \"x-amz-meta-creative: {{CREATIVE_ID}}\" \\\n    -H \"Content-Type: {{UPLOADED_FILE_CONTENT_TYPE}}\" \\\n    --upload-file \"{{UPLOADED_FILE_PATH/File.mp4}}\" \\\n    \"{{S3_PRESIGNED_URL}}\"\n```\n\nThe `x-amz-acl: public-read` and `x-amz-meta-creative: <creativeId>` headers\nare required (both are signed into the pre-signed URL).\n"
+      operationId: POST_v3-0-creatives
+      x-codeSamples:
+      - lang: cURL
+        label: Create with fileName (video upload)
+        source: "curl --location 'https://api.mediamath.com/video/v3.0/creatives' \\\n--header 'Authorization: Bearer TOKEN' \\\n--header 'Content-Type: application/json' \\\n--data '{\n  \"active\": false,\n  \"advertiser\": 0,\n  \"name\": \"string\",\n  \"concept\": 0,\n  \"startTime\": 0,\n  \"endTime\": 0,\n  \"clickthroughUrl\": \"string\",\n  \"viewabilityTemplate\": \"string\",\n  \"landingUrl\": \"string\",\n  \"eventPixels\": [\n    {\n      \"typ\": \"string\",\n      \"url\": \"string\"\n    }\n  ],\n  \"vendors\": [\n    0\n  ],\n  \"vastVersion\": \"VAST2\",\n  \"disabledVariants\": [\n    0\n  ],\n  \"clockNumber\": \"string\",\n  \"fileName\": \"string\"\n}'\n"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V3CreateCreativeRequest'
+        description: Creative object to create
+      responses:
+        '201':
+          description: Creative created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+  /v3.0/creatives/list:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Bulk get creatives by IDs
+      description: Retrieve multiple video creatives by their IDs
+      operationId: POST_v3-0-creatives-list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkGetRequest'
+        description: List of creative IDs to retrieve
+      responses:
+        '200':
+          description: Bulk creative details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCreativeResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+  /v3.0/creatives/{creativeId}:
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: Get creative details
+      description: Get status/details for the video creative - V3
+      operationId: GET_v3-0-creatives-creativeId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Creative details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativeDetailsResponseWrapper'
+        '404':
+          description: Creative not found
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Update video creative (full update)
+      description: Update the video creative - must post all data, any omitted fields will be removed
+      operationId: POST_v3-0-creatives-creativeId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V3UpdateCreativeRequest'
+        description: Creative update data
+      responses:
+        '200':
+          description: Creative updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+    patch:
+      tags:
+      - Video Creative Management (V3)
+      summary: Update video creative (partial update)
+      description: Allows partial updates to a video creative - V3
+      operationId: PATCH_v3-0-creatives-creativeId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchCreativeUpdate'
+        description: Partial creative update data
+      responses:
+        '201':
+          description: Creative updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreativeDetailsResponseWrapper'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '404':
+          description: Creative not found
+  /v3.0/creatives/validateVAST:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Validate VAST XML - V3
+      description: Validates the provided VAST XML content and returns any errors or warnings.
+      operationId: POST_v3-0-creatives-validateVAST
+      requestBody:
+        $ref: '#/components/requestBodies/POST_video-v2-0-creatives-validateVASTBody'
+      responses:
+        '200':
+          description: VAST validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateVASTResponse'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+  /v3.0/creatives/{creativeId}/history:
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: List history for a creative - V3
+      description: List history for a creative
+      operationId: GET_v3-0-creatives-creativeId-history
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of history entries per page
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - name: offset
+        in: query
+        description: Page offset
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - name: created_after
+        in: query
+        description: Filter entries created after this timestamp (epoch)
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: created_before
+        in: query
+        description: Filter entries created before this timestamp (epoch)
+        required: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: History retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryResponse'
+        '404':
+          description: Creative not found
+    delete:
+      tags:
+      - Video Creative Management (V3)
+      summary: Delete history entry for creative - V3
+      description: Delete history entry for creative
+      operationId: DELETE_v3-0-creatives-creativeId-history
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: History deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Creative not found
+  /v3.0/creatives/{creativeId}/companions:
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Create companion ad - V3
+      description: 'Post new companion details and receive the new companion ID.
+
+        Regenerates the creative''s MetaVAST document after the companion is created.
+
+        '
+      operationId: POST_v3-0-creatives-creativeId-companions
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/ModifyCompanionRequest'
+      responses:
+        '201':
+          description: Companion created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCompanionResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative not found
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: Get all companions - V3
+      description: Get all companion ads for the creative.
+      operationId: GET_v3-0-creatives-creativeId-companions
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanionsResponse'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative not found
+  /v3.0/creatives/{creativeId}/companions/{companionId}:
+    get:
+      tags:
+      - Video Creative Management (V3)
+      summary: Get specific companion - V3
+      description: Get a specific companion ad for the creative.
+      operationId: GET_v3-0-creatives-creativeId-companions-companionId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: companionId
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companion retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanionAd'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative or companion not found
+    post:
+      tags:
+      - Video Creative Management (V3)
+      summary: Update companion - V3
+      description: 'Update an existing companion''s details.
+
+        Regenerates the creative''s MetaVAST document after the companion is updated.
+
+        '
+      operationId: POST_v3-0-creatives-creativeId-companions-companionId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: companionId
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/ModifyCompanionRequest'
+      responses:
+        '200':
+          description: Companion updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfoList'
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative or companion not found
+    delete:
+      tags:
+      - Video Creative Management (V3)
+      summary: Delete companion - V3
+      description: 'Delete a companion from the creative.
+
+        Regenerates the creative''s MetaVAST document after the companion is deleted.
+
+        '
+      operationId: DELETE_v3-0-creatives-creativeId-companions-companionId
+      parameters:
+      - name: creativeId
+        in: path
+        description: Creative ID
+        required: true
+        schema:
+          type: integer
+      - name: companionId
+        in: path
+        description: Companion ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Companion deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized - invalid or missing JWT
+        '403':
+          description: Forbidden - no access to creative
+        '404':
+          description: Creative or companion not found
+components:
+  schemas:
+    EventPixel:
+      type: object
+      properties:
+        typ:
+          type: string
+        url:
+          type: string
+    CompanionAd:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Companion ID
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+        mimeType:
+          type: string
+        fileName:
+          type: string
+        resourceBlob:
+          type: string
+          description: Data blob used for images
+        resourceUrl:
+          type: string
+          description: URL for external resources
+    ModifyCompanionRequest:
+      type: object
+      required:
+      - details
+      properties:
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+          description: File extension
+        fileName:
+          type: string
+          description: File name
+        resourceUrl:
+          type: string
+          description: Resource URL for all other companion types
+        resourceData:
+          type: string
+          description: Resource data encoded in Data URI Scheme for static companion types
+    CreativeDetailsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Creative ID (used in bulk create to show which creative was created)
+        details:
+          $ref: '#/components/schemas/CreativeDetails'
+        companionIds:
+          type: array
+          items:
+            type: integer
+          uniqueItems: true
+        duration:
+          type: number
+          description: Duration in seconds
+        isUploaded:
+          type: boolean
+        unsecureUrls:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InsecureVendorURLs'
+          description: Associates unsecured URLs (non-https) with their respective vendors
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        readyToServe:
+          type: boolean
+          description: True when creative details/variants are stable
+        thumbnail:
+          type: string
+        autoVendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: Automatically detected vendors (MM Vendor ID)
+        percent:
+          type: number
+          description: Combined upload/conversion progress (0-100)
+        isSecure:
+          type: boolean
+        isRotating:
+          type: boolean
+        isDynamic:
+          type: boolean
+        isAudio:
+          type: boolean
+        vpaidVersion:
+          type: integer
+        hasCompanions:
+          type: boolean
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        t1as:
+          type: boolean
+        updatedOn:
+          type: string
+    ErrorInfoList:
+      type: object
+      properties:
+        field_error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorInfo'
+    WithPart:
+      type: object
+      properties:
+        count:
+          type: integer
+        log_entries:
+          type: array
+          items:
+            type: string
+    CompanionDetails:
+      type: object
+      required:
+      - adServer
+      - typ
+      - width
+      - height
+      - landingUrl
+      properties:
+        adServer:
+          type: string
+          description: AdServer tag name
+        typ:
+          type: string
+          description: Companion type (static, iframe, or html)
+          enum:
+          - static
+          - iframe
+          - html
+        width:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Width in pixels
+        height:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Height in pixels
+        landingUrl:
+          type: string
+          description: Declared landing URL
+        iFrameUrlOrHTML:
+          type: string
+          description: iFrame URL (for iframe type) or HTML content (for html type)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required for static companions; must be null for iframe/html)
+    BulkCreativeResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreativeDetailsResponse'
+        errors:
+          $ref: '#/components/schemas/ErrorInfoList'
+        meta:
+          $ref: '#/components/schemas/BulkResponseMeta'
+        status:
+          $ref: '#/components/schemas/Status'
+    ErrorInfo:
+      type: object
+      properties:
+        error:
+          type: string
+        index:
+          type: integer
+          description: Index in bulk request (for bulk operations)
+        code:
+          type: string
+        name:
+          type: string
+        field:
+          type: string
+    EventPixelRequest:
+      type: object
+      required:
+      - typ
+      - url
+      properties:
+        typ:
+          type: string
+          description: Pixel event type (must be a valid pixel type)
+        url:
+          type: string
+          description: Pixel URL
+    BulkResponseMeta:
+      type: object
+      properties:
+        status:
+          type: string
+        count:
+          type: integer
+    VASTVersion:
+      type: string
+      enum:
+      - VAST2
+      - VAST3
+      - VAST4
+      default: VAST2
+    Status:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    V3CreateCreativeRequest:
+      type: object
+      required:
+      - advertiser
+      - name
+      - concept
+      properties:
+        active:
+          type: boolean
+          default: false
+        advertiser:
+          type: integer
+          format: int64
+          description: T1 Advertiser ID
+        name:
+          type: string
+          maxLength: 256
+          description: Creative name (required, max 256 chars)
+        concept:
+          type: integer
+          format: int64
+          description: T1 Concept ID (mandatory for creation)
+        startTime:
+          type: integer
+          format: int64
+          description: Creative start date (Unix timestamp, must be >= 0 and < year 10000)
+        endTime:
+          type: integer
+          format: int64
+          description: Creative end date (Unix timestamp, must be >= startTime)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required unless customVAST or customVASTUrl is set)
+        customVAST:
+          type: string
+          description: VAST XML content (mutually exclusive with customVASTUrl)
+        customVASTUrl:
+          type: string
+          description: URL to VAST XML content (mutually exclusive with customVAST)
+        viewabilityTemplate:
+          type: string
+          description: VAST XML template for BYOT viewability (must contain __VPAID_AD_PARAMETERS.URL__ macro)
+        landingUrl:
+          type: string
+          description: Declared landing page. If empty, landing URL will be fetched from VAST XML.
+        eventPixels:
+          type: array
+          description: Additional pixels
+          items:
+            $ref: '#/components/schemas/EventPixelRequest'
+        vendors:
+          type: array
+          description: T1 Vendor IDs
+          items:
+            type: integer
+            format: int64
+          uniqueItems: true
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          description: Disabled variant IDs
+          items:
+            type: integer
+          uniqueItems: true
+        externalIdentifier:
+          type: string
+          maxLength: 64
+          description: External Identifier (requires customVAST or customVASTUrl)
+        clockNumber:
+          type: string
+          maxLength: 15
+          description: Clock Number for Clearcast (UK freewheel broadcasters)
+        customVASTExtensionXML:
+          type: string
+          description: Custom VAST Extension XML
+        fileName:
+          type: string
+          description: 'Optional. File name including extension (e.g. my-video.mp4).
+
+            When provided, a pre-signed S3 PUT URL is returned in the response.
+
+            Mutually exclusive with customVAST and customVASTUrl.
+
+            The S3 PUT request must include headers x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
+
+            '
+    CreativeDetailsResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CreativeDetailsResponse'
+        errors:
+          $ref: '#/components/schemas/ErrorInfoList'
+    PatchCreativeUpdate:
+      type: object
+      description: Partial update request - only provided fields will be updated. Set field to null to clear it.
+      properties:
+        id:
+          type: integer
+          description: Creative ID (required for bulk update)
+        active:
+          type:
+          - boolean
+          - 'null'
+        advertiser:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        name:
+          type:
+          - string
+          - 'null'
+        concept:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        startTime:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        endTime:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        clickthroughUrl:
+          type:
+          - string
+          - 'null'
+        customVAST:
+          type:
+          - string
+          - 'null'
+        customVASTUrl:
+          type:
+          - string
+          - 'null'
+        viewabilityTemplate:
+          type:
+          - string
+          - 'null'
+        landingUrl:
+          type:
+          - string
+          - 'null'
+        eventPixels:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EventPixelRequest'
+        vendors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+        externalIdentifier:
+          type:
+          - string
+          - 'null'
+        customVASTExtensionXML:
+          type:
+          - string
+          - 'null'
+        clockNumber:
+          type:
+          - string
+          - 'null'
+    LogEntriesWrapper:
+      type: object
+      properties:
+        entry:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntryResponse'
+        count:
+          type: integer
+        start:
+          type: integer
+    BulkUpdateCreativeRequest:
+      type: object
+      required:
+      - creatives
+      properties:
+        creatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatchCreativeUpdate'
+    HistoryResponse:
+      type: object
+      properties:
+        with:
+          $ref: '#/components/schemas/WithPart'
+        log_entries:
+          $ref: '#/components/schemas/LogEntriesWrapper'
+    BulkGetRequest:
+      type: object
+      required:
+      - creativeIds
+      properties:
+        creativeIds:
+          type: array
+          items:
+            type: integer
+    InsecureVendorURLs:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        urls:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        vendorName:
+          type: string
+    NewCreativeResponse:
+      type: object
+      properties:
+        creativeId:
+          type: integer
+        uploadUrl:
+          type: string
+          description: 'Pre-signed S3 PUT URL (only present when fileName was provided in the request).
+
+            Valid for expiresIn seconds. The PUT request must include headers
+
+            x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
+
+            '
+        expiresIn:
+          type: integer
+          description: Seconds until uploadUrl expires (900). Only present when uploadUrl is set.
+        status:
+          $ref: '#/components/schemas/Status'
+    CreateCompanionResponse:
+      type: object
+      properties:
+        companionId:
+          type: integer
+    V3UpdateCreativeRequest:
+      type: object
+      required:
+      - advertiser
+      - name
+      properties:
+        active:
+          type: boolean
+          default: false
+        advertiser:
+          type: integer
+          format: int64
+          description: T1 Advertiser ID
+        name:
+          type: string
+          maxLength: 256
+        concept:
+          type: integer
+          format: int64
+          description: T1 Concept ID
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        clickthroughUrl:
+          type: string
+        customVAST:
+          type: string
+        customVASTUrl:
+          type: string
+        viewabilityTemplate:
+          type: string
+        landingUrl:
+          type: string
+        eventPixels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventPixelRequest'
+        vendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+          uniqueItems: true
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          items:
+            type: integer
+          uniqueItems: true
+        externalIdentifier:
+          type: string
+          maxLength: 64
+        clockNumber:
+          type: string
+          maxLength: 15
+        customVASTExtensionXML:
+          type: string
+    ValidateVASTResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: VAST validation error message, omitted if no errors present
+        warnings:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: A set of VAST validation warnings
+    FieldChangeEntry:
+      type: object
+      properties:
+        name:
+          type: string
+        old_value:
+          type: string
+        new_value:
+          type: string
+    BulkNewCreativeRequest:
+      type: object
+      required:
+      - creatives
+      properties:
+        creatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/V3CreateCreativeRequest'
+    CreativeDetails:
+      type: object
+      properties:
+        active:
+          type: boolean
+        advertiser:
+          type: integer
+          format: int64
+        name:
+          type: string
+        concept:
+          type: integer
+          format: int64
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        clickthroughUrl:
+          type: string
+        customVAST:
+          type: string
+        customVASTUrl:
+          type: string
+        viewabilityTemplate:
+          type: string
+        landingUrl:
+          type: string
+        landingUrlIsCalculated:
+          type: boolean
+        eventPixels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventPixel'
+        vendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          items:
+            type: integer
+        externalIdentifier:
+          type: string
+        customVASTExtensionXML:
+          type: string
+        clockNumber:
+          type: string
+    LogEntryResponse:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        user_name:
+          type: string
+        action:
+          type: string
+        date:
+          type: string
+        field:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldChangeEntry'
+    CompanionsResponse:
+      type: object
+      properties:
+        companions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CompanionAd'
+          description: Map of companion ID (string) to companion details
+    EncodingStatus:
+      type: string
+      enum:
+      - Pending
+      - Processing
+      - Finished
+      - Waiting
+      - Storing
+      - Details
+      - Error
+  requestBodies:
+    ModifyCompanionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ModifyCompanionRequest'
+      description: Companion ad details
+      required: true
+    POST_video-v2-0-creatives-validateVASTBody:
+      content:
+        text/plain:
+          schema:
+            type: string
+      description: VAST XML content to validate
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com
+          scopes: {}

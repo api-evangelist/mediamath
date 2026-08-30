@@ -1,0 +1,640 @@
+openapi: 3.2.0
+info:
+  title: Component Creatives Creatives - Native API
+  description: 'The terms creative components and native components may be used interchangeably.
+
+    Component Creatives are uploaded in the "Creatives Tab" within the Creatives Module, and is where creatives for native campaigns are uploaded.
+
+
+    ## Component Creatives API v3.0 (current)
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v3.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v3.0/`
+
+
+    v3.0 endpoints use Bearer (JWT) authentication via the `Authorization` header.
+
+
+    ## Component Creatives API v1.0 (deprecated)
+
+
+    > **Deprecated:** The v1.0 endpoints are deprecated. Please migrate to v3.0.
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v1.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v1.0`'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+  version: '3.0'
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: Creatives - Native
+  description: v3.0 component (native) creative endpoints.
+paths:
+  /component_creatives/v3.0/creatives:
+    get:
+      description: Retrieve a paginated list of component creatives with filtering options and JWT authentication. Supports sorting by various fields.
+      parameters:
+      - description: Offset for pagination (max 1000)
+        in: query
+        name: page_offset
+        example: 10
+        schema:
+          type: integer
+          default: 0
+      - description: Number of entities to show on one page (max 1000)
+        in: query
+        name: page_limit
+        example: 10
+        schema:
+          type: integer
+          default: 20
+      - description: Filter by organization ID
+        in: query
+        name: organization_id
+        example: 10048
+        schema:
+          type: integer
+      - description: Filter by advertiser ID
+        in: query
+        name: advertiser_id
+        example: 100078
+        schema:
+          type: integer
+      - description: Sort field. Prepend - for descending
+        in: query
+        name: sort_by
+        example: '"-atomic_creative_id"'
+        schema:
+          type: string
+          enum:
+          - atomic_creative_id
+          - -atomic_creative_id
+          - advertiser_name
+          - -advertiser_name
+          - concept_name
+          - -concept_name
+          - creative_name
+          - -creative_name
+          - last_modified
+          - -last_modified
+          - status
+          - -status
+      - description: Search term for creative ID or name
+        in: query
+        name: search
+        example: '"test creative"'
+        schema:
+          type: string
+      - description: Filter by status
+        in: query
+        name: status
+        example: '"1"'
+        schema:
+          type: string
+          enum:
+          - '0'
+          - '1'
+      responses:
+        '200':
+          description: Component creatives retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentCreativeListResponse'
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '401':
+          description: Missing or invalid JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-list-component-creatives
+      summary: List Component Creatives
+      tags:
+      - Creatives - Native
+    post:
+      description: Create a new component creative with assets. Supports base64 encoded image and subtitle uploads.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ComponentCreativeRequest'
+        description: Creative creation request
+        required: true
+      responses:
+        '201':
+          description: Component creative created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentCreativeApiResponse'
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ValidationError'
+        '401':
+          description: Missing or invalid JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-create-component-creative
+      summary: Create Component Creative
+      tags:
+      - Creatives - Native
+  /component_creatives/v3.0/creatives/{atomic_creative_id}:
+    get:
+      description: Retrieve a component creative object using the creative ID with JWT authentication. Supports various asset types including text, image, video, and subtitle assets.
+      parameters:
+      - description: Creative ID
+        in: path
+        name: atomic_creative_id
+        required: true
+        example: 4838137
+        schema:
+          type: integer
+      - description: Comma-separated list of additional data to include
+        in: query
+        name: include
+        example: '"previews"'
+        schema:
+          type: string
+          enum:
+          - previews
+      responses:
+        '200':
+          description: Component creative retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentCreativeApiResponse'
+        '400':
+          description: Invalid atomic_creative_id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '401':
+          description: Missing or invalid JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '404':
+          description: Component creative not found or not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-get-component-creative-by-id
+      summary: Get Component Creative by ID
+      tags:
+      - Creatives - Native
+    put:
+      description: Update an existing component creative with optional fields. When assets are provided, all previous assets are completely replaced.
+      parameters:
+      - description: Creative ID
+        in: path
+        name: atomic_creative_id
+        required: true
+        example: 3200795
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ComponentCreativeUpdateRequest'
+        description: Creative update request
+        required: true
+      responses:
+        '200':
+          description: Component creative updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentCreativeApiResponse'
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ValidationError'
+        '401':
+          description: Missing or invalid JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '404':
+          description: Creative not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-update-component-creative
+      summary: Update Component Creative
+      tags:
+      - Creatives - Native
+  /component_creatives/v3.0/creatives/{atomic_creative_id}/eligibility:
+    get:
+      description: Retrieve eligibility information for a component creative across all placements with JWT authentication
+      parameters:
+      - description: Creative ID
+        in: path
+        name: atomic_creative_id
+        required: true
+        example: 3200738
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Creative eligibility retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.EligibilityResponse'
+        '400':
+          description: Invalid atomic_creative_id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '401':
+          description: Missing or invalid JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '404':
+          description: Component creative not found or not authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-get-creative-eligibility
+      summary: Get Creative Eligibility
+      tags:
+      - Creatives - Native
+components:
+  schemas:
+    models.AdFormat:
+      properties:
+        external_id:
+          type: string
+        name:
+          type: string
+        simple_name:
+          type: string
+      type: object
+    httputil.Response:
+      properties:
+        data: {}
+        error:
+          type: string
+        message:
+          type: string
+      type: object
+    models.ComponentCreativeRequest:
+      properties:
+        assets:
+          description: JSON string of AssetRequest array
+          type: string
+        body:
+          type: string
+        brandName:
+          type: string
+        clickThroughUrl:
+          type: string
+        clickTrackingUrl:
+          type: string
+        concept_id:
+          type: integer
+        description:
+          type: string
+        destinationUrl:
+          type: string
+        displayUrl:
+          type: string
+        end_date:
+          type: string
+        external_identifier:
+          type: string
+        height:
+          type: integer
+        impressionTrackingTag:
+          type: string
+        impressionTrackingUrl:
+          type: string
+        start_date:
+          type: string
+        status:
+          type: boolean
+        title:
+          type: string
+        tpas_ad_tag_name:
+          type: string
+        viewabilityTrackingTag:
+          type: string
+        width:
+          type: integer
+      type: object
+    models.ComponentCreativeListResponse:
+      description: Component creative list API response
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/models.ComponentCreativeData'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.MetaInfo:
+      description: Response metadata
+      properties:
+        code:
+          type: integer
+        count:
+          type: integer
+        next_page:
+          type: string
+        offset:
+          type: integer
+        prev_page:
+          type: string
+        status:
+          type: string
+        total_count:
+          type: integer
+        type:
+          type: string
+      type: object
+    models.ValidationError:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/models.ValidationDetail'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.ValidationMeta'
+      type: object
+    models.PlacementEligibility:
+      properties:
+        ad_format:
+          $ref: '#/components/schemas/models.AdFormat'
+        eligible:
+          type: boolean
+        optional_components:
+          items:
+            $ref: '#/components/schemas/models.EligibleComponent'
+          type: array
+        required_components:
+          items:
+            $ref: '#/components/schemas/models.EligibleComponent'
+          type: array
+        supplier:
+          type: string
+        supplier_platform:
+          type: string
+      type: object
+    models.ValidationMeta:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        status:
+          type: string
+      type: object
+    models.EligibleComponent:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        present:
+          type: boolean
+      type: object
+    models.ComponentCreativeApiResponse:
+      description: Standard component creative API response for create, update, and get operations
+      properties:
+        data:
+          $ref: '#/components/schemas/models.ComponentCreativeData'
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.ValidationDetail:
+      properties:
+        msg:
+          type: string
+        param:
+          type: string
+      type: object
+    models.Asset:
+      description: Asset associated with a creative
+      properties:
+        asset_id:
+          type: integer
+        asset_type:
+          type: string
+        asset_value:
+          type: string
+        component_human_name:
+          type: string
+        component_id:
+          type: integer
+        image_file_size:
+          type: integer
+        image_filename:
+          type: string
+        image_height:
+          type: integer
+        image_url:
+          type: string
+        image_width:
+          type: integer
+        subtitle_filename:
+          type: string
+        subtitle_url:
+          type: string
+        video_filename:
+          type: string
+        video_url:
+          type: string
+      type: object
+    models.EligibilityResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/models.PlacementEligibility'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.ComponentCreativeData:
+      description: Component Creative object with assets and metadata
+      properties:
+        advertiser_id:
+          type: integer
+        advertiser_name:
+          type: string
+        assets:
+          items:
+            $ref: '#/components/schemas/models.Asset'
+          type: array
+        atomic_creative_id:
+          type: integer
+        clickthrough_url:
+          type: string
+        concept_id:
+          type: string
+        concept_name:
+          type: string
+        creative_id:
+          type: integer
+        creative_name:
+          type: string
+        end_date:
+          type: string
+        external_identifier:
+          type: string
+        fb_status:
+          type: string
+        feedback:
+          type: object
+        landing_url:
+          type: string
+        last_modified:
+          type: string
+        last_published:
+          type: string
+        previews:
+          type: object
+        start_date:
+          type: string
+        status:
+          type: boolean
+        unpublished:
+          type: boolean
+      type: object
+    models.ComponentCreativeUpdateRequest:
+      properties:
+        advertiser_id:
+          type: integer
+        assets:
+          description: JSON string of AssetRequest array
+          type: string
+        body:
+          type: string
+        brandName:
+          type: string
+        clickThroughUrl:
+          type: string
+        clickTrackingUrl:
+          type: string
+        concept_id:
+          type: integer
+        creative_name:
+          type: string
+        description:
+          type: string
+        destinationUrl:
+          type: string
+        displayUrl:
+          type: string
+        end_date:
+          type: string
+        external_identifier:
+          type: string
+        height:
+          type: integer
+        impressionTrackingTag:
+          type: string
+        impressionTrackingUrl:
+          type: string
+        start_date:
+          type: string
+        status:
+          type: boolean
+        title:
+          type: string
+        tpas_ad_tag_name:
+          type: string
+        viewabilityTrackingTag:
+          type: string
+        width:
+          type: integer
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Type "Bearer" followed by a space and JWT token.
+      in: header
+      name: Authorization
+      type: apiKey
+x-tagGroups:
+- name: Component Creatives API v3.0
+  tags:
+  - Creatives - Native
+  - Components
+  - Approvals
+- name: Component Creatives API v1.0 (Deprecated)
+  tags:
+  - Component Creatives

@@ -1,0 +1,319 @@
+openapi: 3.2.0
+info:
+  title: Component Creatives Components API
+  description: 'The terms creative components and native components may be used interchangeably.
+
+    Component Creatives are uploaded in the "Creatives Tab" within the Creatives Module, and is where creatives for native campaigns are uploaded.
+
+
+    ## Component Creatives API v3.0 (current)
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v3.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v3.0/`
+
+
+    v3.0 endpoints use Bearer (JWT) authentication via the `Authorization` header.
+
+
+    ## Component Creatives API v1.0 (deprecated)
+
+
+    > **Deprecated:** The v1.0 endpoints are deprecated. Please migrate to v3.0.
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v1.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v1.0`'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+  version: '3.0'
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: Components
+  description: v3.0 component definition endpoints.
+paths:
+  /component_creatives/v3.0/components:
+    get:
+      description: Retrieve all components from the system
+      responses:
+        '200':
+          description: Components retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-list-all-components
+      summary: List All Components
+      tags:
+      - Components
+    post:
+      description: Create a new component. Requires Component Manager authorization.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ComponentCreateRequest'
+        description: Component creation request
+        required: true
+      responses:
+        '201':
+          description: Component created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '401':
+          description: Unauthorized - not a component manager
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-create-component
+      summary: Create Component
+      tags:
+      - Components
+  /component_creatives/v3.0/components/{component_id}:
+    get:
+      description: Retrieve a component by its ID
+      parameters:
+      - description: Component ID
+        in: path
+        name: component_id
+        required: true
+        example: 1
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Component retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentResponse'
+        '400':
+          description: Invalid component ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '404':
+          description: Component not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-get-component-by-id
+      summary: Get Component By ID
+      tags:
+      - Components
+    post:
+      description: 'Update an existing component. Requires Component Manager authorization. Note: value_type_name cannot be updated.'
+      parameters:
+      - description: Component ID
+        in: path
+        name: component_id
+        required: true
+        example: 1
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.ComponentUpdateRequest'
+        description: Component update request
+        required: true
+      responses:
+        '200':
+          description: Component updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ComponentResponse'
+        '400':
+          description: Invalid component_id or validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '401':
+          description: Unauthorized - not a component manager
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '404':
+          description: Component not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-update-component
+      summary: Update Component
+      tags:
+      - Components
+components:
+  schemas:
+    httputil.Response:
+      properties:
+        data: {}
+        error:
+          type: string
+        message:
+          type: string
+      type: object
+    models.Component:
+      description: Component definition
+      properties:
+        char_limit:
+          type: integer
+        component_human_name:
+          type: string
+        component_id:
+          type: integer
+        created_at:
+          type: string
+        is_enabled:
+          type: boolean
+        updated_at:
+          type: string
+        value_type_name:
+          type: string
+      type: object
+    models.MetaInfo:
+      description: Response metadata
+      properties:
+        code:
+          type: integer
+        count:
+          type: integer
+        next_page:
+          type: string
+        offset:
+          type: integer
+        prev_page:
+          type: string
+        status:
+          type: string
+        total_count:
+          type: integer
+        type:
+          type: string
+      type: object
+    models.ComponentCreateRequest:
+      description: Component creation request
+      properties:
+        char_limit:
+          type: integer
+        component_human_name:
+          description: Required
+          type: string
+        is_enabled:
+          description: 'Default: true'
+          type: boolean
+        value_type_name:
+          description: 'Required: TEXT, IMAGE, VIDEO, INTEGER, SUBTITLE'
+          type: string
+      type: object
+    models.ComponentUpdateRequest:
+      description: Component update request
+      properties:
+        char_limit:
+          type: integer
+        component_human_name:
+          type: string
+        is_enabled:
+          type: boolean
+      type: object
+    models.ComponentListResponse:
+      description: Component list API response
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/models.Component'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.ComponentResponse:
+      description: Single component API response
+      properties:
+        data:
+          $ref: '#/components/schemas/models.Component'
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Type "Bearer" followed by a space and JWT token.
+      in: header
+      name: Authorization
+      type: apiKey
+x-tagGroups:
+- name: Component Creatives API v3.0
+  tags:
+  - Creatives - Native
+  - Components
+  - Approvals
+- name: Component Creatives API v1.0 (Deprecated)
+  tags:
+  - Component Creatives

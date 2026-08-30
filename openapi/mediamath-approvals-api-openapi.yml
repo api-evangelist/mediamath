@@ -1,0 +1,144 @@
+openapi: 3.2.0
+info:
+  title: Component Creatives Approvals API
+  description: 'The terms creative components and native components may be used interchangeably.
+
+    Component Creatives are uploaded in the "Creatives Tab" within the Creatives Module, and is where creatives for native campaigns are uploaded.
+
+
+    ## Component Creatives API v3.0 (current)
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v3.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v3.0/`
+
+
+    v3.0 endpoints use Bearer (JWT) authentication via the `Authorization` header.
+
+
+    ## Component Creatives API v1.0 (deprecated)
+
+
+    > **Deprecated:** The v1.0 endpoints are deprecated. Please migrate to v3.0.
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v1.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v1.0`'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+  version: '3.0'
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: Approvals
+  description: v3.0 creative approval status endpoints.
+paths:
+  /component_creatives/v3.0/approvals:
+    get:
+      description: Retrieve approval status for multiple atomic creative IDs. Returns the net status and individual source statuses for each creative.
+      parameters:
+      - description: Comma-separated list of atomic creative IDs
+        in: query
+        name: atomic_creative_ids
+        required: true
+        example: '"4838137,4838138,4838139"'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Approvals status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ApprovalsResponse'
+        '400':
+          description: Invalid atomic_creative_ids parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/httputil.Response'
+      security:
+      - BearerAuth: []
+      operationId: v3-get-approvals-status
+      summary: Get Approvals Status
+      tags:
+      - Approvals
+components:
+  schemas:
+    httputil.Response:
+      properties:
+        data: {}
+        error:
+          type: string
+        message:
+          type: string
+      type: object
+    models.MetaInfo:
+      description: Response metadata
+      properties:
+        code:
+          type: integer
+        count:
+          type: integer
+        next_page:
+          type: string
+        offset:
+          type: integer
+        prev_page:
+          type: string
+        status:
+          type: string
+        total_count:
+          type: integer
+        type:
+          type: string
+      type: object
+    models.ApprovalStatus:
+      properties:
+        atomic_creative_id:
+          type: string
+        net_status:
+          type: string
+        sources:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    models.ApprovalsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/models.ApprovalStatus'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Type "Bearer" followed by a space and JWT token.
+      in: header
+      name: Authorization
+      type: apiKey
+x-tagGroups:
+- name: Component Creatives API v3.0
+  tags:
+  - Creatives - Native
+  - Components
+  - Approvals
+- name: Component Creatives API v1.0 (Deprecated)
+  tags:
+  - Component Creatives

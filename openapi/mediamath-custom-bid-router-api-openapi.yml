@@ -1,0 +1,474 @@
+openapi: 3.2.0
+info:
+  title: BYOA Custom Bid Router API
+  description: '# Custom Brain
+
+
+    Custom Brain allows the client to use the BYOA API to upload a set of logistic coefficients corresponding to any of the variables currently in use by the MediaMath Brain.  These coefficients will then be used by participating strategies to calculate the predicted response rate for each impression.  The bidder will calculate bid price by multipling the predicted response rate by the strategy''s goal value.  Goal values can be modified using the MediaMath Platform campaign management API.
+
+
+    It is best for you to contact us early in your process by emailing developers@mediamath.com, as it may take about 48 hours before you are granted API access to begin work on your model.
+
+
+    ![BYOM](https://mediamath.github.io/api-docs/images/BYOA-CustomBrain.png "BYOM Architecture")'
+  contact:
+    name: BYOA API Support
+    url: http://devblog.mediamath.com
+    email: byoa@mediamath.com
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+  version: ''
+servers:
+- url: https://api.byoa.mediamath.com
+tags:
+- name: Custom Bid Router
+  description: Custom Bid Router further extends the BYOA architecture allowing advertisers to apply their own bidding algorithms in their own ecosystem. The MediaMath system will invoke an external call to the client with the bid request and await a response that MediaMath can use in our internal auction. Forwarded bid requests adhere to OpenRTB v2.4 format and may be enriched with certain information such as segment membership and pixel recency.
+paths:
+  /custombidrouter/{org_id}/configuration:
+    get:
+      tags:
+      - Custom Bid Router
+      summary: Configuration Summary
+      description: Get a summary of the service consisting of the defined executors, environments, and endpoints. This summary will help you identify that you have correctly configured all your endpoints for all the regions
+      operationId: summary-bidvaluator-organization
+      parameters:
+      - $ref: '#/components/parameters/param-organization-id'
+      - name: ''
+        in: header
+        description: _
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/PUT_campaign_settings-campaign_idBody'
+      responses:
+        '200':
+          description: VAR_NAME (under executors) can be any executor name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      emails:
+                        type: string
+                      executors:
+                        type: object
+                        properties:
+                          VAR_NAME:
+                            type: object
+                            properties:
+                              endpoints:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    brain_type_id:
+                                      type: integer
+                                      minimum: 1000
+                                      maximum: 1004
+                                    content_type:
+                                      type: string
+                                      enum:
+                                      - json
+                                      - protobuf
+                                    endpoint:
+                                      type: string
+                                    endpoint_id:
+                                      type: string
+                                    environment:
+                                      type: string
+                                      enum:
+                                      - sandbox
+                                      - production
+                                    logging:
+                                      type: object
+                                      properties:
+                                        logging_enabled:
+                                          type: boolean
+                                        s3_bucketname:
+                                          type: string
+                                        s3_region:
+                                          type: string
+                                        s3_role_arn:
+                                          type: string
+                                    pop_ids:
+                                      type: array
+                                      description: Each pop_ids array entry must be 3 letters long
+                                      items:
+                                        type: string
+                                    sample_rate:
+                                      type: integer
+                                    upstream_enabled:
+                                      type: boolean
+                                    endpoint_type:
+                                      type: string
+                              executor_id:
+                                type: integer
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    data:
+                      ACME Org Production Executor:
+                        endpoints:
+                        - brain_type_id: 1003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-east-1.acme.co/bid/valuate
+                          endpoint_id: 01b0acd2-d627-472f-8abe-255e4298c078
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - ewr
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: bid
+                        - brain_type_id: 1003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-west-2.acme.co/bid/valuate
+                          endpoint_id: 6a7f517c-6b03-4db9-baf1-dff3099fb81a
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - pao
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: bid
+                        - brain_type_id: 2003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-east-2.acme.co/win/win_notice
+                          endpoint_id: eb5105f8-4551-462b-a122-fbb5581ef4b9
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - ord
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: win
+                        executor_id: 4
+                    meta:
+                      status: success
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - error
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: No Adama write permission for namespace
+                      message: Error in authentication
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+  /custombidrouter/{org_id}/executors/{executor_id}:
+    get:
+      tags:
+      - Custom Bid Router
+      summary: Executor Details
+      description: 'The details of the Custom Bid Router executor and all attached Endpoints
+
+        '
+      operationId: GET-executor-details
+      parameters:
+      - $ref: '#/components/parameters/param-executor-id'
+      - $ref: '#/components/parameters/param-organization-id'
+      - $ref: '#/components/parameters/param-executor-id'
+      - $ref: '#/components/parameters/param-organization-id'
+      responses:
+        '200':
+          description: VAR_NAME is variable, the name of an executor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      VAR_NAME:
+                        type: object
+                        properties:
+                          endpoints:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                brain_type_id:
+                                  type: integer
+                                content_type:
+                                  type: string
+                                endpoint:
+                                  type: string
+                                endpoint_id:
+                                  type: string
+                                environment:
+                                  type: string
+                                logging:
+                                  type: object
+                                  properties:
+                                    logging_enabled:
+                                      type: boolean
+                                pop_ids:
+                                  type: array
+                                  items:
+                                    type: string
+                                sample_rate:
+                                  type: integer
+                                upstream_enabled:
+                                  type: boolean
+                                endpoint_type:
+                                  type: string
+                          executor_id:
+                            type: integer
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    data:
+                      ACME Org Production Executor:
+                        endpoints:
+                        - brain_type_id: 1003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-east-1.acme.co/bid/valuate
+                          endpoint_id: 01b0acd2-d627-472f-8abe-255e4298c078
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - ewr
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: bid
+                        - brain_type_id: 1003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-west-2.acme.co/bid/valuate
+                          endpoint_id: 6a7f517c-6b03-4db9-baf1-dff3099fb81a
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - pao
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: bid
+                        - brain_type_id: 2003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-east-2.acme.co/win/win_notice
+                          endpoint_id: eb5105f8-4551-462b-a122-fbb5581ef4b9
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - ord
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: win
+                        executor_id: 4
+                    meta:
+                      status: success
+      security:
+      - oauth2: []
+    patch:
+      tags:
+      - Custom Bid Router
+      summary: Executor Update
+      description: The sample rate defines the percentage of the bid opportunities that are forwarded to your endpoints. The sample rate can be adjusted by the client collectively for all endpoints of an executor. This feature is useful to manage and budget system utilization.
+      operationId: PATCH-executor-details
+      parameters:
+      - $ref: '#/components/parameters/param-executor-id'
+      - $ref: '#/components/parameters/param-organization-id'
+      - name: executor_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: org_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sample_rate:
+                  type: integer
+        description: _
+      responses:
+        '200':
+          description: VAR_NAME is variable, the name of an executor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      VAR_NAME:
+                        type: object
+                        properties:
+                          endpoints:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                brain_type_id:
+                                  type: integer
+                                content_type:
+                                  type: string
+                                endpoint:
+                                  type: string
+                                endpoint_id:
+                                  type: string
+                                environment:
+                                  type: string
+                                logging:
+                                  type: object
+                                  properties:
+                                    logging_enabled:
+                                      type: boolean
+                                pop_ids:
+                                  type: array
+                                  items:
+                                    type: string
+                                sample_rate:
+                                  type: integer
+                                upstream_enabled:
+                                  type: boolean
+                                endpoint_type:
+                                  type: string
+                          executor_id:
+                            type: integer
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    data:
+                      ACME Org Production Executor:
+                        endpoints:
+                        - brain_type_id: 1003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-east-1.acme.co/bid/valuate
+                          endpoint_id: 01b0acd2-d627-472f-8abe-255e4298c078
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - ewr
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: bid
+                        - brain_type_id: 1003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-west-2.acme.co/bid/valuate
+                          endpoint_id: 6a7f517c-6b03-4db9-baf1-dff3099fb81a
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - pao
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: bid
+                        - brain_type_id: 2003
+                          content_type: protobuf
+                          endpoint: http://bid-handler-prod-us-east-2.acme.co/win/win_notice
+                          endpoint_id: eb5105f8-4551-462b-a122-fbb5581ef4b9
+                          environment: production
+                          logging:
+                            logging_enabled: false
+                          pop_ids:
+                          - ord
+                          sample_rate: 100
+                          upstream_enabled: true
+                          endpoint_type: win
+                        executor_id: 4
+                    meta:
+                      status: success
+      security:
+      - oauth2: []
+components:
+  parameters:
+    param-executor-id:
+      name: executor_id
+      in: path
+      description: The Executor ID identifies an Executor which provide a logical grouping for your Bid Valuation endpoints which are then applied to specific campaigns
+      required: true
+      schema:
+        type: integer
+        format: int32
+    param-organization-id:
+      name: org_id
+      in: path
+      description: Your organization ID
+      required: true
+      schema:
+        type: integer
+        format: int32
+  requestBodies:
+    PUT_campaign_settings-campaign_idBody:
+      content:
+        application/json:
+          schema: {}
+      description: _
+  securitySchemes:
+    adama-session-header:
+      type: apiKey
+      description: 'Authentication is provided through OAuth2. You''ll need to request a Client ID and Secret key.
+
+
+        After Authentication is established make a request to https://api.mediamath.com/api/v2.0/session with the Authorization:"Bearer ACCESS_TOKEN header, and copy the adama_session cookie header from the response. Use both the Authorization:"Bearer ACCESS_TOKEN" header and adama_session= cookie in all future requests'
+      name: adama_session
+      in: header
+    oauth2:
+      type: oauth2
+      description: exchange an Authorization Code for a Token
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com/oath/token
+          scopes: {}

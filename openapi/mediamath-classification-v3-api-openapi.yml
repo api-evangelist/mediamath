@@ -1,0 +1,461 @@
+openapi: 3.2.0
+info:
+  title: Video Creatives Classification (V3) API
+  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication token](/guides/authentication).
+
+
+    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs) and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
+
+
+    *Example HTTPie command to list all video creatives.*
+
+    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
+
+
+    ## Migration Notice
+
+
+    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
+
+
+    | Deprecated V2.0 Endpoint | Use Instead |
+
+    |---|---|
+
+    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
+
+    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
+
+    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions` |
+
+    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions` |
+
+    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` |
+
+    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field (returns a pre-signed S3 upload URL) |
+
+    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
+
+
+    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  contact:
+    name: API Support
+    url: https://support.infillion.com/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1.0
+servers:
+- url: https://api.mediamath.com
+tags:
+- name: Classification (V3)
+  description: V3.0 creative classification endpoints. Uses Bearer (JWT) authentication.
+paths:
+  /v3.0/classification/{cid}:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get a Classification by ID
+      description: Retrieve a classification object using the atomic creative ID.
+      operationId: GET_v3-0-classification-cid
+      parameters:
+      - name: cid
+        in: path
+        description: Atomic creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+    post:
+      tags:
+      - Classification (V3)
+      summary: Save a Classification
+      description: Save a classification object using the atomic creative ID.
+      operationId: POST_v3-0-classification-cid
+      parameters:
+      - name: cid
+        in: path
+        description: Atomic creative ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classification'
+        description: Classification object to save
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/{cid}/force-publish:
+    post:
+      tags:
+      - Classification (V3)
+      summary: Force-publish a Classification
+      description: Force-publish the classification for the given atomic creative ID.
+      operationId: POST_v3-0-classification-cid-force-publish
+      parameters:
+      - name: cid
+        in: path
+        description: Classification ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/{cid}/inflate:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get an Inflated Classification by ID
+      description: Retrieve an inflated classification object using the atomic creative ID.
+      operationId: GET_v3-0-classification-cid-inflate
+      parameters:
+      - name: cid
+        in: path
+        description: Atomic creative ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/bulk:
+    post:
+      tags:
+      - Classification (V3)
+      summary: Save Bulk Classification
+      description: Save multiple classification objects using a bulk request.
+      operationId: POST_v3-0-classification-bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkClassificationResponse'
+        description: Bulk classification records to save
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkInflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/bulk/{cids}:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get Bulk Classification by IDs
+      description: Retrieve multiple classification objects using a comma-separated list of atomic creative IDs.
+      operationId: GET_v3-0-classification-bulk-cids
+      parameters:
+      - name: cids
+        in: path
+        description: Comma-separated list of atomic creative IDs
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+  /v3.0/classification/bulk/{cids}/inflate:
+    get:
+      tags:
+      - Classification (V3)
+      summary: Get Bulk Inflated Classification by IDs
+      description: Retrieve multiple inflated classification objects using a comma-separated list of atomic creative IDs.
+      operationId: GET_v3-0-classification-bulk-cids-inflate
+      parameters:
+      - name: cids
+        in: path
+        description: Comma-separated list of atomic creative IDs
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkInflatedClassificationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UIErrorType'
+components:
+  schemas:
+    InflatedDetails:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationAttribute'
+        language:
+          $ref: '#/components/schemas/ClassificationLanguage'
+        verticals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationVertical'
+    BulkClassificationResponse:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationDetail'
+    ClassificationAttribute:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            type: integer
+        id:
+          type: integer
+        name:
+          type: string
+        parent:
+          type: string
+    Classification:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            type: integer
+        language:
+          type: integer
+        verticals:
+          type: array
+          items:
+            type: integer
+    InflatedClassificationResponse:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationAttribute'
+        language:
+          $ref: '#/components/schemas/ClassificationLanguage'
+        verticals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationVertical'
+    ClassificationVertical:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            type: integer
+        code:
+          type: string
+        description:
+          type: string
+        id:
+          type: integer
+        parent:
+          type: string
+    UIErrorType:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIError'
+    BulkInflatedClassificationResponse:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkInflatedRecord'
+    UIError:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        reasonCode:
+          type: integer
+        resource:
+          type: string
+    ClassificationDetail:
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/Classification'
+    ClassificationLanguage:
+      type: object
+      properties:
+        alpha2:
+          type: string
+        bibliographic:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        name_fr:
+          type: string
+        terminologic:
+          type: string
+    BulkInflatedRecord:
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/InflatedDetails'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com
+          scopes: {}

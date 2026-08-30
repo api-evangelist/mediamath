@@ -1,0 +1,732 @@
+openapi: 3.2.0
+info:
+  title: BYOA Campaign Settings API
+  description: '# Custom Brain
+
+
+    Custom Brain allows the client to use the BYOA API to upload a set of logistic coefficients corresponding to any of the variables currently in use by the MediaMath Brain.  These coefficients will then be used by participating strategies to calculate the predicted response rate for each impression.  The bidder will calculate bid price by multipling the predicted response rate by the strategy''s goal value.  Goal values can be modified using the MediaMath Platform campaign management API.
+
+
+    It is best for you to contact us early in your process by emailing developers@mediamath.com, as it may take about 48 hours before you are granted API access to begin work on your model.
+
+
+    ![BYOM](https://mediamath.github.io/api-docs/images/BYOA-CustomBrain.png "BYOM Architecture")'
+  contact:
+    name: BYOA API Support
+    url: http://devblog.mediamath.com
+    email: byoa@mediamath.com
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: Apache 2.0
+  version: ''
+servers:
+- url: https://api.byoa.mediamath.com
+tags:
+- name: Campaign Settings
+  description: 'BYOA (Bring Your Own Algorithm) allows advertisers to apply their own bidding algorithms within MediaMath. The participating campaigns and strategies are configured with the BYOA Campaign Settings '
+paths:
+  /campaign_settings/{campaign_id}/strategies/{strategy_id}:
+    get:
+      tags:
+      - Campaign Settings
+      summary: Strategy based Campaign Details
+      description: Get strategy level Campaign Setting
+      operationId: GET_campaign_settings-campaign_id-strategies-strategy_id
+      parameters:
+      - name: strategy_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+      - name: campaign_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        campaign_id:
+                          type: integer
+                        created_on:
+                          type: string
+                          format: date-time
+                        executor_id:
+                          type: integer
+                        high:
+                          type: integer
+                        low:
+                          type: integer
+                        model_id:
+                          type: string
+                          description: A string describing a Brain name (or Model ID)
+                        namespace:
+                          type: string
+                        strategy_id:
+                          type: integer
+                        updated_on:
+                          type: string
+                          format: date-time
+                        uuid_type:
+                          type: string
+                          enum:
+                          - CID
+                          - UUID
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                    - campaign_id: 675865
+                      created_on: '2019-08-28T02:24:36.49769Z'
+                      executor_id: 2
+                      high: 99
+                      low: 0
+                      model_id: aggregate_2
+                      namespace: '100667'
+                      updated_on: '2019-08-28T02:24:36.49769Z'
+                      uuid_type: CID
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_CampaignSetting
+                      message: CampaignSetting with campaign_id(368832), strategy_id(12345) not found.
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+    delete:
+      tags:
+      - Campaign Settings
+      summary: Strategy based Campaign Delete
+      description: 'Delete Campaign Setting with Campaign, Strategy
+
+
+        No request body for this type.'
+      operationId: DELETE_campaign_settings-campaign_id-strategies-strategy_id
+      parameters:
+      - name: strategy_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+      - name: campaign_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        campaign_id:
+                          type: integer
+                        created_on:
+                          type: string
+                          format: date-time
+                        executor_id:
+                          type: integer
+                        high:
+                          type: integer
+                        low:
+                          type: integer
+                        model_id:
+                          type: string
+                        namespace:
+                          type: string
+                        strategy_id:
+                          type: integer
+                        updated_on:
+                          type: string
+                          format: date-time
+                        uuid_type:
+                          type: string
+                          enum:
+                          - CID
+                          - UUID
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                    - campaign_id: 10000
+                      created_on: '2017-07-06T13:53:10.395836Z'
+                      executor_id: 2
+                      high: 99
+                      low: 0
+                      model_id: model_name
+                      namespace: mm
+                      strategy_id: 1000
+                      updated_on: '2017-07-06T13:53:10.395836Z'
+                      uuid_type: CID
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_CampaignSetting
+                      message: CampaignSetting with campaign_id(1000), strategy_id(1000) not found.
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+    put:
+      tags:
+      - Campaign Settings
+      summary: Strategy based Campaign Create/Modify
+      description: Configure BYOA functionality at a Strategy Level for a Campaign
+      operationId: PUT_campaign_settings-campaign_id-strategies-strategy_id
+      parameters:
+      - name: strategy_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+      - name: campaign_id
+        in: path
+        description: _
+        required: true
+        schema:
+          type: integer
+      - name: Adama_session
+        in: header
+        description: _
+        required: true
+        schema:
+          type: string
+      - name: Adama_session_exp
+        in: header
+        description: _
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+        description: uuid_type should be at the top layer and the rest should be in an array one layer deeper.
+      responses:
+        '200':
+          description: "Example using cURL:\n\n```\ncurl -X PUT \"https://api.byoa.mediamath.com/campaign_settings/999999/strategies/888888\" \\\n  -d '{\n    \"settings\": [\n      {\n        \"executor_id\": 2,\n        \"high\": 99,\n        \"low\": 0,\n        \"model_id\": \"<ModelName>\",\n        \"namespace\": \"<OrganizationID>\"\n      }\n    ],\n    \"uuid_type\": \"UUID\"\n  }' \\\n  -H 'adama_session: <adama_session>'\n```\n\nNote that executor_id must be set to 2. This refers to the current version of the MediaMath BYOA Model executor."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        campaign_id:
+                          type: integer
+                        created_on:
+                          type: string
+                          format: date-time
+                        executor_id:
+                          type: integer
+                        high:
+                          type: integer
+                        low:
+                          type: integer
+                        model_id:
+                          type: string
+                          description: A string describing a Brain name (or Model ID)
+                        namespace:
+                          type: string
+                        strategy_id:
+                          type: integer
+                        updated_on:
+                          type: string
+                          format: date-time
+                        uuid_type:
+                          type: string
+                          enum:
+                          - CID
+                          - UUID
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                    - campaign_id: 10000
+                      created_on: '2017-07-06T13:53:10.395836Z'
+                      executor_id: 1
+                      high: 99
+                      low: 0
+                      model_id: model_name
+                      namespace: mm
+                      strategy_id: 1000
+                      updated_on: '2017-07-06T13:53:10.395836Z'
+                      uuid_type: CID
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_Executor
+                      message: Executor with ID 1 not found.
+                    meta:
+                      status: error
+  /campaign_settings/{campaign_id}:
+    delete:
+      tags:
+      - Campaign Settings
+      summary: Campaign Delete
+      description: 'Delete a Campaign
+
+
+        There is no request body for this endpoint command.'
+      operationId: DELETE_campaign_settings-campaign_id
+      parameters:
+      - name: campaign_id
+        in: path
+        description: Campaign ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        campaign_id:
+                          type: integer
+                        created_on:
+                          type: string
+                          format: date-time
+                        executor_id:
+                          type: integer
+                        high:
+                          type: integer
+                        low:
+                          type: integer
+                        model_id:
+                          type: string
+                        namespace:
+                          type: string
+                        updated_on:
+                          type: string
+                          format: date-time
+                        uuid_type:
+                          type: string
+                          enum:
+                          - CID
+                          - UUID
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                    - campaign_id: 10000
+                      created_on: '2017-07-07T11:20:10.92661Z'
+                      executor_id: 2
+                      high: 99
+                      low: 0
+                      model_id: model_name
+                      namespace: mm
+                      updated_on: '2017-07-07T11:20:10.92661Z'
+                      uuid_type: CID
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_CampaignSetting
+                      message: CampaignSetting with campaign_id(100000), strategy_id(0) not found.
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+    put:
+      tags:
+      - Campaign Settings
+      summary: Campaign Create/Modify
+      description: Configure BYOA functionality at a Campaign Level
+      operationId: PUT_campaign_settings-campaign_id
+      parameters:
+      - name: campaign_id
+        in: path
+        description: Campaign ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/PUT_campaign_settings-campaign_idBody'
+      responses:
+        '200':
+          description: "Example using cURL:\n\n```\n$ curl -X PUT \"https://api.byoa.mediamath.com/campaign_settings/999999\" \\\n  -d '{\n    \"settings\": [\n      {\n        \"executor_id\": 2,\n        \"high\": 99,\n        \"low\": 0,\n        \"model_id\": \"<ModelName>\",\n        \"namespace\": \"<OrganizationID>\"\n      }\n    ],\n    \"uuid_type\": \"UUID\"\n  }' \\\n  -H 'adama_session: <adama_session>'\n```\n\nNote that executor_id must be set to 2. This refers to the current version of the MediaMath BYOA Model executor."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        campaign_id:
+                          type: integer
+                        created_on:
+                          type: string
+                          format: date-time
+                        executor_id:
+                          type: integer
+                        high:
+                          type: integer
+                        low:
+                          type: integer
+                        model_id:
+                          type: string
+                        namespace:
+                          type: string
+                        updated_on:
+                          type: string
+                          format: date-time
+                        uuid_type:
+                          type: string
+                          enum:
+                          - CID
+                          - UUID
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                    - campaign_id: 315901
+                      created_on: '2017-07-05T09:22:16.862852Z'
+                      executor_id: 2
+                      high: 99
+                      low: 0
+                      model_id: model_name
+                      namespace: '101463'
+                      updated_on: '2017-07-05T09:22:16.862852Z'
+                      uuid_type: CID
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: JSON_Decode_Error
+                    meta:
+                      reason: Error during decoding JSON data
+                      status: error
+      security:
+      - oauth2: []
+    get:
+      tags:
+      - Campaign Settings
+      summary: Campaign Details
+      description: 'Get details on BYOA settings for a campaign
+
+
+        Query parameters like page_limit and with and sort_by do not work'
+      operationId: GET_campaign_settings-campaign_id
+      parameters:
+      - name: campaign_id
+        in: path
+        description: Campaign ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        campaign_id:
+                          type: integer
+                        created_on:
+                          type: string
+                          format: date-time
+                        executor_id:
+                          type: integer
+                        high:
+                          type: integer
+                          minimum: 0
+                          maximum: 99
+                        low:
+                          type: integer
+                          minimum: 0
+                          maximum: 99
+                        model_id:
+                          type: string
+                        namespace:
+                          type: string
+                        updated_on:
+                          type: string
+                          format: date-time
+                        uuid_type:
+                          type: string
+                          enum:
+                          - CID
+                          - UUID
+                          format: CID
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum:
+                        - success
+              examples:
+                response:
+                  value:
+                    data:
+                    - campaign_id: 100001
+                      created_on: '2019-07-16T18:19:13.801517Z'
+                      executor_id: 2
+                      high: 49
+                      low: 0
+                      model_id: tree_brain
+                      namespace: mm
+                      updated_on: '2019-07-16T18:19:13.801517Z'
+                      uuid_type: UUID
+                    - campaign_id: 100001
+                      created_on: '2019-07-16T18:19:13.801517Z'
+                      executor_id: 2
+                      high: 99
+                      low: 50
+                      model_id: campaign_100001_tf
+                      namespace: mm
+                      updated_on: '2019-07-16T18:19:13.801517Z'
+                      uuid_type: UUID
+                    meta:
+                      status: success
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+              examples:
+                response:
+                  value:
+                    errors:
+                    - code: Not_Found_CampaignSetting
+                      message: CampaignSetting with campaign_id(1), strategy_id(0) not found.
+                    meta:
+                      status: error
+      security:
+      - oauth2: []
+components:
+  requestBodies:
+    PUT_campaign_settings-campaign_idBody:
+      content:
+        application/json:
+          schema: {}
+      description: _
+  securitySchemes:
+    adama-session-header:
+      type: apiKey
+      description: 'Authentication is provided through OAuth2. You''ll need to request a Client ID and Secret key.
+
+
+        After Authentication is established make a request to https://api.mediamath.com/api/v2.0/session with the Authorization:"Bearer ACCESS_TOKEN header, and copy the adama_session cookie header from the response. Use both the Authorization:"Bearer ACCESS_TOKEN" header and adama_session= cookie in all future requests'
+      name: adama_session
+      in: header
+    oauth2:
+      type: oauth2
+      description: exchange an Authorization Code for a Token
+      flows:
+        password:
+          tokenUrl: https://auth.mediamath.com/oath/token
+          scopes: {}
