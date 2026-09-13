@@ -197,3 +197,23 @@ limitations:
   endpoint is required to record real inputSchema objects.
 - The provider warns that the Tool Reference lags the deployed tool set and that agents should re-discover
   tools on each connection, so this list is a snapshot.
+tools_count: 6
+tools:
+- name: list-apis
+  description: ''
+- name: get-endpoints
+  description: ''
+- name: get-endpoint-info
+  description: ''
+- name: get-security-schemes
+  description: ''
+- name: get-full-api-description
+  description: ''
+- name: search
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
+authorship: platform
+authorship_note: 'PLATFORM-AUTHORED: this tool shape is shared with at least one other provider in the
+  catalog, so it is a platform default appearing under this provider''s domain rather than an interface
+  this provider designed. Shared shape: (''get-endpoint-info'', ''get-endpoints'', ''get-full-api-description'',
+  ''get-security-schemes'', ''list-apis'', ''search'')'
