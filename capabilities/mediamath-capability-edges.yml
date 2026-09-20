@@ -1,0 +1,129 @@
+slug: mediamath
+provider: MediaMath
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: Campaigns
+  spec_file: mediamath-campaigns-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: '''Create a Campaign'', ''Update Campaign Dynamic Budget Allocation'', schemas campaign_budget,
+    campaign_goals, campaign_pacing'
+  reason: Full CRUD over programmatic advertising campaigns with budgets, goals and pacing — digital/paid-media
+    campaign management.
+- tag: Strategies
+  spec_file: mediamath-strategies-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /strategies 'Create a Strategy'; GET /strategies/{strategy_id}/targeting_expression 'Get
+    Targeting Expression'; schemas strategy_goals, strategy_pacing, strategy_audience_segment
+  reason: Core DSP bid/media-buying strategies with goals, pacing and targeting — the heart of programmatic
+    paid-media campaign execution.
+- tag: Targeting
+  spec_file: mediamath-targeting-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /targets create-target 'Create a Target'; schemas audience_target, audience_segments_group,
+    contextual_segment_full, day_part, cpm
+  reason: CRUD over advertising targets with audience/contextual segments, dayparts and CPM is programmatic
+    media buying configuration — digital/paid media marketing, not customer CRM segmentation.
+- tag: Private Marketplace Exchange (PMP-E)
+  spec_file: mediamath-private-marketplace-exchange-pmp-e-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /deals 'Create Deal', GET /deal_groups 'List the Deal Groups', POST /publishers 'Create
+    publisher'; description 'Private Marketplace Direct (PMP-E)'
+  reason: Programmatic private-marketplace inventory deals with publishers — paid media buying, i.e. digital
+    marketing management. Note 'Deal' here is ad inventory, not a sales opportunity.
+- tag: Campaign Settings
+  spec_file: mediamath-campaign-settings-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.72
+  evidence: PUT /campaign_settings/{campaign_id}/strategies/{strategy_id} 'Strategy based Campaign Create/Modify';
+    'coefficients will then be used by participating strategies to calculate the predicted response rate
+    for each impression'
+  reason: Operations configure programmatic ad campaign/strategy bidding settings in a DSP — paid-media
+    execution, which sits under Digital Marketing Management. Not IT or product capabilities.
+- tag: New Strategy Plans
+  spec_file: mediamath-new-strategy-plans-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.72
+  evidence: POST /new_strategy_plans/forecast 'Post Ephemeral New Strategy Plan to Run a Forecast'; schemas
+    strategy_plan_targeting_extended, strategy_plan_inventory, strategy_audience_segment
+  reason: Planning and forecasting of programmatic media buying strategies with targeting and inventory
+    — paid-media/digital marketing execution, not a technical plumbing tag.
+- tag: Atomic Creatives
+  spec_file: mediamath-atomic-creatives-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /creative_upload  upload-creative-assets  Creative assets upload; POST /atomic_creatives  Create
+    atomic creative
+  reason: Full lifecycle of programmatic ad creatives including asset upload and bulk update — creative
+    trafficking for paid digital media. Ambiguity between digital marketing and content production sub-capability.
+- tag: New Strategy Groups
+  spec_file: mediamath-new-strategy-groups-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /new_strategy_groups  create-new-strategy-group  Create a New Strategy Group (MediaMath
+    Campaign Management API)
+  reason: Lifecycle management of bidding strategy groups within programmatic campaign management — digital/paid-media
+    campaign execution. Mapped to Digital Marketing Management with reasonable but not certain sub-capability
+    fit.
+- tag: Targeting Segments
+  spec_file: mediamath-targeting-segments-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: GET /targeting_segments list-targeting-segments; schemas targeting_segment_full, targeting_segment_collection
+  reason: Audience/targeting segments used for programmatic ad targeting fit digital (paid media) marketing
+    management rather than CRM customer segmentation; single read operation keeps confidence moderate.
+- tag: Video Creative Management (V2)
+  spec_file: mediamath-video-creative-management-v2-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /video/v2.0/creatives/{video_id}/upload 'Upload Video Creative'; POST /video/v2.0/creatives/validateVAST
+    'Validate VAST XML'
+  reason: Upload, encoding status, companion ads and VAST XML handling for video ad creatives is ad creative
+    trafficking for paid digital media. Ambiguity between digital-marketing and content-production sub-capabilities
+    keeps confidence at 0.7.
+- tag: Video Creative Management (V3)
+  spec_file: mediamath-video-creative-management-v3-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: '"Create a new video creative", "Validate VAST XML - V3", "Create companion ad - V3" on a
+    programmatic advertising DSP'
+  reason: Operations manage video ad creatives (VAST/VPAID assets, companion ads, event pixels) for trafficking
+    into programmatic paid-media buys. That is digital/paid-media marketing execution, not product engineering
+    or content editorial planning. Confidence held at 0.7 because the surface could alternatively be read
+    as content production (BC-400.70).
