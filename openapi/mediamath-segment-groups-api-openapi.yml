@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Segment Groups API
+  title: Campaigns Segment Groups API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -187,174 +185,13 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
-  schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    segment_group_create:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 256
-        type:
-          type: string
-          enum:
-          - CONTEXTUAL
-          - AUDIENCE
-        organization_id:
-          type: integer
-          format: int32
-          example: 1234
-        status:
-          type: boolean
-        segment_subgroup:
-          type: array
-          items:
-            type: object
-            properties:
-              segment_operator:
-                type: string
-                enum:
-                - AND
-                - OR
-              segment_members:
-                type: array
-                items:
-                  type: object
-                  required:
-                  - segment_id
-                  - segment_type
-                  properties:
-                    segment_id:
-                      type: integer
-                      format: int32
-                      example: 6
-                    segment_type:
-                      type: string
-                      enum:
-                      - CONTEXTUAL
-                      - 3P
-            required:
-            - segment_operator
-            - segment_members
-      required:
-      - name
-      - type
-      - organization_id
-      - status
-      - segment_subgroup
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-    segment_group_update:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 256
-        type:
-          type: string
-          enum:
-          - CONTEXTUAL
-          - AUDIENCE
-        organization_id:
-          type: integer
-          format: int32
-          example: 1234
-        status:
-          type: boolean
-        segment_subgroup:
-          type: array
-          items:
-            type: object
-            properties:
-              segment_operator:
-                type: string
-                enum:
-                - AND
-                - OR
-              segment_members:
-                type: array
-                items:
-                  type: object
-                  required:
-                  - segment_id
-                  - segment_type
-                  properties:
-                    segment_id:
-                      type: integer
-                      format: int32
-                      example: 6
-                    segment_type:
-                      type: string
-                      enum:
-                      - CONTEXTUAL
-                      - 3P
-            required:
-            - segment_operator
-            - segment_members
   responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
     segment_group:
       description: Audience group response
       content:
@@ -461,6 +298,89 @@ components:
                                 example: 1500
               meta:
                 $ref: '#/components/schemas/single_metadata'
+    segment_group_assignments:
+      description: Audience group assignments response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1234
+                    strategy_id:
+                      type: integer
+                      example: 5678
+                    strategy_name:
+                      type: string
+                      example: My Strategy
+                    campaign_id:
+                      type: integer
+                      example: 91011
+                    campaign_name:
+                      type: string
+                      example: My Campaign
+                    advertiser_id:
+                      type: integer
+                      example: 121314
+                    advertiser_name:
+                      type: string
+                      example: My Advertiser
+                    agency_id:
+                      type: integer
+                      example: 151617
+                    agency_name:
+                      type: string
+                      example: My Agency
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
     segment_group_collection:
       description: Audience group collection response
       content:
@@ -527,106 +447,32 @@ components:
                                   example: 1500
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
-    audit_log:
-      description: Audit log response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                nullable: true
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    tool_name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    segment_group_assignments:
-      description: Audience group assignments response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1234
-                    strategy_id:
-                      type: integer
-                      example: 5678
-                    strategy_name:
-                      type: string
-                      example: My Strategy
-                    campaign_id:
-                      type: integer
-                      example: 91011
-                    campaign_name:
-                      type: string
-                      example: My Campaign
-                    advertiser_id:
-                      type: integer
-                      example: 121314
-                    advertiser_name:
-                      type: string
-                      example: My Advertiser
-                    agency_id:
-                      type: integer
-                      example: 151617
-                    agency_name:
-                      type: string
-                      example: My Agency
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-  requestBodies:
-    segment_group_create:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/segment_group_create'
-    segment_group_update:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/segment_group_update'
   parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
     q:
       in: query
       name: q
@@ -644,31 +490,184 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    extended:
-      in: query
-      name: extended
-      schema:
-        type: boolean
-      required: false
-      description: Get extended properties in response
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    segment_group_update:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        type:
+          type: string
+          enum:
+          - CONTEXTUAL
+          - AUDIENCE
+        organization_id:
+          type: integer
+          format: int32
+          example: 1234
+        status:
+          type: boolean
+        segment_subgroup:
+          type: array
+          items:
+            type: object
+            properties:
+              segment_operator:
+                type: string
+                enum:
+                - AND
+                - OR
+              segment_members:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - segment_id
+                  - segment_type
+                  properties:
+                    segment_id:
+                      type: integer
+                      format: int32
+                      example: 6
+                    segment_type:
+                      type: string
+                      enum:
+                      - CONTEXTUAL
+                      - 3P
+            required:
+            - segment_operator
+            - segment_members
+    segment_group_create:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        type:
+          type: string
+          enum:
+          - CONTEXTUAL
+          - AUDIENCE
+        organization_id:
+          type: integer
+          format: int32
+          example: 1234
+        status:
+          type: boolean
+        segment_subgroup:
+          type: array
+          items:
+            type: object
+            properties:
+              segment_operator:
+                type: string
+                enum:
+                - AND
+                - OR
+              segment_members:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - segment_id
+                  - segment_type
+                  properties:
+                    segment_id:
+                      type: integer
+                      format: int32
+                      example: 6
+                    segment_type:
+                      type: string
+                      enum:
+                      - CONTEXTUAL
+                      - 3P
+            required:
+            - segment_operator
+            - segment_members
+      required:
+      - name
+      - type
+      - organization_id
+      - status
+      - segment_subgroup
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+  requestBodies:
+    segment_group_update:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/segment_group_update'
+    segment_group_create:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/segment_group_create'
   securitySchemes:
     Auth0:
       type: oauth2

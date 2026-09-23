@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Concepts API
+  title: Campaigns Concepts API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -67,9 +65,7 @@ paths:
 
         - `organization_id`,
 
-        - `agency_id`.
-
-        '
+        - `agency_id`.'
       tags:
       - Concepts
       parameters:
@@ -217,32 +213,6 @@ paths:
         $ref: '#/components/requestBodies/concepts_bulk'
 components:
   schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
     concept_response:
       type: object
       title: concept_full
@@ -262,16 +232,19 @@ components:
           entity_type:
             type: string
           atomic_creative_list:
-            type: array
+            type:
+            - array
+            - 'null'
             example:
             - 123
             - 124
             items:
               type: integer
               format: int32
-            nullable: true
           media_type_list:
-            type: array
+            type:
+            - array
+            - 'null'
             example:
             - audio
             - display
@@ -284,28 +257,21 @@ components:
               - display
               - native
               - video
-            nullable: true
           strategy_list:
-            type: array
+            type:
+            - array
+            - 'null'
             example:
             - 456
             - 457
             items:
               type: integer
               format: int32
-            nullable: true
           advertiser_name:
             type: string
       - $ref: '#/components/schemas/concept_update'
       - $ref: '#/components/schemas/concept_common'
       - $ref: '#/components/schemas/concept_create'
-    concept_update:
-      type: object
-      properties:
-        version:
-          type: integer
-          format: int32
-          example: 3
     list_metadata:
       title: pagination metadata
       type: object
@@ -335,15 +301,49 @@ components:
       required:
       - status
       - count
-    single_metadata:
-      title: single_metadata
+    concepts_collection_short:
+      title: concept
       type: object
       properties:
-        status:
+        id:
+          type: integer
+        name:
           type: string
-          example: success
+        entity_type:
+          type: string
+    concept_update:
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int32
+          example: 3
+    error_response:
+      title: error response
+      type: object
       required:
-      - status
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
     concept_create:
       type: object
       properties:
@@ -353,6 +353,15 @@ components:
           example: 76
       required:
       - advertiser_id
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
     concept_common:
       type: object
       properties:
@@ -368,75 +377,7 @@ components:
           default: false
       required:
       - name
-    concepts_collection_short:
-      title: concept
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        entity_type:
-          type: string
-  requestBodies:
-    concept_create:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/concept_create'
-            - $ref: '#/components/schemas/concept_common'
-    concept_update:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/concept_update'
-            - $ref: '#/components/schemas/concept_common'
-    concepts_bulk:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              concepts:
-                type: object
-                properties:
-                  update:
-                    type: array
-                    items:
-                      allOf:
-                      - type: object
-                        properties:
-                          id:
-                            type: integer
-                            format: int32
-                            example: 32
-                          status:
-                            type: boolean
-                          archived:
-                            type: boolean
   parameters:
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
     sort_by:
       in: query
       name: sort_by
@@ -462,6 +403,26 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
   responses:
     error:
       description: Error response
@@ -469,19 +430,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error_response'
-    concepts_bulk:
-      description: Concepts bulk response
+    concept:
+      description: Concept response
       content:
         application/json:
           schema:
             type: object
             properties:
               data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/concept_response'
+                $ref: '#/components/schemas/concept_response'
               meta:
-                $ref: '#/components/schemas/list_metadata'
+                $ref: '#/components/schemas/single_metadata'
     concepts_collection:
       description: Concepts collection response
       content:
@@ -497,17 +456,6 @@ components:
                   - $ref: '#/components/schemas/concept_response'
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    concept:
-      description: Concept response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/concept_response'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
     audit_log:
       description: Audit log response
       content:
@@ -516,8 +464,9 @@ components:
             type: object
             properties:
               data:
-                type: array
-                nullable: true
+                type:
+                - array
+                - 'null'
                 items:
                   type: object
                   properties:
@@ -549,6 +498,57 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
+    concepts_bulk:
+      description: Concepts bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/concept_response'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  requestBodies:
+    concept_create:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/concept_create'
+            - $ref: '#/components/schemas/concept_common'
+    concepts_bulk:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              concepts:
+                type: object
+                properties:
+                  update:
+                    type: array
+                    items:
+                      allOf:
+                      - type: object
+                        properties:
+                          id:
+                            type: integer
+                            format: int32
+                            example: 32
+                          status:
+                            type: boolean
+                          archived:
+                            type: boolean
+    concept_update:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/concept_update'
+            - $ref: '#/components/schemas/concept_common'
   securitySchemes:
     Auth0:
       type: oauth2

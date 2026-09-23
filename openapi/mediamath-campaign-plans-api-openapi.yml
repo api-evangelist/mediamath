@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Campaign Plans API
+  title: Campaigns Campaign Plans API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -260,6 +258,13 @@ paths:
                     total_budget: 100
                   zone_name: America/New_York
 components:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   schemas:
     error_response:
       title: error response
@@ -287,49 +292,6 @@ components:
           properties:
             status:
               type: string
-    campaign_plan:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/campaign_plan_update'
-      - $ref: '#/components/schemas/campaign_plan_create'
-      - $ref: '#/components/schemas/campaign_plan_common'
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    campaign_plan_common:
-      type: object
-      properties:
-        name:
-          type: string
-        version:
-          type: integer
-        duration:
-          type: object
-          properties:
-            start_date:
-              type: string
-              format: date-time
-            end_date:
-              type: string
-              format: date-time
-        budget:
-          type: object
-          properties:
-            total_budget:
-              type: number
-              format: float
-              minimum: 1
-              maximum: 99999999999999.98
-            currency_code:
-              type: string
-        zone_name:
-          type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -359,6 +321,17 @@ components:
       required:
       - status
       - count
+    campaign_plan:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/campaign_plan_update'
+      - $ref: '#/components/schemas/campaign_plan_create'
+      - $ref: '#/components/schemas/campaign_plan_common'
+    campaign_plan_update:
+      type: object
+      properties:
+        version:
+          type: integer
     campaign_plan_create:
       type: object
       properties:
@@ -372,18 +345,43 @@ components:
         updated_on:
           type: string
           format: date-time
-    campaign_plan_update:
+    campaign_plan_common:
       type: object
       properties:
+        name:
+          type: string
         version:
           type: integer
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
+        duration:
+          type: object
+          properties:
+            start_date:
+              type: string
+              format: date-time
+            end_date:
+              type: string
+              format: date-time
+        budget:
+          type: object
+          properties:
+            total_budget:
+              type: number
+              format: float
+              minimum: 1
+              maximum: 99999999999999.98
+            currency_code:
+              type: string
+        zone_name:
+          type: string
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
   securitySchemes:
     Auth0:
       type: oauth2

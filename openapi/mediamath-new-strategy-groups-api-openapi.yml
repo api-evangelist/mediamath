@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers New Strategy Groups API
+  title: Campaigns New Strategy Groups API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -26,15 +24,13 @@ paths:
       summary: List New Strategy Groups
       description: 'Get a paginated list of strategy groups. The `q` parameter must include a
 
-        `campaign_id==<id>` clause (required for permission scoping); additional filter
+        `campaign_id==` clause (required for permission scoping); additional filter
 
         clauses (joined by `&`, URL-encoded as `%26`) and `sort_by` follow the standard
 
         Campaigns API list-endpoint convention and may reference any `strategy_groups`
 
-        column — e.g. `q=campaign_id==100%26name=:Prospecting*&sort_by=-spend_cap_amount`.
-
-        '
+        column — e.g. `q=campaign_id==100%26name=:Prospecting*&sort_by=-spend_cap_amount`.'
       tags:
       - New Strategy Groups
       parameters:
@@ -214,57 +210,6 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    new_strategy_group_strategy_embed:
-      type: object
-      description: Minimal strategy shape used as the embed value for ?with=strategies.
-      properties:
-        id:
-          type: integer
-          format: int32
-        entity_type:
-          type: string
-          example: strategy
-        name:
-          type: string
-    new_strategy_group_create:
-      allOf:
-      - $ref: '#/components/schemas/new_strategy_group_base'
-      - type: object
-        required:
-        - campaign_id
-        - name
-        properties:
-          campaign_id:
-            type: integer
-            format: int32
-            minimum: 1
-            example: 100
     new_strategy_group_update:
       allOf:
       - $ref: '#/components/schemas/new_strategy_group_base'
@@ -274,46 +219,6 @@ components:
             type: integer
             format: int32
             example: 0
-    new_strategy_group_base:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 255
-        description:
-          type: string
-          nullable: true
-          maxLength: 1024
-        spend_cap_type:
-          type: string
-          enum:
-          - even
-          - asap
-          - no-limit
-          default: no-limit
-        spend_cap_amount:
-          type: number
-          format: float
-          nullable: true
-          minimum: 0.01
-          maximum: 9999999.99
-        impression_cap_type:
-          type: string
-          enum:
-          - even
-          - asap
-          - no-limit
-          default: no-limit
-        impression_cap_amount:
-          type: integer
-          format: int32
-          nullable: true
-          minimum: 1
-        external_identifier:
-          type: string
-          nullable: true
-          maxLength: 256
     new_strategy_group_list_item:
       type: object
       properties:
@@ -369,38 +274,6 @@ components:
       required:
       - status
       - count
-    new_strategy_group_response:
-      type: object
-      title: new_strategy_group_response
-      properties:
-        data:
-          $ref: '#/components/schemas/new_strategy_group_full'
-        meta:
-          type: object
-          properties:
-            status:
-              type: string
-              example: success
-    new_strategy_group_collection_full:
-      type: object
-      title: new_strategy_group_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/new_strategy_group_full'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    new_strategy_group_collection:
-      type: object
-      title: new_strategy_group_collection
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/new_strategy_group_list_item'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
     new_strategy_group_full:
       allOf:
       - $ref: '#/components/schemas/new_strategy_group_base'
@@ -438,19 +311,169 @@ components:
             type: string
             format: date-time
             readOnly: true
-  requestBodies:
-    new_strategy_group_update:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/new_strategy_group_update'
+    new_strategy_group_base:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 1024
+        spend_cap_type:
+          type: string
+          enum:
+          - even
+          - asap
+          - no-limit
+          default: no-limit
+        spend_cap_amount:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0.01
+          maximum: 9999999.99
+        impression_cap_type:
+          type: string
+          enum:
+          - even
+          - asap
+          - no-limit
+          default: no-limit
+        impression_cap_amount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 1
+        external_identifier:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+    new_strategy_group_collection_full:
+      type: object
+      title: new_strategy_group_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_group_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    new_strategy_group_response:
+      type: object
+      title: new_strategy_group_response
+      properties:
+        data:
+          $ref: '#/components/schemas/new_strategy_group_full'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    new_strategy_group_collection:
+      type: object
+      title: new_strategy_group_collection
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_group_list_item'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     new_strategy_group_create:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/new_strategy_group_create'
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_group_base'
+      - type: object
+        required:
+        - campaign_id
+        - name
+        properties:
+          campaign_id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 100
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    new_strategy_group_strategy_embed:
+      type: object
+      description: Minimal strategy shape used as the embed value for ?with=strategies.
+      properties:
+        id:
+          type: integer
+          format: int32
+        entity_type:
+          type: string
+          example: strategy
+        name:
+          type: string
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
   responses:
     error:
       description: Error response
@@ -466,8 +489,9 @@ components:
             type: object
             properties:
               data:
-                type: array
-                nullable: true
+                type:
+                - array
+                - 'null'
                 items:
                   type: object
                   properties:
@@ -499,42 +523,19 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-  parameters:
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
+  requestBodies:
+    new_strategy_group_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/new_strategy_group_update'
+    new_strategy_group_create:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/new_strategy_group_create'
   securitySchemes:
     Auth0:
       type: oauth2

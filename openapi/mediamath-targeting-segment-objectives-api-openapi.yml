@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Targeting Segment Objectives API
+  title: Campaigns Targeting Segment Objectives API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -65,6 +63,44 @@ paths:
         required: true
         description: Numeric ID of the targeting_segment_objective to get
 components:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    collection:
+      description: Collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    targeting_segment_objective:
+      description: Targeting segment objectives response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/targeting_segment_objective_response'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
   schemas:
     error_response:
       title: error response
@@ -92,15 +128,6 @@ components:
           properties:
             status:
               type: string
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
     list_metadata:
       title: pagination metadata
       type: object
@@ -148,43 +175,15 @@ components:
             type: string
             format: date-time
             readOnly: true
-  responses:
-    targeting_segment_objective:
-      description: Targeting segment objectives response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/targeting_segment_objective_response'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    collection:
-      description: Collection response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                nullable: true
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
   securitySchemes:
     Auth0:
       type: oauth2

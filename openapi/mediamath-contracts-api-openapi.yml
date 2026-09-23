@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Contracts API
+  title: Campaigns Contracts API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -189,6 +187,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
+    contract_collection:
+      type: object
+      title: contract_collection
+      properties:
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     error_response:
       title: error response
       type: object
@@ -215,35 +232,6 @@ components:
           properties:
             status:
               type: string
-    contract_collection_full:
-      type: object
-      title: contract_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/contract_base_response'
-          nullable: true
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    contract_collection:
-      type: object
-      title: contract_collection
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              entity_type:
-                type: string
-              name:
-                type: string
-          nullable: true
-        meta:
-          $ref: '#/components/schemas/list_metadata'
     list_metadata:
       title: pagination metadata
       type: object
@@ -273,20 +261,18 @@ components:
       required:
       - status
       - count
-    contract_base_response:
+    contract_collection_full:
       type: object
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-            format: int32
-            example: 4
-          version:
-            type: integer
-            format: int32
-            example: 44
-      - $ref: '#/components/schemas/contract_base'
+      title: contract_collection_full
+      properties:
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/contract_base_response'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     contract_base:
       title: contract_base
       type: object
@@ -305,41 +291,50 @@ components:
           type: number
           format: float
         platform_access_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         platform_access_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         platform_access_fee_fixed:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         managed_service_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         managed_service_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         managed_service_fee_fixed:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         optimization_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         optimization_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         optimization_fee_fixed:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         pmp_optimization_off_unit:
           type: string
           enum:
@@ -347,13 +342,15 @@ components:
           - CPM
           - PCT_NET_TOTAL_SPEND
         pmp_optimization_off_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         pmp_optimization_off_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         pmp_optimization_on_unit:
           type: string
           enum:
@@ -361,67 +358,80 @@ components:
           - CPM
           - PCT_NET_TOTAL_SPEND
         pmp_optimization_on_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         pmp_optimization_on_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         dmp_fee_unit:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - PCT_TOTAL_COST
           - CPM
           - CPTS
-          nullable: true
         dmp_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         dmp_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         dmp_fee_cpts:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         signals_fee_unit:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - PCT_TOTAL_COST
           - CPM
-          nullable: true
         signals_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         signals_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         t1_apps_fee_unit:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - PCT_TOTAL_COST
           - CPM
-          nullable: true
         t1_apps_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         t1_apps_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         contract_number:
           type: integer
           readOnly: true
         spend_cap:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         platform_access_fee_unit:
           type: string
           enum:
@@ -458,13 +468,15 @@ components:
           format: float
           default: 0.02
         peer39_channel_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         peer39_custom_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         peer39_safety_fee_cpm:
           type: number
           format: float
@@ -496,21 +508,25 @@ components:
           format: float
           default: 0.05
         viewability_display_sample:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         viewability_display_all_imps:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         viewability_video_sample:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         viewability_video_all_imps:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         standard_segment_cpm:
           type: number
           format: float
@@ -528,13 +544,15 @@ components:
           format: float
           default: 0.25
         programmatic_guaranteed_platform_access_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         programmatic_guaranteed_platform_access_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         programmatic_guaranteed_platform_access_fee_unit:
           type: string
           enum:
@@ -542,13 +560,15 @@ components:
           - CPM
           - PCT_NET_TOTAL_SPEND
         media_enablement_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         media_enablement_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         media_enablement_fee_unit:
           type: string
           enum:
@@ -556,26 +576,30 @@ components:
           - CPM
           - PCT_CLEAR
         source_platform_access_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         source_platform_access_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         source_platform_access_fee_unit:
           type: string
           enum:
           - PCT_TOTAL_COST
           - CPM
         country_tax_withholding_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         country_tax_withholding_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         country_tax_withholding_fee_unit:
           type: string
           enum:
@@ -583,13 +607,15 @@ components:
           - PCT_CLEAR
           - PCT_NET_TOTAL_SPEND
         partnership_rebate_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         partnership_rebate_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         partnership_rebate_fee_unit:
           type: string
           enum:
@@ -597,30 +623,35 @@ components:
           - PCT_CLEAR
           - PCT_NET_TOTAL_SPEND
         cross_device_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         dba_optimization_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         dba_optimization_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         dba_optimization_fee_unit:
           type: string
           enum:
           - CPM
           - PCT_MEDIA
         audio_video_platform_access_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         audio_video_platform_access_fee_pct:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         audio_video_platform_access_fee_unit:
           type: string
           enum:
@@ -635,10 +666,38 @@ components:
           format: date-time
           readOnly: true
         mfa_fee_cpm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
+    contract_base_response:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 4
+          version:
+            type: integer
+            format: int32
+            example: 44
+      - $ref: '#/components/schemas/contract_base'
   requestBodies:
+    contract_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+            - type: object
+              properties:
+                version:
+                  type: integer
+                  format: int32
+                  example: 44
+            - $ref: '#/components/schemas/contract_base'
     contract_create:
       required: true
       content:
@@ -660,47 +719,7 @@ components:
               - standard_segment_cpm
               - adaptive_segment_cpm
             - $ref: '#/components/schemas/contract_base'
-    contract_update:
-      required: true
-      content:
-        application/json:
-          schema:
-            allOf:
-            - type: object
-              properties:
-                version:
-                  type: integer
-                  format: int32
-                  example: 44
-            - $ref: '#/components/schemas/contract_base'
   parameters:
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
     sort_by:
       in: query
       name: sort_by
@@ -719,7 +738,40 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
   responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
     audit_log:
       description: Audit log response
       content:
@@ -728,8 +780,9 @@ components:
             type: object
             properties:
               data:
-                type: array
-                nullable: true
+                type:
+                - array
+                - 'null'
                 items:
                   type: object
                   properties:
@@ -761,12 +814,6 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2

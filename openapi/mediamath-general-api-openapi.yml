@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers General API
+  title: Campaigns General API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -122,143 +120,47 @@ paths:
         '403':
           $ref: '#/components/responses/error'
 components:
-  schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    search_result:
-      type: object
-      properties:
-        id:
-          type: integer
-        entity_type:
-          type: string
-        name:
-          type: string
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
   responses:
-    list_roles:
-      description: List roles response
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    list_target_values:
+      description: List target values response
       content:
         application/json:
           schema:
             type: object
             properties:
               data:
-                nullable: true
-                type: array
+                type:
+                - array
+                - 'null'
                 items:
                   type: object
                   properties:
                     id:
                       type: number
-                    entity_type:
+                    dimension_id:
+                      type: number
+                    dimension_code:
                       type: string
+                    parent_value_id:
+                      type: number
                     name:
                       type: string
-                    must_include:
-                      type: array
-                      items:
-                        type: number
-                    must_exclude:
-                      type: array
-                      items:
-                        type: number
+                    value:
+                      type: number
+                    code:
+                      type: string
+                    is_targetable:
+                      type: boolean
+                    full_path:
+                      type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    search_result:
-      description: Search result
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  organizations:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/search_result'
-                  agencies:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/search_result'
-                  advertisers:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/search_result'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    health_check_503:
-      description: Health check response if code is 503
-      content:
-        application/json:
-          schema:
-            anyOf:
-            - type: object
-              title: health check response
-              properties:
-                build_version:
-                  type: string
-                build_date:
-                  type: string
-                database_connection:
-                  type: boolean
-                error:
-                  type: string
-            - $ref: '#/components/schemas/error_response'
     health_check:
       description: Health check response
       content:
@@ -289,45 +191,143 @@ components:
                 type: integer
               node_total_cons:
                 type: integer
-    list_target_values:
-      description: List target values response
+    search_result:
+      description: Search result
       content:
         application/json:
           schema:
             type: object
             properties:
               data:
-                nullable: true
-                type: array
+                type: object
+                properties:
+                  organizations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/search_result'
+                  agencies:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/search_result'
+                  advertisers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/search_result'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    list_roles:
+      description: List roles response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
                 items:
                   type: object
                   properties:
                     id:
                       type: number
-                    dimension_id:
-                      type: number
-                    dimension_code:
+                    entity_type:
                       type: string
-                    parent_value_id:
-                      type: number
                     name:
                       type: string
-                    value:
-                      type: number
-                    code:
-                      type: string
-                    is_targetable:
-                      type: boolean
-                    full_path:
-                      type: string
+                    must_include:
+                      type: array
+                      items:
+                        type: number
+                    must_exclude:
+                      type: array
+                      items:
+                        type: number
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
+    health_check_503:
+      description: Health check response if code is 503
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/error_response'
+            anyOf:
+            - type: object
+              title: health check response
+              properties:
+                build_version:
+                  type: string
+                build_date:
+                  type: string
+                database_connection:
+                  type: boolean
+                error:
+                  type: string
+            - $ref: '#/components/schemas/error_response'
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    search_result:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_type:
+          type: string
+        name:
+          type: string
   securitySchemes:
     Auth0:
       type: oauth2

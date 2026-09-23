@@ -1,33 +1,7 @@
 openapi: 3.2.0
 info:
   title: Component Creatives Approvals API
-  description: 'The terms creative components and native components may be used interchangeably.
-
-    Component Creatives are uploaded in the "Creatives Tab" within the Creatives Module, and is where creatives for native campaigns are uploaded.
-
-
-    ## Component Creatives API v3.0 (current)
-
-
-    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v3.0/` (or whichever QA server is being used)
-
-
-    Prod API Base: `https://api.mediamath.com/component_creatives/v3.0/`
-
-
-    v3.0 endpoints use Bearer (JWT) authentication via the `Authorization` header.
-
-
-    ## Component Creatives API v1.0 (deprecated)
-
-
-    > **Deprecated:** The v1.0 endpoints are deprecated. Please migrate to v3.0.
-
-
-    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v1.0/` (or whichever QA server is being used)
-
-
-    Prod API Base: `https://api.mediamath.com/component_creatives/v1.0`'
+  description: The terms creative components and native components may be used interchangeably.
   contact:
     name: API Support
     url: https://support.infillion.com/
@@ -79,14 +53,6 @@ paths:
       - Approvals
 components:
   schemas:
-    httputil.Response:
-      properties:
-        data: {}
-        error:
-          type: string
-        message:
-          type: string
-      type: object
     models.MetaInfo:
       description: Response metadata
       properties:
@@ -126,6 +92,14 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    httputil.Response:
+      properties:
+        data: {}
+        error:
+          type: string
+        message:
+          type: string
       type: object
   securitySchemes:
     BearerAuth:

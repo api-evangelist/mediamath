@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Marketplaces API V2.0 Private Marketplace Exchange (PMP-E) API
+  title: Marketplaces API V2.0 Private Marketplace Exchange (PMP-E)…
   contact:
     url: https://support.infillion.com/
   license:
@@ -385,7 +385,6 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Create Deal
-      description: Create Deal
       operationId: POST-deal
       parameters:
       - $ref: '#/components/parameters/trait_postHeader_Content-Type'
@@ -684,7 +683,68 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: List Deals and their reporting data
-      description: "List the Deals\n\nThis call returns all information you get with a deal and also the reporting data for a specified time interval (time_window : \"yesterday\", \"last_7_days\", \"last_30_days\", \"month_to_date\", or a custom range using \"start_date\" and \"end_date\"). You should only send time_window or start_date/end_date but not a combination of the both. \nThe filters field allows you to filter the results based on what you need, e.g: \"filters\": [{\"field\":\"id\", \"op\":\"in\", \"value\": [123]}] will look for deals that have 123 in their ID. \n{\"field\" :\"match_rate\", \"op\":\">\", \"value\" :0} will return deals that have a \"match_rate\" greater than 0. You can also use the \"sorting\" field to sort the results, eg: \"sorting\":[{\"field\":\"viewability_rate\", \"dir\":\"asc\"}] will give the results sorted by the viewability_rate field. \n\n```{\n  \"reporting\": {\n    \"organization_id\": 100048,\n    \"time_window\": \"last_7_days\",\n    \"start_date\": null,\n    \"end_date\": null\n  },\n  \"filters\": [\n   {\"field\": \"id\",\n               \"op\": \"in\",\n               \"value\" : [447824]},\n               {\"field\": \"match_rate\",\n               \"op\": \">\",\n               \"value\" : 0}\n  ],\n  \"sorting\": [\n      {\n               \"field\": \"viewability_rate\",\n               \"dir\": \"asc\"\n           }\n \n  ],\n  \"paging\": {\n    \"page_offset\": 0\n  }\n}\n```\n"
+      description: 'List the Deals
+
+
+        This call returns all information you get with a deal and also the reporting data for a specified time interval (time_window : "yesterday", "last_7_days", "last_30_days", "month_to_date", or a custom range using "start_date" and "end_date"). You should only send time_window or start_date/end_date but not a combination of the both.
+
+        The filters field allows you to filter the results based on what you need, e.g: "filters": [{"field":"id", "op":"in", "value": [123]}] will look for deals that have 123 in their ID.
+
+        {"field" :"match_rate", "op":">", "value" :0} will return deals that have a "match_rate" greater than 0. You can also use the "sorting" field to sort the results, eg: "sorting":[{"field":"viewability_rate", "dir":"asc"}] will give the results sorted by the viewability_rate field.
+
+
+        ```{
+
+        "reporting": {
+
+        "organization_id": 100048,
+
+        "time_window": "last_7_days",
+
+        "start_date": null,
+
+        "end_date": null
+
+        },
+
+        "filters": [
+
+        {"field": "id",
+
+        "op": "in",
+
+        "value" : [447824]},
+
+        {"field": "match_rate",
+
+        "op": ">",
+
+        "value" : 0}
+
+        ],
+
+        "sorting": [
+
+        {
+
+        "field": "viewability_rate",
+
+        "dir": "asc"
+
+        }
+
+
+        ],
+
+        "paging": {
+
+        "page_offset": 0
+
+        }
+
+        }
+
+        ```'
       operationId: LIST-deals-and-reporting-data
       parameters:
       - $ref: '#/components/parameters/trait_postHeader_Content-Type'
@@ -1065,7 +1125,6 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Get Deal
-      description: Get Deal
       operationId: GET-deal
       parameters:
       - name: id
@@ -1315,7 +1374,6 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Update Deal
-      description: Update Deal
       operationId: PUT-deal
       parameters:
       - name: id
@@ -1624,9 +1682,7 @@ paths:
       summary: List the Deal Groups
       description: 'List the Deal Groups
 
-        When executing the GET call, you must specify one of the following: ''owner.organization_id'', or ''ids'' parameter, or else you will receive an error.
-
-        '
+        When executing the GET call, you must specify one of the following: ''owner.organization_id'', or ''ids'' parameter, or else you will receive an error.'
       operationId: LIST-deal-groups
       parameters:
       - name: ids
@@ -1781,7 +1837,17 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Create a Deal Group
-      description: "Create a Deal Group\n\nDeal Groups are a feature that will allow you and your team to package individual deals into groups.  This should streamline targeting, improve marketability (ex. creating a viewability deal group), and simplify bulk updating of strategies targeting deals. \n\nDeal Groups Ownership and Targeting Permissions:\nOwnership: Deal Groups can be created at the Organization, Agency, or Advertiser level of the T1 hierarchy. The creating entity (ex. Agency Z) owns the Deal Group, and any users with access to that entity can edit the Deal Group. Similarly, individual deals can be created at the Organization, Agency, or Advertiser level. The creating entity owns and can edit the deal. A Deal Group can only include deals which have the same owning entity as the Deal Group. This means that a Deal Group created by Agency Z can only include deals owned by Agency Z. That Deal Group cannot include deals created by any other entity, including Agency Z’s parent Organization or subsidiary Advertisers. Like deals, ownership of a Deal Group cannot change once it is created. Please consider this when creating deals and Deal Groups and developing targeting strategies. \nTargeting: Targeting permissions are set within individual deals. The default setting permissions all sub-entities of the deal owning entity to target the deal. For example, a deal created by Org X will by default be targetable by all agencies, advertisers and their strategies within Org X. Targeting permissions can also be restricted to particular subsidiary entities of the owning entity. For example, a deal may be created at the Agency level, but only permission targeting for two out of three advertisers within that agency. There are no targeting permissions set within a deal group. Deal Groups instead honor the targeting permissions of the deals within them.  Inside a strategy, users can expand Deal Groups to view the deals within them. Users will only be able to view deals which they are permissioned to target. Deals showing in gray are inactive. "
+      description: 'Create a Deal Group
+
+
+        Deal Groups are a feature that will allow you and your team to package individual deals into groups. This should streamline targeting, improve marketability (ex. creating a viewability deal group), and simplify bulk updating of strategies targeting deals.
+
+
+        Deal Groups Ownership and Targeting Permissions:
+
+        Ownership: Deal Groups can be created at the Organization, Agency, or Advertiser level of the T1 hierarchy. The creating entity (ex. Agency Z) owns the Deal Group, and any users with access to that entity can edit the Deal Group. Similarly, individual deals can be created at the Organization, Agency, or Advertiser level. The creating entity owns and can edit the deal. A Deal Group can only include deals which have the same owning entity as the Deal Group. This means that a Deal Group created by Agency Z can only include deals owned by Agency Z. That Deal Group cannot include deals created by any other entity, including Agency Z’s parent Organization or subsidiary Advertisers. Like deals, ownership of a Deal Group cannot change once it is created. Please consider this when creating deals and Deal Groups and developing targeting strategies.
+
+        Targeting: Targeting permissions are set within individual deals. The default setting permissions all sub-entities of the deal owning entity to target the deal. For example, a deal created by Org X will by default be targetable by all agencies, advertisers and their strategies within Org X. Targeting permissions can also be restricted to particular subsidiary entities of the owning entity. For example, a deal may be created at the Agency level, but only permission targeting for two out of three advertisers within that agency. There are no targeting permissions set within a deal group. Deal Groups instead honor the targeting permissions of the deals within them. Inside a strategy, users can expand Deal Groups to view the deals within them. Users will only be able to view deals which they are permissioned to target. Deals showing in gray are inactive.'
       operationId: POST-deal-group
       parameters:
       - name: Content-Type
@@ -1935,9 +2001,7 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Get Deal Groups
-      description: 'Get a Deal Group''s Details
-
-        '
+      description: Get a Deal Group's Details
       operationId: GET-deal-group
       parameters:
       - name: id
@@ -2013,7 +2077,17 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Update Deal Groups
-      description: "Update a Deal Group's Details\n\nDeal Groups are a feature that will allow you and your team to package individual deals into groups.  This should streamline targeting, improve marketability (ex. creating a viewability deal group), and simplify bulk updating of strategies targeting deals. \n\nDeal Groups Ownership and Targeting Permissions:\nLike deals, ownership of a Deal Group cannot change once it is created.\nThere are no targeting permissions set within a deal group. Deal Groups instead honor the targeting permissions of the deals within them."
+      description: 'Update a Deal Group''s Details
+
+
+        Deal Groups are a feature that will allow you and your team to package individual deals into groups. This should streamline targeting, improve marketability (ex. creating a viewability deal group), and simplify bulk updating of strategies targeting deals.
+
+
+        Deal Groups Ownership and Targeting Permissions:
+
+        Like deals, ownership of a Deal Group cannot change once it is created.
+
+        There are no targeting permissions set within a deal group. Deal Groups instead honor the targeting permissions of the deals within them.'
       operationId: PUT-deal-group
       parameters:
       - name: id
@@ -2172,7 +2246,7 @@ paths:
       description: 'Publishers
 
 
-        Information about PMP-D from the T1 side can be found [here](https://mediamathsupport.force.com/s/article/Private-Marketplace-Direct-PMPD)
+        Information about PMP-D from the T1 side can be found here
 
 
         A video explainer on publisher management through the MediaMath app can be found at: https://academy.mediamath.com/mediamath-beta-courses?next=%2Fmediamath-beta-courses%2F800806'
@@ -2236,9 +2310,7 @@ paths:
         The allowed sort_by parameters are "id", "name", "created_on", and "updated_on". organization_id is the only required parameter
 
 
-        A video explainer on publisher management through the MediaMath app can be found at: https://academy.mediamath.com/mediamath-beta-courses?next=%2Fmediamath-beta-courses%2F800806
-
-        '
+        A video explainer on publisher management through the MediaMath app can be found at: https://academy.mediamath.com/mediamath-beta-courses?next=%2Fmediamath-beta-courses%2F800806'
       operationId: Retrieve_publishers
       parameters:
       - name: sort_by
@@ -2419,7 +2491,7 @@ paths:
 
         {
 
-            "name" : "edited demo publisher 2", 
+        "name" : "edited demo publisher 2",
 
         }
 
@@ -2470,7 +2542,6 @@ paths:
       - Private Marketplace Exchange (PMP-E)
       summary: Delete publisher
       description: '`Example: DELETE https://api.mediamath.com/deals/v1.0/publishers/5`
-
 
 
         A video explainer on publisher management through the MediaMath app can be found at: https://academy.mediamath.com/mediamath-beta-courses?next=%2Fmediamath-beta-courses%2F800806'
@@ -2592,7 +2663,6 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Bulk Update Deal
-      description: Bulk Update Deal
       operationId: Update-Bulk-Deal
       parameters:
       - name: <<any other attributes>>
@@ -2802,8 +2872,10 @@ paths:
     post:
       tags:
       - Private Marketplace Exchange (PMP-E)
-      summary: 'Bulk Create Deal '
-      description: "Bulk Create Deal \nendpoint is /deals/v1.0/bulk_create/deals"
+      summary: Bulk Create Deal
+      description: 'Bulk Create Deal
+
+        endpoint is /deals/v1.0/bulk_create/deals'
       operationId: Bulk-Create-Deal
       parameters:
       - $ref: '#/components/parameters/trait_jwtAuth_JWT'
@@ -3047,7 +3119,11 @@ paths:
       tags:
       - Private Marketplace Exchange (PMP-E)
       summary: Bulk Create or Update Deal
-      description: "Bulk Create/Update Deal \nendpoint is /deals/v1.0/bulk/deals\nTo create a deal you need to populate all the fileds. To update you need to provide the \"id\" field and only the fields that you want to change. "
+      description: 'Bulk Create/Update Deal
+
+        endpoint is /deals/v1.0/bulk/deals
+
+        To create a deal you need to populate all the fileds. To update you need to provide the "id" field and only the fields that you want to change.'
       operationId: Bulk-Create-or-Update-Deal
       parameters:
       - $ref: '#/components/parameters/trait_jwtAuth_JWT'
@@ -3229,11 +3305,10 @@ paths:
       description: 'This allows you to add multiple publishers at one under the same organization id.
 
 
-
         Publishers
 
 
-        Information about PMP-D from the MediaMath side can be found [here](https://support.infillion.com/article/s/article/PMP-Direct-Best-Practices)  A video explainer on publisher management through the MediaMath app can be found at: https://academy.mediamath.com/mediamath-beta-courses?next=%2Fmediamath-beta-courses%2F800806'
+        Information about PMP-D from the MediaMath side can be found here A video explainer on publisher management through the MediaMath app can be found at: https://academy.mediamath.com/mediamath-beta-courses?next=%2Fmediamath-beta-courses%2F800806'
       operationId: Bulk-Create-Publishers
       parameters:
       - $ref: '#/components/parameters/trait_jwtAuth_JWT'
@@ -3375,9 +3450,7 @@ paths:
 
         you can use the ''with param to vide the details of the strategy''s campaign or advertiser
 
-        eg: `deals/v1.0/deal_groups/980/strategy_deal_groups?with=strategy,campaign,advertiser`
-
-        '
+        eg: `deals/v1.0/deal_groups/980/strategy_deal_groups?with=strategy,campaign,advertiser`'
       operationId: List-deal-group-strategies
       parameters:
       - name: id
@@ -3440,7 +3513,133 @@ paths:
                       offset:
                         type: integer
 components:
+  parameters:
+    trait_postHeader_Content-Type:
+      name: Content-Type
+      in: header
+      description: Content-Type
+      required: true
+      schema:
+        type: string
+        default: application/json
+    trait_jwtAuth_JWT:
+      name: Authorization
+      in: header
+      description: Authorization
+      schema:
+        type: string
+        default: Bearer $TOKEN
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      in: header
+      description: Cookie
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
   schemas:
+    update-deal:
+      type: object
+      title: Deal Fields (update)
+      properties:
+        bill_type:
+          type: string
+          enum:
+          - EXCHANGE
+          - NONE
+          - PUBLISHER
+          description: Bill recipient when creating a deal
+          default: EXCHANGE
+        channels:
+          type: array
+          description: List of advertising channel IDs to associate with this deal (use GET /channels to see available channels)
+          items:
+            type: integer
+          example:
+          - 5
+          - 4
+        deal_identifier:
+          type: string
+          description: the identifier used within a bid request to reference the deal
+          maxLength: 255
+        deal_type:
+          type: string
+          enum:
+          - PG
+          - STANDARD
+          description: 'When updating deal to type `PG`, `price_type` must be set to `FIXED` and valid `start_datetime` and `end_datetime` must be present. '
+          default: STANDARD
+        description:
+          type: string
+          description: the description of the deal
+          maxLength: 4095
+        end_datetime:
+          type: string
+          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
+          format: date-time
+        name:
+          type: string
+          description: the name of the deal
+          maxLength: 255
+        permissions:
+          type: object
+          description: List of entities that are allowed to target this deal, which should be either the owner entity or sub-entities of the owner entity. if a higher-level entity is included, then do not include any lower-level entity that is part of the included higher level entity. for example, if an organization X is listed in this parameter, then automatically all agencies and advertisers that are part of the organization X will be included and listing any such agencies and advertisers part of organization X will cause a validation error.
+          properties:
+            advertiser_ids:
+              type: array
+              items:
+                type: integer
+            agency_ids:
+              type: array
+              items:
+                type: integer
+            all_organizations:
+              type: boolean
+            organization_ids:
+              type: array
+              items:
+                type: integer
+          required:
+          - all_organizations
+        price:
+          type: object
+          description: price floor or fixed value to use in auction along with the associated currency code
+          properties:
+            currency_code:
+              type: string
+              description: 3-letter currency code
+              minLength: 3
+              maxLength: 3
+            value:
+              type: string
+              description: Maximum is $9,999,999.9999
+        price_type:
+          type: string
+          enum:
+          - FIXED
+          - FLOOR
+          description: The deal is a "FLOOR" price deal (bids must be above this floor, and will likely clear above this floor) or "FIXED" price deal (bids must be at this price or above, and will clear at the fixed price)
+        start_datetime:
+          type: string
+          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
+          format: date-time
+        status:
+          type: boolean
+          description: whether the deal is active
+          default: true
+        sub_supply_source_id:
+          type:
+          - integer
+          - 'null'
+          description: the id of the publisher if the supply_source_id is set to 83 (BidSwitch)
+        supply_source_id:
+          type: integer
+          description: the exchange providing the deal
+        publisher_id:
+          type:
+          - integer
+          - 'null'
+          description: the publisher id (optional)
     create-deal:
       type: object
       title: Deal Fields (create)
@@ -3572,132 +3771,6 @@ components:
       - permissions
       - price
       - supply_source_id
-    update-deal:
-      type: object
-      title: Deal Fields (update)
-      properties:
-        bill_type:
-          type: string
-          enum:
-          - EXCHANGE
-          - NONE
-          - PUBLISHER
-          description: Bill recipient when creating a deal
-          default: EXCHANGE
-        channels:
-          type: array
-          description: List of advertising channel IDs to associate with this deal (use GET /channels to see available channels)
-          items:
-            type: integer
-          example:
-          - 5
-          - 4
-        deal_identifier:
-          type: string
-          description: the identifier used within a bid request to reference the deal
-          maxLength: 255
-        deal_type:
-          type: string
-          enum:
-          - PG
-          - STANDARD
-          description: 'When updating deal to type `PG`, `price_type` must be set to `FIXED` and valid `start_datetime` and `end_datetime` must be present. '
-          default: STANDARD
-        description:
-          type: string
-          description: the description of the deal
-          maxLength: 4095
-        end_datetime:
-          type: string
-          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
-          format: date-time
-        name:
-          type: string
-          description: the name of the deal
-          maxLength: 255
-        permissions:
-          type: object
-          description: List of entities that are allowed to target this deal, which should be either the owner entity or sub-entities of the owner entity. if a higher-level entity is included, then do not include any lower-level entity that is part of the included higher level entity. for example, if an organization X is listed in this parameter, then automatically all agencies and advertisers that are part of the organization X will be included and listing any such agencies and advertisers part of organization X will cause a validation error.
-          properties:
-            advertiser_ids:
-              type: array
-              items:
-                type: integer
-            agency_ids:
-              type: array
-              items:
-                type: integer
-            all_organizations:
-              type: boolean
-            organization_ids:
-              type: array
-              items:
-                type: integer
-          required:
-          - all_organizations
-        price:
-          type: object
-          description: price floor or fixed value to use in auction along with the associated currency code
-          properties:
-            currency_code:
-              type: string
-              description: 3-letter currency code
-              minLength: 3
-              maxLength: 3
-            value:
-              type: string
-              description: Maximum is $9,999,999.9999
-        price_type:
-          type: string
-          enum:
-          - FIXED
-          - FLOOR
-          description: The deal is a "FLOOR" price deal (bids must be above this floor, and will likely clear above this floor) or "FIXED" price deal (bids must be at this price or above, and will clear at the fixed price)
-        start_datetime:
-          type: string
-          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
-          format: date-time
-        status:
-          type: boolean
-          description: whether the deal is active
-          default: true
-        sub_supply_source_id:
-          type:
-          - integer
-          - 'null'
-          description: the id of the publisher if the supply_source_id is set to 83 (BidSwitch)
-        supply_source_id:
-          type: integer
-          description: the exchange providing the deal
-        publisher_id:
-          type:
-          - integer
-          - 'null'
-          description: the publisher id (optional)
-  parameters:
-    trait_cookieAuth_Cookie:
-      name: Cookie
-      in: header
-      description: Cookie
-      required: true
-      schema:
-        type: string
-        default: adama_session=<<sessionid>>
-    trait_jwtAuth_JWT:
-      name: Authorization
-      in: header
-      description: Authorization
-      schema:
-        type: string
-        default: Bearer $TOKEN
-    trait_postHeader_Content-Type:
-      name: Content-Type
-      in: header
-      description: Content-Type
-      required: true
-      schema:
-        type: string
-        default: application/json
   securitySchemes:
     Bearer:
       type: apiKey

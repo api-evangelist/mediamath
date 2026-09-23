@@ -1,49 +1,7 @@
 openapi: 3.2.0
 info:
   title: Video Creatives Classification (V1.0 - Deprecated) API
-  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication token](/guides/authentication).
-
-
-    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs) and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
-
-
-    *Example HTTPie command to list all video creatives.*
-
-    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
-
-
-    ## Migration Notice
-
-
-    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
-
-
-    | Deprecated V2.0 Endpoint | Use Instead |
-
-    |---|---|
-
-    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
-
-    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
-
-    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
-
-    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
-
-    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}` |
-
-    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions` |
-
-    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions` |
-
-    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` |
-
-    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field (returns a pre-signed S3 upload URL) |
-
-    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
-
-
-    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  description: To work with the MediaMath API with Video Creatives, first generate an authentication token.
   contact:
     name: API Support
     url: https://support.infillion.com/
@@ -55,7 +13,9 @@ servers:
 - url: https://api.mediamath.com
 tags:
 - name: Classification (V1.0 - Deprecated)
-  description: "{% admonition type=\"danger\" name=\"This API is deprecated and will be removed in July 2026\" %}\n  Please migrate to the **Classification API v3.0** documented below.\n{% /admonition %}\n\n{% admonition type=\"warning\" name=\"Notice about authentication with cookie adama_session\" %}\n  The use of cookie `adama_session` for authentication has been discontinued and it's not supported in Classification API v3.0.\n  We ask all of our clients who have not yet migrated to **Bearer (JWT) Authentication** to do so as soon as possible.\n{% /admonition %}\n\nCreative classification endpoints (V1.0 — deprecated).\n"
+  description: '{% admonition type="danger" name="This API is deprecated and will be removed in July 2026" %}
+
+    Please migrate to the **Classification API v3.0** documented below.'
 paths:
   /classification/v1.0/{creative_id}/inflate:
     get:
@@ -65,9 +25,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/{cid}/inflate` instead.
 
 
-        Get Inflated Classification
-
-        '
+        Get Inflated Classification'
       operationId: GET_classification-v1-0-creative_id-inflate
       parameters:
       - name: creative_id
@@ -87,9 +45,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/bulk/{cids}/inflate` instead.
 
 
-        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing creatives.
-
-        '
+        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing creatives.'
       operationId: GET_classification-v1-0-bulk-creative_ids-inflate
       parameters:
       - name: creative_ids
@@ -109,9 +65,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/bulk/{cids}` instead.
 
 
-        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing creatives.
-
-        '
+        The bulk classification endpoints are useful for batch retrieval and editting of a group of existing creatives.'
       operationId: GET_classification-v1-0-bulk-creative_ids
       parameters:
       - name: creative_ids
@@ -164,9 +118,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `POST /v3.0/classification/{cid}` instead.
 
 
-        Update Classification
-
-        '
+        Update Classification'
       operationId: POST_classification-v1-0-creative_id
       parameters:
       - name: creative_id
@@ -197,9 +149,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `GET /v3.0/classification/{cid}` instead.
 
 
-        Get Classification
-
-        '
+        Get Classification'
       operationId: GET_classification-v1-0-creative_id
       parameters:
       - name: creative_id

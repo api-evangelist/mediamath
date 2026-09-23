@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Marketplaces API
+  title: Campaigns Marketplaces API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -128,63 +126,25 @@ paths:
         '403':
           $ref: '#/components/responses/error'
 components:
-  schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    marketplace:
+      description: Marketplace response
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    marketplace_full_response:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-            format: int32
-            example: 33
-          version:
-            type: integer
-            format: int32
-            example: 3
-      - $ref: '#/components/schemas/marketplace_full'
-    marketplace_create:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/marketplace_full'
-      - type: object
-        required:
-        - name
-        - strategy_id
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
+              data:
+                $ref: '#/components/schemas/marketplace_full_response'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+  schemas:
     marketplace_full:
       type: object
       properties:
@@ -239,16 +199,18 @@ components:
         private:
           type: boolean
         mkt_sell_price:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
           minimum: -1
-          nullable: true
         mkt_sell_price_currency_code:
-          type: string
+          type:
+          - string
+          - 'null'
           minLength: 3
           maxLength: 3
           example: USD
-          nullable: true
         permission_organizations:
           type: array
           items:
@@ -261,16 +223,32 @@ components:
             type: integer
             format: int32
             example: 9
-    marketplace_update:
+    error_response:
+      title: error response
       type: object
-      allOf:
-      - type: object
-        properties:
-          version:
-            type: integer
-            format: int32
-            example: 3
-      - $ref: '#/components/schemas/marketplace_full'
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -300,24 +278,46 @@ components:
       required:
       - status
       - count
-  responses:
-    marketplace:
-      description: Marketplace response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/marketplace_full_response'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
+    marketplace_create:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/marketplace_full'
+      - type: object
+        required:
+        - name
+        - strategy_id
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    marketplace_full_response:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 33
+          version:
+            type: integer
+            format: int32
+            example: 3
+      - $ref: '#/components/schemas/marketplace_full'
+    marketplace_update:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 3
+      - $ref: '#/components/schemas/marketplace_full'
   requestBodies:
     marketplace_create:
       content:

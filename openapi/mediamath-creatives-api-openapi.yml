@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Creatives API
+  title: Campaigns Creatives API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -51,6 +49,13 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   schemas:
     error_response:
       title: error response
@@ -78,17 +83,6 @@ components:
           properties:
             status:
               type: string
-    creative_response:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/creative_base'
-        meta:
-          type: object
-          properties:
-            status:
-              type: string
-              example: success
     creative_base:
       title: creative
       type: object
@@ -113,13 +107,17 @@ components:
           - VIDEO
         inner_tag:
           type: string
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
+    creative_response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/creative_base'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
   securitySchemes:
     Auth0:
       type: oauth2

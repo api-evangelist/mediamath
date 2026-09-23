@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Targeting API
+  title: Campaigns Targeting API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -320,8 +318,9 @@ paths:
                     type: object
                     properties:
                       location:
-                        type: array
-                        nullable: true
+                        type:
+                        - array
+                        - 'null'
                         items:
                           $ref: '#/components/schemas/location_response'
                   meta:
@@ -336,8 +335,9 @@ paths:
                       count:
                         type: number
                   errors:
-                    type: array
-                    nullable: true
+                    type:
+                    - array
+                    - 'null'
                     items: {}
                 required:
                 - meta
@@ -568,7 +568,39 @@ paths:
     get:
       operationId: list-technology-target-values
       summary: List Technology Target Values
-      description: "Get list of technology target values. Can be sorted by:\n- `id`,\n- `dimension`,\n- `parent_id`,\n- `name`,\n- `full_path`,\n- `value`,\n- `code`,\n- `sortable_name` \nand queried (with `q=`) by:\n- `id`,\n- `parent_id`,\n- `name`,\n- `full_path` (if provided parameter `full_path` will be ignored),\n- `value`,\n- `code`,\n- `sortable_name`.\n"
+      description: 'Get list of technology target values. Can be sorted by:
+
+        - `id`,
+
+        - `dimension`,
+
+        - `parent_id`,
+
+        - `name`,
+
+        - `full_path`,
+
+        - `value`,
+
+        - `code`,
+
+        - `sortable_name`
+
+        and queried (with `q=`) by:
+
+        - `id`,
+
+        - `parent_id`,
+
+        - `name`,
+
+        - `full_path` (if provided parameter `full_path` will be ignored),
+
+        - `value`,
+
+        - `code`,
+
+        - `sortable_name`.'
       tags:
       - Targeting
       parameters:
@@ -644,7 +676,61 @@ paths:
     get:
       operationId: list-path-audience-segments
       summary: List Path Audience Segments
-      description: "Get a list of path audience segments. Segments can be queried and sorted by fields: \n- `id`, \n- `name`,  \n- `version`, \n- `parent_audience_segment_id`, \n- `full_path`, \n- `uniques`, \n- `retail_cpm` (type = double, value in usd), \n- `code`, \n- `buyable`, \n- `child_count`, \n- `wholesale_cpm` (type = double, value in usd), \n- `type`, \n- `taxonomy_id`, \n- `updated_on`, \n- `created_on`, \n- `audience_vendor_id`, \n- `audience_vendor_name`, \n- `audience_vendor_vendor_id`, \n- `audience_vendor_mma_free_cm`, \n- `audience_vendor_updated_on`, \n- `audience_vendor_created_on`, \n- `audience_vendor_version`, \n- `audience_vendor_provides_batch_segments`, \n- `audience_vendor_campaign_brain_enabled`, \n- `audience_vendor_pin_top_search`, \n- `audience_vendor_bidder_code`, \n- `audience_vendor_namespace_code`.\n"
+      description: 'Get a list of path audience segments. Segments can be queried and sorted by fields:
+
+        - `id`,
+
+        - `name`,
+
+        - `version`,
+
+        - `parent_audience_segment_id`,
+
+        - `full_path`,
+
+        - `uniques`,
+
+        - `retail_cpm` (type = double, value in usd),
+
+        - `code`,
+
+        - `buyable`,
+
+        - `child_count`,
+
+        - `wholesale_cpm` (type = double, value in usd),
+
+        - `type`,
+
+        - `taxonomy_id`,
+
+        - `updated_on`,
+
+        - `created_on`,
+
+        - `audience_vendor_id`,
+
+        - `audience_vendor_name`,
+
+        - `audience_vendor_vendor_id`,
+
+        - `audience_vendor_mma_free_cm`,
+
+        - `audience_vendor_updated_on`,
+
+        - `audience_vendor_created_on`,
+
+        - `audience_vendor_version`,
+
+        - `audience_vendor_provides_batch_segments`,
+
+        - `audience_vendor_campaign_brain_enabled`,
+
+        - `audience_vendor_pin_top_search`,
+
+        - `audience_vendor_bidder_code`,
+
+        - `audience_vendor_namespace_code`.'
       tags:
       - Targeting
       parameters:
@@ -704,220 +790,37 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
-    path_audience_segment:
-      title: path_audience_segment
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        version:
-          type: integer
-        parent_audience_segment_id:
-          type: integer
-          nullable: true
-        full_path:
-          type: string
-        uniques:
-          type: integer
-        retail_cpm:
-          type: array
-          items:
-            $ref: '#/components/schemas/cpm'
-        audience_vendor_id:
-          type: integer
-        code:
-          type: string
-          nullable: true
-        buyable:
-          type: boolean
-        child_count:
-          type: integer
-        wholesale_cpm:
-          type: array
-          items:
-            $ref: '#/components/schemas/cpm'
-        type:
-          type: string
-        taxonomy_id:
-          type: integer
-        created_on:
-          type: string
-          format: date-time
-        updated_on:
-          type: string
-          format: date-time
-        audience_vendor:
-          description: available with parameter `with=audience_vendor`
-          type: object
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/audience_vendor'
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    target_update:
-      type: object
-      properties:
-        parent_id:
-          type: integer
-          format: int32
-          example: 5
-        name:
-          type: string
-          minLength: 1
-        factual_id:
-          type: string
-        mediamath_organization_id:
-          type: integer
-          format: int32
-          example: 55
-        target_inet:
-          type: string
-          minLength: 1
-        visible:
-          type: boolean
-        visible_overridden:
-          type: boolean
-        bidder_frequency:
-          type: integer
-          format: int32
-          example: 3
-        dimension_code:
-          type: string
-          minLength: 1
-        version:
-          type: integer
-          format: int32
-          example: 2
-    target_create:
+    contextual_segment_full:
       allOf:
-      - $ref: '#/components/schemas/target_base'
       - type: object
-    target_dimension_include:
-      type: object
-      properties:
-        code:
-          type: string
-          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
-        operator:
-          type: string
-          enum:
-          - AND
-          - OR
-        target_value_ids:
-          type: array
-          items:
+        properties:
+          id:
             type: integer
-            format: int32
-            example: 33
-      required:
-      - code
-      - operator
-      - target_value_ids
-    audience_vendor:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        version:
-          type: integer
-        vendor_id:
-          type: integer
-        mma_free_cm:
-          type: boolean
-        created_on:
-          type: string
-          format: date-time
-        updated_on:
-          type: string
-          format: date-time
-        provides_batch_segments:
-          type: boolean
-        campaign_brain_enabled:
-          type: boolean
-        pin_top_search:
-          type: boolean
-        bidder_code:
-          type: string
-        namespace_code:
-          type: string
-    audience_target:
-      type: object
-      properties:
-        operator:
-          type: string
-          enum:
-          - AND
-          - OR
-        audience_segment_ids:
-          type: array
-          items:
+          name:
+            type: string
+          parent_targeting_segment_id:
+            type:
+            - integer
+            - 'null'
+          full_path:
+            type: string
+          cpm:
+            type: number
+            format: double
+          targeting_vendor_id:
             type: integer
-            format: int32
-            example: 32
-    contextual_segment_collection:
-      type: object
-      title: contextual_segment_collection
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-              entity_type:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    contextual_segment_collection_full:
-      type: object
-      title: contextual_segment_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/contextual_segment_full'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    cpm:
-      type: object
-      properties:
-        currency_code:
-          type: string
-          example: USD
-        value:
-          type: number
-          format: double
+          vendor_name:
+            type: string
+          external_code:
+            type: string
+          segment_objective_name:
+            type: string
+          segment_objective_id:
+            type: integer
+          buyable:
+            type: boolean
+          has_children:
+            type: boolean
     list_metadata:
       title: pagination metadata
       type: object
@@ -947,119 +850,6 @@ components:
       required:
       - status
       - count
-    contextual_segment_short:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          example: 3
-        name:
-          type: string
-        full_path:
-          type: string
-        cpm:
-          type: number
-          format: double
-        user_cpm:
-          type: number
-          format: double
-          nullable: true
-        segment_objective_name:
-          type: string
-        uniques:
-          type: integer
-          format: int32
-          example: 12345
-          nullable: true
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    day_part:
-      type: object
-      required:
-      - start_hour
-      - end_hour
-      - days
-      properties:
-        user_time:
-          type: boolean
-          default: true
-        start_hour:
-          type: integer
-          minimum: 0
-          maximum: 23
-          example: 1
-        end_hour:
-          type: integer
-          minimum: 0
-          maximum: 23
-          example: 5
-        days:
-          type: array
-          items:
-            type: string
-            enum:
-            - M
-            - T
-            - W
-            - R
-            - F
-            - S
-            - U
-          example:
-          - M
-          - T
-          - W
-          - S
-          - U
-    audience_segments_group:
-      type: object
-      properties:
-        operator:
-          type: string
-          enum:
-          - AND
-          - OR
-        segments:
-          type: array
-          items:
-            type: object
-            properties:
-              audience_segment_id:
-                type: integer
-                format: int32
-                example: 88
-              user_cpm:
-                type: number
-                format: double
-                minimum: 0
-                description: if provided value will be used instead of segment cpm (value in USD).
-    target_dimension_exclude:
-      type: object
-      properties:
-        code:
-          type: string
-          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
-        operator:
-          type: string
-          enum:
-          - AND
-          - OR
-        target_value_ids:
-          type: array
-          items:
-            type: integer
-            format: int32
-            example: 3
-      required:
-      - target_value_ids
     targeting_base:
       type: object
       properties:
@@ -1137,6 +927,100 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/day_part'
+    target_create:
+      allOf:
+      - $ref: '#/components/schemas/target_base'
+      - type: object
+    audience_segment_short:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 11
+        name:
+          type: string
+          example: Name3
+        full_path:
+          type: string
+          example: Name1 - Name2 - Name3
+        cpm:
+          type: number
+          format: double
+        user_cpm:
+          type:
+          - number
+          - 'null'
+          format: double
+        uniques:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          example: 12345
+        code:
+          type:
+          - string
+          - 'null'
+    target_dimension_include:
+      type: object
+      properties:
+        code:
+          type: string
+          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        target_value_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 33
+      required:
+      - code
+      - operator
+      - target_value_ids
+    day_part:
+      type: object
+      required:
+      - start_hour
+      - end_hour
+      - days
+      properties:
+        user_time:
+          type: boolean
+          default: true
+        start_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 1
+        end_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 5
+        days:
+          type: array
+          items:
+            type: string
+            enum:
+            - M
+            - T
+            - W
+            - R
+            - F
+            - S
+            - U
+          example:
+          - M
+          - T
+          - W
+          - S
+          - U
     location_response:
       type: object
       properties:
@@ -1199,6 +1083,81 @@ components:
           target_value_code: Target Value 1
           strategy_count: 2
       title: ''
+    contextual_segment_short:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 3
+        name:
+          type: string
+        full_path:
+          type: string
+        cpm:
+          type: number
+          format: double
+        user_cpm:
+          type:
+          - number
+          - 'null'
+          format: double
+        segment_objective_name:
+          type: string
+        uniques:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          example: 12345
+    target_dimension_exclude:
+      type: object
+      properties:
+        code:
+          type: string
+          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        target_value_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 3
+      required:
+      - target_value_ids
+    audience_vendor:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        vendor_id:
+          type: integer
+        mma_free_cm:
+          type: boolean
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        provides_batch_segments:
+          type: boolean
+        campaign_brain_enabled:
+          type: boolean
+        pin_top_search:
+          type: boolean
+        bidder_code:
+          type: string
+        namespace_code:
+          type: string
     target_base:
       type: object
       properties:
@@ -1231,36 +1190,200 @@ components:
           minLength: 1
       required:
       - name
-    contextual_segment_full:
-      allOf:
-      - type: object
-        properties:
-          id:
+    target_update:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          format: int32
+          example: 5
+        name:
+          type: string
+          minLength: 1
+        factual_id:
+          type: string
+        mediamath_organization_id:
+          type: integer
+          format: int32
+          example: 55
+        target_inet:
+          type: string
+          minLength: 1
+        visible:
+          type: boolean
+        visible_overridden:
+          type: boolean
+        bidder_frequency:
+          type: integer
+          format: int32
+          example: 3
+        dimension_code:
+          type: string
+          minLength: 1
+        version:
+          type: integer
+          format: int32
+          example: 2
+    audience_target:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        audience_segment_ids:
+          type: array
+          items:
             type: integer
-          name:
-            type: string
-          parent_targeting_segment_id:
-            type: integer
-            nullable: true
-          full_path:
-            type: string
-          cpm:
-            type: number
-            format: double
-          targeting_vendor_id:
-            type: integer
-          vendor_name:
-            type: string
-          external_code:
-            type: string
-          segment_objective_name:
-            type: string
-          segment_objective_id:
-            type: integer
-          buyable:
-            type: boolean
-          has_children:
-            type: boolean
+            format: int32
+            example: 32
+    path_audience_segment:
+      title: path_audience_segment
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        parent_audience_segment_id:
+          type:
+          - integer
+          - 'null'
+        full_path:
+          type: string
+        uniques:
+          type: integer
+        retail_cpm:
+          type: array
+          items:
+            $ref: '#/components/schemas/cpm'
+        audience_vendor_id:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
+        buyable:
+          type: boolean
+        child_count:
+          type: integer
+        wholesale_cpm:
+          type: array
+          items:
+            $ref: '#/components/schemas/cpm'
+        type:
+          type: string
+        taxonomy_id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        audience_vendor:
+          description: available with parameter `with=audience_vendor`
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/audience_vendor'
+    contextual_segment_collection_full:
+      type: object
+      title: contextual_segment_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/contextual_segment_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    cpm:
+      type: object
+      properties:
+        currency_code:
+          type: string
+          example: USD
+        value:
+          type: number
+          format: double
+    contextual_segment_collection:
+      type: object
+      title: contextual_segment_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    audience_segments_group:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        segments:
+          type: array
+          items:
+            type: object
+            properties:
+              audience_segment_id:
+                type: integer
+                format: int32
+                example: 88
+              user_cpm:
+                type: number
+                format: double
+                minimum: 0
+                description: if provided value will be used instead of segment cpm (value in USD).
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
     path_audience_segments_collection_full:
       type: object
       title: path_audience_segments_full
@@ -1271,62 +1394,7 @@ components:
             $ref: '#/components/schemas/path_audience_segment'
         meta:
           $ref: '#/components/schemas/list_metadata'
-    audience_segment_short:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          example: 11
-        name:
-          type: string
-          example: Name3
-        full_path:
-          type: string
-          example: Name1 - Name2 - Name3
-        cpm:
-          type: number
-          format: double
-        user_cpm:
-          type: number
-          format: double
-          nullable: true
-        uniques:
-          type: integer
-          format: int32
-          nullable: true
-          example: 12345
-        code:
-          type: string
-          nullable: true
   parameters:
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
-    extended:
-      in: query
-      name: extended
-      schema:
-        type: boolean
-      required: false
-      description: Get extended properties in response
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
     sort_by:
       in: query
       name: sort_by
@@ -1335,6 +1403,13 @@ components:
         type: string
         example: id, -id, name, -name
       required: false
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
     q:
       in: query
       name: q
@@ -1359,37 +1434,27 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
   responses:
-    list_technology_target_values:
-      description: List technology target values
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                nullable: true
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                    dimension:
-                      type: string
-                    name:
-                      type: string
-                    sortable_name:
-                      type: string
-                      description: "Field equals formatted name for `OSXX, DVMD` dimensions and `name` for other dimensions. \nExample: `name=WURFL/OS/Android/OS Version/2.0, dimension=OSXX` then `sortable_name=Android » 2.0`.\n"
-                    full_path:
-                      type: string
-                    value:
-                      type: number
-                    code:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
     targeting_segment_friendly_name:
       description: Targeting segment friendly name response
       content:
@@ -1398,8 +1463,9 @@ components:
             type: object
             properties:
               data:
-                nullable: true
-                type: array
+                type:
+                - array
+                - 'null'
                 items:
                   type: object
                   properties:
@@ -1435,12 +1501,6 @@ components:
                   status:
                     type: string
                     example: success
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     collection:
       description: Collection response
       content:
@@ -1449,8 +1509,9 @@ components:
             type: object
             properties:
               data:
-                nullable: true
-                type: array
+                type:
+                - array
+                - 'null'
                 items:
                   type: object
                   properties:
@@ -1460,6 +1521,71 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    target:
+      description: Target response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/target_base'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    audience_segments_cpm_estimate:
+      description: Audience segments CPM estimate response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  cpm:
+                    type: object
+                    required:
+                    - audience_cpm_min
+                    - audience_cpm_max
+                    properties:
+                      currency_code:
+                        type: string
+                        minLength: 3
+                        maxLength: 3
+                      includes_taxed_segments:
+                        type: boolean
+                      audience_cpm_min:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                      audience_cpm_max:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                  segments:
+                    type: array
+                    description: available only when extended
+                    items:
+                      $ref: '#/components/schemas/audience_segment_short'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    target_deleted:
+      description: Target deleted response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/single_metadata'
     contextual_segment_estimate:
       description: CPM estimate response
       content:
@@ -1509,65 +1635,37 @@ components:
                   status:
                     type: string
                     example: success
-    target_deleted:
-      description: Target deleted response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    audience_segments_cpm_estimate:
-      description: Audience segments CPM estimate response
+    list_technology_target_values:
+      description: List technology target values
       content:
         application/json:
           schema:
             type: object
             properties:
               data:
-                type: object
-                properties:
-                  cpm:
-                    type: object
-                    required:
-                    - audience_cpm_min
-                    - audience_cpm_max
-                    properties:
-                      currency_code:
-                        type: string
-                        minLength: 3
-                        maxLength: 3
-                      includes_taxed_segments:
-                        type: boolean
-                      audience_cpm_min:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 999999999999.99
-                      audience_cpm_max:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 999999999999.99
-                  segments:
-                    type: array
-                    description: available only when extended
-                    items:
-                      $ref: '#/components/schemas/audience_segment_short'
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    dimension:
+                      type: string
+                    name:
+                      type: string
+                    sortable_name:
+                      type: string
+                      description: "Field equals formatted name for `OSXX, DVMD` dimensions and `name` for other dimensions. \nExample: `name=WURFL/OS/Android/OS Version/2.0, dimension=OSXX` then `sortable_name=Android » 2.0`.\n"
+                    full_path:
+                      type: string
+                    value:
+                      type: number
+                    code:
+                      type: string
               meta:
-                $ref: '#/components/schemas/single_metadata'
-    target:
-      description: Target response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/target_base'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
+                $ref: '#/components/schemas/list_metadata'
   requestBodies:
     contextual_segment_estimate:
       content:
@@ -1633,11 +1731,6 @@ components:
                           format: double
                           minimum: 0
                           description: if provided value will be used instead of segment cpm
-    target_create:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/target_create'
     audience_segments_cpm_estimate:
       description: Audience segments CPM estimate request
       content:
@@ -1663,6 +1756,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/target_update'
+    target_create:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/target_create'
   securitySchemes:
     Auth0:
       type: oauth2

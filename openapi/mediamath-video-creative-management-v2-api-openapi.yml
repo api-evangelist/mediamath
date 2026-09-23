@@ -1,49 +1,7 @@
 openapi: 3.2.0
 info:
   title: Video Creatives Video Creative Management (V2) API
-  description: 'To work with the MediaMath API with Video Creatives, first generate an [authentication token](/guides/authentication).
-
-
-    For more information on Video Creatives, please see the [Video/VPAID Specification](https://support.infillion.com/article/s/article/Video-Creative-Format-Specs) and [The MediaMath Platform Video/Audio tab](https://support.infillion.com/article/s/article/Video-Audio-Tab).
-
-
-    *Example HTTPie command to list all video creatives.*
-
-    `http GET https://api.mediamath.com/api/v3.0/atomic_creatives?q==media_type==video`
-
-
-    ## Migration Notice
-
-
-    The following V2.0 endpoints are deprecated and replaced by V3.0 equivalents.
-
-
-    | Deprecated V2.0 Endpoint | Use Instead |
-
-    |---|---|
-
-    | `GET /api/v2.0/atomic_creatives` | `POST /v3.0/creatives/list` |
-
-    | `GET /api/v2.0/atomic_creatives/{atomic_creative_id}` | `GET /v3.0/creatives/{creativeId}` |
-
-    | `POST /video/v2.0/creatives` | `POST /v3.0/creatives` |
-
-    | `GET /video/v2.0/creatives/{video_id}` | `GET /v3.0/creatives/{creativeId}` |
-
-    | `POST /video/v2.0/creatives/{video_id}` | `POST /v3.0/creatives/{creativeId}` or `PATCH /v3.0/creatives/{creativeId}` |
-
-    | `GET /video/v2.0/creatives/{video_id}/companions` | `GET /v3.0/creatives/{creativeId}/companions` |
-
-    | `POST /video/v2.0/creatives/{video_id}/companions` | `POST /v3.0/creatives/{creativeId}/companions` |
-
-    | `GET /video/v2.0/creatives/{video_id}/companions/{companion_id}/delete` | `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` |
-
-    | `POST /video/v2.0/creatives/{video_id}/upload` | `POST /v3.0/creatives` with the `fileName` field (returns a pre-signed S3 upload URL) |
-
-    | `POST /video/v2.0/creatives/validateVAST` | `POST /v3.0/creatives/validateVAST` |
-
-
-    See the **Video Creative Management (V3)** section below for the V3.0 API.'
+  description: To work with the MediaMath API with Video Creatives, first generate an authentication token.
   contact:
     name: API Support
     url: https://support.infillion.com/
@@ -65,9 +23,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `GET /v3.0/creatives/{creativeId}/companions` instead.
 
 
-        Get Video Creative Companions
-
-        '
+        Get Video Creative Companions'
       operationId: GET_video-v2-0-creatives-video_id-companions
       parameters:
       - name: video_id
@@ -92,9 +48,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives/{creativeId}/companions` instead.
 
 
-        Create Video Creative Companions
-
-        '
+        Create Video Creative Companions'
       operationId: POST_video-v2-0-creatives-video_id-companions
       parameters:
       - name: video_id
@@ -130,9 +84,7 @@ paths:
         > and supply the `fileName` field to receive a pre-signed S3 upload URL.
 
 
-        Upload Video Creative
-
-        '
+        Upload Video Creative'
       operationId: POST_video-v2-0-creatives-video_id-upload
       parameters:
       - name: video_id
@@ -196,7 +148,6 @@ paths:
       tags:
       - Video Creative Management (V2)
       summary: Get Video Creative Variant
-      description: Get Video Creative Variant
       operationId: GET_video-v2-0-creatives-video_id-variants-variant_id
       parameters:
       - name: video_id
@@ -251,9 +202,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `DELETE /v3.0/creatives/{creativeId}/companions/{companionId}` instead.
 
 
-        Delete companion ad for the specified creative.
-
-        '
+        Delete companion ad for the specified creative.'
       operationId: GET_video-v2-0-creatives-video_id-companions-companion_id-delete
       parameters:
       - name: video_id
@@ -281,9 +230,7 @@ paths:
       description: '> **⚠️ Deprecated** — Use `POST /v3.0/creatives/validateVAST` instead.
 
 
-        Validates the provided VAST XML content and returns any errors or warnings.
-
-        '
+        Validates the provided VAST XML content and returns any errors or warnings.'
       operationId: POST_video-v2-0-creatives-validateVAST
       requestBody:
         $ref: '#/components/requestBodies/POST_video-v2-0-creatives-validateVASTBody'
@@ -342,39 +289,38 @@ paths:
           description: Creative not found
 components:
   schemas:
-    ErrorInfoList:
+    GetStatusResponse_Encoding:
       type: object
       properties:
-        field_error:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorInfo'
-    ErrorInfo:
-      type: object
-      properties:
-        error:
-          type: string
-        index:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        id:
           type: integer
-          description: Index in bulk request (for bulk operations)
-        code:
+          format: int64
+          description: Encoding ID
+        statusMessage:
           type: string
-        name:
-          type: string
-        field:
-          type: string
-    ValidateVASTResponse:
+          description: Status message (e.g. error details)
+    GetCreativeVariantsResponse:
       type: object
       properties:
-        error:
-          type: string
-          description: VAST validation error message, omitted if no errors present
-        warnings:
+        variants:
           type: array
           items:
-            type: string
-          uniqueItems: true
-          description: A set of VAST validation warnings
+            $ref: '#/components/schemas/LegacyEncoding'
+    EncodingStatus:
+      type: string
+      enum:
+      - Pending
+      - Processing
+      - Finished
+      - Waiting
+      - Storing
+      - Details
+      - Error
     CompanionAd:
       type: object
       properties:
@@ -395,65 +341,11 @@ components:
         resourceUrl:
           type: string
           description: URL for external resources
-    CreativeStatusResponse:
-      type: object
-      properties:
-        uploadInfo:
-          $ref: '#/components/schemas/FileInfo'
-        encodingStatus:
-          $ref: '#/components/schemas/GetStatusResponse'
     CreateCompanionResponse:
       type: object
       properties:
         companionId:
           type: integer
-    ModifyCompanionRequest:
-      type: object
-      required:
-      - details
-      properties:
-        details:
-          $ref: '#/components/schemas/CompanionDetails'
-        fileExtension:
-          type: string
-          description: File extension
-        fileName:
-          type: string
-          description: File name
-        resourceUrl:
-          type: string
-          description: Resource URL for all other companion types
-        resourceData:
-          type: string
-          description: Resource data encoded in Data URI Scheme for static companion types
-    FileInfo:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Upload status
-        size:
-          type: integer
-          format: int64
-          description: File size in bytes
-        percent:
-          type: number
-          description: Upload percent complete (0-100)
-          default: 0
-        name:
-          type: string
-          description: File name
-        path:
-          type: string
-          description: File path
-        mirrorPath:
-          type: array
-          items:
-            type: string
-          description: Mirror paths (asset URLs)
-        hash:
-          type: string
-          description: File hash
     LegacyEncoding:
       type: object
       properties:
@@ -502,21 +394,6 @@ components:
           default: -1
         errorMessage:
           type: string
-    GetStatusResponse_Encoding:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/EncodingStatus'
-        percent:
-          type: number
-          description: Encoding progress (0-100)
-        id:
-          type: integer
-          format: int64
-          description: Encoding ID
-        statusMessage:
-          type: string
-          description: Status message (e.g. error details)
     GetStatusResponse:
       type: object
       properties:
@@ -529,31 +406,51 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GetStatusResponse_Encoding'
-    GetCreativeVariantsResponse:
+    ModifyCompanionRequest:
+      type: object
+      required:
+      - details
+      properties:
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+          description: File extension
+        fileName:
+          type: string
+          description: File name
+        resourceUrl:
+          type: string
+          description: Resource URL for all other companion types
+        resourceData:
+          type: string
+          description: Resource data encoded in Data URI Scheme for static companion types
+    ValidateVASTResponse:
       type: object
       properties:
-        variants:
+        error:
+          type: string
+          description: VAST validation error message, omitted if no errors present
+        warnings:
           type: array
           items:
-            $ref: '#/components/schemas/LegacyEncoding'
-    CompanionsResponse:
+            type: string
+          uniqueItems: true
+          description: A set of VAST validation warnings
+    CreativeStatusResponse:
       type: object
       properties:
-        companions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CompanionAd'
-          description: Map of companion ID (string) to companion details
-    EncodingStatus:
-      type: string
-      enum:
-      - Pending
-      - Processing
-      - Finished
-      - Waiting
-      - Storing
-      - Details
-      - Error
+        uploadInfo:
+          $ref: '#/components/schemas/FileInfo'
+        encodingStatus:
+          $ref: '#/components/schemas/GetStatusResponse'
+    ErrorInfoList:
+      type: object
+      properties:
+        field_error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorInfo'
     CompanionDetails:
       type: object
       required:
@@ -592,13 +489,57 @@ components:
         clickthroughUrl:
           type: string
           description: Clickthrough URL (required for static companions; must be null for iframe/html)
-  requestBodies:
-    POST_video-v2-0-creatives-validateVASTBody:
-      content:
-        text/plain:
-          schema:
+    CompanionsResponse:
+      type: object
+      properties:
+        companions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CompanionAd'
+          description: Map of companion ID (string) to companion details
+    ErrorInfo:
+      type: object
+      properties:
+        error:
+          type: string
+        index:
+          type: integer
+          description: Index in bulk request (for bulk operations)
+        code:
+          type: string
+        name:
+          type: string
+        field:
+          type: string
+    FileInfo:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Upload status
+        size:
+          type: integer
+          format: int64
+          description: File size in bytes
+        percent:
+          type: number
+          description: Upload percent complete (0-100)
+          default: 0
+        name:
+          type: string
+          description: File name
+        path:
+          type: string
+          description: File path
+        mirrorPath:
+          type: array
+          items:
             type: string
-      description: VAST XML content to validate
+          description: Mirror paths (asset URLs)
+        hash:
+          type: string
+          description: File hash
+  requestBodies:
     ModifyCompanionRequest:
       content:
         application/json:
@@ -606,6 +547,12 @@ components:
             $ref: '#/components/schemas/ModifyCompanionRequest'
       description: Companion ad details
       required: true
+    POST_video-v2-0-creatives-validateVASTBody:
+      content:
+        text/plain:
+          schema:
+            type: string
+      description: VAST XML content to validate
   securitySchemes:
     OAuth2:
       type: oauth2

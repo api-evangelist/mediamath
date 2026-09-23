@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Supply Sources API
+  title: Campaigns Supply Sources API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -71,6 +69,90 @@ paths:
         required: true
         description: Numeric ID of the supply_source to get
 components:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    supply_source:
+      description: Supply source response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/supply_source_response'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    collection:
+      description: Collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
   schemas:
     error_response:
       title: error response
@@ -98,6 +180,35 @@ components:
           properties:
             status:
               type: string
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
     single_metadata:
       title: single_metadata
       type: object
@@ -178,123 +289,13 @@ components:
           private:
             type: boolean
           mkt_sell_price:
-            type: number
-            nullable: true
+            type:
+            - number
+            - 'null'
           mkt_sell_price_currency_code:
-            type: string
-            nullable: true
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-  parameters:
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-  responses:
-    collection:
-      description: Collection response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                nullable: true
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    supply_source:
-      description: Supply source response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/supply_source_response'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
+            type:
+            - string
+            - 'null'
   securitySchemes:
     Auth0:
       type: oauth2

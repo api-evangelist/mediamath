@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Vendor Contracts API
+  title: Campaigns Vendor Contracts API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -43,6 +41,62 @@ paths:
         '403':
           $ref: '#/components/responses/error'
 components:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    vendor_contracts_list:
+      description: Vendor contracts list response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/vendor_contract'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
   schemas:
     error_response:
       title: error response
@@ -70,46 +124,6 @@ components:
           properties:
             status:
               type: string
-    vendor_contract_base:
-      type: object
-      required:
-      - vendor_id
-      properties:
-        vendor_id:
-          type: integer
-          format: int32
-          example: 23
-        use_mm_contract:
-          type: boolean
-        price:
-          type: number
-          format: float
-          nullable: true
-        rate_card_type:
-          type: string
-          nullable: true
-          deprecated: true
-          enum:
-          - CPM
-          - FIXED
-    vendor_contract:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/vendor_contract_base'
-      - type: object
-        properties:
-          id:
-            type: integer
-          version:
-            type: integer
-          created_on:
-            type: string
-            format: date-time
-            readOnly: true
-          updated_on:
-            type: string
-            format: date-time
-            readOnly: true
     list_metadata:
       title: pagination metadata
       type: object
@@ -139,62 +153,48 @@ components:
       required:
       - status
       - count
-  parameters:
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
-    vendor_contracts_list:
-      description: Vendor contracts list response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/vendor_contract'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
+    vendor_contract_base:
+      type: object
+      required:
+      - vendor_id
+      properties:
+        vendor_id:
+          type: integer
+          format: int32
+          example: 23
+        use_mm_contract:
+          type: boolean
+        price:
+          type:
+          - number
+          - 'null'
+          format: float
+        rate_card_type:
+          type:
+          - string
+          - 'null'
+          deprecated: true
+          enum:
+          - CPM
+          - FIXED
+    vendor_contract:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/vendor_contract_base'
+      - type: object
+        properties:
+          id:
+            type: integer
+          version:
+            type: integer
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
   securitySchemes:
     Auth0:
       type: oauth2

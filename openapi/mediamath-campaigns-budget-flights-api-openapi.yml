@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Campaigns Ad Servers Campaigns Budget Flights API
+  title: Campaigns Budget Flights API
   description: 'MediaMath Campaign Management API
 
 
-    [Postman Collection](https://apidocs.mediamath.com/guides/postman-collections)
-
-    '
+    Postman Collection'
   version: 3.0.1807
   contact:
     url: https://support.infillion.com/
@@ -124,6 +122,55 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
   schemas:
     error_response:
       title: error response
@@ -178,8 +225,9 @@ components:
           type: number
           format: float
         total_impression_budget:
-          nullable: true
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
           minimum: 1
           maximum: 9223372036854776000
@@ -216,6 +264,47 @@ components:
       required:
       - status
       - count
+    campaign_budget_flights_create:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          description: The latest end date of flight must be no more than 36 months after the earliest start date
+        total_budget:
+          type: number
+          format: float
+        total_impression_budget:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 12345
+      required:
+      - start_date
+      - end_date
+      - total_budget
+    budget_flight_collection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     budget_flight_full:
       type: object
       properties:
@@ -251,49 +340,10 @@ components:
         currency_code:
           type: string
         total_impression_budget:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           minimum: 1
-    budget_flight_collection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              entity_type:
-                type: string
-              name:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    campaign_budget_flights_create:
-      type: object
-      properties:
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-          description: The latest end date of flight must be no more than 36 months after the earliest start date
-        total_budget:
-          type: number
-          format: float
-        total_impression_budget:
-          nullable: true
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9223372036854776000
-          example: 12345
-      required:
-      - start_date
-      - end_date
-      - total_budget
   requestBodies:
     budget_flight_bulk_update:
       content:
@@ -340,6 +390,16 @@ components:
                           format: int32
                           example: 5
   parameters:
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
     full:
       in: query
       name: full
@@ -360,64 +420,6 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-  responses:
-    audit_log:
-      description: Audit log response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                nullable: true
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    tool_name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2
