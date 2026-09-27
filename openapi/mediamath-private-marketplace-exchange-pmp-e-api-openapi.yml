@@ -3514,6 +3514,14 @@ paths:
                         type: integer
 components:
   parameters:
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      in: header
+      description: Cookie
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
     trait_postHeader_Content-Type:
       name: Content-Type
       in: header
@@ -3529,14 +3537,6 @@ components:
       schema:
         type: string
         default: Bearer $TOKEN
-    trait_cookieAuth_Cookie:
-      name: Cookie
-      in: header
-      description: Cookie
-      required: true
-      schema:
-        type: string
-        default: adama_session=<<sessionid>>
   schemas:
     update-deal:
       type: object

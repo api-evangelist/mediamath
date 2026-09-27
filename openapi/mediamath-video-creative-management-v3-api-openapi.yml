@@ -512,122 +512,78 @@ paths:
           description: Creative or companion not found
 components:
   schemas:
-    CreativeDetails:
-      type: object
-      properties:
-        active:
-          type: boolean
-        advertiser:
-          type: integer
-          format: int64
-        name:
-          type: string
-        concept:
-          type: integer
-          format: int64
-        startTime:
-          type: integer
-          format: int64
-        endTime:
-          type: integer
-          format: int64
-        clickthroughUrl:
-          type: string
-        customVAST:
-          type: string
-        customVASTUrl:
-          type: string
-        viewabilityTemplate:
-          type: string
-        landingUrl:
-          type: string
-        landingUrlIsCalculated:
-          type: boolean
-        eventPixels:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventPixel'
-        vendors:
-          type: array
-          items:
-            type: integer
-            format: int64
-        vastVersion:
-          $ref: '#/components/schemas/VASTVersion'
-        disabledVariants:
-          type: array
-          items:
-            type: integer
-        externalIdentifier:
-          type: string
-        customVASTExtensionXML:
-          type: string
-        clockNumber:
-          type: string
-    CompanionDetails:
+    BulkGetRequest:
       type: object
       required:
-      - adServer
-      - typ
-      - width
-      - height
-      - landingUrl
+      - creativeIds
       properties:
-        adServer:
-          type: string
-          description: AdServer tag name
-        typ:
-          type: string
-          description: Companion type (static, iframe, or html)
-          enum:
-          - static
-          - iframe
-          - html
-        width:
-          type: integer
-          minimum: 32
-          maximum: 10000
-          description: Width in pixels
-        height:
-          type: integer
-          minimum: 32
-          maximum: 10000
-          description: Height in pixels
-        landingUrl:
-          type: string
-          description: Declared landing URL
-        iFrameUrlOrHTML:
-          type: string
-          description: iFrame URL (for iframe type) or HTML content (for html type)
-        clickthroughUrl:
-          type: string
-          description: Clickthrough URL (required for static companions; must be null for iframe/html)
-    NewCreativeResponse:
+        creativeIds:
+          type: array
+          items:
+            type: integer
+    ErrorInfo:
       type: object
       properties:
-        creativeId:
-          type: integer
-        uploadUrl:
+        error:
           type: string
-          description: 'Pre-signed S3 PUT URL (only present when fileName was provided in the request).
-
-            Valid for expiresIn seconds. The PUT request must include headers
-
-            x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
-
-            '
-        expiresIn:
+        index:
           type: integer
-          description: Seconds until uploadUrl expires (900). Only present when uploadUrl is set.
-        status:
-          $ref: '#/components/schemas/Status'
-    VASTVersion:
-      type: string
-      enum:
-      - VAST2
-      - VAST3
-      - VAST4
-      default: VAST2
+          description: Index in bulk request (for bulk operations)
+        code:
+          type: string
+        name:
+          type: string
+        field:
+          type: string
+    CompanionAd:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Companion ID
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+        mimeType:
+          type: string
+        fileName:
+          type: string
+        resourceBlob:
+          type: string
+          description: Data blob used for images
+        resourceUrl:
+          type: string
+          description: URL for external resources
+    CreateCompanionResponse:
+      type: object
+      properties:
+        companionId:
+          type: integer
+    BulkNewCreativeRequest:
+      type: object
+      required:
+      - creatives
+      properties:
+        creatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/V3CreateCreativeRequest'
+    CompanionsResponse:
+      type: object
+      properties:
+        companions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CompanionAd'
+          description: Map of companion ID (string) to companion details
+    HistoryResponse:
+      type: object
+      properties:
+        with:
+          $ref: '#/components/schemas/WithPart'
+        log_entries:
+          $ref: '#/components/schemas/LogEntriesWrapper'
     EncodingStatus:
       type: string
       enum:
@@ -638,14 +594,7 @@ components:
       - Storing
       - Details
       - Error
-    CreativeDetailsResponseWrapper:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/CreativeDetailsResponse'
-        errors:
-          $ref: '#/components/schemas/ErrorInfoList'
-    BulkNewCreativeRequest:
+    BulkUpdateCreativeRequest:
       type: object
       required:
       - creatives
@@ -653,7 +602,50 @@ components:
         creatives:
           type: array
           items:
-            $ref: '#/components/schemas/V3CreateCreativeRequest'
+            $ref: '#/components/schemas/PatchCreativeUpdate'
+    LogEntryResponse:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        user_name:
+          type: string
+        action:
+          type: string
+        date:
+          type: string
+        field:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldChangeEntry'
+    BulkResponseMeta:
+      type: object
+      properties:
+        status:
+          type: string
+        count:
+          type: integer
+    BulkCreativeResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreativeDetailsResponse'
+        errors:
+          $ref: '#/components/schemas/ErrorInfoList'
+        meta:
+          $ref: '#/components/schemas/BulkResponseMeta'
+        status:
+          $ref: '#/components/schemas/Status'
+    ErrorInfoList:
+      type: object
+      properties:
+        field_error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorInfo'
     V3UpdateCreativeRequest:
       type: object
       required:
@@ -714,220 +706,6 @@ components:
           type: string
           maxLength: 15
         customVASTExtensionXML:
-          type: string
-    ModifyCompanionRequest:
-      type: object
-      required:
-      - details
-      properties:
-        details:
-          $ref: '#/components/schemas/CompanionDetails'
-        fileExtension:
-          type: string
-          description: File extension
-        fileName:
-          type: string
-          description: File name
-        resourceUrl:
-          type: string
-          description: Resource URL for all other companion types
-        resourceData:
-          type: string
-          description: Resource data encoded in Data URI Scheme for static companion types
-    FieldChangeEntry:
-      type: object
-      properties:
-        name:
-          type: string
-        old_value:
-          type: string
-        new_value:
-          type: string
-    InsecureVendorURLs:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        urls:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        vendorName:
-          type: string
-    HistoryResponse:
-      type: object
-      properties:
-        with:
-          $ref: '#/components/schemas/WithPart'
-        log_entries:
-          $ref: '#/components/schemas/LogEntriesWrapper'
-    BulkGetRequest:
-      type: object
-      required:
-      - creativeIds
-      properties:
-        creativeIds:
-          type: array
-          items:
-            type: integer
-    V3CreateCreativeRequest:
-      type: object
-      required:
-      - advertiser
-      - name
-      - concept
-      properties:
-        active:
-          type: boolean
-          default: false
-        advertiser:
-          type: integer
-          format: int64
-          description: T1 Advertiser ID
-        name:
-          type: string
-          maxLength: 256
-          description: Creative name (required, max 256 chars)
-        concept:
-          type: integer
-          format: int64
-          description: T1 Concept ID (mandatory for creation)
-        startTime:
-          type: integer
-          format: int64
-          description: Creative start date (Unix timestamp, must be >= 0 and < year 10000)
-        endTime:
-          type: integer
-          format: int64
-          description: Creative end date (Unix timestamp, must be >= startTime)
-        clickthroughUrl:
-          type: string
-          description: Clickthrough URL (required unless customVAST or customVASTUrl is set)
-        customVAST:
-          type: string
-          description: VAST XML content (mutually exclusive with customVASTUrl)
-        customVASTUrl:
-          type: string
-          description: URL to VAST XML content (mutually exclusive with customVAST)
-        viewabilityTemplate:
-          type: string
-          description: VAST XML template for BYOT viewability (must contain __VPAID_AD_PARAMETERS.URL__ macro)
-        landingUrl:
-          type: string
-          description: Declared landing page. If empty, landing URL will be fetched from VAST XML.
-        eventPixels:
-          type: array
-          description: Additional pixels
-          items:
-            $ref: '#/components/schemas/EventPixelRequest'
-        vendors:
-          type: array
-          description: T1 Vendor IDs
-          items:
-            type: integer
-            format: int64
-          uniqueItems: true
-        vastVersion:
-          $ref: '#/components/schemas/VASTVersion'
-        disabledVariants:
-          type: array
-          description: Disabled variant IDs
-          items:
-            type: integer
-          uniqueItems: true
-        externalIdentifier:
-          type: string
-          maxLength: 64
-          description: External Identifier (requires customVAST or customVASTUrl)
-        clockNumber:
-          type: string
-          maxLength: 15
-          description: Clock Number for Clearcast (UK freewheel broadcasters)
-        customVASTExtensionXML:
-          type: string
-          description: Custom VAST Extension XML
-        fileName:
-          type: string
-          description: 'Optional. File name including extension (e.g. my-video.mp4).
-
-            When provided, a pre-signed S3 PUT URL is returned in the response.
-
-            Mutually exclusive with customVAST and customVASTUrl.
-
-            The S3 PUT request must include headers x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
-
-            '
-    LogEntriesWrapper:
-      type: object
-      properties:
-        entry:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogEntryResponse'
-        count:
-          type: integer
-        start:
-          type: integer
-    BulkCreativeResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreativeDetailsResponse'
-        errors:
-          $ref: '#/components/schemas/ErrorInfoList'
-        meta:
-          $ref: '#/components/schemas/BulkResponseMeta'
-        status:
-          $ref: '#/components/schemas/Status'
-    WithPart:
-      type: object
-      properties:
-        count:
-          type: integer
-        log_entries:
-          type: array
-          items:
-            type: string
-    BulkResponseMeta:
-      type: object
-      properties:
-        status:
-          type: string
-        count:
-          type: integer
-    LogEntryResponse:
-      type: object
-      properties:
-        user_id:
-          type: integer
-          format: int64
-        user_name:
-          type: string
-        action:
-          type: string
-        date:
-          type: string
-        field:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldChangeEntry'
-    ErrorInfo:
-      type: object
-      properties:
-        error:
-          type: string
-        index:
-          type: integer
-          description: Index in bulk request (for bulk operations)
-        code:
-          type: string
-        name:
-          type: string
-        field:
           type: string
     PatchCreativeUpdate:
       type: object
@@ -1017,15 +795,111 @@ components:
           type:
           - string
           - 'null'
-    BulkUpdateCreativeRequest:
+    V3CreateCreativeRequest:
       type: object
       required:
-      - creatives
+      - advertiser
+      - name
+      - concept
       properties:
-        creatives:
+        active:
+          type: boolean
+          default: false
+        advertiser:
+          type: integer
+          format: int64
+          description: T1 Advertiser ID
+        name:
+          type: string
+          maxLength: 256
+          description: Creative name (required, max 256 chars)
+        concept:
+          type: integer
+          format: int64
+          description: T1 Concept ID (mandatory for creation)
+        startTime:
+          type: integer
+          format: int64
+          description: Creative start date (Unix timestamp, must be >= 0 and < year 10000)
+        endTime:
+          type: integer
+          format: int64
+          description: Creative end date (Unix timestamp, must be >= startTime)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required unless customVAST or customVASTUrl is set)
+        customVAST:
+          type: string
+          description: VAST XML content (mutually exclusive with customVASTUrl)
+        customVASTUrl:
+          type: string
+          description: URL to VAST XML content (mutually exclusive with customVAST)
+        viewabilityTemplate:
+          type: string
+          description: VAST XML template for BYOT viewability (must contain __VPAID_AD_PARAMETERS.URL__ macro)
+        landingUrl:
+          type: string
+          description: Declared landing page. If empty, landing URL will be fetched from VAST XML.
+        eventPixels:
+          type: array
+          description: Additional pixels
+          items:
+            $ref: '#/components/schemas/EventPixelRequest'
+        vendors:
+          type: array
+          description: T1 Vendor IDs
+          items:
+            type: integer
+            format: int64
+          uniqueItems: true
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          description: Disabled variant IDs
+          items:
+            type: integer
+          uniqueItems: true
+        externalIdentifier:
+          type: string
+          maxLength: 64
+          description: External Identifier (requires customVAST or customVASTUrl)
+        clockNumber:
+          type: string
+          maxLength: 15
+          description: Clock Number for Clearcast (UK freewheel broadcasters)
+        customVASTExtensionXML:
+          type: string
+          description: Custom VAST Extension XML
+        fileName:
+          type: string
+          description: 'Optional. File name including extension (e.g. my-video.mp4).
+
+            When provided, a pre-signed S3 PUT URL is returned in the response.
+
+            Mutually exclusive with customVAST and customVASTUrl.
+
+            The S3 PUT request must include headers x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
+
+            '
+    CreativeDetailsResponseWrapper:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CreativeDetailsResponse'
+        errors:
+          $ref: '#/components/schemas/ErrorInfoList'
+    LogEntriesWrapper:
+      type: object
+      properties:
+        entry:
           type: array
           items:
-            $ref: '#/components/schemas/PatchCreativeUpdate'
+            $ref: '#/components/schemas/LogEntryResponse'
+        count:
+          type: integer
+        start:
+          type: integer
     Status:
       type: object
       properties:
@@ -1033,31 +907,172 @@ components:
           type: string
         message:
           type: string
-    CreateCompanionResponse:
+    FieldChangeEntry:
       type: object
       properties:
-        companionId:
+        name:
+          type: string
+        old_value:
+          type: string
+        new_value:
+          type: string
+    CreativeDetails:
+      type: object
+      properties:
+        active:
+          type: boolean
+        advertiser:
           type: integer
-    CompanionAd:
+          format: int64
+        name:
+          type: string
+        concept:
+          type: integer
+          format: int64
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        clickthroughUrl:
+          type: string
+        customVAST:
+          type: string
+        customVASTUrl:
+          type: string
+        viewabilityTemplate:
+          type: string
+        landingUrl:
+          type: string
+        landingUrlIsCalculated:
+          type: boolean
+        eventPixels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventPixel'
+        vendors:
+          type: array
+          items:
+            type: integer
+            format: int64
+        vastVersion:
+          $ref: '#/components/schemas/VASTVersion'
+        disabledVariants:
+          type: array
+          items:
+            type: integer
+        externalIdentifier:
+          type: string
+        customVASTExtensionXML:
+          type: string
+        clockNumber:
+          type: string
+    WithPart:
+      type: object
+      properties:
+        count:
+          type: integer
+        log_entries:
+          type: array
+          items:
+            type: string
+    EventPixel:
+      type: object
+      properties:
+        typ:
+          type: string
+        url:
+          type: string
+    NewCreativeResponse:
+      type: object
+      properties:
+        creativeId:
+          type: integer
+        uploadUrl:
+          type: string
+          description: 'Pre-signed S3 PUT URL (only present when fileName was provided in the request).
+
+            Valid for expiresIn seconds. The PUT request must include headers
+
+            x-amz-acl: public-read and x-amz-meta-creative: <creativeId>.
+
+            '
+        expiresIn:
+          type: integer
+          description: Seconds until uploadUrl expires (900). Only present when uploadUrl is set.
+        status:
+          $ref: '#/components/schemas/Status'
+    CompanionDetails:
+      type: object
+      required:
+      - adServer
+      - typ
+      - width
+      - height
+      - landingUrl
+      properties:
+        adServer:
+          type: string
+          description: AdServer tag name
+        typ:
+          type: string
+          description: Companion type (static, iframe, or html)
+          enum:
+          - static
+          - iframe
+          - html
+        width:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Width in pixels
+        height:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Height in pixels
+        landingUrl:
+          type: string
+          description: Declared landing URL
+        iFrameUrlOrHTML:
+          type: string
+          description: iFrame URL (for iframe type) or HTML content (for html type)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required for static companions; must be null for iframe/html)
+    VASTVersion:
+      type: string
+      enum:
+      - VAST2
+      - VAST3
+      - VAST4
+      default: VAST2
+    InsecureVendorURLs:
       type: object
       properties:
         id:
           type: integer
-          description: Companion ID
-        details:
-          $ref: '#/components/schemas/CompanionDetails'
-        fileExtension:
+          format: int64
+        urls:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        vendorName:
           type: string
-        mimeType:
+    EventPixelRequest:
+      type: object
+      required:
+      - typ
+      - url
+      properties:
+        typ:
           type: string
-        fileName:
+          description: Pixel event type (must be a valid pixel type)
+        url:
           type: string
-        resourceBlob:
-          type: string
-          description: Data blob used for images
-        resourceUrl:
-          type: string
-          description: URL for external resources
+          description: Pixel URL
     ValidateVASTResponse:
       type: object
       properties:
@@ -1070,28 +1085,6 @@ components:
             type: string
           uniqueItems: true
           description: A set of VAST validation warnings
-    EventPixel:
-      type: object
-      properties:
-        typ:
-          type: string
-        url:
-          type: string
-    ErrorInfoList:
-      type: object
-      properties:
-        field_error:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorInfo'
-    CompanionsResponse:
-      type: object
-      properties:
-        companions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CompanionAd'
-          description: Map of companion ID (string) to companion details
     CreativeDetailsResponse:
       type: object
       properties:
@@ -1149,19 +1142,32 @@ components:
           type: boolean
         updatedOn:
           type: string
-    EventPixelRequest:
+    ModifyCompanionRequest:
       type: object
       required:
-      - typ
-      - url
+      - details
       properties:
-        typ:
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
           type: string
-          description: Pixel event type (must be a valid pixel type)
-        url:
+          description: File extension
+        fileName:
           type: string
-          description: Pixel URL
+          description: File name
+        resourceUrl:
+          type: string
+          description: Resource URL for all other companion types
+        resourceData:
+          type: string
+          description: Resource data encoded in Data URI Scheme for static companion types
   requestBodies:
+    POST_video-v2-0-creatives-validateVASTBody:
+      content:
+        text/plain:
+          schema:
+            type: string
+      description: VAST XML content to validate
     ModifyCompanionRequest:
       content:
         application/json:
@@ -1169,12 +1175,6 @@ components:
             $ref: '#/components/schemas/ModifyCompanionRequest'
       description: Companion ad details
       required: true
-    POST_video-v2-0-creatives-validateVASTBody:
-      content:
-        text/plain:
-          schema:
-            type: string
-      description: VAST XML content to validate
   securitySchemes:
     OAuth2:
       type: oauth2

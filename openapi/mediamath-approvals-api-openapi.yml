@@ -53,24 +53,12 @@ paths:
       - Approvals
 components:
   schemas:
-    models.MetaInfo:
-      description: Response metadata
+    httputil.Response:
       properties:
-        code:
-          type: integer
-        count:
-          type: integer
-        next_page:
+        data: {}
+        error:
           type: string
-        offset:
-          type: integer
-        prev_page:
-          type: string
-        status:
-          type: string
-        total_count:
-          type: integer
-        type:
+        message:
           type: string
       type: object
     models.ApprovalStatus:
@@ -93,12 +81,24 @@ components:
         meta:
           $ref: '#/components/schemas/models.MetaInfo'
       type: object
-    httputil.Response:
+    models.MetaInfo:
+      description: Response metadata
       properties:
-        data: {}
-        error:
+        code:
+          type: integer
+        count:
+          type: integer
+        next_page:
           type: string
-        message:
+        offset:
+          type: integer
+        prev_page:
+          type: string
+        status:
+          type: string
+        total_count:
+          type: integer
+        type:
           type: string
       type: object
   securitySchemes:

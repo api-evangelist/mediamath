@@ -213,6 +213,15 @@ paths:
         $ref: '#/components/requestBodies/concepts_bulk'
 components:
   schemas:
+    concept_create:
+      type: object
+      properties:
+        advertiser_id:
+          type: integer
+          format: int32
+          example: 76
+      required:
+      - advertiser_id
     concept_response:
       type: object
       title: concept_full
@@ -272,6 +281,73 @@ components:
       - $ref: '#/components/schemas/concept_update'
       - $ref: '#/components/schemas/concept_common'
       - $ref: '#/components/schemas/concept_create'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    concept_update:
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int32
+          example: 3
+    concepts_collection_short:
+      title: concept
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        entity_type:
+          type: string
+    concept_common:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        status:
+          type: boolean
+          default: true
+        archived:
+          type: boolean
+          default: false
+      required:
+      - name
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
     list_metadata:
       title: pagination metadata
       type: object
@@ -301,91 +377,7 @@ components:
       required:
       - status
       - count
-    concepts_collection_short:
-      title: concept
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        entity_type:
-          type: string
-    concept_update:
-      type: object
-      properties:
-        version:
-          type: integer
-          format: int32
-          example: 3
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    concept_create:
-      type: object
-      properties:
-        advertiser_id:
-          type: integer
-          format: int32
-          example: 76
-      required:
-      - advertiser_id
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    concept_common:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 256
-        status:
-          type: boolean
-          default: true
-        archived:
-          type: boolean
-          default: false
-      required:
-      - name
   parameters:
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
     q:
       in: query
       name: q
@@ -403,16 +395,6 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
     full:
       in: query
       name: full
@@ -423,6 +405,24 @@ components:
       description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
 
         '
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
   responses:
     error:
       description: Error response
@@ -430,17 +430,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error_response'
-    concept:
-      description: Concept response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/concept_response'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
     concepts_collection:
       description: Concepts collection response
       content:
@@ -454,6 +443,19 @@ components:
                   anyOf:
                   - $ref: '#/components/schemas/concepts_collection_short'
                   - $ref: '#/components/schemas/concept_response'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    concepts_bulk:
+      description: Concepts bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/concept_response'
               meta:
                 $ref: '#/components/schemas/list_metadata'
     audit_log:
@@ -498,19 +500,17 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    concepts_bulk:
-      description: Concepts bulk response
+    concept:
+      description: Concept response
       content:
         application/json:
           schema:
             type: object
             properties:
               data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/concept_response'
+                $ref: '#/components/schemas/concept_response'
               meta:
-                $ref: '#/components/schemas/list_metadata'
+                $ref: '#/components/schemas/single_metadata'
   requestBodies:
     concept_create:
       content:
@@ -518,6 +518,13 @@ components:
           schema:
             allOf:
             - $ref: '#/components/schemas/concept_create'
+            - $ref: '#/components/schemas/concept_common'
+    concept_update:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/concept_update'
             - $ref: '#/components/schemas/concept_common'
     concepts_bulk:
       content:
@@ -542,13 +549,6 @@ components:
                             type: boolean
                           archived:
                             type: boolean
-    concept_update:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/concept_update'
-            - $ref: '#/components/schemas/concept_common'
   securitySchemes:
     Auth0:
       type: oauth2

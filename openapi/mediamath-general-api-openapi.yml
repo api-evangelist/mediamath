@@ -121,12 +121,84 @@ paths:
           $ref: '#/components/responses/error'
 components:
   responses:
-    error:
-      description: Error response
+    health_check:
+      description: Health check response
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/error_response'
+            title: health check response
+            type: object
+            properties:
+              build_version:
+                type: string
+              build_date:
+                type: string
+              database_connection:
+                type: boolean
+              latency:
+                type: string
+                description: 'next format is used: `5 ms` for latency more than 1ms and `5 µs` for latency less than 1ms'
+              node_conns:
+                type: object
+                properties:
+                  acquired:
+                    type: integer
+                  constucting:
+                    type: integer
+                  idle:
+                    type: integer
+              node_max_conns:
+                type: integer
+              node_total_cons:
+                type: integer
+    health_check_503:
+      description: Health check response if code is 503
+      content:
+        application/json:
+          schema:
+            anyOf:
+            - type: object
+              title: health check response
+              properties:
+                build_version:
+                  type: string
+                build_date:
+                  type: string
+                database_connection:
+                  type: boolean
+                error:
+                  type: string
+            - $ref: '#/components/schemas/error_response'
+    list_roles:
+      description: List roles response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    entity_type:
+                      type: string
+                    name:
+                      type: string
+                    must_include:
+                      type: array
+                      items:
+                        type: number
+                    must_exclude:
+                      type: array
+                      items:
+                        type: number
+              meta:
+                $ref: '#/components/schemas/list_metadata'
     list_target_values:
       description: List target values response
       content:
@@ -161,36 +233,6 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    health_check:
-      description: Health check response
-      content:
-        application/json:
-          schema:
-            title: health check response
-            type: object
-            properties:
-              build_version:
-                type: string
-              build_date:
-                type: string
-              database_connection:
-                type: boolean
-              latency:
-                type: string
-                description: 'next format is used: `5 ms` for latency more than 1ms and `5 µs` for latency less than 1ms'
-              node_conns:
-                type: object
-                properties:
-                  acquired:
-                    type: integer
-                  constucting:
-                    type: integer
-                  idle:
-                    type: integer
-              node_max_conns:
-                type: integer
-              node_total_cons:
-                type: integer
     search_result:
       description: Search result
       content:
@@ -215,54 +257,12 @@ components:
                       $ref: '#/components/schemas/search_result'
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    list_roles:
-      description: List roles response
+    error:
+      description: Error response
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                    entity_type:
-                      type: string
-                    name:
-                      type: string
-                    must_include:
-                      type: array
-                      items:
-                        type: number
-                    must_exclude:
-                      type: array
-                      items:
-                        type: number
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    health_check_503:
-      description: Health check response if code is 503
-      content:
-        application/json:
-          schema:
-            anyOf:
-            - type: object
-              title: health check response
-              properties:
-                build_version:
-                  type: string
-                build_date:
-                  type: string
-                database_connection:
-                  type: boolean
-                error:
-                  type: string
-            - $ref: '#/components/schemas/error_response'
+            $ref: '#/components/schemas/error_response'
   schemas:
     error_response:
       title: error response
@@ -290,6 +290,15 @@ components:
           properties:
             status:
               type: string
+    search_result:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_type:
+          type: string
+        name:
+          type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -319,15 +328,6 @@ components:
       required:
       - status
       - count
-    search_result:
-      type: object
-      properties:
-        id:
-          type: integer
-        entity_type:
-          type: string
-        name:
-          type: string
   securitySchemes:
     Auth0:
       type: oauth2

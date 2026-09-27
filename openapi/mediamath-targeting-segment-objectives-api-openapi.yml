@@ -64,12 +64,6 @@ paths:
         description: Numeric ID of the targeting_segment_objective to get
 components:
   responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     collection:
       description: Collection response
       content:
@@ -101,33 +95,13 @@ components:
                 $ref: '#/components/schemas/targeting_segment_objective_response'
               meta:
                 $ref: '#/components/schemas/single_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -184,6 +158,32 @@ components:
           example: success
       required:
       - status
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
   securitySchemes:
     Auth0:
       type: oauth2

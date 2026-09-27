@@ -187,6 +187,16 @@ paths:
       - Components
 components:
   schemas:
+    models.ComponentUpdateRequest:
+      description: Component update request
+      properties:
+        char_limit:
+          type: integer
+        component_human_name:
+          type: string
+        is_enabled:
+          type: boolean
+      type: object
     models.ComponentListResponse:
       description: Component list API response
       properties:
@@ -196,6 +206,32 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.ComponentResponse:
+      description: Single component API response
+      properties:
+        data:
+          $ref: '#/components/schemas/models.Component'
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.Component:
+      description: Component definition
+      properties:
+        char_limit:
+          type: integer
+        component_human_name:
+          type: string
+        component_id:
+          type: integer
+        created_at:
+          type: string
+        is_enabled:
+          type: boolean
+        updated_at:
+          type: string
+        value_type_name:
+          type: string
       type: object
     models.ComponentCreateRequest:
       description: Component creation request
@@ -210,6 +246,14 @@ components:
           type: boolean
         value_type_name:
           description: 'Required: TEXT, IMAGE, VIDEO, INTEGER, SUBTITLE'
+          type: string
+      type: object
+    httputil.Response:
+      properties:
+        data: {}
+        error:
+          type: string
+        message:
           type: string
       type: object
     models.MetaInfo:
@@ -231,50 +275,6 @@ components:
           type: integer
         type:
           type: string
-      type: object
-    models.ComponentUpdateRequest:
-      description: Component update request
-      properties:
-        char_limit:
-          type: integer
-        component_human_name:
-          type: string
-        is_enabled:
-          type: boolean
-      type: object
-    models.Component:
-      description: Component definition
-      properties:
-        char_limit:
-          type: integer
-        component_human_name:
-          type: string
-        component_id:
-          type: integer
-        created_at:
-          type: string
-        is_enabled:
-          type: boolean
-        updated_at:
-          type: string
-        value_type_name:
-          type: string
-      type: object
-    httputil.Response:
-      properties:
-        data: {}
-        error:
-          type: string
-        message:
-          type: string
-      type: object
-    models.ComponentResponse:
-      description: Single component API response
-      properties:
-        data:
-          $ref: '#/components/schemas/models.Component'
-        meta:
-          $ref: '#/components/schemas/models.MetaInfo'
       type: object
   securitySchemes:
     BearerAuth:

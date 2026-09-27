@@ -1962,20 +1962,75 @@ paths:
               schema:
                 $ref: '#/components/schemas/full-report-description'
 components:
-  responses:
-    trait_requestsCustomTimeWindow_403:
-      description: ''
-    trait_requestsCustomTimeWindow_401:
-      description: ''
-    trait_requestsCustomTimeWindow_404:
-      description: ''
-    trait_requestsCustomTimeWindow_304:
-      description: ''
-    trait_requestsCustomTimeWindow_200:
-      description: ''
-    trait_requestsCustomTimeWindow_400:
-      description: ''
   parameters:
+    trait_requestsCustomTimeWindow_having:
+      name: having
+      in: query
+      description: Controls filtering against metric and dimension fields.  The filtering is performed after row grouping and metric calculation.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: false
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_end_date:
+      name: end_date
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: false
+      schema:
+        type: string
+        default: yesterday
+    trait_requestsCustomTimeWindow_precision:
+      name: precision
+      in: query
+      description: Controls how many digits to the right of the decimal places to display for float types.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 8
+        default: 8
+    trait_requestsCustomTimeWindow_page_limit:
+      name: page_limit
+      in: query
+      description: 'Controls the maximum number of rows of data.
+
+
+        This parameter is required, if page_offset is one or greater.'
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+    trait_requestsCustomTimeWindow_start_date:
+      name: start_date
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_page_offset:
+      name: page_offset
+      in: query
+      description: Controls how many pages to skip.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    trait_requestsCustomTimeWindow_metrics:
+      name: metrics
+      in: query
+      description: 'Controls the selection of metric fields.
+
+
+        This should be a comma-separated list of metric field names.
+
+
+        If not specified, this will default to the metric fields specified by the `default_metrics` property of the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+
+
+        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
+      required: false
+      schema:
+        type: string
     trait_requestsCustomTimeWindow_dimensions:
       name: dimensions
       in: query
@@ -1994,94 +2049,6 @@ components:
       in: query
       description: Controls filtering against dimension fields.  The filtering is performed before row grouping.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
       required: true
-      schema:
-        type: string
-    trait_cookieAuth_Cookie:
-      name: Cookie
-      description: _
-      in: header
-      required: true
-      schema:
-        type: string
-        default: adama_session=<<sessionid>>
-    trait_requestsCustomTimeWindow_end_date:
-      name: end_date
-      in: query
-      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: false
-      schema:
-        type: string
-        default: yesterday
-    trait_requestsCustomTimeWindow_time_rollup:
-      name: time_rollup
-      in: query
-      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_If-Modified-Since:
-      name: If-Modified-Since
-      in: header
-      description: 'If the data has not changed, the server responds with a 304 Not Modified status code and an empty response body.
-
-
-        If the same request was issued and the data had been updated since the specified time, the server responds with the data requested and a new Last-Modified header.'
-      schema:
-        type: string
-        format: date-time
-    trait_requestsCustomTimeWindow_precision:
-      name: precision
-      in: query
-      description: Controls how many digits to the right of the decimal places to display for float types.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 8
-        default: 8
-    trait_requestsCustomTimeWindow_having:
-      name: having
-      in: query
-      description: Controls filtering against metric and dimension fields.  The filtering is performed after row grouping and metric calculation.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
-      required: false
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_page_offset:
-      name: page_offset
-      in: query
-      description: Controls how many pages to skip.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-    trait_requestsCustomTimeWindow_time_window:
-      name: time_window
-      in: query
-      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_start_date:
-      name: start_date
-      in: query
-      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_metrics:
-      name: metrics
-      in: query
-      description: 'Controls the selection of metric fields.
-
-
-        This should be a comma-separated list of metric field names.
-
-
-        If not specified, this will default to the metric fields specified by the `default_metrics` property of the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
-
-
-        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
-      required: false
       schema:
         type: string
     trait_requestsCustomTimeWindow_order:
@@ -2105,18 +2072,51 @@ components:
         type: string
         enum:
         - gzip,deflate
-    trait_requestsCustomTimeWindow_page_limit:
-      name: page_limit
+    trait_requestsCustomTimeWindow_time_window:
+      name: time_window
       in: query
-      description: 'Controls the maximum number of rows of data.
-
-
-        This parameter is required, if page_offset is one or greater.'
-      required: false
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
       schema:
-        type: integer
-        minimum: 1
-        default: 100
+        type: string
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      description: _
+      in: header
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
+    trait_requestsCustomTimeWindow_time_rollup:
+      name: time_rollup
+      in: query
+      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_If-Modified-Since:
+      name: If-Modified-Since
+      in: header
+      description: 'If the data has not changed, the server responds with a 304 Not Modified status code and an empty response body.
+
+
+        If the same request was issued and the data had been updated since the specified time, the server responds with the data requested and a new Last-Modified header.'
+      schema:
+        type: string
+        format: date-time
+  responses:
+    trait_requestsCustomTimeWindow_403:
+      description: ''
+    trait_requestsCustomTimeWindow_401:
+      description: ''
+    trait_requestsCustomTimeWindow_404:
+      description: ''
+    trait_requestsCustomTimeWindow_200:
+      description: ''
+    trait_requestsCustomTimeWindow_400:
+      description: ''
+    trait_requestsCustomTimeWindow_304:
+      description: ''
   schemas:
     brief-report-description:
       title: Brief Report Description

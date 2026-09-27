@@ -185,277 +185,18 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: Error response
+  requestBodies:
+    segment_group_create:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/error_response'
-    segment_group:
-      description: Audience group response
+            $ref: '#/components/schemas/segment_group_create'
+    segment_group_update:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    example: My Audience Group
-                  type:
-                    type: string
-                    example: CONTEXTUAL
-                  organization_id:
-                    type: integer
-                    example: 1234
-                  status:
-                    type: boolean
-                    example: true
-                  segment_subgroup:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        segment_operator:
-                          type: string
-                          example: AND
-                        segment_members:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              segment_id:
-                                type: integer
-                                format: int32
-                              segment_type:
-                                type: string
-                                enum:
-                                - CONTEXTUAL
-                                - 3P
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    segment_group_single_get:
-      description: Audience group response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    example: My Audience Group
-                  type:
-                    type: string
-                    example: CONTEXTUAL
-                  organization_id:
-                    type: integer
-                    example: 1234
-                  status:
-                    type: boolean
-                    example: true
-                  segment_subgroup:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        segment_operator:
-                          type: string
-                          example: AND
-                        segment_members:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              name:
-                                type: string
-                                example: My Audience Group
-                              segment_id:
-                                type: integer
-                                example: 5678
-                              segment_type:
-                                type: string
-                                example: CONTEXTUAL
-                              full_path:
-                                type: string
-                                example: My Audience Group Parent - My Audience Group
-                              objective:
-                                type: string
-                                example: Custom
-                              cpm:
-                                type: number
-                                example: 0.5
-                              code:
-                                type: string
-                                example: SEG123
-                              uniques:
-                                type: integer
-                                example: 1500
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    segment_group_assignments:
-      description: Audience group assignments response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1234
-                    strategy_id:
-                      type: integer
-                      example: 5678
-                    strategy_name:
-                      type: string
-                      example: My Strategy
-                    campaign_id:
-                      type: integer
-                      example: 91011
-                    campaign_name:
-                      type: string
-                      example: My Campaign
-                    advertiser_id:
-                      type: integer
-                      example: 121314
-                    advertiser_name:
-                      type: string
-                      example: My Advertiser
-                    agency_id:
-                      type: integer
-                      example: 151617
-                    agency_name:
-                      type: string
-                      example: My Agency
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    audit_log:
-      description: Audit log response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    tool_name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    segment_group_collection:
-      description: Audience group collection response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1234
-                    name:
-                      type: string
-                      example: My Audience Group
-                    type:
-                      type: string
-                      example: CONTEXTUAL
-                    organization_id:
-                      type: integer
-                      example: 1234
-                    status:
-                      type: boolean
-                      example: true
-                    segment_subgroup:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          segment_operator:
-                            type: string
-                            example: AND
-                          segment_members:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                name:
-                                  type: string
-                                  example: My Audience Group
-                                segment_id:
-                                  type: integer
-                                  example: 5678
-                                segment_type:
-                                  type: string
-                                  example: CONTEXTUAL
-                                full_path:
-                                  type: string
-                                  example: My Audience Group Parent - My Audience Group
-                                objective:
-                                  type: string
-                                  example: Custom
-                                cpm:
-                                  type: number
-                                  example: 0.5
-                                code:
-                                  type: string
-                                  example: SEG123
-                                uniques:
-                                  type: integer
-                                  example: 1500
-              meta:
-                $ref: '#/components/schemas/list_metadata'
+            $ref: '#/components/schemas/segment_group_update'
   parameters:
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
     extended:
       in: query
       name: extended
@@ -463,23 +204,6 @@ components:
         type: boolean
       required: false
       description: Get extended properties in response
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
     page_offset:
       in: query
       name: page_offset
@@ -490,7 +214,124 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
   schemas:
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    segment_group_create:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        type:
+          type: string
+          enum:
+          - CONTEXTUAL
+          - AUDIENCE
+        organization_id:
+          type: integer
+          format: int32
+          example: 1234
+        status:
+          type: boolean
+        segment_subgroup:
+          type: array
+          items:
+            type: object
+            properties:
+              segment_operator:
+                type: string
+                enum:
+                - AND
+                - OR
+              segment_members:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - segment_id
+                  - segment_type
+                  properties:
+                    segment_id:
+                      type: integer
+                      format: int32
+                      example: 6
+                    segment_type:
+                      type: string
+                      enum:
+                      - CONTEXTUAL
+                      - 3P
+            required:
+            - segment_operator
+            - segment_members
+      required:
+      - name
+      - type
+      - organization_id
+      - status
+      - segment_subgroup
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
     error_response:
       title: error response
       type: object
@@ -565,109 +406,268 @@ components:
             required:
             - segment_operator
             - segment_members
-    segment_group_create:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 256
-        type:
-          type: string
-          enum:
-          - CONTEXTUAL
-          - AUDIENCE
-        organization_id:
-          type: integer
-          format: int32
-          example: 1234
-        status:
-          type: boolean
-        segment_subgroup:
-          type: array
-          items:
+  responses:
+    segment_group_single_get:
+      description: Audience group response
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              segment_operator:
-                type: string
-                enum:
-                - AND
-                - OR
-              segment_members:
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: My Audience Group
+                  type:
+                    type: string
+                    example: CONTEXTUAL
+                  organization_id:
+                    type: integer
+                    example: 1234
+                  status:
+                    type: boolean
+                    example: true
+                  segment_subgroup:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        segment_operator:
+                          type: string
+                          example: AND
+                        segment_members:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                example: My Audience Group
+                              segment_id:
+                                type: integer
+                                example: 5678
+                              segment_type:
+                                type: string
+                                example: CONTEXTUAL
+                              full_path:
+                                type: string
+                                example: My Audience Group Parent - My Audience Group
+                              objective:
+                                type: string
+                                example: Custom
+                              cpm:
+                                type: number
+                                example: 0.5
+                              code:
+                                type: string
+                                example: SEG123
+                              uniques:
+                                type: integer
+                                example: 1500
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    segment_group:
+      description: Audience group response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: My Audience Group
+                  type:
+                    type: string
+                    example: CONTEXTUAL
+                  organization_id:
+                    type: integer
+                    example: 1234
+                  status:
+                    type: boolean
+                    example: true
+                  segment_subgroup:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        segment_operator:
+                          type: string
+                          example: AND
+                        segment_members:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              segment_id:
+                                type: integer
+                                format: int32
+                              segment_type:
+                                type: string
+                                enum:
+                                - CONTEXTUAL
+                                - 3P
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    segment_group_assignments:
+      description: Audience group assignments response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
                 type: array
                 items:
                   type: object
-                  required:
-                  - segment_id
-                  - segment_type
                   properties:
-                    segment_id:
+                    id:
                       type: integer
-                      format: int32
-                      example: 6
-                    segment_type:
+                      example: 1234
+                    strategy_id:
+                      type: integer
+                      example: 5678
+                    strategy_name:
                       type: string
-                      enum:
-                      - CONTEXTUAL
-                      - 3P
-            required:
-            - segment_operator
-            - segment_members
-      required:
-      - name
-      - type
-      - organization_id
-      - status
-      - segment_subgroup
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-  requestBodies:
-    segment_group_update:
+                      example: My Strategy
+                    campaign_id:
+                      type: integer
+                      example: 91011
+                    campaign_name:
+                      type: string
+                      example: My Campaign
+                    advertiser_id:
+                      type: integer
+                      example: 121314
+                    advertiser_name:
+                      type: string
+                      example: My Advertiser
+                    agency_id:
+                      type: integer
+                      example: 151617
+                    agency_name:
+                      type: string
+                      example: My Agency
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    segment_group_collection:
+      description: Audience group collection response
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/segment_group_update'
-    segment_group_create:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1234
+                    name:
+                      type: string
+                      example: My Audience Group
+                    type:
+                      type: string
+                      example: CONTEXTUAL
+                    organization_id:
+                      type: integer
+                      example: 1234
+                    status:
+                      type: boolean
+                      example: true
+                    segment_subgroup:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          segment_operator:
+                            type: string
+                            example: AND
+                          segment_members:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                  example: My Audience Group
+                                segment_id:
+                                  type: integer
+                                  example: 5678
+                                segment_type:
+                                  type: string
+                                  example: CONTEXTUAL
+                                full_path:
+                                  type: string
+                                  example: My Audience Group Parent - My Audience Group
+                                objective:
+                                  type: string
+                                  example: Custom
+                                cpm:
+                                  type: number
+                                  example: 0.5
+                                code:
+                                  type: string
+                                  example: SEG123
+                                uniques:
+                                  type: integer
+                                  example: 1500
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/segment_group_create'
+            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2

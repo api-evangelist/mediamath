@@ -289,28 +289,86 @@ paths:
           description: Creative not found
 components:
   schemas:
-    GetStatusResponse_Encoding:
+    FileInfo:
       type: object
       properties:
         status:
-          $ref: '#/components/schemas/EncodingStatus'
-        percent:
-          type: number
-          description: Encoding progress (0-100)
-        id:
+          type: string
+          description: Upload status
+        size:
           type: integer
           format: int64
-          description: Encoding ID
-        statusMessage:
+          description: File size in bytes
+        percent:
+          type: number
+          description: Upload percent complete (0-100)
+          default: 0
+        name:
           type: string
-          description: Status message (e.g. error details)
-    GetCreativeVariantsResponse:
-      type: object
-      properties:
-        variants:
+          description: File name
+        path:
+          type: string
+          description: File path
+        mirrorPath:
           type: array
           items:
-            $ref: '#/components/schemas/LegacyEncoding'
+            type: string
+          description: Mirror paths (asset URLs)
+        hash:
+          type: string
+          description: File hash
+    CreativeStatusResponse:
+      type: object
+      properties:
+        uploadInfo:
+          $ref: '#/components/schemas/FileInfo'
+        encodingStatus:
+          $ref: '#/components/schemas/GetStatusResponse'
+    ErrorInfoList:
+      type: object
+      properties:
+        field_error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorInfo'
+    CompanionDetails:
+      type: object
+      required:
+      - adServer
+      - typ
+      - width
+      - height
+      - landingUrl
+      properties:
+        adServer:
+          type: string
+          description: AdServer tag name
+        typ:
+          type: string
+          description: Companion type (static, iframe, or html)
+          enum:
+          - static
+          - iframe
+          - html
+        width:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Width in pixels
+        height:
+          type: integer
+          minimum: 32
+          maximum: 10000
+          description: Height in pixels
+        landingUrl:
+          type: string
+          description: Declared landing URL
+        iFrameUrlOrHTML:
+          type: string
+          description: iFrame URL (for iframe type) or HTML content (for html type)
+        clickthroughUrl:
+          type: string
+          description: Clickthrough URL (required for static companions; must be null for iframe/html)
     EncodingStatus:
       type: string
       enum:
@@ -341,11 +399,71 @@ components:
         resourceUrl:
           type: string
           description: URL for external resources
+    ErrorInfo:
+      type: object
+      properties:
+        error:
+          type: string
+        index:
+          type: integer
+          description: Index in bulk request (for bulk operations)
+        code:
+          type: string
+        name:
+          type: string
+        field:
+          type: string
+    GetStatusResponse_Encoding:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        id:
+          type: integer
+          format: int64
+          description: Encoding ID
+        statusMessage:
+          type: string
+          description: Status message (e.g. error details)
     CreateCompanionResponse:
       type: object
       properties:
         companionId:
           type: integer
+    ValidateVASTResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: VAST validation error message, omitted if no errors present
+        warnings:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: A set of VAST validation warnings
+    ModifyCompanionRequest:
+      type: object
+      required:
+      - details
+      properties:
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+          description: File extension
+        fileName:
+          type: string
+          description: File name
+        resourceUrl:
+          type: string
+          description: Resource URL for all other companion types
+        resourceData:
+          type: string
+          description: Resource data encoded in Data URI Scheme for static companion types
     LegacyEncoding:
       type: object
       properties:
@@ -406,89 +524,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GetStatusResponse_Encoding'
-    ModifyCompanionRequest:
-      type: object
-      required:
-      - details
-      properties:
-        details:
-          $ref: '#/components/schemas/CompanionDetails'
-        fileExtension:
-          type: string
-          description: File extension
-        fileName:
-          type: string
-          description: File name
-        resourceUrl:
-          type: string
-          description: Resource URL for all other companion types
-        resourceData:
-          type: string
-          description: Resource data encoded in Data URI Scheme for static companion types
-    ValidateVASTResponse:
+    GetCreativeVariantsResponse:
       type: object
       properties:
-        error:
-          type: string
-          description: VAST validation error message, omitted if no errors present
-        warnings:
+        variants:
           type: array
           items:
-            type: string
-          uniqueItems: true
-          description: A set of VAST validation warnings
-    CreativeStatusResponse:
-      type: object
-      properties:
-        uploadInfo:
-          $ref: '#/components/schemas/FileInfo'
-        encodingStatus:
-          $ref: '#/components/schemas/GetStatusResponse'
-    ErrorInfoList:
-      type: object
-      properties:
-        field_error:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorInfo'
-    CompanionDetails:
-      type: object
-      required:
-      - adServer
-      - typ
-      - width
-      - height
-      - landingUrl
-      properties:
-        adServer:
-          type: string
-          description: AdServer tag name
-        typ:
-          type: string
-          description: Companion type (static, iframe, or html)
-          enum:
-          - static
-          - iframe
-          - html
-        width:
-          type: integer
-          minimum: 32
-          maximum: 10000
-          description: Width in pixels
-        height:
-          type: integer
-          minimum: 32
-          maximum: 10000
-          description: Height in pixels
-        landingUrl:
-          type: string
-          description: Declared landing URL
-        iFrameUrlOrHTML:
-          type: string
-          description: iFrame URL (for iframe type) or HTML content (for html type)
-        clickthroughUrl:
-          type: string
-          description: Clickthrough URL (required for static companions; must be null for iframe/html)
+            $ref: '#/components/schemas/LegacyEncoding'
     CompanionsResponse:
       type: object
       properties:
@@ -497,49 +539,13 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/CompanionAd'
           description: Map of companion ID (string) to companion details
-    ErrorInfo:
-      type: object
-      properties:
-        error:
-          type: string
-        index:
-          type: integer
-          description: Index in bulk request (for bulk operations)
-        code:
-          type: string
-        name:
-          type: string
-        field:
-          type: string
-    FileInfo:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Upload status
-        size:
-          type: integer
-          format: int64
-          description: File size in bytes
-        percent:
-          type: number
-          description: Upload percent complete (0-100)
-          default: 0
-        name:
-          type: string
-          description: File name
-        path:
-          type: string
-          description: File path
-        mirrorPath:
-          type: array
-          items:
-            type: string
-          description: Mirror paths (asset URLs)
-        hash:
-          type: string
-          description: File hash
   requestBodies:
+    POST_video-v2-0-creatives-validateVASTBody:
+      content:
+        text/plain:
+          schema:
+            type: string
+      description: VAST XML content to validate
     ModifyCompanionRequest:
       content:
         application/json:
@@ -547,12 +553,6 @@ components:
             $ref: '#/components/schemas/ModifyCompanionRequest'
       description: Companion ad details
       required: true
-    POST_video-v2-0-creatives-validateVASTBody:
-      content:
-        text/plain:
-          schema:
-            type: string
-      description: VAST XML content to validate
   securitySchemes:
     OAuth2:
       type: oauth2

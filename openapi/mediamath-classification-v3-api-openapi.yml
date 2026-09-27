@@ -282,48 +282,6 @@ paths:
                 $ref: '#/components/schemas/UIErrorType'
 components:
   schemas:
-    BulkInflatedClassificationResponse:
-      type: object
-      properties:
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkInflatedRecord'
-    ClassificationAttribute:
-      type: object
-      properties:
-        children:
-          type: array
-          items:
-            type: integer
-        id:
-          type: integer
-        name:
-          type: string
-        parent:
-          type: string
-    UIErrorType:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/UIError'
-    ClassificationLanguage:
-      type: object
-      properties:
-        alpha2:
-          type: string
-        bibliographic:
-          type: string
-        id:
-          type: integer
-        name:
-          type: string
-        name_fr:
-          type: string
-        terminologic:
-          type: string
     BulkInflatedRecord:
       type: object
       properties:
@@ -331,6 +289,51 @@ components:
           type: integer
         details:
           $ref: '#/components/schemas/InflatedDetails'
+    UIError:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        reasonCode:
+          type: integer
+        resource:
+          type: string
+    ClassificationDetail:
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/Classification'
+    InflatedDetails:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationAttribute'
+        language:
+          $ref: '#/components/schemas/ClassificationLanguage'
+        verticals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationVertical'
+    UIErrorType:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIError'
+    BulkInflatedClassificationResponse:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkInflatedRecord'
     ClassificationVertical:
       type: object
       properties:
@@ -346,19 +349,6 @@ components:
           type: integer
         parent:
           type: string
-    InflatedClassificationResponse:
-      type: object
-      properties:
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClassificationAttribute'
-        language:
-          $ref: '#/components/schemas/ClassificationLanguage'
-        verticals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClassificationVertical'
     Classification:
       type: object
       properties:
@@ -372,6 +362,21 @@ components:
           type: array
           items:
             type: integer
+    ClassificationLanguage:
+      type: object
+      properties:
+        alpha2:
+          type: string
+        bibliographic:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        name_fr:
+          type: string
+        terminologic:
+          type: string
     BulkClassificationResponse:
       type: object
       properties:
@@ -379,18 +384,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ClassificationDetail'
-    UIError:
+    ClassificationAttribute:
       type: object
       properties:
-        errorCode:
+        children:
+          type: array
+          items:
+            type: integer
+        id:
           type: integer
-        errorMessage:
+        name:
           type: string
-        reasonCode:
-          type: integer
-        resource:
+        parent:
           type: string
-    InflatedDetails:
+    InflatedClassificationResponse:
       type: object
       properties:
         attributes:
@@ -403,13 +410,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ClassificationVertical'
-    ClassificationDetail:
-      type: object
-      properties:
-        atomic_creative_id:
-          type: integer
-        details:
-          $ref: '#/components/schemas/Classification'
   securitySchemes:
     OAuth2:
       type: oauth2

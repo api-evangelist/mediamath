@@ -447,35 +447,104 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
-    list_metadata:
-      title: pagination metadata
+    permission_organization:
+      allOf:
+      - type: object
+        properties:
+          organization_id:
+            type: integer
+      - $ref: '#/components/schemas/permission_flags'
+    permission_v2_agency:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          dmp_enabled:
+            type: string
+          value:
+            type: string
+          organization_id:
+            type: integer
+    user_permission:
+      title: user permission
       type: object
       properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
+        id:
           type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+    permission_list:
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_organization'
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_agency'
+        advertisers:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_advertiser'
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_campaign'
+        strategies:
+          type: array
+          items:
+            $ref: '#/components/schemas/permission_strategy'
+    permission_advertiser:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          advertiser_id:
+            type: integer
+    error_response:
+      title: error response
+      type: object
       required:
-      - status
-      - count
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    permission_campaign:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          campaign_id:
+            type: integer
     permission_v2_advertiser:
       allOf:
       - type: object
@@ -490,13 +559,66 @@ components:
             type: integer
           value:
             type: string
-    permission_organization:
+    permission_v2_flags:
+      type: object
+      properties:
+        type:
+          type: string
+        role:
+          type: string
+        scope:
+          type: string
+        view_segments:
+          type: boolean
+        view_organizations:
+          type: boolean
+        edit_margins_and_performance:
+          type: boolean
+        access_internal_fees:
+          type: boolean
+        edit_segments:
+          type: boolean
+        edit_campaigns:
+          type: boolean
+        view_data_definition:
+          type: boolean
+        view_dmp_reports:
+          type: boolean
+        edit_data_definition:
+          type: boolean
+    permission_v2_object:
+      type: object
+      properties:
+        flags:
+          allOf:
+          - $ref: '#/components/schemas/permission_v2_flags'
+        entities:
+          type: object
+          properties:
+            organizations:
+              type: array
+              items:
+                $ref: '#/components/schemas/permission_v2_organization'
+            agencies:
+              type: array
+              items:
+                $ref: '#/components/schemas/permission_v2_agency'
+            advertisers:
+              type: array
+              items:
+                $ref: '#/components/schemas/permission_v2_advertiser'
+    permission_v2_organization:
       allOf:
       - type: object
         properties:
-          organization_id:
+          id:
             type: integer
-      - $ref: '#/components/schemas/permission_flags'
+          name:
+            type: string
+          dmp_enabled:
+            type: string
+          value:
+            type: string
     permission_flags:
       type: object
       properties:
@@ -533,27 +655,13 @@ components:
               items:
                 type: integer
                 format: int32
-    permission_v2_object:
-      type: object
-      properties:
-        flags:
-          allOf:
-          - $ref: '#/components/schemas/permission_v2_flags'
-        entities:
-          type: object
-          properties:
-            organizations:
-              type: array
-              items:
-                $ref: '#/components/schemas/permission_v2_organization'
-            agencies:
-              type: array
-              items:
-                $ref: '#/components/schemas/permission_v2_agency'
-            advertisers:
-              type: array
-              items:
-                $ref: '#/components/schemas/permission_v2_advertiser'
+    permission_strategy:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          strategy_id:
+            type: integer
     user_permissions:
       title: user permissions
       description: available only when extended
@@ -573,6 +681,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/user_permission'
+    permission_agency:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          agency_id:
+            type: integer
     user_permissions_response:
       type: object
       properties:
@@ -590,157 +705,35 @@ components:
             status:
               type: string
               example: success
-    permission_strategy:
-      allOf:
-      - $ref: '#/components/schemas/permission_flags'
-      - type: object
-        properties:
-          strategy_id:
-            type: integer
-    permission_campaign:
-      allOf:
-      - $ref: '#/components/schemas/permission_flags'
-      - type: object
-        properties:
-          campaign_id:
-            type: integer
-    permission_v2_flags:
+    list_metadata:
+      title: pagination metadata
       type: object
       properties:
-        type:
+        status:
           type: string
-        role:
-          type: string
-        scope:
-          type: string
-        view_segments:
-          type: boolean
-        view_organizations:
-          type: boolean
-        edit_margins_and_performance:
-          type: boolean
-        access_internal_fees:
-          type: boolean
-        edit_segments:
-          type: boolean
-        edit_campaigns:
-          type: boolean
-        view_data_definition:
-          type: boolean
-        view_dmp_reports:
-          type: boolean
-        edit_data_definition:
-          type: boolean
-    permission_agency:
-      allOf:
-      - $ref: '#/components/schemas/permission_flags'
-      - type: object
-        properties:
-          agency_id:
-            type: integer
-    permission_list:
-      type: object
-      properties:
-        organizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/permission_organization'
-        agencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/permission_agency'
-        advertisers:
-          type: array
-          items:
-            $ref: '#/components/schemas/permission_advertiser'
-        campaigns:
-          type: array
-          items:
-            $ref: '#/components/schemas/permission_campaign'
-        strategies:
-          type: array
-          items:
-            $ref: '#/components/schemas/permission_strategy'
-    permission_v2_organization:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-          name:
-            type: string
-          dmp_enabled:
-            type: string
-          value:
-            type: string
-    permission_advertiser:
-      allOf:
-      - $ref: '#/components/schemas/permission_flags'
-      - type: object
-        properties:
-          advertiser_id:
-            type: integer
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    permission_v2_agency:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-          name:
-            type: string
-          dmp_enabled:
-            type: string
-          value:
-            type: string
-          organization_id:
-            type: integer
-    user_permission:
-      title: user permission
-      type: object
-      properties:
-        id:
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
           type: integer
-        create:
-          type: boolean
-        read:
-          type: boolean
-        update:
-          type: boolean
-        delete:
-          type: boolean
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
   requestBodies:
     permission_v2_check:
       required: true
@@ -804,6 +797,13 @@ components:
                   type: integer
                   format: int32
                   example: 17
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   parameters:
     page_offset:
       in: query

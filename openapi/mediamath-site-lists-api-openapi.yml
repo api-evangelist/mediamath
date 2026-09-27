@@ -298,78 +298,33 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
-    site_list:
-      description: Site list response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/site_list_full'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
   schemas:
-    error_response:
-      title: error response
+    site_list_assignment_collection_full:
       type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    site_list_collection:
-      type: object
-      title: site_list_collection
+      title: site_list_assignment_collection_full
       properties:
         data:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: integer
-              entity_type:
-                type: string
-              name:
-                type: string
+            $ref: '#/components/schemas/site_list_assignment_full'
         meta:
           $ref: '#/components/schemas/list_metadata'
-    site_list_collection_full:
-      type: object
-      title: site_list_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/site_list_full'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
+    site_list_assignment_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          site_list_id:
+            type: integer
+          entity_id:
+            type: integer
+          associated_campaign_id:
+            type: integer
+          collection:
+            type: string
+          name:
+            type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -399,22 +354,6 @@ components:
       required:
       - status
       - count
-    site_list_assignment_full:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-          site_list_id:
-            type: integer
-          entity_id:
-            type: integer
-          associated_campaign_id:
-            type: integer
-          collection:
-            type: string
-          name:
-            type: string
     site_list_assignment_collection:
       type: object
       title: site_list_assignment_collection
@@ -432,23 +371,31 @@ components:
                 type: string
         meta:
           $ref: '#/components/schemas/list_metadata'
-    single_metadata:
-      title: single_metadata
+    site_list_collection:
       type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    site_list_assignment_collection_full:
-      type: object
-      title: site_list_assignment_collection_full
+      title: site_list_collection
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/site_list_assignment_full'
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    site_list_collection_full:
+      type: object
+      title: site_list_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/site_list_full'
         meta:
           $ref: '#/components/schemas/list_metadata'
     site_list_full:
@@ -519,7 +466,59 @@ components:
             type: string
             format: date-time
             readOnly: true
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
   parameters:
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
     sort_by:
       in: query
       name: sort_by
@@ -538,13 +537,6 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
     full:
       in: query
       name: full
@@ -555,16 +547,24 @@ components:
       description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
 
         '
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    site_list:
+      description: Site list response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/site_list_full'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
   securitySchemes:
     Auth0:
       type: oauth2

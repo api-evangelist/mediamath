@@ -258,40 +258,12 @@ paths:
                     total_budget: 100
                   zone_name: America/New_York
 components:
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
   schemas:
-    error_response:
-      title: error response
+    campaign_plan_update:
       type: object
-      required:
-      - errors
-      - meta
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
+        version:
+          type: integer
     list_metadata:
       title: pagination metadata
       type: object
@@ -327,11 +299,6 @@ components:
       - $ref: '#/components/schemas/campaign_plan_update'
       - $ref: '#/components/schemas/campaign_plan_create'
       - $ref: '#/components/schemas/campaign_plan_common'
-    campaign_plan_update:
-      type: object
-      properties:
-        version:
-          type: integer
     campaign_plan_create:
       type: object
       properties:
@@ -345,6 +312,41 @@ components:
         updated_on:
           type: string
           format: date-time
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
     campaign_plan_common:
       type: object
       properties:
@@ -373,15 +375,13 @@ components:
               type: string
         zone_name:
           type: string
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2

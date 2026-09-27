@@ -92,107 +92,17 @@ paths:
                 $ref: '#/components/schemas/full-report-description'
 components:
   schemas:
-    brief-report-description:
-      title: Brief Report Description
+    reports-list:
+      title: Reports List
       type: object
       properties:
-        Name:
-          type: string
-          description: This is the human-readable name of the report.  It is not recognized by any API input.
-        Version:
-          type: integer
-          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-        Description:
-          type: string
-        URI_Data:
-          type: string
-          format: uri
-          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
-        URI_Meta:
-          type: string
-          format: uri
-          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
-        Transition:
+        reports:
           type: object
-          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-          properties:
-            replaced_by:
-              type: string
-              format: uri
-              description: The URL where the metadata for the next version of the report may be found.
-            transition_date:
-              type: string
-              format: date-time
-              description: After this GMT time the current version of the report will no longer be available.
-            next_version:
-              type: integer
-              description: The version replacing the current version of the report.
-          required:
-          - replaced_by
-          - transition_date
-          - next_version
-        Deprecation:
-          type: object
-          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-          properties:
-            superseded_by:
-              type: string
-              format: uri
-              description: Optionally provides the metadata URI for the superseding report.
-            deprecation_date:
-              type: string
-              format: date-time
-              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
-          required:
-          - deprecation_date
-      required:
-      - Name
-      - Version
-      - URI_Data
-      - URI_Meta
+          additionalProperties:
+            $ref: '#/components/schemas/brief-report-description'
+          description: This is a mapping of report names to <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
       x-stoplight:
-        id: k6iyargwoudhr
-    field-description:
-      title: Field Description
-      type: object
-      properties:
-        name:
-          type: string
-          description: This is the human-readable name of the field.
-        type:
-          type: string
-          enum:
-          - float
-          - money
-          - percent
-          - ratio
-          - integer
-          - count
-          - rank
-          - datetime
-          - string
-          - interval
-          - id
-          - bool
-          - boolean
-        access:
-          type: boolean
-          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
-        description:
-          type: string
-        maxLength:
-          type: number
-          description: This property describes the allowable length for string-typed fields.
-        values:
-          type: array
-          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
-          items:
-            type: string
-      required:
-      - name
-      - type
-      x-stoplight:
-        id: ay5bipqhvuzoi
+        id: dnol54v50tvke
     full-report-description:
       title: Full Report Description
       allOf:
@@ -269,17 +179,107 @@ components:
         - time_windows
       x-stoplight:
         id: 8plabb85jgk95
-    reports-list:
-      title: Reports List
+    field-description:
+      title: Field Description
       type: object
       properties:
-        reports:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/brief-report-description'
-          description: This is a mapping of report names to <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+        name:
+          type: string
+          description: This is the human-readable name of the field.
+        type:
+          type: string
+          enum:
+          - float
+          - money
+          - percent
+          - ratio
+          - integer
+          - count
+          - rank
+          - datetime
+          - string
+          - interval
+          - id
+          - bool
+          - boolean
+        access:
+          type: boolean
+          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
+        description:
+          type: string
+        maxLength:
+          type: number
+          description: This property describes the allowable length for string-typed fields.
+        values:
+          type: array
+          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
+          items:
+            type: string
+      required:
+      - name
+      - type
       x-stoplight:
-        id: dnol54v50tvke
+        id: ay5bipqhvuzoi
+    brief-report-description:
+      title: Brief Report Description
+      type: object
+      properties:
+        Name:
+          type: string
+          description: This is the human-readable name of the report.  It is not recognized by any API input.
+        Version:
+          type: integer
+          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+        Description:
+          type: string
+        URI_Data:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
+        URI_Meta:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+        Transition:
+          type: object
+          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            replaced_by:
+              type: string
+              format: uri
+              description: The URL where the metadata for the next version of the report may be found.
+            transition_date:
+              type: string
+              format: date-time
+              description: After this GMT time the current version of the report will no longer be available.
+            next_version:
+              type: integer
+              description: The version replacing the current version of the report.
+          required:
+          - replaced_by
+          - transition_date
+          - next_version
+        Deprecation:
+          type: object
+          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            superseded_by:
+              type: string
+              format: uri
+              description: Optionally provides the metadata URI for the superseding report.
+            deprecation_date:
+              type: string
+              format: date-time
+              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
+          required:
+          - deprecation_date
+      required:
+      - Name
+      - Version
+      - URI_Data
+      - URI_Meta
+      x-stoplight:
+        id: k6iyargwoudhr
   parameters:
     trait_cookieAuth_Cookie:
       name: Cookie

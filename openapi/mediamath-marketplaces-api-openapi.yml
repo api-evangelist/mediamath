@@ -126,25 +126,113 @@ paths:
         '403':
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: Error response
+  requestBodies:
+    marketplace_create:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/error_response'
-    marketplace:
-      description: Marketplace response
+            $ref: '#/components/schemas/marketplace_create'
+    marketplace_update:
       content:
         application/json:
           schema:
+            $ref: '#/components/schemas/marketplace_update'
+  schemas:
+    marketplace_create:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/marketplace_full'
+      - type: object
+        required:
+        - name
+        - strategy_id
+    marketplace_full_response:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 33
+          version:
+            type: integer
+            format: int32
+            example: 3
+      - $ref: '#/components/schemas/marketplace_full'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
             type: object
             properties:
-              data:
-                $ref: '#/components/schemas/marketplace_full_response'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-  schemas:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    marketplace_update:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 3
+      - $ref: '#/components/schemas/marketplace_full'
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
     marketplace_full:
       type: object
       properties:
@@ -223,112 +311,24 @@ components:
             type: integer
             format: int32
             example: 9
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    marketplace:
+      description: Marketplace response
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-    marketplace_create:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/marketplace_full'
-      - type: object
-        required:
-        - name
-        - strategy_id
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    marketplace_full_response:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-            format: int32
-            example: 33
-          version:
-            type: integer
-            format: int32
-            example: 3
-      - $ref: '#/components/schemas/marketplace_full'
-    marketplace_update:
-      type: object
-      allOf:
-      - type: object
-        properties:
-          version:
-            type: integer
-            format: int32
-            example: 3
-      - $ref: '#/components/schemas/marketplace_full'
-  requestBodies:
-    marketplace_create:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/marketplace_create'
-    marketplace_update:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/marketplace_update'
+              data:
+                $ref: '#/components/schemas/marketplace_full_response'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
   securitySchemes:
     Auth0:
       type: oauth2

@@ -210,6 +210,16 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
+    new_strategy_group_collection:
+      type: object
+      title: new_strategy_group_collection
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_group_list_item'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     new_strategy_group_update:
       allOf:
       - $ref: '#/components/schemas/new_strategy_group_base'
@@ -219,61 +229,6 @@ components:
             type: integer
             format: int32
             example: 0
-    new_strategy_group_list_item:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        entity_type:
-          type: string
-          example: strategy_group
-        name:
-          type: string
-        campaign_id:
-          type: integer
-          format: int32
-        strategy_count:
-          type: integer
-          format: int64
-          readOnly: true
-          description: Number of strategies attached to this group. Always present.
-          example: 3
-        strategies:
-          type: array
-          readOnly: true
-          description: Attached strategies. Only present when ?with=strategies is set.
-          items:
-            $ref: '#/components/schemas/new_strategy_group_strategy_embed'
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
     new_strategy_group_full:
       allOf:
       - $ref: '#/components/schemas/new_strategy_group_base'
@@ -311,6 +266,93 @@ components:
             type: string
             format: date-time
             readOnly: true
+    new_strategy_group_strategy_embed:
+      type: object
+      description: Minimal strategy shape used as the embed value for ?with=strategies.
+      properties:
+        id:
+          type: integer
+          format: int32
+        entity_type:
+          type: string
+          example: strategy
+        name:
+          type: string
+    new_strategy_group_list_item:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        entity_type:
+          type: string
+          example: strategy_group
+        name:
+          type: string
+        campaign_id:
+          type: integer
+          format: int32
+        strategy_count:
+          type: integer
+          format: int64
+          readOnly: true
+          description: Number of strategies attached to this group. Always present.
+          example: 3
+        strategies:
+          type: array
+          readOnly: true
+          description: Attached strategies. Only present when ?with=strategies is set.
+          items:
+            $ref: '#/components/schemas/new_strategy_group_strategy_embed'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    new_strategy_group_create:
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_group_base'
+      - type: object
+        required:
+        - campaign_id
+        - name
+        properties:
+          campaign_id:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 100
+    new_strategy_group_collection_full:
+      type: object
+      title: new_strategy_group_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_group_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     new_strategy_group_base:
       type: object
       properties:
@@ -355,16 +397,6 @@ components:
           - string
           - 'null'
           maxLength: 256
-    new_strategy_group_collection_full:
-      type: object
-      title: new_strategy_group_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/new_strategy_group_full'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
     new_strategy_group_response:
       type: object
       title: new_strategy_group_response
@@ -377,76 +409,36 @@ components:
             status:
               type: string
               example: success
-    new_strategy_group_collection:
+    list_metadata:
+      title: pagination metadata
       type: object
-      title: new_strategy_group_collection
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/new_strategy_group_list_item'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    new_strategy_group_create:
-      allOf:
-      - $ref: '#/components/schemas/new_strategy_group_base'
-      - type: object
-        required:
-        - campaign_id
-        - name
-        properties:
-          campaign_id:
-            type: integer
-            format: int32
-            minimum: 1
-            example: 100
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    new_strategy_group_strategy_embed:
-      type: object
-      description: Minimal strategy shape used as the embed value for ?with=strategies.
-      properties:
-        id:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
           type: integer
-          format: int32
-        entity_type:
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
           type: string
-          example: strategy
-        name:
+          description: The URL to fetch the next page of results.
+        prev_page:
           type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
   parameters:
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
     q:
       in: query
       name: q
@@ -464,6 +456,14 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
     page_limit:
       in: query
       name: page_limit

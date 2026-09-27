@@ -185,166 +185,38 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
-    audit_log:
-      description: Audit log response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    tool_name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-  parameters:
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
-    agencies_with:
-      in: query
-      name: with
-      schema:
-        type: string
-        enum:
-        - organization
-      required: false
-      description: Get related property in response
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
   schemas:
-    error_response:
-      title: error response
+    pixel_bundle_response:
+      title: pixel_bundle
       type: object
-      required:
-      - errors
-      - meta
+      allOf:
+      - $ref: '#/components/schemas/pixel_bundle_create'
+      - $ref: '#/components/schemas/pixel_bundle_base'
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 4
+    pixel_bundle_collection:
+      title: pixel_bundle_collection
+      type: object
       properties:
-        errors:
-          type: array
+        data:
+          type:
+          - array
+          - 'null'
           items:
             type: object
             properties:
-              code:
+              id:
+                type: integer
+              name:
                 type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
+              entity_type:
                 type: string
         meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
+          $ref: '#/components/schemas/list_metadata'
     pixel_bundle_base:
       title: pixel_bundle_base
       type: object
@@ -477,18 +349,35 @@ components:
           - 'null'
           items:
             type: string
-    pixel_bundle_collection_full:
-      title: pixel_bundle_collection_full
+    list_metadata:
+      title: pagination metadata
       type: object
       properties:
-        data:
-          type:
-          - object
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/pixel_bundle_response'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
     pixel_bundle_create:
       type: object
       properties:
@@ -512,37 +401,44 @@ components:
           - 'null'
           format: int32
           example: 12
-    pixel_bundle_response:
-      title: pixel_bundle
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/pixel_bundle_create'
-      - $ref: '#/components/schemas/pixel_bundle_base'
-      - type: object
-        properties:
-          version:
-            type: integer
-            format: int32
-            example: 4
-    pixel_bundle_collection:
-      title: pixel_bundle_collection
+    pixel_bundle_collection_full:
+      title: pixel_bundle_collection_full
       type: object
       properties:
         data:
           type:
-          - array
+          - object
           - 'null'
+          allOf:
+          - $ref: '#/components/schemas/pixel_bundle_response'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
           items:
             type: object
             properties:
-              id:
-                type: integer
-              name:
+              code:
                 type: string
-              entity_type:
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
                 type: string
         meta:
-          $ref: '#/components/schemas/list_metadata'
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
   requestBodies:
     pixel_bundle_create:
       required: true
@@ -585,6 +481,110 @@ components:
                   format: int32
                   example: 4
             - $ref: '#/components/schemas/pixel_bundle_base'
+  responses:
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  parameters:
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    agencies_with:
+      in: query
+      name: with
+      schema:
+        type: string
+        enum:
+        - organization
+      required: false
+      description: Get related property in response
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
   securitySchemes:
     Auth0:
       type: oauth2
