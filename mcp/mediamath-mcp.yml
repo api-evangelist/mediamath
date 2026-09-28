@@ -200,20 +200,23 @@ limitations:
 tools_count: 6
 tools:
 - name: list-apis
-  description: ''
+  description: Lists available APIs with their context and purpose
 - name: get-endpoints
-  description: ''
+  description: Get all endpoints for a specific API
 - name: get-endpoint-info
-  description: ''
+  description: Get comprehensive information about specific endpoint including parameters, security, and
+    examples
 - name: get-security-schemes
-  description: ''
+  description: Get the security schemes for a specific API
 - name: get-full-api-description
-  description: ''
+  description: Get the complete OpenAPI description
 - name: search
-  description: ''
+  description: Search across the documentation to fetch relevant content for a given query
 tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
 authorship: platform
 authorship_note: 'PLATFORM-AUTHORED: this tool shape is shared with at least one other provider in the
   catalog, so it is a platform default appearing under this provider''s domain rather than an interface
   this provider designed. Shared shape: (''get-endpoint-info'', ''get-endpoints'', ''get-full-api-description'',
   ''get-security-schemes'', ''list-apis'', ''search'')'
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
