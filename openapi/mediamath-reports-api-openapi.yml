@@ -1963,13 +1963,29 @@ paths:
                 $ref: '#/components/schemas/full-report-description'
 components:
   parameters:
-    trait_requestsCustomTimeWindow_having:
-      name: having
+    trait_requestsCustomTimeWindow_order:
+      name: order
       in: query
-      description: Controls filtering against metric and dimension fields.  The filtering is performed after row grouping and metric calculation.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      description: 'Controls the sorting of the groups.
+
+
+        This should be a comma-separated list of field names.  Each field name may optionally be prefixed with a minus sign to indicate descending order.  Otherwise, ascending order is assumed.
+
+
+        The first field has the most significance in sorting.'
       required: false
       schema:
         type: string
+    trait_requestsCustomTimeWindow_If-Modified-Since:
+      name: If-Modified-Since
+      in: header
+      description: 'If the data has not changed, the server responds with a 304 Not Modified status code and an empty response body.
+
+
+        If the same request was issued and the data had been updated since the specified time, the server responds with the data requested and a new Last-Modified header.'
+      schema:
+        type: string
+        format: date-time
     trait_requestsCustomTimeWindow_end_date:
       name: end_date
       in: query
@@ -1978,28 +1994,6 @@ components:
       schema:
         type: string
         default: yesterday
-    trait_requestsCustomTimeWindow_precision:
-      name: precision
-      in: query
-      description: Controls how many digits to the right of the decimal places to display for float types.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 8
-        default: 8
-    trait_requestsCustomTimeWindow_page_limit:
-      name: page_limit
-      in: query
-      description: 'Controls the maximum number of rows of data.
-
-
-        This parameter is required, if page_offset is one or greater.'
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 100
     trait_requestsCustomTimeWindow_start_date:
       name: start_date
       in: query
@@ -2015,6 +2009,55 @@ components:
       schema:
         type: integer
         minimum: 0
+    trait_requestsCustomTimeWindow_page_limit:
+      name: page_limit
+      in: query
+      description: 'Controls the maximum number of rows of data.
+
+
+        This parameter is required, if page_offset is one or greater.'
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      description: _
+      in: header
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
+    trait_requestsCustomTimeWindow_Accept-Encoding_:
+      name: 'Accept-Encoding:'
+      in: header
+      description: "If the client supports the compression methods also supported by the server (currently `gzip` and `deflate`), the response data set (`text`\\/`csv`) will be returned in a compressed format. The metadata and error responses will not be compressed.\n\nIn order to receive the data in compressed format, the client must use the HTTP request header `Accept-Encoding`, and enumerate the preferred compression methods (see [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)). If the header `Accept-Encoding` is not present in the request, or if it contains only compression methods not supported by the system, the data will be returned in an uncompressed format.\n\n    ###  request \n    Accept-Encoding: gzip,deflate   \n\n    ###  response  \n    Content-Encoding: gzip \n    Content-Type: text/csv; charset=UTF-8 "
+      schema:
+        type: string
+        enum:
+        - gzip,deflate
+    trait_requestsCustomTimeWindow_filter:
+      name: filter
+      in: query
+      description: Controls filtering against dimension fields.  The filtering is performed before row grouping.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_time_rollup:
+      name: time_rollup
+      in: query
+      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_having:
+      name: having
+      in: query
+      description: Controls filtering against metric and dimension fields.  The filtering is performed after row grouping and metric calculation.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: false
+      schema:
+        type: string
     trait_requestsCustomTimeWindow_metrics:
       name: metrics
       in: query
@@ -2031,6 +2074,23 @@ components:
       required: false
       schema:
         type: string
+    trait_requestsCustomTimeWindow_precision:
+      name: precision
+      in: query
+      description: Controls how many digits to the right of the decimal places to display for float types.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 8
+        default: 8
+    trait_requestsCustomTimeWindow_time_window:
+      name: time_window
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
     trait_requestsCustomTimeWindow_dimensions:
       name: dimensions
       in: query
@@ -2044,68 +2104,8 @@ components:
       required: true
       schema:
         type: string
-    trait_requestsCustomTimeWindow_filter:
-      name: filter
-      in: query
-      description: Controls filtering against dimension fields.  The filtering is performed before row grouping.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
-      required: true
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_order:
-      name: order
-      in: query
-      description: 'Controls the sorting of the groups.
-
-
-        This should be a comma-separated list of field names.  Each field name may optionally be prefixed with a minus sign to indicate descending order.  Otherwise, ascending order is assumed.
-
-
-        The first field has the most significance in sorting.'
-      required: false
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_Accept-Encoding_:
-      name: 'Accept-Encoding:'
-      in: header
-      description: "If the client supports the compression methods also supported by the server (currently `gzip` and `deflate`), the response data set (`text`\\/`csv`) will be returned in a compressed format. The metadata and error responses will not be compressed.\n\nIn order to receive the data in compressed format, the client must use the HTTP request header `Accept-Encoding`, and enumerate the preferred compression methods (see [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)). If the header `Accept-Encoding` is not present in the request, or if it contains only compression methods not supported by the system, the data will be returned in an uncompressed format.\n\n    ###  request \n    Accept-Encoding: gzip,deflate   \n\n    ###  response  \n    Content-Encoding: gzip \n    Content-Type: text/csv; charset=UTF-8 "
-      schema:
-        type: string
-        enum:
-        - gzip,deflate
-    trait_requestsCustomTimeWindow_time_window:
-      name: time_window
-      in: query
-      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
-      schema:
-        type: string
-    trait_cookieAuth_Cookie:
-      name: Cookie
-      description: _
-      in: header
-      required: true
-      schema:
-        type: string
-        default: adama_session=<<sessionid>>
-    trait_requestsCustomTimeWindow_time_rollup:
-      name: time_rollup
-      in: query
-      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_If-Modified-Since:
-      name: If-Modified-Since
-      in: header
-      description: 'If the data has not changed, the server responds with a 304 Not Modified status code and an empty response body.
-
-
-        If the same request was issued and the data had been updated since the specified time, the server responds with the data requested and a new Last-Modified header.'
-      schema:
-        type: string
-        format: date-time
   responses:
-    trait_requestsCustomTimeWindow_403:
+    trait_requestsCustomTimeWindow_304:
       description: ''
     trait_requestsCustomTimeWindow_401:
       description: ''
@@ -2113,11 +2113,52 @@ components:
       description: ''
     trait_requestsCustomTimeWindow_200:
       description: ''
+    trait_requestsCustomTimeWindow_403:
+      description: ''
     trait_requestsCustomTimeWindow_400:
       description: ''
-    trait_requestsCustomTimeWindow_304:
-      description: ''
   schemas:
+    field-description:
+      title: Field Description
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the human-readable name of the field.
+        type:
+          type: string
+          enum:
+          - float
+          - money
+          - percent
+          - ratio
+          - integer
+          - count
+          - rank
+          - datetime
+          - string
+          - interval
+          - id
+          - bool
+          - boolean
+        access:
+          type: boolean
+          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
+        description:
+          type: string
+        maxLength:
+          type: number
+          description: This property describes the allowable length for string-typed fields.
+        values:
+          type: array
+          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
+          items:
+            type: string
+      required:
+      - name
+      - type
+      x-stoplight:
+        id: ay5bipqhvuzoi
     brief-report-description:
       title: Brief Report Description
       type: object
@@ -2254,47 +2295,6 @@ components:
         - time_windows
       x-stoplight:
         id: 8plabb85jgk95
-    field-description:
-      title: Field Description
-      type: object
-      properties:
-        name:
-          type: string
-          description: This is the human-readable name of the field.
-        type:
-          type: string
-          enum:
-          - float
-          - money
-          - percent
-          - ratio
-          - integer
-          - count
-          - rank
-          - datetime
-          - string
-          - interval
-          - id
-          - bool
-          - boolean
-        access:
-          type: boolean
-          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
-        description:
-          type: string
-        maxLength:
-          type: number
-          description: This property describes the allowable length for string-typed fields.
-        values:
-          type: array
-          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
-          items:
-            type: string
-      required:
-      - name
-      - type
-      x-stoplight:
-        id: ay5bipqhvuzoi
   securitySchemes:
     API_Key_-_1:
       type: oauth2

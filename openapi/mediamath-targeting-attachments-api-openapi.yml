@@ -283,38 +283,41 @@ paths:
         description: Numeric ID of the attachment to delete
 components:
   schemas:
-    attachment_create:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    single_metadata:
+      title: single_metadata
       type: object
       properties:
-        target_id:
-          type: number
-          minimum: 1
-          format: int32
-          example: 8
-        strategy_id:
-          type: number
-          minimum: 0
-          format: int32
-          example: 332
-        restriction:
+        status:
           type: string
-          minLength: 1
-          enum:
-          - INCLUDE
-          - EXCLUDE
-        operator:
-          type: string
-          minLength: 1
-          enum:
-          - OR
-          - AND
-        or_better:
-          type: boolean
+          example: success
       required:
-      - target_id
-      - strategy_id
-      - restriction
-      - operator
+      - status
     list_metadata:
       title: pagination metadata
       type: object
@@ -377,6 +380,38 @@ components:
           type: boolean
       required:
       - version
+    attachment_create:
+      type: object
+      properties:
+        target_id:
+          type: number
+          minimum: 1
+          format: int32
+          example: 8
+        strategy_id:
+          type: number
+          minimum: 0
+          format: int32
+          example: 332
+        restriction:
+          type: string
+          minLength: 1
+          enum:
+          - INCLUDE
+          - EXCLUDE
+        operator:
+          type: string
+          minLength: 1
+          enum:
+          - OR
+          - AND
+        or_better:
+          type: boolean
+      required:
+      - target_id
+      - strategy_id
+      - restriction
+      - operator
     attachment_base:
       type: object
       properties:
@@ -427,42 +462,46 @@ components:
       - created_on
       - updated_on
       - version
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
+  responses:
+    attachment:
+      description: Attachment response
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-  responses:
+              data:
+                $ref: '#/components/schemas/attachment_base'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    attachments_list:
+      description: Attachments list response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/attachment_base'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    attachment_deleted:
+      description: Attachment deleted response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
     collection:
       description: Collection response
       content:
@@ -483,46 +522,15 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    attachment_deleted:
-      description: Attachment deleted response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    attachments_list:
-      description: Attachments list response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/attachment_base'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
-    attachment:
-      description: Attachment response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/attachment_base'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
   parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
     page_offset:
       in: query
       name: page_offset
@@ -533,21 +541,6 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
     page_limit:
       in: query
       name: page_limit
@@ -558,17 +551,24 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
   requestBodies:
-    attachment_update:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/attachment_update'
     attachment_create:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/attachment_create'
+    attachment_update:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/attachment_update'
   securitySchemes:
     Auth0:
       type: oauth2

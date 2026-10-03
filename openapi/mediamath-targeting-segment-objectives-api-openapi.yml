@@ -63,45 +63,60 @@ paths:
         required: true
         description: Numeric ID of the targeting_segment_objective to get
 components:
-  responses:
-    collection:
-      description: Collection response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    targeting_segment_objective:
-      description: Targeting segment objectives response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/targeting_segment_objective_response'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
   schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    targeting_segment_objective_response:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          version:
+            type: integer
+          objective:
+            type: string
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
     list_metadata:
       title: pagination metadata
       type: object
@@ -131,59 +146,44 @@ components:
       required:
       - status
       - count
-    targeting_segment_objective_response:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-          version:
-            type: integer
-          objective:
-            type: string
-          created_on:
-            type: string
-            format: date-time
-            readOnly: true
-          updated_on:
-            type: string
-            format: date-time
-            readOnly: true
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
+  responses:
+    targeting_segment_objective:
+      description: Targeting segment objectives response
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
+              data:
+                $ref: '#/components/schemas/targeting_segment_objective_response'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    collection:
+      description: Collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
   securitySchemes:
     Auth0:
       type: oauth2

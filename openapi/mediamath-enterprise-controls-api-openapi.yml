@@ -158,32 +158,6 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
-    control_decimal_array:
-      title: control_decimal_array
-      type: object
-      properties:
-        constraint_values:
-          type: array
-          items:
-            type: number
-            format: float
-        default_values:
-          type: number
-          format: float
-    control_integer_array:
-      title: control_integer_array
-      type: object
-      properties:
-        constraint_values:
-          type: array
-          items:
-            type: integer
-        default_values:
-          oneOf:
-          - type: integer
-          - type: array
-            items:
-              type: integer
     entity_group_advertiser:
       type: object
       allOf:
@@ -194,32 +168,6 @@ components:
             $ref: '#/components/schemas/entity_group_entity'
           organization:
             $ref: '#/components/schemas/entity_group_entity'
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
     control_string:
       title: control_string
       type: object
@@ -245,58 +193,6 @@ components:
           type: integer
         preview:
           type: string
-    entity_group_entity:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    entity_group:
-      type: object
-      properties:
-        id:
-          type: integer
-        version:
-          type: integer
-        name:
-          type: string
-        created_on:
-          type: string
-          format: date-time
-        updated_on:
-          type: string
-          format: date-time
-        organizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/entity_group_entity'
-        agencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/entity_group_agency'
-        advertisers:
-          type: array
-          items:
-            $ref: '#/components/schemas/entity_group_advertiser'
-    entity_group_agency:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/entity_group_entity'
-      - type: object
-        properties:
-          organization:
-            $ref: '#/components/schemas/entity_group_entity'
-    control_decimal:
-      title: control_decimal
-      type: object
-      properties:
-        constraint_values:
-          type: number
-          format: float
-        default_values:
-          type: number
-          format: float
     control_string_array:
       title: control_string_array
       type: object
@@ -311,22 +207,6 @@ components:
           - type: array
             items:
               type: string
-    control_integer:
-      title: control_integer
-      type: object
-      properties:
-        constraint_values:
-          type: integer
-        default_values:
-          type: integer
-    control_boolean:
-      title: control_boolean
-      type: object
-      properties:
-        constraint_values:
-          type: boolean
-        default_values:
-          type: boolean
     enterprise_control:
       type: object
       description: Type of constraint_value depends of field and constraint type. It's array for constraint types one_of, not and between. Default value is consistent with constraint value (can be array or one value).
@@ -360,6 +240,29 @@ components:
         - allOf:
           - $ref: '#/components/schemas/control_boolean'
           description: Possible for constraint types "eq", "ne"
+    control_integer:
+      title: control_integer
+      type: object
+      properties:
+        constraint_values:
+          type: integer
+        default_values:
+          type: integer
+    control_boolean:
+      title: control_boolean
+      type: object
+      properties:
+        constraint_values:
+          type: boolean
+        default_values:
+          type: boolean
+    entity_group_entity:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -389,13 +292,125 @@ components:
       required:
       - status
       - count
+    control_integer_array:
+      title: control_integer_array
+      type: object
+      properties:
+        constraint_values:
+          type: array
+          items:
+            type: integer
+        default_values:
+          oneOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    control_decimal:
+      title: control_decimal
+      type: object
+      properties:
+        constraint_values:
+          type: number
+          format: float
+        default_values:
+          type: number
+          format: float
+    entity_group_agency:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/entity_group_entity'
+      - type: object
+        properties:
+          organization:
+            $ref: '#/components/schemas/entity_group_entity'
+    control_decimal_array:
+      title: control_decimal_array
+      type: object
+      properties:
+        constraint_values:
+          type: array
+          items:
+            type: number
+            format: float
+        default_values:
+          type: number
+          format: float
+    entity_group:
+      type: object
+      properties:
+        id:
+          type: integer
+        version:
+          type: integer
+        name:
+          type: string
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/entity_group_entity'
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/entity_group_agency'
+        advertisers:
+          type: array
+          items:
+            $ref: '#/components/schemas/entity_group_advertiser'
+  parameters:
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
   responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     audit_log:
       description: Audit log response
       content:
@@ -438,27 +453,12 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-  parameters:
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2

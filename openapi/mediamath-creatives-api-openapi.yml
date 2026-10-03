@@ -50,41 +50,6 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
-    creative_base:
-      title: creative
-      type: object
-      properties:
-        atomic_creative_id:
-          type: integer
-          minimum: 1
-        tag:
-          type: string
-        tag_type:
-          type: string
-          enum:
-          - IFRAME_SCRIPT_NOSCRIPT
-          - IFRAME_SCRIPT
-          - IFRAME_NOSCRIPT
-          - IFRAME_IMG
-          - SCRIPT_NOSCRIPT
-          - SCRIPT
-          - NOSCRIPT
-          - IFRAME
-          - IMG
-          - VIDEO
-        inner_tag:
-          type: string
-    creative_response:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/creative_base'
-        meta:
-          type: object
-          properties:
-            status:
-              type: string
-              example: success
     error_response:
       title: error response
       type: object
@@ -111,6 +76,41 @@ components:
           properties:
             status:
               type: string
+    creative_response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/creative_base'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
+    creative_base:
+      title: creative
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+          minimum: 1
+        tag:
+          type: string
+        tag_type:
+          type: string
+          enum:
+          - IFRAME_SCRIPT_NOSCRIPT
+          - IFRAME_SCRIPT
+          - IFRAME_NOSCRIPT
+          - IFRAME_IMG
+          - SCRIPT_NOSCRIPT
+          - SCRIPT
+          - NOSCRIPT
+          - IFRAME
+          - IMG
+          - VIDEO
+        inner_tag:
+          type: string
   responses:
     error:
       description: Error response

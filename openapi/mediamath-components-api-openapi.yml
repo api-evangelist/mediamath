@@ -187,15 +187,13 @@ paths:
       - Components
 components:
   schemas:
-    models.ComponentUpdateRequest:
-      description: Component update request
+    httputil.Response:
       properties:
-        char_limit:
-          type: integer
-        component_human_name:
+        data: {}
+        error:
           type: string
-        is_enabled:
-          type: boolean
+        message:
+          type: string
       type: object
     models.ComponentListResponse:
       description: Component list API response
@@ -206,6 +204,16 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.ComponentUpdateRequest:
+      description: Component update request
+      properties:
+        char_limit:
+          type: integer
+        component_human_name:
+          type: string
+        is_enabled:
+          type: boolean
       type: object
     models.ComponentResponse:
       description: Single component API response
@@ -246,14 +254,6 @@ components:
           type: boolean
         value_type_name:
           description: 'Required: TEXT, IMAGE, VIDEO, INTEGER, SUBTITLE'
-          type: string
-      type: object
-    httputil.Response:
-      properties:
-        data: {}
-        error:
-          type: string
-        message:
           type: string
       type: object
     models.MetaInfo:

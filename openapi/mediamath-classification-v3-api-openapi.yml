@@ -282,73 +282,6 @@ paths:
                 $ref: '#/components/schemas/UIErrorType'
 components:
   schemas:
-    BulkInflatedRecord:
-      type: object
-      properties:
-        atomic_creative_id:
-          type: integer
-        details:
-          $ref: '#/components/schemas/InflatedDetails'
-    UIError:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-        errorMessage:
-          type: string
-        reasonCode:
-          type: integer
-        resource:
-          type: string
-    ClassificationDetail:
-      type: object
-      properties:
-        atomic_creative_id:
-          type: integer
-        details:
-          $ref: '#/components/schemas/Classification'
-    InflatedDetails:
-      type: object
-      properties:
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClassificationAttribute'
-        language:
-          $ref: '#/components/schemas/ClassificationLanguage'
-        verticals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClassificationVertical'
-    UIErrorType:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/UIError'
-    BulkInflatedClassificationResponse:
-      type: object
-      properties:
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkInflatedRecord'
-    ClassificationVertical:
-      type: object
-      properties:
-        children:
-          type: array
-          items:
-            type: integer
-        code:
-          type: string
-        description:
-          type: string
-        id:
-          type: integer
-        parent:
-          type: string
     Classification:
       type: object
       properties:
@@ -377,13 +310,40 @@ components:
           type: string
         terminologic:
           type: string
-    BulkClassificationResponse:
+    ClassificationDetail:
       type: object
       properties:
-        records:
+        atomic_creative_id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/Classification'
+    InflatedDetails:
+      type: object
+      properties:
+        attributes:
           type: array
           items:
-            $ref: '#/components/schemas/ClassificationDetail'
+            $ref: '#/components/schemas/ClassificationAttribute'
+        language:
+          $ref: '#/components/schemas/ClassificationLanguage'
+        verticals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationVertical'
+    UIErrorType:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/UIError'
+    BulkInflatedRecord:
+      type: object
+      properties:
+        atomic_creative_id:
+          type: integer
+        details:
+          $ref: '#/components/schemas/InflatedDetails'
     ClassificationAttribute:
       type: object
       properties:
@@ -397,6 +357,13 @@ components:
           type: string
         parent:
           type: string
+    BulkClassificationResponse:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificationDetail'
     InflatedClassificationResponse:
       type: object
       properties:
@@ -410,6 +377,39 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ClassificationVertical'
+    BulkInflatedClassificationResponse:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkInflatedRecord'
+    UIError:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string
+        reasonCode:
+          type: integer
+        resource:
+          type: string
+    ClassificationVertical:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            type: integer
+        code:
+          type: string
+        description:
+          type: string
+        id:
+          type: integer
+        parent:
+          type: string
   securitySchemes:
     OAuth2:
       type: oauth2

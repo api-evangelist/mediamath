@@ -468,12 +468,51 @@ components:
             type: string
           organization_id:
             type: integer
-    user_permission:
-      title: user permission
+    permission_v2_organization:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          dmp_enabled:
+            type: string
+          value:
+            type: string
+    permission_agency:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          agency_id:
+            type: integer
+    user_permission_update:
+      type: object
+      required:
+      - permissions
+      properties:
+        permissions:
+          type: object
+          properties:
+            organization_ids:
+              type: array
+              items:
+                type: integer
+                format: int32
+            agency_ids:
+              type: array
+              items:
+                type: integer
+                format: int32
+            advertiser_ids:
+              type: array
+              items:
+                type: integer
+                format: int32
+    permission_flags:
       type: object
       properties:
-        id:
-          type: integer
         create:
           type: boolean
         read:
@@ -482,6 +521,37 @@ components:
           type: boolean
         delete:
           type: boolean
+        inherited_from:
+          type: string
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
     permission_list:
       type: object
       properties:
@@ -505,13 +575,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/permission_strategy'
-    permission_advertiser:
+    permission_v2_advertiser:
       allOf:
-      - $ref: '#/components/schemas/permission_flags'
       - type: object
         properties:
-          advertiser_id:
+          id:
             type: integer
+          name:
+            type: string
+          dmp_enabled:
+            type: string
+          agency_id:
+            type: integer
+          value:
+            type: string
     error_response:
       title: error response
       type: object
@@ -538,27 +615,70 @@ components:
           properties:
             status:
               type: string
-    permission_campaign:
+    permission_strategy:
       allOf:
       - $ref: '#/components/schemas/permission_flags'
       - type: object
         properties:
-          campaign_id:
+          strategy_id:
             type: integer
-    permission_v2_advertiser:
+    user_permissions:
+      title: user permissions
+      description: available only when extended
+      type:
+      - object
+      - 'null'
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+        agencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+        advertisers:
+          type: array
+          items:
+            $ref: '#/components/schemas/user_permission'
+    user_permission:
+      title: user permission
+      type: object
+      properties:
+        id:
+          type: integer
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+    permission_advertiser:
       allOf:
+      - $ref: '#/components/schemas/permission_flags'
       - type: object
         properties:
-          id:
+          advertiser_id:
             type: integer
-          name:
-            type: string
-          dmp_enabled:
-            type: string
-          agency_id:
-            type: integer
-          value:
-            type: string
+    user_permissions_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            permissions:
+              $ref: '#/components/schemas/user_permissions'
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
     permission_v2_flags:
       type: object
       properties:
@@ -607,133 +727,13 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/permission_v2_advertiser'
-    permission_v2_organization:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-          name:
-            type: string
-          dmp_enabled:
-            type: string
-          value:
-            type: string
-    permission_flags:
-      type: object
-      properties:
-        create:
-          type: boolean
-        read:
-          type: boolean
-        update:
-          type: boolean
-        delete:
-          type: boolean
-        inherited_from:
-          type: string
-    user_permission_update:
-      type: object
-      required:
-      - permissions
-      properties:
-        permissions:
-          type: object
-          properties:
-            organization_ids:
-              type: array
-              items:
-                type: integer
-                format: int32
-            agency_ids:
-              type: array
-              items:
-                type: integer
-                format: int32
-            advertiser_ids:
-              type: array
-              items:
-                type: integer
-                format: int32
-    permission_strategy:
+    permission_campaign:
       allOf:
       - $ref: '#/components/schemas/permission_flags'
       - type: object
         properties:
-          strategy_id:
+          campaign_id:
             type: integer
-    user_permissions:
-      title: user permissions
-      description: available only when extended
-      type:
-      - object
-      - 'null'
-      properties:
-        organizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/user_permission'
-        agencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/user_permission'
-        advertisers:
-          type: array
-          items:
-            $ref: '#/components/schemas/user_permission'
-    permission_agency:
-      allOf:
-      - $ref: '#/components/schemas/permission_flags'
-      - type: object
-        properties:
-          agency_id:
-            type: integer
-    user_permissions_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-              format: int32
-            permissions:
-              $ref: '#/components/schemas/user_permissions'
-        meta:
-          type: object
-          properties:
-            status:
-              type: string
-              example: success
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
   requestBodies:
     permission_v2_check:
       required: true
@@ -797,13 +797,6 @@ components:
                   type: integer
                   format: int32
                   example: 17
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
   parameters:
     page_offset:
       in: query
@@ -825,6 +818,13 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
+  responses:
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2

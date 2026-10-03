@@ -231,6 +231,233 @@ paths:
         $ref: '#/components/requestBodies/id_list'
 components:
   schemas:
+    agency_update:
+      allOf:
+      - $ref: '#/components/schemas/agency_base'
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 1
+            minimum: 0
+    permission_agency:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          agency_id:
+            type: integer
+    permission_flags:
+      type: object
+      properties:
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+        inherited_from:
+          type: string
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    agency_create:
+      allOf:
+      - $ref: '#/components/schemas/agency_base'
+      - type: object
+        properties:
+          organization_id:
+            type: integer
+            format: int32
+            example: 17
+            minimum: 1
+        required:
+        - organization_id
+        - name
+    agency_response:
+      title: agency_response
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/agency_response_base'
+          - type: object
+            properties:
+              inherited_mfa_avoidance:
+                type: string
+                description: available if mfa_avoidance = INHERIT
+                enum:
+                - INHERIT
+                - ALLOW_ALL
+                - EXCLUDE_MFA
+              inherited_mfa_from:
+                type: string
+                description: available if mfa_avoidance = INHERIT
+                enum:
+                - Organization
+                - Agency
+        meta:
+          $ref: '#/components/schemas/single_metadata'
+    agency_collection:
+      title: agency_collection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    agency_response_base:
+      allOf:
+      - $ref: '#/components/schemas/agency_base'
+      - type: object
+        properties:
+          id:
+            type: integer
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          entity_type:
+            type: string
+          organization_id:
+            type: integer
+            minimum: 1
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+          version:
+            type: integer
+          sales_contact_id:
+            type: integer
+            deprecated: true
+          billing_contact_id:
+            type: integer
+            deprecated: true
+          traffic_contact_id:
+            type: integer
+            deprecated: true
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    agency_collection_full:
+      title: agency_collection_full
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/agency_base'
+          - type: object
+            properties:
+              id:
+                type: integer
+              created_on:
+                type: string
+                format: date-time
+                readOnly: true
+              entity_type:
+                type: string
+              organization_id:
+                type: integer
+                minimum: 1
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
+              version:
+                type: integer
+              organization:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  entity_type:
+                    type: string
+                  rel:
+                    type: string
+              sales_contact_id:
+                type: integer
+                deprecated: true
+              billing_contact_id:
+                type: integer
+                deprecated: true
+              traffic_contact_id:
+                type: integer
+                deprecated: true
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     agency_response_extended:
       title: agency_response_extended
       type: object
@@ -290,251 +517,15 @@ components:
           - INHERIT
           - ALLOW_ALL
           - EXCLUDE_MFA
-    agency_response:
-      title: agency_response
-      type: object
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/agency_response_base'
-          - type: object
-            properties:
-              inherited_mfa_avoidance:
-                type: string
-                description: available if mfa_avoidance = INHERIT
-                enum:
-                - INHERIT
-                - ALLOW_ALL
-                - EXCLUDE_MFA
-              inherited_mfa_from:
-                type: string
-                description: available if mfa_avoidance = INHERIT
-                enum:
-                - Organization
-                - Agency
-        meta:
-          $ref: '#/components/schemas/single_metadata'
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    agency_response_base:
-      allOf:
-      - $ref: '#/components/schemas/agency_base'
-      - type: object
-        properties:
-          id:
-            type: integer
-          created_on:
-            type: string
-            format: date-time
-            readOnly: true
-          entity_type:
-            type: string
-          organization_id:
-            type: integer
-            minimum: 1
-          updated_on:
-            type: string
-            format: date-time
-            readOnly: true
-          version:
-            type: integer
-          sales_contact_id:
-            type: integer
-            deprecated: true
-          billing_contact_id:
-            type: integer
-            deprecated: true
-          traffic_contact_id:
-            type: integer
-            deprecated: true
-    agency_create:
-      allOf:
-      - $ref: '#/components/schemas/agency_base'
-      - type: object
-        properties:
-          organization_id:
-            type: integer
-            format: int32
-            example: 17
-            minimum: 1
-        required:
-        - organization_id
-        - name
-    permission_flags:
-      type: object
-      properties:
-        create:
-          type: boolean
-        read:
-          type: boolean
-        update:
-          type: boolean
-        delete:
-          type: boolean
-        inherited_from:
-          type: string
-    agency_collection_full:
-      title: agency_collection_full
-      type: object
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/agency_base'
-          - type: object
-            properties:
-              id:
-                type: integer
-              created_on:
-                type: string
-                format: date-time
-                readOnly: true
-              entity_type:
-                type: string
-              organization_id:
-                type: integer
-                minimum: 1
-              updated_on:
-                type: string
-                format: date-time
-                readOnly: true
-              version:
-                type: integer
-              organization:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  entity_type:
-                    type: string
-                  rel:
-                    type: string
-              sales_contact_id:
-                type: integer
-                deprecated: true
-              billing_contact_id:
-                type: integer
-                deprecated: true
-              traffic_contact_id:
-                type: integer
-                deprecated: true
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    agency_collection:
-      title: agency_collection
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-              entity_type:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    permission_agency:
-      allOf:
-      - $ref: '#/components/schemas/permission_flags'
-      - type: object
-        properties:
-          agency_id:
-            type: integer
-    agency_update:
-      allOf:
-      - $ref: '#/components/schemas/agency_base'
-      - type: object
-        properties:
-          version:
-            type: integer
-            format: int32
-            example: 1
-            minimum: 0
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
   parameters:
-    q:
+    sort_by:
       in: query
-      name: q
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
       schema:
         type: string
+        example: id, -id, name, -name
       required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
     agencies_with:
       in: query
       name: with
@@ -544,6 +535,13 @@ components:
         - organization
       required: false
       description: Get related property in response
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
     full:
       in: query
       name: full
@@ -554,21 +552,16 @@ components:
       description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
 
         '
-    extended:
+    page_offset:
       in: query
-      name: extended
+      name: page_offset
       schema:
-        type: boolean
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
       required: false
-      description: Get extended properties in response
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
+      description: Index of the first element in the collection to retrieve
     page_limit:
       in: query
       name: page_limit
@@ -579,13 +572,14 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
   responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     audit_log_bulk:
       description: Audit log bulk response
       content:
@@ -670,6 +664,12 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   requestBodies:
     id_list:
       content:

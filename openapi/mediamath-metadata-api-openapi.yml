@@ -92,6 +92,47 @@ paths:
                 $ref: '#/components/schemas/full-report-description'
 components:
   schemas:
+    field-description:
+      title: Field Description
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the human-readable name of the field.
+        type:
+          type: string
+          enum:
+          - float
+          - money
+          - percent
+          - ratio
+          - integer
+          - count
+          - rank
+          - datetime
+          - string
+          - interval
+          - id
+          - bool
+          - boolean
+        access:
+          type: boolean
+          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
+        description:
+          type: string
+        maxLength:
+          type: number
+          description: This property describes the allowable length for string-typed fields.
+        values:
+          type: array
+          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
+          items:
+            type: string
+      required:
+      - name
+      - type
+      x-stoplight:
+        id: ay5bipqhvuzoi
     reports-list:
       title: Reports List
       type: object
@@ -179,47 +220,6 @@ components:
         - time_windows
       x-stoplight:
         id: 8plabb85jgk95
-    field-description:
-      title: Field Description
-      type: object
-      properties:
-        name:
-          type: string
-          description: This is the human-readable name of the field.
-        type:
-          type: string
-          enum:
-          - float
-          - money
-          - percent
-          - ratio
-          - integer
-          - count
-          - rank
-          - datetime
-          - string
-          - interval
-          - id
-          - bool
-          - boolean
-        access:
-          type: boolean
-          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
-        description:
-          type: string
-        maxLength:
-          type: number
-          description: This property describes the allowable length for string-typed fields.
-        values:
-          type: array
-          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
-          items:
-            type: string
-      required:
-      - name
-      - type
-      x-stoplight:
-        id: ay5bipqhvuzoi
     brief-report-description:
       title: Brief Report Description
       type: object

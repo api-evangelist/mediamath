@@ -310,33 +310,6 @@ paths:
       - Creatives - Native
 components:
   schemas:
-    models.EligibilityResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/models.PlacementEligibility'
-          type: array
-        meta:
-          $ref: '#/components/schemas/models.MetaInfo'
-      type: object
-    models.ValidationMeta:
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        status:
-          type: string
-      type: object
-    models.ValidationError:
-      properties:
-        errors:
-          items:
-            $ref: '#/components/schemas/models.ValidationDetail'
-          type: array
-        meta:
-          $ref: '#/components/schemas/models.ValidationMeta'
-      type: object
     models.ComponentCreativeApiResponse:
       description: Standard component creative API response for create, update, and get operations
       properties:
@@ -344,93 +317,6 @@ components:
           $ref: '#/components/schemas/models.ComponentCreativeData'
         meta:
           $ref: '#/components/schemas/models.MetaInfo'
-      type: object
-    models.AdFormat:
-      properties:
-        external_id:
-          type: string
-        name:
-          type: string
-        simple_name:
-          type: string
-      type: object
-    models.ComponentCreativeData:
-      description: Component Creative object with assets and metadata
-      properties:
-        advertiser_id:
-          type: integer
-        advertiser_name:
-          type: string
-        assets:
-          items:
-            $ref: '#/components/schemas/models.Asset'
-          type: array
-        atomic_creative_id:
-          type: integer
-        clickthrough_url:
-          type: string
-        concept_id:
-          type: string
-        concept_name:
-          type: string
-        creative_id:
-          type: integer
-        creative_name:
-          type: string
-        end_date:
-          type: string
-        external_identifier:
-          type: string
-        fb_status:
-          type: string
-        feedback:
-          type: object
-        landing_url:
-          type: string
-        last_modified:
-          type: string
-        last_published:
-          type: string
-        previews:
-          type: object
-        start_date:
-          type: string
-        status:
-          type: boolean
-        unpublished:
-          type: boolean
-      type: object
-    models.Asset:
-      description: Asset associated with a creative
-      properties:
-        asset_id:
-          type: integer
-        asset_type:
-          type: string
-        asset_value:
-          type: string
-        component_human_name:
-          type: string
-        component_id:
-          type: integer
-        image_file_size:
-          type: integer
-        image_filename:
-          type: string
-        image_height:
-          type: integer
-        image_url:
-          type: string
-        image_width:
-          type: integer
-        subtitle_filename:
-          type: string
-        subtitle_url:
-          type: string
-        video_filename:
-          type: string
-        video_url:
-          type: string
       type: object
     models.ComponentCreativeRequest:
       properties:
@@ -476,30 +362,6 @@ components:
         width:
           type: integer
       type: object
-    models.EligibleComponent:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        present:
-          type: boolean
-      type: object
-    httputil.Response:
-      properties:
-        data: {}
-        error:
-          type: string
-        message:
-          type: string
-      type: object
-    models.ValidationDetail:
-      properties:
-        msg:
-          type: string
-        param:
-          type: string
-      type: object
     models.ComponentCreativeListResponse:
       description: Component creative list API response
       properties:
@@ -509,6 +371,47 @@ components:
           type: array
         meta:
           $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.Asset:
+      description: Asset associated with a creative
+      properties:
+        asset_id:
+          type: integer
+        asset_type:
+          type: string
+        asset_value:
+          type: string
+        component_human_name:
+          type: string
+        component_id:
+          type: integer
+        image_file_size:
+          type: integer
+        image_filename:
+          type: string
+        image_height:
+          type: integer
+        image_url:
+          type: string
+        image_width:
+          type: integer
+        subtitle_filename:
+          type: string
+        subtitle_url:
+          type: string
+        video_filename:
+          type: string
+        video_url:
+          type: string
+      type: object
+    models.AdFormat:
+      properties:
+        external_id:
+          type: string
+        name:
+          type: string
+        simple_name:
+          type: string
       type: object
     models.ComponentCreativeUpdateRequest:
       properties:
@@ -558,6 +461,122 @@ components:
         width:
           type: integer
       type: object
+    models.PlacementEligibility:
+      properties:
+        ad_format:
+          $ref: '#/components/schemas/models.AdFormat'
+        eligible:
+          type: boolean
+        optional_components:
+          items:
+            $ref: '#/components/schemas/models.EligibleComponent'
+          type: array
+        required_components:
+          items:
+            $ref: '#/components/schemas/models.EligibleComponent'
+          type: array
+        supplier:
+          type: string
+        supplier_platform:
+          type: string
+      type: object
+    models.ComponentCreativeData:
+      description: Component Creative object with assets and metadata
+      properties:
+        advertiser_id:
+          type: integer
+        advertiser_name:
+          type: string
+        assets:
+          items:
+            $ref: '#/components/schemas/models.Asset'
+          type: array
+        atomic_creative_id:
+          type: integer
+        clickthrough_url:
+          type: string
+        concept_id:
+          type: string
+        concept_name:
+          type: string
+        creative_id:
+          type: integer
+        creative_name:
+          type: string
+        end_date:
+          type: string
+        external_identifier:
+          type: string
+        fb_status:
+          type: string
+        feedback:
+          type: object
+        landing_url:
+          type: string
+        last_modified:
+          type: string
+        last_published:
+          type: string
+        previews:
+          type: object
+        start_date:
+          type: string
+        status:
+          type: boolean
+        unpublished:
+          type: boolean
+      type: object
+    models.ValidationDetail:
+      properties:
+        msg:
+          type: string
+        param:
+          type: string
+      type: object
+    httputil.Response:
+      properties:
+        data: {}
+        error:
+          type: string
+        message:
+          type: string
+      type: object
+    models.ValidationError:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/models.ValidationDetail'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.ValidationMeta'
+      type: object
+    models.ValidationMeta:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        status:
+          type: string
+      type: object
+    models.EligibleComponent:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        present:
+          type: boolean
+      type: object
+    models.EligibilityResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/models.PlacementEligibility'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
     models.MetaInfo:
       description: Response metadata
       properties:
@@ -576,25 +595,6 @@ components:
         total_count:
           type: integer
         type:
-          type: string
-      type: object
-    models.PlacementEligibility:
-      properties:
-        ad_format:
-          $ref: '#/components/schemas/models.AdFormat'
-        eligible:
-          type: boolean
-        optional_components:
-          items:
-            $ref: '#/components/schemas/models.EligibleComponent'
-          type: array
-        required_components:
-          items:
-            $ref: '#/components/schemas/models.EligibleComponent'
-          type: array
-        supplier:
-          type: string
-        supplier_platform:
           type: string
       type: object
   securitySchemes:

@@ -319,6 +319,59 @@ paths:
         $ref: '#/components/requestBodies/organization_update-2'
 components:
   schemas:
+    organization_response:
+      title: organization_response
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/organization_base'
+          - type: object
+            properties:
+              id:
+                type: integer
+              created_on:
+                type: string
+                format: date-time
+                readOnly: true
+              entity_type:
+                type: string
+              terminated:
+                type: boolean
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
+              version:
+                type: integer
+              seats:
+                type:
+                - array
+                - 'null'
+                items:
+                  $ref: '#/components/schemas/exchange_seat_extended'
+            required:
+            - name
+            - status
+            - mm_contact_name
+            - adx_seat_account_id
+            - connected_id_type
+            - contact_name
+            - address_1
+            - city
+            - state
+            - zip
+            - country
+            - phone
+            - currency_code
+            - billing_country_code
+            - dmp_enabled
+        meta:
+          type: object
+          properties:
+            status:
+              type: string
+              example: success
     organization_collection:
       title: organization_collection
       type: object
@@ -336,48 +389,6 @@ components:
                 type: string
         meta:
           $ref: '#/components/schemas/list_metadata'
-    exchange_seat:
-      title: exchange_seat
-      type: object
-      required:
-      - supply_source_id
-      - seat_identifier
-      properties:
-        supply_source_id:
-          type: integer
-          format: int32
-          example: 5
-        seat_identifier:
-          type: string
-        bill_media_to_client:
-          type:
-          - boolean
-          - 'null'
-          default: true
-        rmx_exchange_cost_unit:
-          type:
-          - string
-          - 'null'
-          default: PCT_MEDIA
-        rmx_exchange_cost_cpm:
-          type:
-          - number
-          - 'null'
-          format: float
-          minimum: 0
-          maximum: 9999999.99
-        rmx_exchange_cost_pct:
-          type:
-          - number
-          - 'null'
-          format: float
-          minimum: 0
-          maximum: 100
-        status:
-          type:
-          - boolean
-          - 'null'
-          default: true
     permission_organization:
       allOf:
       - type: object
@@ -385,49 +396,69 @@ components:
           organization_id:
             type: integer
       - $ref: '#/components/schemas/permission_flags'
-    settings_organization_update:
+    organization_create:
+      title: organization_create
+      allOf:
+      - $ref: '#/components/schemas/organization_base'
+      - type: object
+        required:
+        - name
+        - status
+        - mm_contact_name
+        - adx_seat_account_id
+        - connected_id_type
+        - contact_name
+        - address_1
+        - city
+        - state
+        - zip
+        - country
+        - phone
+        - currency_code
+        - billing_country_code
+        - dmp_enabled
+    permission_flags:
       type: object
       properties:
-        settings:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                example: attribute3
-              value:
-                type:
-                - string
-                - 'null'
-                example: value3
-                description: Setting with `value = null` will be removed.
-    error_response:
-      title: error response
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+        inherited_from:
+          type: string
+    list_metadata:
+      title: pagination metadata
       type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
       required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
+      - status
+      - count
     organization_update:
       title: organization_update
       allOf:
@@ -440,6 +471,27 @@ components:
             type: integer
             format: int32
             example: 2
+    exchange_seat_extended:
+      title: exchange_seat_extended
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/exchange_seat'
+          - type: object
+            properties:
+              id:
+                type: integer
+              version:
+                type: integer
+              created_on:
+                type: string
+                format: date-time
+                readOnly: true
+              updated_on:
+                type: string
+                format: date-time
+                readOnly: true
     organization_base:
       type: object
       properties:
@@ -621,114 +673,100 @@ components:
           - string
           - 'null'
           description: Available only for internal users.
-    permission_flags:
+    error_response:
+      title: error response
       type: object
+      required:
+      - errors
+      - meta
       properties:
-        create:
-          type: boolean
-        read:
-          type: boolean
-        update:
-          type: boolean
-        delete:
-          type: boolean
-        inherited_from:
-          type: string
-    organization_create:
-      title: organization_create
-      allOf:
-      - $ref: '#/components/schemas/organization_base'
-      - type: object
-        required:
-        - name
-        - status
-        - mm_contact_name
-        - adx_seat_account_id
-        - connected_id_type
-        - contact_name
-        - address_1
-        - city
-        - state
-        - zip
-        - country
-        - phone
-        - currency_code
-        - billing_country_code
-        - dmp_enabled
-    exchange_seat_extended:
-      title: exchange_seat_extended
-      type: object
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/exchange_seat'
-          - type: object
+        errors:
+          type: array
+          items:
+            type: object
             properties:
-              id:
-                type: integer
-              version:
-                type: integer
-              created_on:
+              code:
                 type: string
-                format: date-time
-                readOnly: true
-              updated_on:
+              field:
+                description: Optional when it is a schema error
                 type: string
-                format: date-time
-                readOnly: true
-    organization_response:
-      title: organization_response
-      type: object
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/organization_base'
-          - type: object
-            properties:
-              id:
-                type: integer
-              created_on:
+              message:
                 type: string
-                format: date-time
-                readOnly: true
-              entity_type:
-                type: string
-              terminated:
-                type: boolean
-              updated_on:
-                type: string
-                format: date-time
-                readOnly: true
-              version:
-                type: integer
-              seats:
-                type:
-                - array
-                - 'null'
-                items:
-                  $ref: '#/components/schemas/exchange_seat_extended'
-            required:
-            - name
-            - status
-            - mm_contact_name
-            - adx_seat_account_id
-            - connected_id_type
-            - contact_name
-            - address_1
-            - city
-            - state
-            - zip
-            - country
-            - phone
-            - currency_code
-            - billing_country_code
-            - dmp_enabled
         meta:
           type: object
+          required:
+          - status
           properties:
             status:
               type: string
-              example: success
+    exchange_seat:
+      title: exchange_seat
+      type: object
+      required:
+      - supply_source_id
+      - seat_identifier
+      properties:
+        supply_source_id:
+          type: integer
+          format: int32
+          example: 5
+        seat_identifier:
+          type: string
+        bill_media_to_client:
+          type:
+          - boolean
+          - 'null'
+          default: true
+        rmx_exchange_cost_unit:
+          type:
+          - string
+          - 'null'
+          default: PCT_MEDIA
+        rmx_exchange_cost_cpm:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          maximum: 9999999.99
+        rmx_exchange_cost_pct:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          maximum: 100
+        status:
+          type:
+          - boolean
+          - 'null'
+          default: true
+    settings_organization_update:
+      type: object
+      properties:
+        settings:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                example: attribute3
+              value:
+                type:
+                - string
+                - 'null'
+                example: value3
+                description: Setting with `value = null` will be removed.
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
     settings_organization:
       type: object
       properties:
@@ -754,45 +792,15 @@ components:
               type: integer
             type:
               type: string
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
   parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
     q:
       in: query
       name: q
@@ -800,16 +808,6 @@ components:
         type: string
       required: false
       description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
     full:
       in: query
       name: full
@@ -820,14 +818,16 @@ components:
       description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
 
         '
-    sort_by:
+    page_offset:
       in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      name: page_offset
       schema:
-        type: string
-        example: id, -id, name, -name
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
       required: false
+      description: Index of the first element in the collection to retrieve
     page_limit:
       in: query
       name: page_limit
@@ -839,12 +839,6 @@ components:
       required: false
       description: Number of elements in the collection to retrieve
   responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     audit_log_bulk:
       description: Audit log bulk response
       content:
@@ -929,6 +923,12 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   requestBodies:
     id_list:
       content:

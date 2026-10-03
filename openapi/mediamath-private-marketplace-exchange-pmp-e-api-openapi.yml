@@ -3522,6 +3522,13 @@ components:
       schema:
         type: string
         default: adama_session=<<sessionid>>
+    trait_jwtAuth_JWT:
+      name: Authorization
+      in: header
+      description: Authorization
+      schema:
+        type: string
+        default: Bearer $TOKEN
     trait_postHeader_Content-Type:
       name: Content-Type
       in: header
@@ -3530,116 +3537,7 @@ components:
       schema:
         type: string
         default: application/json
-    trait_jwtAuth_JWT:
-      name: Authorization
-      in: header
-      description: Authorization
-      schema:
-        type: string
-        default: Bearer $TOKEN
   schemas:
-    update-deal:
-      type: object
-      title: Deal Fields (update)
-      properties:
-        bill_type:
-          type: string
-          enum:
-          - EXCHANGE
-          - NONE
-          - PUBLISHER
-          description: Bill recipient when creating a deal
-          default: EXCHANGE
-        channels:
-          type: array
-          description: List of advertising channel IDs to associate with this deal (use GET /channels to see available channels)
-          items:
-            type: integer
-          example:
-          - 5
-          - 4
-        deal_identifier:
-          type: string
-          description: the identifier used within a bid request to reference the deal
-          maxLength: 255
-        deal_type:
-          type: string
-          enum:
-          - PG
-          - STANDARD
-          description: 'When updating deal to type `PG`, `price_type` must be set to `FIXED` and valid `start_datetime` and `end_datetime` must be present. '
-          default: STANDARD
-        description:
-          type: string
-          description: the description of the deal
-          maxLength: 4095
-        end_datetime:
-          type: string
-          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
-          format: date-time
-        name:
-          type: string
-          description: the name of the deal
-          maxLength: 255
-        permissions:
-          type: object
-          description: List of entities that are allowed to target this deal, which should be either the owner entity or sub-entities of the owner entity. if a higher-level entity is included, then do not include any lower-level entity that is part of the included higher level entity. for example, if an organization X is listed in this parameter, then automatically all agencies and advertisers that are part of the organization X will be included and listing any such agencies and advertisers part of organization X will cause a validation error.
-          properties:
-            advertiser_ids:
-              type: array
-              items:
-                type: integer
-            agency_ids:
-              type: array
-              items:
-                type: integer
-            all_organizations:
-              type: boolean
-            organization_ids:
-              type: array
-              items:
-                type: integer
-          required:
-          - all_organizations
-        price:
-          type: object
-          description: price floor or fixed value to use in auction along with the associated currency code
-          properties:
-            currency_code:
-              type: string
-              description: 3-letter currency code
-              minLength: 3
-              maxLength: 3
-            value:
-              type: string
-              description: Maximum is $9,999,999.9999
-        price_type:
-          type: string
-          enum:
-          - FIXED
-          - FLOOR
-          description: The deal is a "FLOOR" price deal (bids must be above this floor, and will likely clear above this floor) or "FIXED" price deal (bids must be at this price or above, and will clear at the fixed price)
-        start_datetime:
-          type: string
-          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
-          format: date-time
-        status:
-          type: boolean
-          description: whether the deal is active
-          default: true
-        sub_supply_source_id:
-          type:
-          - integer
-          - 'null'
-          description: the id of the publisher if the supply_source_id is set to 83 (BidSwitch)
-        supply_source_id:
-          type: integer
-          description: the exchange providing the deal
-        publisher_id:
-          type:
-          - integer
-          - 'null'
-          description: the publisher id (optional)
     create-deal:
       type: object
       title: Deal Fields (create)
@@ -3771,6 +3669,108 @@ components:
       - permissions
       - price
       - supply_source_id
+    update-deal:
+      type: object
+      title: Deal Fields (update)
+      properties:
+        bill_type:
+          type: string
+          enum:
+          - EXCHANGE
+          - NONE
+          - PUBLISHER
+          description: Bill recipient when creating a deal
+          default: EXCHANGE
+        channels:
+          type: array
+          description: List of advertising channel IDs to associate with this deal (use GET /channels to see available channels)
+          items:
+            type: integer
+          example:
+          - 5
+          - 4
+        deal_identifier:
+          type: string
+          description: the identifier used within a bid request to reference the deal
+          maxLength: 255
+        deal_type:
+          type: string
+          enum:
+          - PG
+          - STANDARD
+          description: 'When updating deal to type `PG`, `price_type` must be set to `FIXED` and valid `start_datetime` and `end_datetime` must be present. '
+          default: STANDARD
+        description:
+          type: string
+          description: the description of the deal
+          maxLength: 4095
+        end_datetime:
+          type: string
+          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
+          format: date-time
+        name:
+          type: string
+          description: the name of the deal
+          maxLength: 255
+        permissions:
+          type: object
+          description: List of entities that are allowed to target this deal, which should be either the owner entity or sub-entities of the owner entity. if a higher-level entity is included, then do not include any lower-level entity that is part of the included higher level entity. for example, if an organization X is listed in this parameter, then automatically all agencies and advertisers that are part of the organization X will be included and listing any such agencies and advertisers part of organization X will cause a validation error.
+          properties:
+            advertiser_ids:
+              type: array
+              items:
+                type: integer
+            agency_ids:
+              type: array
+              items:
+                type: integer
+            all_organizations:
+              type: boolean
+            organization_ids:
+              type: array
+              items:
+                type: integer
+          required:
+          - all_organizations
+        price:
+          type: object
+          description: price floor or fixed value to use in auction along with the associated currency code
+          properties:
+            currency_code:
+              type: string
+              description: 3-letter currency code
+              minLength: 3
+              maxLength: 3
+            value:
+              type: string
+              description: Maximum is $9,999,999.9999
+        price_type:
+          type: string
+          enum:
+          - FIXED
+          - FLOOR
+          description: The deal is a "FLOOR" price deal (bids must be above this floor, and will likely clear above this floor) or "FIXED" price deal (bids must be at this price or above, and will clear at the fixed price)
+        start_datetime:
+          type: string
+          description: 'string / timestamp as full RFC 3339 date strings including timezone offsets: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS-##:##'
+          format: date-time
+        status:
+          type: boolean
+          description: whether the deal is active
+          default: true
+        sub_supply_source_id:
+          type:
+          - integer
+          - 'null'
+          description: the id of the publisher if the supply_source_id is set to 83 (BidSwitch)
+        supply_source_id:
+          type: integer
+          description: the exchange providing the deal
+        publisher_id:
+          type:
+          - integer
+          - 'null'
+          description: the publisher id (optional)
   securitySchemes:
     Bearer:
       type: apiKey

@@ -50,6 +50,32 @@ paths:
           $ref: '#/components/responses/error'
 components:
   schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
     timezone_full:
       allOf:
       - type: object
@@ -80,6 +106,16 @@ components:
             type: string
             format: date-time
             readOnly: true
+    timezone_collection_full:
+      type: object
+      title: timezone_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/timezone_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     list_metadata:
       title: pagination metadata
       type: object
@@ -109,16 +145,6 @@ components:
       required:
       - status
       - count
-    timezone_collection_full:
-      type: object
-      title: timezone_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/timezone_full'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
     timezone_collection:
       type: object
       title: timezone_collection
@@ -136,32 +162,6 @@ components:
                 type: string
         meta:
           $ref: '#/components/schemas/list_metadata'
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
   parameters:
     page_offset:
       in: query

@@ -209,26 +209,129 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
   schemas:
-    new_strategy_group_collection:
-      type: object
-      title: new_strategy_group_collection
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/new_strategy_group_list_item'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    new_strategy_group_update:
+    new_strategy_group_create:
       allOf:
       - $ref: '#/components/schemas/new_strategy_group_base'
       - type: object
+        required:
+        - campaign_id
+        - name
         properties:
-          version:
+          campaign_id:
             type: integer
             format: int32
-            example: 0
+            minimum: 1
+            example: 100
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    new_strategy_group_base:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 1024
+        spend_cap_type:
+          type: string
+          enum:
+          - even
+          - asap
+          - no-limit
+          default: no-limit
+        spend_cap_amount:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0.01
+          maximum: 9999999.99
+        impression_cap_type:
+          type: string
+          enum:
+          - even
+          - asap
+          - no-limit
+          default: no-limit
+        impression_cap_amount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 1
+        external_identifier:
+          type:
+          - string
+          - 'null'
+          maxLength: 256
     new_strategy_group_full:
       allOf:
       - $ref: '#/components/schemas/new_strategy_group_base'
@@ -266,18 +369,6 @@ components:
             type: string
             format: date-time
             readOnly: true
-    new_strategy_group_strategy_embed:
-      type: object
-      description: Minimal strategy shape used as the embed value for ?with=strategies.
-      properties:
-        id:
-          type: integer
-          format: int32
-        entity_type:
-          type: string
-          example: strategy
-        name:
-          type: string
     new_strategy_group_list_item:
       type: object
       properties:
@@ -330,19 +421,16 @@ components:
           properties:
             status:
               type: string
-    new_strategy_group_create:
-      allOf:
-      - $ref: '#/components/schemas/new_strategy_group_base'
-      - type: object
-        required:
-        - campaign_id
-        - name
-        properties:
-          campaign_id:
-            type: integer
-            format: int32
-            minimum: 1
-            example: 100
+    new_strategy_group_collection:
+      type: object
+      title: new_strategy_group_collection
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/new_strategy_group_list_item'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     new_strategy_group_collection_full:
       type: object
       title: new_strategy_group_collection_full
@@ -353,50 +441,27 @@ components:
             $ref: '#/components/schemas/new_strategy_group_full'
         meta:
           $ref: '#/components/schemas/list_metadata'
-    new_strategy_group_base:
+    new_strategy_group_update:
+      allOf:
+      - $ref: '#/components/schemas/new_strategy_group_base'
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 0
+    new_strategy_group_strategy_embed:
       type: object
+      description: Minimal strategy shape used as the embed value for ?with=strategies.
       properties:
+        id:
+          type: integer
+          format: int32
+        entity_type:
+          type: string
+          example: strategy
         name:
           type: string
-          minLength: 1
-          maxLength: 255
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 1024
-        spend_cap_type:
-          type: string
-          enum:
-          - even
-          - asap
-          - no-limit
-          default: no-limit
-        spend_cap_amount:
-          type:
-          - number
-          - 'null'
-          format: float
-          minimum: 0.01
-          maximum: 9999999.99
-        impression_cap_type:
-          type: string
-          enum:
-          - even
-          - asap
-          - no-limit
-          default: no-limit
-        impression_cap_amount:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          minimum: 1
-        external_identifier:
-          type:
-          - string
-          - 'null'
-          maxLength: 256
     new_strategy_group_response:
       type: object
       title: new_strategy_group_response
@@ -409,78 +474,20 @@ components:
             status:
               type: string
               example: success
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-  parameters:
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-  responses:
-    error:
-      description: Error response
+  requestBodies:
+    new_strategy_group_create:
+      required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/error_response'
+            $ref: '#/components/schemas/new_strategy_group_create'
+    new_strategy_group_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/new_strategy_group_update'
+  responses:
     audit_log:
       description: Audit log response
       content:
@@ -523,19 +530,12 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-  requestBodies:
-    new_strategy_group_update:
-      required: true
+    error:
+      description: Error response
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/new_strategy_group_update'
-    new_strategy_group_create:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/new_strategy_group_create'
+            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2

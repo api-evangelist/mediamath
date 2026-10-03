@@ -53,13 +53,14 @@ paths:
       - Approvals
 components:
   schemas:
-    httputil.Response:
+    models.ApprovalsResponse:
       properties:
-        data: {}
-        error:
-          type: string
-        message:
-          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/models.ApprovalStatus'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
       type: object
     models.ApprovalStatus:
       properties:
@@ -72,14 +73,13 @@ components:
             type: string
           type: object
       type: object
-    models.ApprovalsResponse:
+    httputil.Response:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/models.ApprovalStatus'
-          type: array
-        meta:
-          $ref: '#/components/schemas/models.MetaInfo'
+        data: {}
+        error:
+          type: string
+        message:
+          type: string
       type: object
     models.MetaInfo:
       description: Response metadata

@@ -122,6 +122,210 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    budget_flight_collection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    campaign_budget_flights:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 77
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          description: The latest end date of flight must be no more than 36 months after the earliest start date
+        total_budget:
+          type: number
+          format: float
+        total_impression_budget:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 12345
+        is_relevant:
+          type: boolean
+          readOnly: true
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    campaign_budget_flights_create:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          description: The latest end date of flight must be no more than 36 months after the earliest start date
+        total_budget:
+          type: number
+          format: float
+        total_impression_budget:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 12345
+      required:
+      - start_date
+      - end_date
+      - total_budget
+    budget_flight_full:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        campaign_id:
+          type: integer
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        total_budget:
+          type: number
+          format: float
+        is_relevant:
+          type: boolean
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        zone_name:
+          type: string
+        currency_code:
+          type: string
+        total_impression_budget:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+    budget_flight_collection_full:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/budget_flight_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+  parameters:
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
   responses:
     audit_log:
       description: Audit log response
@@ -171,210 +375,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error_response'
-  schemas:
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-    campaign_budget_flights:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          example: 77
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-          description: The latest end date of flight must be no more than 36 months after the earliest start date
-        total_budget:
-          type: number
-          format: float
-        total_impression_budget:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          minimum: 1
-          maximum: 9223372036854776000
-          example: 12345
-        is_relevant:
-          type: boolean
-          readOnly: true
-    campaign_budget_flights_create:
-      type: object
-      properties:
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-          description: The latest end date of flight must be no more than 36 months after the earliest start date
-        total_budget:
-          type: number
-          format: float
-        total_impression_budget:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          minimum: 1
-          maximum: 9223372036854776000
-          example: 12345
-      required:
-      - start_date
-      - end_date
-      - total_budget
-    budget_flight_collection_full:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/budget_flight_full'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    budget_flight_full:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        version:
-          type: integer
-        campaign_id:
-          type: integer
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-        total_budget:
-          type: number
-          format: float
-        is_relevant:
-          type: boolean
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        zone_name:
-          type: string
-        currency_code:
-          type: string
-        total_impression_budget:
-          type:
-          - integer
-          - 'null'
-          minimum: 1
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    budget_flight_collection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              entity_type:
-                type: string
-              name:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-  parameters:
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
   requestBodies:
     budget_flight_bulk_update:
       content:

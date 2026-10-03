@@ -929,7 +929,305 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/atomic_creative_bulk'
 components:
+  responses:
+    atomic_creative:
+      description: Atomic creative response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                anyOf:
+                - $ref: '#/components/schemas/atomic_creative_response'
+                - $ref: '#/components/schemas/atomic_creative_response_extended'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    atomic_creative_healthcheck:
+      description: Atomic creative healthcheck response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/atomic_creative_healthcheck_response'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    atomic_creative_collection:
+      description: Atomic creative collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/atomic_creative_response'
+                  - $ref: '#/components/schemas/atomic_creative_response_extended'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    atomic_creative_bulk:
+      description: Atomic creative bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/atomic_creative_response'
+                  - $ref: '#/components/schemas/atomic_creative_response_extended'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+              errors:
+                $ref: '#/components/schemas/bulk_errors'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  requestBodies:
+    atomic_creative_update:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/atomic_creative_update'
+            - $ref: '#/components/schemas/atomic_creative_vendor'
+    atomic_creative_create:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/atomic_creative_create'
+            - $ref: '#/components/schemas/atomic_creative_vendor'
+    atomic_creative_bulk:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              atomic_creatives:
+                type: object
+                properties:
+                  create:
+                    type: array
+                    items:
+                      allOf:
+                      - $ref: '#/components/schemas/atomic_creative_create'
+                      - $ref: '#/components/schemas/atomic_creative_vendor'
+                  update:
+                    type: array
+                    items:
+                      allOf:
+                      - type: object
+                        properties:
+                          id:
+                            type: integer
+                            format: int32
+                            example: 11
+                      - $ref: '#/components/schemas/atomic_creative_update'
+                      - $ref: '#/components/schemas/atomic_creative_vendor'
   schemas:
+    atomic_creative_response:
+      title: atomic_creative_response
+      type: object
+      properties:
+        id:
+          type: integer
+        version:
+          type: integer
+        entity_type:
+          type: string
+        advertiser_id:
+          type: integer
+        concept_id:
+          type: integer
+        concept_name:
+          type: string
+        name:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        creative_import_file_id:
+          type: integer
+        file_type:
+          type: string
+        is_https:
+          type: boolean
+        is_multi_creative:
+          type: boolean
+        has_sound:
+          type: boolean
+        rich_media:
+          type: boolean
+        rich_media_provider:
+          type: string
+        status:
+          type: boolean
+        archived:
+          type: boolean
+        built:
+          type: boolean
+        build_date:
+          type: string
+        built_by_user_id:
+          type:
+          - integer
+          - 'null'
+        build_errors:
+          type: string
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        last_modified:
+          type: string
+        external_identifier:
+          type: string
+        tpas_ad_tag_name:
+          type: string
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        expand:
+          type: string
+        click_url:
+          type: string
+        ad_format:
+          type: string
+        expansion_direction:
+          type: string
+          maxLength: 19
+          default: NONRESTRICTED
+        expansion_trigger:
+          type: string
+          enum:
+          - AUTOMATIC
+          - MOUSEOVER
+          - CLICK
+          default: MOUSEOVER
+        ad_server_type:
+          type: string
+        t1as:
+          type: boolean
+        tpas_ad_tag:
+          type: string
+        edited_tag:
+          type: string
+        click_through_url:
+          type: string
+        rejected_reason:
+          type: string
+        approval_status:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+        media_type:
+          type: string
+        is_mraid:
+          type: boolean
+        vast_version:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          maximum: 9.9
+        sizmek_tag_status:
+          type: string
+        sizmek_creative_status:
+          type: string
+        last_payload_modified:
+          type: string
+        is_audio:
+          type: boolean
+        tag:
+          type: string
+        tag_type:
+          type: string
+      required:
+      - id
+      - version
+      - entity_type
+      - advertiser_id
+      - name
+      - width
+      - height
+      - file_type
+      - is_https
+      - is_multi_creative
+      - has_sound
+      - rich_media
+      - built
+      - created_on
+      - last_modified
+      - tpas_ad_tag_name
+      - updated_on
+      - ad_format
+      - expansion_trigger
+      - expansion_direction
+      - t1as
+      - approval_status
+      - media_type
+      - is_mraid
+      - sizmek_tag_status
+      - sizmek_creative_status
     atomic_creative_response_extended:
       title: atomic_creative_response_extended
       type: object
@@ -1184,6 +1482,35 @@ components:
       - is_mraid
       - sizmek_tag_status
       - sizmek_creative_status
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
     error_response:
       title: error response
       type: object
@@ -1210,6 +1537,38 @@ components:
           properties:
             status:
               type: string
+    atomic_creative_healthcheck_response:
+      title: atomic_creative_healthcheck_response
+      type: object
+      properties:
+        AdxOpenAuction:
+          type: string
+        AtomicCreativeID:
+          type: integer
+        Freakout:
+          type: string
+        MicrosoftAdExchange:
+          type: string
+        AdxDeals:
+          type: string
+        MoPubDirect:
+          type: string
+        RightMediaExchange:
+          type: string
+        BrightrollForDisplay:
+          type: string
+        AppNexus:
+          type: string
+        EntityType:
+          type: string
+        NetStatus:
+          type: string
+        CreativeName:
+          type: string
+        AdvertiserID:
+          type: integer
+        AdvertiserName:
+          type: string
     atomic_creative_vendor:
       title: atomic_creative_vendor
       type: object
@@ -1222,302 +1581,6 @@ components:
           items:
             type: integer
             format: int32
-    atomic_creative_response:
-      title: atomic_creative_response
-      type: object
-      properties:
-        id:
-          type: integer
-        version:
-          type: integer
-        entity_type:
-          type: string
-        advertiser_id:
-          type: integer
-        concept_id:
-          type: integer
-        concept_name:
-          type: string
-        name:
-          type: string
-        width:
-          type: integer
-        height:
-          type: integer
-        creative_import_file_id:
-          type: integer
-        file_type:
-          type: string
-        is_https:
-          type: boolean
-        is_multi_creative:
-          type: boolean
-        has_sound:
-          type: boolean
-        rich_media:
-          type: boolean
-        rich_media_provider:
-          type: string
-        status:
-          type: boolean
-        archived:
-          type: boolean
-        built:
-          type: boolean
-        build_date:
-          type: string
-        built_by_user_id:
-          type:
-          - integer
-          - 'null'
-        build_errors:
-          type: string
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        last_modified:
-          type: string
-        external_identifier:
-          type: string
-        tpas_ad_tag_name:
-          type: string
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        expand:
-          type: string
-        click_url:
-          type: string
-        ad_format:
-          type: string
-        expansion_direction:
-          type: string
-          maxLength: 19
-          default: NONRESTRICTED
-        expansion_trigger:
-          type: string
-          enum:
-          - AUTOMATIC
-          - MOUSEOVER
-          - CLICK
-          default: MOUSEOVER
-        ad_server_type:
-          type: string
-        t1as:
-          type: boolean
-        tpas_ad_tag:
-          type: string
-        edited_tag:
-          type: string
-        click_through_url:
-          type: string
-        rejected_reason:
-          type: string
-        approval_status:
-          type: string
-        start_date:
-          type: string
-        end_date:
-          type: string
-        media_type:
-          type: string
-        is_mraid:
-          type: boolean
-        vast_version:
-          type:
-          - number
-          - 'null'
-          format: float
-          minimum: 0
-          maximum: 9.9
-        sizmek_tag_status:
-          type: string
-        sizmek_creative_status:
-          type: string
-        last_payload_modified:
-          type: string
-        is_audio:
-          type: boolean
-        tag:
-          type: string
-        tag_type:
-          type: string
-      required:
-      - id
-      - version
-      - entity_type
-      - advertiser_id
-      - name
-      - width
-      - height
-      - file_type
-      - is_https
-      - is_multi_creative
-      - has_sound
-      - rich_media
-      - built
-      - created_on
-      - last_modified
-      - tpas_ad_tag_name
-      - updated_on
-      - ad_format
-      - expansion_trigger
-      - expansion_direction
-      - t1as
-      - approval_status
-      - media_type
-      - is_mraid
-      - sizmek_tag_status
-      - sizmek_creative_status
-    atomic_creative_update:
-      title: atomic_creative_update
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 256
-        version:
-          type: integer
-          format: int32
-          example: 3
-        external_identifier:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 64
-        width:
-          type: integer
-          format: int32
-          example: 80
-        height:
-          type: integer
-          format: int32
-          example: 90
-        concept_id:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          example: 33
-        status:
-          type: boolean
-        archived:
-          type: boolean
-        is_mraid:
-          type: boolean
-        is_https:
-          type: boolean
-        t1as:
-          type: boolean
-        start_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        end_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        vast_version:
-          type:
-          - number
-          - 'null'
-          format: float
-          minimum: 0
-          maximum: 9.9
-        is_audio:
-          type:
-          - boolean
-          - 'null'
-        expansion_direction:
-          type: string
-          maxLength: 19
-          default: NONRESTRICTED
-        expansion_trigger:
-          type: string
-          enum:
-          - AUTOMATIC
-          - MOUSEOVER
-          - CLICK
-          default: MOUSEOVER
-        media_type:
-          type: string
-          enum:
-          - display
-          - video
-          - mobile
-        ad_server_type:
-          type: string
-          enum:
-          - ADOCADO
-          - ATLAS
-          - DART
-          - DOUBLECLICK
-          - EYEWONDER
-          - FLASHTALKING
-          - MEDIAFORGE
-          - MEDIAMIND
-          - MEDIAPLEX
-          - OTHER
-          - POINTROLL
-          - SIZMEK
-          - TERMINALONE
-          - TRUEFFECT
-          - YIELD_MANAGER
-        ad_format:
-          type: string
-          enum:
-          - DISPLAY
-          - MOBILE
-          - EXPANDABLE
-          - FBX
-          - COMPONENT
-          default: DISPLAY
-        tpas_ad_tag:
-          type: string
-        tpas_ad_tag_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-        click_through_url:
-          type:
-          - string
-          - 'null'
-          maxLength: 2048
-          format: uri
-        click_url:
-          format: uri
-          type:
-          - string
-          - 'null'
-          maxLength: 10000
-        edited_tag:
-          type: string
-        tag:
-          type:
-          - string
-          - 'null'
-        built_by_user_id:
-          type: integer
-          readOnly: true
-        tag_type:
-          type: string
-          enum:
-          - IFRAME_SCRIPT_NOSCRIPT
-          - IFRAME_SCRIPT
-          - IFRAME_NOSCRIPT
-          - IFRAME_IMG
-          - SCRIPT_NOSCRIPT
-          - SCRIPT
-          - NOSCRIPT
-          - IFRAME
-          - IMG
-          - VIDEO
     atomic_creative_create:
       title: atomic_creative_create
       type: object
@@ -1716,38 +1779,162 @@ components:
       - height
       - advertiser_id
       - name
-    atomic_creative_healthcheck_response:
-      title: atomic_creative_healthcheck_response
+    single_metadata:
+      title: single_metadata
       type: object
       properties:
-        AdxOpenAuction:
+        status:
           type: string
-        AtomicCreativeID:
+          example: success
+      required:
+      - status
+    atomic_creative_update:
+      title: atomic_creative_update
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        version:
           type: integer
-        Freakout:
-          type: string
-        MicrosoftAdExchange:
-          type: string
-        AdxDeals:
-          type: string
-        MoPubDirect:
-          type: string
-        RightMediaExchange:
-          type: string
-        BrightrollForDisplay:
-          type: string
-        AppNexus:
-          type: string
-        EntityType:
-          type: string
-        NetStatus:
-          type: string
-        CreativeName:
-          type: string
-        AdvertiserID:
+          format: int32
+          example: 3
+        external_identifier:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 64
+        width:
           type: integer
-        AdvertiserName:
+          format: int32
+          example: 80
+        height:
+          type: integer
+          format: int32
+          example: 90
+        concept_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          example: 33
+        status:
+          type: boolean
+        archived:
+          type: boolean
+        is_mraid:
+          type: boolean
+        is_https:
+          type: boolean
+        t1as:
+          type: boolean
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        end_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        vast_version:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          maximum: 9.9
+        is_audio:
+          type:
+          - boolean
+          - 'null'
+        expansion_direction:
           type: string
+          maxLength: 19
+          default: NONRESTRICTED
+        expansion_trigger:
+          type: string
+          enum:
+          - AUTOMATIC
+          - MOUSEOVER
+          - CLICK
+          default: MOUSEOVER
+        media_type:
+          type: string
+          enum:
+          - display
+          - video
+          - mobile
+        ad_server_type:
+          type: string
+          enum:
+          - ADOCADO
+          - ATLAS
+          - DART
+          - DOUBLECLICK
+          - EYEWONDER
+          - FLASHTALKING
+          - MEDIAFORGE
+          - MEDIAMIND
+          - MEDIAPLEX
+          - OTHER
+          - POINTROLL
+          - SIZMEK
+          - TERMINALONE
+          - TRUEFFECT
+          - YIELD_MANAGER
+        ad_format:
+          type: string
+          enum:
+          - DISPLAY
+          - MOBILE
+          - EXPANDABLE
+          - FBX
+          - COMPONENT
+          default: DISPLAY
+        tpas_ad_tag:
+          type: string
+        tpas_ad_tag_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        click_through_url:
+          type:
+          - string
+          - 'null'
+          maxLength: 2048
+          format: uri
+        click_url:
+          format: uri
+          type:
+          - string
+          - 'null'
+          maxLength: 10000
+        edited_tag:
+          type: string
+        tag:
+          type:
+          - string
+          - 'null'
+        built_by_user_id:
+          type: integer
+          readOnly: true
+        tag_type:
+          type: string
+          enum:
+          - IFRAME_SCRIPT_NOSCRIPT
+          - IFRAME_SCRIPT
+          - IFRAME_NOSCRIPT
+          - IFRAME_IMG
+          - SCRIPT_NOSCRIPT
+          - SCRIPT
+          - NOSCRIPT
+          - IFRAME
+          - IMG
+          - VIDEO
     bulk_errors:
       title: bulk errors
       type: array
@@ -1775,193 +1962,6 @@ components:
                   type: string
                 message:
                   type: string
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-  responses:
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
-    atomic_creative_collection:
-      description: Atomic creative collection response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  anyOf:
-                  - $ref: '#/components/schemas/atomic_creative_response'
-                  - $ref: '#/components/schemas/atomic_creative_response_extended'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    audit_log:
-      description: Audit log response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    tool_name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    atomic_creative_bulk:
-      description: Atomic creative bulk response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  anyOf:
-                  - $ref: '#/components/schemas/atomic_creative_response'
-                  - $ref: '#/components/schemas/atomic_creative_response_extended'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-              errors:
-                $ref: '#/components/schemas/bulk_errors'
-    atomic_creative:
-      description: Atomic creative response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                anyOf:
-                - $ref: '#/components/schemas/atomic_creative_response'
-                - $ref: '#/components/schemas/atomic_creative_response_extended'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    atomic_creative_healthcheck:
-      description: Atomic creative healthcheck response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/atomic_creative_healthcheck_response'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-  requestBodies:
-    atomic_creative_create:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/atomic_creative_create'
-            - $ref: '#/components/schemas/atomic_creative_vendor'
-    atomic_creative_update:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/atomic_creative_update'
-            - $ref: '#/components/schemas/atomic_creative_vendor'
-    atomic_creative_bulk:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              atomic_creatives:
-                type: object
-                properties:
-                  create:
-                    type: array
-                    items:
-                      allOf:
-                      - $ref: '#/components/schemas/atomic_creative_create'
-                      - $ref: '#/components/schemas/atomic_creative_vendor'
-                  update:
-                    type: array
-                    items:
-                      allOf:
-                      - type: object
-                        properties:
-                          id:
-                            type: integer
-                            format: int32
-                            example: 11
-                      - $ref: '#/components/schemas/atomic_creative_update'
-                      - $ref: '#/components/schemas/atomic_creative_vendor'
   parameters:
     page_offset:
       in: query
@@ -1973,13 +1973,6 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
-    extended:
-      in: query
-      name: extended
-      schema:
-        type: boolean
-      required: false
-      description: Get extended properties in response
     page_limit:
       in: query
       name: page_limit
@@ -1990,6 +1983,13 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
   securitySchemes:
     Auth0:
       type: oauth2

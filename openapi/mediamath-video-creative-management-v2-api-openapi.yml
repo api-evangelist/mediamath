@@ -289,6 +289,136 @@ paths:
           description: Creative not found
 components:
   schemas:
+    GetStatusResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Overall encoding progress (0-100)
+        encodings:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetStatusResponse_Encoding'
+    GetCreativeVariantsResponse:
+      type: object
+      properties:
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/LegacyEncoding'
+    ErrorInfo:
+      type: object
+      properties:
+        error:
+          type: string
+        index:
+          type: integer
+          description: Index in bulk request (for bulk operations)
+        code:
+          type: string
+        name:
+          type: string
+        field:
+          type: string
+    ModifyCompanionRequest:
+      type: object
+      required:
+      - details
+      properties:
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+          description: File extension
+        fileName:
+          type: string
+          description: File name
+        resourceUrl:
+          type: string
+          description: Resource URL for all other companion types
+        resourceData:
+          type: string
+          description: Resource data encoded in Data URI Scheme for static companion types
+    GetStatusResponse_Encoding:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        id:
+          type: integer
+          format: int64
+          description: Encoding ID
+        statusMessage:
+          type: string
+          description: Status message (e.g. error details)
+    CreateCompanionResponse:
+      type: object
+      properties:
+        companionId:
+          type: integer
+    EncodingStatus:
+      type: string
+      enum:
+      - Pending
+      - Processing
+      - Finished
+      - Waiting
+      - Storing
+      - Details
+      - Error
+    LegacyEncoding:
+      type: object
+      properties:
+        videoCodec:
+          type: string
+        audioCodec:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        bitrateKbps:
+          type: integer
+        format:
+          type: string
+        id:
+          type: integer
+        contentMd5:
+          type: string
+        outputUrl:
+          type: string
+          description: Asset URL
+        encode:
+          type: boolean
+          default: true
+        status:
+          $ref: '#/components/schemas/EncodingStatus'
+        percent:
+          type: number
+          description: Encoding progress (0-100)
+        currentEvent:
+          type: string
+        currentEventPercent:
+          type: number
+        s3ResourceName:
+          type: string
+        stored:
+          type: boolean
+        active:
+          type: boolean
+        copiedUrl:
+          type: string
+          description: Asset URL (copied)
+        sizeBytes:
+          type: integer
+          default: -1
+        errorMessage:
+          type: string
     FileInfo:
       type: object
       properties:
@@ -317,6 +447,46 @@ components:
         hash:
           type: string
           description: File hash
+    CompanionsResponse:
+      type: object
+      properties:
+        companions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CompanionAd'
+          description: Map of companion ID (string) to companion details
+    CompanionAd:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Companion ID
+        details:
+          $ref: '#/components/schemas/CompanionDetails'
+        fileExtension:
+          type: string
+        mimeType:
+          type: string
+        fileName:
+          type: string
+        resourceBlob:
+          type: string
+          description: Data blob used for images
+        resourceUrl:
+          type: string
+          description: URL for external resources
+    ValidateVASTResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: VAST validation error message, omitted if no errors present
+        warnings:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: A set of VAST validation warnings
     CreativeStatusResponse:
       type: object
       properties:
@@ -369,176 +539,6 @@ components:
         clickthroughUrl:
           type: string
           description: Clickthrough URL (required for static companions; must be null for iframe/html)
-    EncodingStatus:
-      type: string
-      enum:
-      - Pending
-      - Processing
-      - Finished
-      - Waiting
-      - Storing
-      - Details
-      - Error
-    CompanionAd:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Companion ID
-        details:
-          $ref: '#/components/schemas/CompanionDetails'
-        fileExtension:
-          type: string
-        mimeType:
-          type: string
-        fileName:
-          type: string
-        resourceBlob:
-          type: string
-          description: Data blob used for images
-        resourceUrl:
-          type: string
-          description: URL for external resources
-    ErrorInfo:
-      type: object
-      properties:
-        error:
-          type: string
-        index:
-          type: integer
-          description: Index in bulk request (for bulk operations)
-        code:
-          type: string
-        name:
-          type: string
-        field:
-          type: string
-    GetStatusResponse_Encoding:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/EncodingStatus'
-        percent:
-          type: number
-          description: Encoding progress (0-100)
-        id:
-          type: integer
-          format: int64
-          description: Encoding ID
-        statusMessage:
-          type: string
-          description: Status message (e.g. error details)
-    CreateCompanionResponse:
-      type: object
-      properties:
-        companionId:
-          type: integer
-    ValidateVASTResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: VAST validation error message, omitted if no errors present
-        warnings:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: A set of VAST validation warnings
-    ModifyCompanionRequest:
-      type: object
-      required:
-      - details
-      properties:
-        details:
-          $ref: '#/components/schemas/CompanionDetails'
-        fileExtension:
-          type: string
-          description: File extension
-        fileName:
-          type: string
-          description: File name
-        resourceUrl:
-          type: string
-          description: Resource URL for all other companion types
-        resourceData:
-          type: string
-          description: Resource data encoded in Data URI Scheme for static companion types
-    LegacyEncoding:
-      type: object
-      properties:
-        videoCodec:
-          type: string
-        audioCodec:
-          type: string
-        width:
-          type: integer
-        height:
-          type: integer
-        bitrateKbps:
-          type: integer
-        format:
-          type: string
-        id:
-          type: integer
-        contentMd5:
-          type: string
-        outputUrl:
-          type: string
-          description: Asset URL
-        encode:
-          type: boolean
-          default: true
-        status:
-          $ref: '#/components/schemas/EncodingStatus'
-        percent:
-          type: number
-          description: Encoding progress (0-100)
-        currentEvent:
-          type: string
-        currentEventPercent:
-          type: number
-        s3ResourceName:
-          type: string
-        stored:
-          type: boolean
-        active:
-          type: boolean
-        copiedUrl:
-          type: string
-          description: Asset URL (copied)
-        sizeBytes:
-          type: integer
-          default: -1
-        errorMessage:
-          type: string
-    GetStatusResponse:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/EncodingStatus'
-        percent:
-          type: number
-          description: Overall encoding progress (0-100)
-        encodings:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetStatusResponse_Encoding'
-    GetCreativeVariantsResponse:
-      type: object
-      properties:
-        variants:
-          type: array
-          items:
-            $ref: '#/components/schemas/LegacyEncoding'
-    CompanionsResponse:
-      type: object
-      properties:
-        companions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CompanionAd'
-          description: Map of companion ID (string) to companion details
   requestBodies:
     POST_video-v2-0-creatives-validateVASTBody:
       content:

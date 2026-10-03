@@ -120,55 +120,72 @@ paths:
         '403':
           $ref: '#/components/responses/error'
 components:
-  responses:
-    health_check:
-      description: Health check response
-      content:
-        application/json:
-          schema:
-            title: health check response
+  schemas:
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
             type: object
             properties:
-              build_version:
+              code:
                 type: string
-              build_date:
+              field:
+                description: Optional when it is a schema error
                 type: string
-              database_connection:
-                type: boolean
-              latency:
+              message:
                 type: string
-                description: 'next format is used: `5 ms` for latency more than 1ms and `5 µs` for latency less than 1ms'
-              node_conns:
-                type: object
-                properties:
-                  acquired:
-                    type: integer
-                  constucting:
-                    type: integer
-                  idle:
-                    type: integer
-              node_max_conns:
-                type: integer
-              node_total_cons:
-                type: integer
-    health_check_503:
-      description: Health check response if code is 503
-      content:
-        application/json:
-          schema:
-            anyOf:
-            - type: object
-              title: health check response
-              properties:
-                build_version:
-                  type: string
-                build_date:
-                  type: string
-                database_connection:
-                  type: boolean
-                error:
-                  type: string
-            - $ref: '#/components/schemas/error_response'
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    search_result:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_type:
+          type: string
+        name:
+          type: string
+  responses:
     list_roles:
       description: List roles response
       content:
@@ -199,6 +216,60 @@ components:
                         type: number
               meta:
                 $ref: '#/components/schemas/list_metadata'
+    search_result:
+      description: Search result
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  organizations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/search_result'
+                  agencies:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/search_result'
+                  advertisers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/search_result'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    health_check:
+      description: Health check response
+      content:
+        application/json:
+          schema:
+            title: health check response
+            type: object
+            properties:
+              build_version:
+                type: string
+              build_date:
+                type: string
+              database_connection:
+                type: boolean
+              latency:
+                type: string
+                description: 'next format is used: `5 ms` for latency more than 1ms and `5 µs` for latency less than 1ms'
+              node_conns:
+                type: object
+                properties:
+                  acquired:
+                    type: integer
+                  constucting:
+                    type: integer
+                  idle:
+                    type: integer
+              node_max_conns:
+                type: integer
+              node_total_cons:
+                type: integer
     list_target_values:
       description: List target values response
       content:
@@ -233,101 +304,30 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    search_result:
-      description: Search result
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  organizations:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/search_result'
-                  agencies:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/search_result'
-                  advertisers:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/search_result'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
     error:
       description: Error response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error_response'
-  schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    search_result:
-      type: object
-      properties:
-        id:
-          type: integer
-        entity_type:
-          type: string
-        name:
-          type: string
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
+    health_check_503:
+      description: Health check response if code is 503
+      content:
+        application/json:
+          schema:
+            anyOf:
+            - type: object
+              title: health check response
+              properties:
+                build_version:
+                  type: string
+                build_date:
+                  type: string
+                database_connection:
+                  type: boolean
+                error:
+                  type: string
+            - $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2

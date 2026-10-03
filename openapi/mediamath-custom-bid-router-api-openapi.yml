@@ -425,21 +425,7 @@ paths:
       security:
       - oauth2: []
 components:
-  requestBodies:
-    PUT_campaign_settings-campaign_idBody:
-      content:
-        application/json:
-          schema: {}
-      description: _
   parameters:
-    param-executor-id:
-      name: executor_id
-      in: path
-      description: The Executor ID identifies an Executor which provide a logical grouping for your Bid Valuation endpoints which are then applied to specific campaigns
-      required: true
-      schema:
-        type: integer
-        format: int32
     param-organization-id:
       name: org_id
       in: path
@@ -448,6 +434,20 @@ components:
       schema:
         type: integer
         format: int32
+    param-executor-id:
+      name: executor_id
+      in: path
+      description: The Executor ID identifies an Executor which provide a logical grouping for your Bid Valuation endpoints which are then applied to specific campaigns
+      required: true
+      schema:
+        type: integer
+        format: int32
+  requestBodies:
+    PUT_campaign_settings-campaign_idBody:
+      content:
+        application/json:
+          schema: {}
+      description: _
   securitySchemes:
     adama-session-header:
       type: apiKey
