@@ -5,6 +5,25 @@ checked:
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 marketplace_apps: []
 edges:
+- partner_name: mParticle
+  partner: mparticle
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://docs.mparticle.com/integrations/mediamath/audience/
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - mediamath
+      integration_types:
+      - audience
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 - partner_name: Google Ad Tech Providers
   partner: null
   partner_match: domain
@@ -28,23 +47,4 @@ edges:
     detected: '2026-10-14'
   detected_by: sweep-adtech.py
   detected: '2026-10-14'
-- partner_name: mParticle
-  partner: mparticle
-  partner_match: aggregator
-  marketplace: coverage
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
-  evidence: https://docs.mparticle.com/integrations/mediamath/audience/
-  coverage_role:
-  - destination
-  cdp_signals:
-    destination:
-      catalog_entries:
-      - mediamath
-      integration_types:
-      - audience
-  detected_by: sweep-cdp.py
-  first_seen: '2026-10-14'
 source: https://docs.mparticle.com/integrations/mediamath/audience/
