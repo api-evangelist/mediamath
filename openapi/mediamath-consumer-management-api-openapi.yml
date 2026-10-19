@@ -1,7 +1,88 @@
 openapi: 3.2.0
 info:
   title: BOF Config Consumer Management API
-  description: '1.'
+  description: '1. What is BOF? 2. How is BOF data accessed? 3. How do I get started with BOF? 4. How do I get self-service access to my BOF config file? 5. List of Filters
+
+    6. Example Filter Implementation
+
+    7. List of Channels (X-Mm-Channel-Type)
+
+    8. List of Geos (X-Mm-Geo)
+
+    9. Tell me more about Role ARN and buckets
+
+    10. Partition Macros for S3/Google cloud users
+
+    11. JSON Object Capabilities
+
+
+    ### What is BOF? The Bid Request Firehose (BOF), is a high performance system designed to ingest bid opportunities from MediaMath bidders and filter and batch these requests to third parties based on configurable parameters. ### How is BOF data accessed? In order to grant access to the BOF, a config file, called a consumer, must be set-up for the internal/external client. There are 2 types of consumers that are available:
+
+
+    1. Web endpoint - This can significantly reduce client data response time but requires the client to operate a web cluster capable of ingesting the traffic. 2. S3 endpoint - This is for clients who are less worried about the delivery time of the data, and prefer to receive the data in larger batch sizes (30,000). This is typically the lowest cost consumer for clients. Compression Types: LZOP, GZIP
+
+
+    Format Types: Json Array, JSONL
+
+
+    ### How do I get started with BOF? Setting up a web or s3 consumer takes minimal effort from the MM side. To get set up, please contact your Account representative and provide the following information:
+
+
+    * If S3 consumer: Role ARN (see below for more details)
+
+    * If S3 consumer: S3 bucket name(s). You will need to create and provide access to a bucket with a role for BOF to deliver files to it. See below for more details. * Note: BOF V2 offers cross-region data replication meaning you do not have to worry about creating multiple buckets e.g all your regional data can be sent to us-east-1
+
+    * Email Contact
+
+    * Which regions you are interested in capturing traffic from i.e US, EMEA, or APAC
+
+    * Sample rate (0-100%): If you plan on receiving data from all of the US you should start with a 1% sample. For reference, as of early March 2020, the United States sees approximately 4 million requests a second during the day, so with a 1% filter and a deployment in ewr/ord/pao (United States) you will see ~40k requests per second. This is plenty of data for a sample. * At least one of the following filters (see below for more details):
+
+    * X-Mm-Geo
+
+    * X-Mm-Deal-Id
+
+    * X-Mm-Exch-Id
+
+    * X-Mm-Channel-Type
+
+
+    ### How do I get self-service access to my BOF config file? As part of the release of BOF v2.0, clients will now have self-service access to their BOF config files. Specifically, they will be able to dynamically update their sample rate, and/or filters without having to engage the MM team. In order to gain self-service access all consumers will need an auth0 account with MediaMath. Please contact developers@mediamath.com to recieve your auth0 client id and secret and then proceed with the following steps:
+
+
+    Curl auth.mediamath.com with your client ID and secret
+
+
+    `POST https://auth.mediamath.com/oauth/token`
+
+
+    Example Request:
+
+    ```
+
+    curl -X POST --header ''content-type: application/json'' ''https://auth.mediamath.com/oauth/token'' -d ''{"audience": "https://api.mediamath.com/opportunity_firehose/", "grant_type":"client_credentials", "client_id":"{CLIENT_ID}", "client_secret":"{CLIENT_SECRET}"}''
+
+    ```
+
+
+    Example Response:
+
+    ```
+
+    {"access_token":"ACCESS_TOKEN_HERE","expires_in":86400,"token_type":"Bearer"}
+
+    ```
+
+
+    Use this token here when sending requests to https://api.mediamath.com/opportunity-firehose/v2.0/
+
+
+    `curl -X GET -H "Authorization:Bearer ACCESS_TOKEN_HERE" ''https://api.mediamath.com/opportunity-firehose/v2.0/''`
+
+
+    # Additional Information
+
+    In addition to the API''s shown in the left column of your display, the following information will help you with updates to your BOF configurations.'
   contact:
     url: https://apidocs.mediamath.com
     name: developers@mediamath.com

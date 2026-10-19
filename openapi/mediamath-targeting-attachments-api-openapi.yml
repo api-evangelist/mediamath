@@ -283,32 +283,6 @@ paths:
         description: Numeric ID of the attachment to delete
 components:
   schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
     single_metadata:
       title: single_metadata
       type: object
@@ -318,100 +292,6 @@ components:
           example: success
       required:
       - status
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
-      required:
-      - status
-      - count
-    attachment_update:
-      type: object
-      properties:
-        target_id:
-          type: number
-          minimum: 0
-          format: int32
-          example: 8
-        version:
-          type: number
-          format: int32
-          example: 1
-        strategy_id:
-          type: number
-          minimum: 1
-          format: int32
-          example: 332
-        restriction:
-          type: string
-          minLength: 1
-          enum:
-          - INCLUDE
-          - EXCLUDE
-        operator:
-          type: string
-          minLength: 1
-          enum:
-          - OR
-          - AND
-        or_better:
-          type: boolean
-      required:
-      - version
-    attachment_create:
-      type: object
-      properties:
-        target_id:
-          type: number
-          minimum: 1
-          format: int32
-          example: 8
-        strategy_id:
-          type: number
-          minimum: 0
-          format: int32
-          example: 332
-        restriction:
-          type: string
-          minLength: 1
-          enum:
-          - INCLUDE
-          - EXCLUDE
-        operator:
-          type: string
-          minLength: 1
-          enum:
-          - OR
-          - AND
-        or_better:
-          type: boolean
-      required:
-      - target_id
-      - strategy_id
-      - restriction
-      - operator
     attachment_base:
       type: object
       properties:
@@ -462,18 +342,166 @@ components:
       - created_on
       - updated_on
       - version
-  responses:
-    attachment:
-      description: Attachment response
-      content:
-        application/json:
-          schema:
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
             type: object
             properties:
-              data:
-                $ref: '#/components/schemas/attachment_base'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    attachment_create:
+      type: object
+      properties:
+        target_id:
+          type: number
+          minimum: 1
+          format: int32
+          example: 8
+        strategy_id:
+          type: number
+          minimum: 0
+          format: int32
+          example: 332
+        restriction:
+          type: string
+          minLength: 1
+          enum:
+          - INCLUDE
+          - EXCLUDE
+        operator:
+          type: string
+          minLength: 1
+          enum:
+          - OR
+          - AND
+        or_better:
+          type: boolean
+      required:
+      - target_id
+      - strategy_id
+      - restriction
+      - operator
+    attachment_update:
+      type: object
+      properties:
+        target_id:
+          type: number
+          minimum: 0
+          format: int32
+          example: 8
+        version:
+          type: number
+          format: int32
+          example: 1
+        strategy_id:
+          type: number
+          minimum: 1
+          format: int32
+          example: 332
+        restriction:
+          type: string
+          minLength: 1
+          enum:
+          - INCLUDE
+          - EXCLUDE
+        operator:
+          type: string
+          minLength: 1
+          enum:
+          - OR
+          - AND
+        or_better:
+          type: boolean
+      required:
+      - version
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+  responses:
     attachments_list:
       description: Attachments list response
       content:
@@ -487,21 +515,6 @@ components:
                   $ref: '#/components/schemas/attachment_base'
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    attachment_deleted:
-      description: Attachment deleted response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     collection:
       description: Collection response
       content:
@@ -522,42 +535,32 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
-  parameters:
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    attachment_deleted:
+      description: Attachment deleted response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    attachment:
+      description: Attachment response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/attachment_base'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   requestBodies:
     attachment_create:
       content:
@@ -589,6 +592,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -598,6 +602,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -611,6 +616,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

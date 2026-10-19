@@ -23,726 +23,146 @@ paths:
     post:
       operationId: preview-creative-assets
       summary: Preview creative assets before uploading
-      description: 'This endpoint allows you to preview creative assets before they are permanently uploaded to the system.
+      description: 'Preview creative assets before permanently uploading them. The endpoint validates
 
-        It validates the files and metadata, returning a preview of what will be created without actually
+        files and metadata and returns the submission shape that `/creative_upload` would
 
-        storing the creatives. This is useful for verifying that your files and metadata are correct before
+        process, without creating creatives. Creative upload limits:
 
-        committing to the upload.'
+
+        | Creative upload shape | Limit |
+
+        | --- | --- |
+
+        | Plain/non-ZIP uploaded files | 500KB per uploaded file |
+
+        | Uploaded ZIP package | 10MB per ZIP file |
+
+        | Direct files in the uploaded outer ZIP | 500KB per direct file |
+
+        | Assets inside an inner HTML5 package ZIP | 500KB recommended maximum; warning only |
+
+        | Uploaded filename form parts | 10 files max |
+
+
+        Send all files in a request with either the `filename` multipart field name
+
+        or the legacy `filename[]` multipart field name; do not mix both field names
+
+        in the same request. The OpenAPI
+
+        `x-max-file-size: 10485760` value is the transport/schema ceiling for uploaded
+
+        ZIP parts. Non-ZIP 500KB and direct outer-ZIP file 500KB limits are endpoint
+
+        validation rules. Assets inside an inner HTML5 package ZIP over 500KB are
+
+        accepted with a `meta.warnings` entry unless the `html5-file-too-large` sub_code
+
+        is promoted to an error by configuration. If multiple ZIP files are uploaded,
+
+        ZIP structural/content validation preserves the legacy behavior of validating
+
+        the first ZIP selected by the request. Top-level uploads may use image extensions (`.gif`, `.jpg`, `.jpeg`, `.png`,
+
+        `.tiff`, `.tif`, `.svg`), the legacy `.swf` extension, loose HTML/CSS/JS/font
+
+        extensions (`.html`, `.htm`, `.css`, `.js`, `.woff`, `.woff2`, `.ttf`, `.otf`),
+
+        or ZIP packages. ZIP-inner HTML5 assets may use image extensions plus `.html`,
+
+        `.htm`, `.css`, `.js`, `.woff`, `.woff2`, `.ttf`, `.otf`, `.mp4`, and `.webm`. HTML5 packages must use a two-level ZIP structure: the outer ZIP contains one
+
+        or more inner ZIP files, each inner ZIP contains the HTML5 creative assets, and
+
+        backup images are included in the outer ZIP. Loose files must not be uploaded
+
+        alongside an HTML5 ZIP package. Nested ZIPs beyond two levels are rejected.'
       tags:
       - Atomic Creatives
       requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              required:
-              - filename
-              - metadata
-              properties:
-                filename:
-                  type: array
-                  description: Creative asset files to upload
-                  minItems: 1
-                  maxItems: 10
-                  items:
-                    type: string
-                    format: binary
-                    x-allowed-extensions:
-                    - .gif
-                    - .jpg
-                    - .jpeg
-                    - .png
-                    - .tiff
-                    - .tif
-                    - .svg
-                    - .swf
-                    - .htm
-                    - .html
-                    - .css
-                    - .js
-                    - .woff
-                    - .woff2
-                    - .ttf
-                    - .otf
-                    - .zip
-                    x-max-file-size: 10485760
-                metadata:
-                  type: object
-                  description: JSON string containing metadata for all files
-                  required:
-                  - advertiser_id
-                  properties:
-                    advertiser_id:
-                      type: integer
-                      format: int32
-                      minimum: 0
-                      example: 123
-                    is_https:
-                      type: boolean
-                      default: true
-                    submissions:
-                      type: array
-                      description: This (optional) array should contain an entry for each file being uploaded (or the files inside the outer zip for HTML5 creatives), with details about the creative. If omitted, the system will attempt to infer details from the uploaded file itself.
-                      items:
-                        type: object
-                        required:
-                        - name
-                        - click_through_url
-                        properties:
-                          name:
-                            type: string
-                            example: one.jpg
-                          click_through_url:
-                            type: string
-                            format: uri
-                            example: https://example.com/clickThrough
-                          landing_page:
-                            type: string
-                            format: uri
-                            example: https://example.com/landing
-                          concept_id:
-                            type: integer
-                            format: int32
-                            minimum: 0
-                            example: 123
-                          backup:
-                            type: string
-                            example: backup_image.jpg
-                            description: Optional backup image filename for HTML5 creatives. Used as a fallback when HTML5 content cannot be displayed.
-            examples:
-              single_image:
-                summary: Single image preview request
-                value:
-                  filename:
-                  - banner_300x250.jpg
-                  metadata:
-                    advertiser_id: 100212
-                    is_https: true
-                    submissions:
-                    - name: banner_300x250.jpg
-                      click_through_url: https://example.com/click
-                      landing_page: https://example.com/landing
-                      concept_id: 4157184
-              multiple_images:
-                summary: Multiple images preview request
-                value:
-                  filename:
-                  - medium_image8.jpg
-                  - medium_image10.jpg
-                  metadata:
-                    advertiser_id: 100212
-                    is_https: false
-                    submissions:
-                    - name: medium_image8.jpg
-                      click_through_url: click1
-                      landing_page: https://example1.com
-                      concept_id: 4157184
-                    - name: medium_image10.jpg
-                      click_through_url: click2
-                      landing_page: https://example2.com
-                      concept_id: 4157184
-              html5_creative:
-                summary: HTML5 creative (zip) preview request - backup can be omitted if it has the same filename as main file (interactive_ad) differing only in extension
-                value:
-                  filename:
-                  - html5_wrap_file.zip
-                  metadata:
-                    advertiser_id: 100212
-                    is_https: true
-                    submissions:
-                    - name: interactive_ad.zip
-                      click_through_url: https://brand.example.com/click
-                      landing_page: https://brand.example.com/products
-                      concept_id: 3001
+        $ref: '#/components/requestBodies/creative_draft'
       responses:
         '200':
-          description: Preview generated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      uploaded_files:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                      metadata:
-                        type: object
-                        properties:
-                          advertiser_id:
-                            type: integer
-                            format: int32
-                          is_https:
-                            type: boolean
-                          submissions:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                name:
-                                  type: string
-                                landing_page:
-                                  type: string
-                                  format: uri
-                                click_through_url:
-                                  type: string
-                                concept_id:
-                                  type: integer
-                                  format: int32
-                                backup:
-                                  type: string
-                  meta:
-                    type: object
-                    properties:
-                      status:
-                        type: string
-              examples:
-                single_image:
-                  summary: Single image preview
-                  value:
-                    data:
-                      uploaded_files:
-                      - name: banner_300x250.jpg
-                      metadata:
-                        advertiser_id: 100212
-                        is_https: true
-                        submissions:
-                        - name: banner_300x250.jpg
-                          landing_page: https://example.com/landing
-                          click_through_url: https://example.com/click
-                          concept_id: 4157184
-                    meta:
-                      status: success
-                multiple_images:
-                  summary: Multiple images preview
-                  value:
-                    data:
-                      uploaded_files:
-                      - name: medium_image8.jpg
-                      - name: medium_image10.jpg
-                      metadata:
-                        advertiser_id: 100212
-                        is_https: false
-                        submissions:
-                        - name: medium_image8.jpg
-                          landing_page: https://example1.com
-                          click_through_url: click1
-                          concept_id: 4157184
-                        - name: medium_image10.jpg
-                          landing_page: https://example2.com
-                          click_through_url: click2
-                          concept_id: 4157184
-                    meta:
-                      status: success
-                html5_creative:
-                  summary: HTML5 creative preview (zip)
-                  value:
-                    data:
-                      uploaded_files:
-                      - name: interactive_ad.zip
-                      metadata:
-                        advertiser_id: 100212
-                        is_https: true
-                        submissions:
-                        - name: interactive_ad.zip
-                          landing_page: https://brand.example.com/products
-                          click_through_url: https://brand.example.com/click
-                          concept_id: 3001
-                    meta:
-                      status: success
+          $ref: '#/components/responses/creative_draft'
         '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type:
-                    - object
-                    - 'null'
-                  meta:
-                    type: object
-                    properties:
-                      status:
-                        type: string
-                      error:
-                        type: string
-              examples:
-                missing_required_field:
-                  summary: Missing required metadata field
-                  value:
-                    data: null
-                    meta:
-                      status: error
-                      error: 'Missing required field: advertiser_id'
-                invalid_file_type:
-                  summary: Invalid file extension
-                  value:
-                    data: null
-                    meta:
-                      status: error
-                      error: 'Invalid file type. Allowed extensions: .gif, .jpg, .jpeg, .png, .tiff, .tif, .svg, .swf, .htm, .html, .css, .js, .woff, .woff2, .ttf, .otf, .zip'
-                file_too_large:
-                  summary: File size exceeds limit
-                  value:
-                    data: null
-                    meta:
-                      status: error
-                      error: File size exceeds maximum allowed size of 10MB
+          $ref: '#/components/responses/creative_validation_errors'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
   /creative_upload:
     post:
       operationId: upload-creative-assets
       summary: Creative assets upload
-      description: 'Upload creative assets to the system and create atomic creatives. This endpoint processes the uploaded
+      description: 'Upload creative assets and create first-party atomic creatives. This endpoint
 
-        files and metadata, validates them, and stores them permanently in the system. Once uploaded, the
+        validates files and metadata, stores assets, and returns the atomic creatives
 
-        creatives can be associated with campaigns and strategies.'
+        that were created. Creative upload limits:
+
+
+        | Creative upload shape | Limit |
+
+        | --- | --- |
+
+        | Plain/non-ZIP uploaded files | 500KB per uploaded file |
+
+        | Uploaded ZIP package | 10MB per ZIP file |
+
+        | Direct files in the uploaded outer ZIP | 500KB per direct file |
+
+        | Assets inside an inner HTML5 package ZIP | 500KB recommended maximum; warning only |
+
+        | Uploaded filename form parts | 10 files max |
+
+
+        Send all files in a request with either the `filename` multipart field name
+
+        or the legacy `filename[]` multipart field name; do not mix both field names
+
+        in the same request. The OpenAPI
+
+        `x-max-file-size: 10485760` value is the transport/schema ceiling for uploaded
+
+        ZIP parts. Non-ZIP 500KB and direct outer-ZIP file 500KB limits are endpoint
+
+        validation rules. Assets inside an inner HTML5 package ZIP over 500KB are
+
+        accepted with a `meta.warnings` entry unless the `html5-file-too-large` sub_code
+
+        is promoted to an error by configuration. If multiple ZIP files are uploaded,
+
+        ZIP structural/content validation preserves the legacy behavior of validating
+
+        the first ZIP selected by the request. Top-level uploads may use image extensions (`.gif`, `.jpg`, `.jpeg`, `.png`,
+
+        `.tiff`, `.tif`, `.svg`), the legacy `.swf` extension, loose HTML/CSS/JS/font
+
+        extensions (`.html`, `.htm`, `.css`, `.js`, `.woff`, `.woff2`, `.ttf`, `.otf`),
+
+        or ZIP packages. ZIP-inner HTML5 assets may use image extensions plus `.html`,
+
+        `.htm`, `.css`, `.js`, `.woff`, `.woff2`, `.ttf`, `.otf`, `.mp4`, and `.webm`. HTML5 packages must use a two-level ZIP structure: the outer ZIP contains one
+
+        or more inner ZIP files, each inner ZIP contains the HTML5 creative assets, and
+
+        backup images are included in the outer ZIP. Loose files must not be uploaded
+
+        alongside an HTML5 ZIP package. Nested ZIPs beyond two levels are rejected.'
       tags:
       - Atomic Creatives
       requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              required:
-              - filename
-              - metadata
-              properties:
-                filename:
-                  type: array
-                  description: Creative asset files to upload
-                  minItems: 1
-                  maxItems: 10
-                  items:
-                    type: string
-                    format: binary
-                    x-allowed-extensions:
-                    - .gif
-                    - .jpg
-                    - .jpeg
-                    - .png
-                    - .tiff
-                    - .tif
-                    - .svg
-                    - .swf
-                    - .htm
-                    - .html
-                    - .css
-                    - .js
-                    - .woff
-                    - .woff2
-                    - .ttf
-                    - .otf
-                    - .zip
-                    x-max-file-size: 10485760
-                metadata:
-                  type: object
-                  description: JSON string containing metadata for all files
-                  required:
-                  - advertiser_id
-                  - submissions
-                  properties:
-                    advertiser_id:
-                      type: integer
-                      format: int32
-                      minimum: 0
-                      example: 123
-                    is_https:
-                      type: boolean
-                      default: true
-                    submissions:
-                      type: array
-                      description: This array should contain an entry for each file being uploaded (or the files inside the outer zip for HTML5 creatives), with details about the creative.
-                      minItems: 1
-                      items:
-                        type: object
-                        required:
-                        - name
-                        - click_through_url
-                        - concept_id
-                        properties:
-                          name:
-                            type: string
-                            maxLength: 256
-                            example: one.jpg
-                            description: The name of the creative file. For HTML5 creatives, this should match the filename inside the zip (e.g., "interactive_ad.zip"). For zip files containing images, this should match the filename inside the zip. For non-HTML5 creatives, this should match the uploaded filename.
-                          click_through_url:
-                            type: string
-                            format: uri
-                            example: https://example.com/clickThrough
-                          landing_page:
-                            type: string
-                            format: uri
-                            example: https://example.com/landing
-                          concept_id:
-                            type: integer
-                            format: int32
-                            minimum: 0
-                            example: 123
-                          backup:
-                            type: string
-                            example: backup_image.jpg
-                            description: Optional backup image filename for HTML5 creatives. Used as a fallback when HTML5 content cannot be displayed.
-                          creative_name:
-                            type: string
-                            maxLength: 256
-                            example: My Custom Creative Name
-                            description: Optional display name for the atomic creative. When provided, this overrides the default name (i.e. the filename).
-            examples:
-              single_upload:
-                summary: Single creative upload request
-                value:
-                  filename:
-                  - holiday_banner_728x90.jpg
-                  metadata:
-                    advertiser_id: 100212
-                    is_https: true
-                    submissions:
-                    - name: holiday_banner_728x90.jpg
-                      click_through_url: https://shop.example.com/holiday-sale
-                      landing_page: https://shop.example.com/landing/holiday
-                      concept_id: 1001
-              multiple_images:
-                summary: Multiple images upload request
-                value:
-                  filename:
-                  - Adobe_Easy_728x90.zip
-                  - Adobe_Easy_300x600.zip
-                  metadata:
-                    advertiser_id: 100212
-                    is_https: true
-                    submissions:
-                    - name: Adobe_Easy_728x90.zip
-                      click_through_url: click
-                      landing_page: https://example.com
-                      concept_id: 4253705
-                    - name: Adobe_Easy_300x600.zip
-                      click_through_url: click
-                      landing_page: https://example.com
-                      concept_id: 4253705
-              html5_creative_upload:
-                summary: HTML5 creative (zip) upload request - backup can be omitted if it has the same filename as main file (interactive_ad) differing only in extension
-                value:
-                  filename:
-                  - html5_wrap_file.zip
-                  metadata:
-                    advertiser_id: 100212
-                    is_https: true
-                    submissions:
-                    - name: interactive_ad.zip
-                      click_through_url: https://brand.example.com/click
-                      landing_page: https://brand.example.com/products
-                      concept_id: 3001
-              html5_creative_upload_with_backup:
-                summary: HTML5 creative (zip) upload request with backup image
-                value:
-                  filename:
-                  - html5_wrap_file.zip
-                  metadata:
-                    advertiser_id: 100212
-                    is_https: true
-                    submissions:
-                    - name: interactive_ad.zip
-                      click_through_url: https://brand.example.com/click
-                      landing_page: https://brand.example.com/products
-                      concept_id: 3001
-                      backup: interactive_ad_backup.jpg
+        $ref: '#/components/requestBodies/creative_upload'
       responses:
-        '200':
-          description: Upload completed successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          format: int64
-                        version:
-                          type: integer
-                        entity_type:
-                          type: string
-                        advertiser_id:
-                          type: integer
-                          format: int32
-                        concept_id:
-                          type: integer
-                          format: int32
-                        concept_name:
-                          type: string
-                        name:
-                          type: string
-                        width:
-                          type: integer
-                        height:
-                          type: integer
-                        file_type:
-                          type: string
-                        is_https:
-                          type: boolean
-                        is_multi_creative:
-                          type: boolean
-                        has_sound:
-                          type: boolean
-                        rich_media:
-                          type: boolean
-                        status:
-                          type: boolean
-                        built:
-                          type: boolean
-                        build_date:
-                          type: string
-                          format: date-time
-                        built_by_user_id:
-                          type: integer
-                          format: int32
-                        created_on:
-                          type: string
-                          format: date-time
-                        last_modified:
-                          type: string
-                          format: date-time
-                        external_identifier:
-                          type: string
-                        tpas_ad_tag_name:
-                          type: string
-                        updated_on:
-                          type: string
-                          format: date-time
-                        click_url:
-                          type: string
-                          format: uri
-                        ad_format:
-                          type: string
-                        expansion_trigger:
-                          type: string
-                        expansion_direction:
-                          type: string
-                        ad_server_type:
-                          type: string
-                        t1as:
-                          type: boolean
-                        edited_tag:
-                          type: string
-                        click_through_url:
-                          type: string
-                        approval_status:
-                          type: string
-                        media_type:
-                          type: string
-                        is_mraid:
-                          type: boolean
-                        sizmek_tag_status:
-                          type: string
-                        sizmek_creative_status:
-                          type: string
-                  meta:
-                    type: object
-                    properties:
-                      status:
-                        type: string
-                      count:
-                        type: integer
-                      total_count:
-                        type: integer
-                      offset:
-                        type: integer
-                      next_page:
-                        type: string
-                        format: uri
-              examples:
-                single_image_upload:
-                  summary: Single image creative uploaded
-                  value:
-                    data:
-                    - id: 11990780
-                      version: 0
-                      entity_type: atomic_creative
-                      advertiser_id: 100212
-                      concept_id: 4253705
-                      concept_name: Concept A
-                      name: banner_300x250.jpg
-                      width: 300
-                      height: 250
-                      file_type: jpg
-                      is_https: true
-                      is_multi_creative: false
-                      has_sound: false
-                      rich_media: false
-                      status: true
-                      built: false
-                      build_date: '2025-12-12T19:17:31Z'
-                      built_by_user_id: 22612
-                      created_on: '2025-12-12T19:17:31Z'
-                      last_modified: '2025-12-12T19:17:31Z'
-                      external_identifier: mm12345.678901
-                      tpas_ad_tag_name: banner_300x250
-                      updated_on: '2025-12-12T19:17:31Z'
-                      click_url: https://example.com
-                      ad_format: DISPLAY
-                      expansion_trigger: MOUSEOVER
-                      expansion_direction: NONRESTRICTED
-                      ad_server_type: TERMINALONE
-                      t1as: true
-                      edited_tag: ''
-                      click_through_url: https://example.com/click
-                      approval_status: PENDING
-                      media_type: display
-                      is_mraid: false
-                      sizmek_tag_status: NOT_USED
-                      sizmek_creative_status: NOT_USED
-                    meta:
-                      status: success
-                      count: 1
-                      total_count: 1
-                      offset: 0
-                      next_page: https://api.mediamath.com/creative_upload?page_offset=0
-                multiple_creatives_upload:
-                  summary: HTML5 creative upload - multiple creatives
-                  value:
-                    data:
-                    - id: 11990782
-                      version: 0
-                      entity_type: atomic_creative
-                      advertiser_id: 100212
-                      concept_id: 4253705
-                      concept_name: Concept A
-                      name: Adobe_Easy_728x90
-                      width: 728
-                      height: 90
-                      file_type: html5
-                      is_https: true
-                      is_multi_creative: false
-                      has_sound: false
-                      rich_media: false
-                      status: true
-                      built: false
-                      build_date: '2025-12-12T19:17:31Z'
-                      built_by_user_id: 22612
-                      created_on: '2025-12-12T19:17:31Z'
-                      last_modified: '2025-12-12T19:17:31Z'
-                      external_identifier: mm87682.637552
-                      tpas_ad_tag_name: Adobe_Easy_728x90
-                      updated_on: '2025-12-12T19:17:31Z'
-                      click_url: https://example.com
-                      ad_format: DISPLAY
-                      expansion_trigger: MOUSEOVER
-                      expansion_direction: NONRESTRICTED
-                      ad_server_type: TERMINALONE
-                      t1as: true
-                      edited_tag: <!DOCTYPE html>...
-                      click_through_url: click
-                      approval_status: PENDING
-                      media_type: display
-                      is_mraid: false
-                      sizmek_tag_status: NOT_USED
-                      sizmek_creative_status: NOT_USED
-                    - id: 11990783
-                      version: 0
-                      entity_type: atomic_creative
-                      advertiser_id: 100212
-                      concept_id: 4253705
-                      concept_name: Concept A
-                      name: Adobe_Easy_300x600
-                      width: 728
-                      height: 90
-                      file_type: html5
-                      is_https: true
-                      is_multi_creative: false
-                      has_sound: false
-                      rich_media: false
-                      status: true
-                      built: false
-                      build_date: '2025-12-12T19:17:32Z'
-                      built_by_user_id: 22612
-                      created_on: '2025-12-12T19:17:32Z'
-                      last_modified: '2025-12-12T19:17:32Z'
-                      external_identifier: mm47594.615037
-                      tpas_ad_tag_name: Adobe_Easy_300x600
-                      updated_on: '2025-12-12T19:17:32Z'
-                      click_url: https://example.com
-                      ad_format: DISPLAY
-                      expansion_trigger: MOUSEOVER
-                      expansion_direction: NONRESTRICTED
-                      ad_server_type: TERMINALONE
-                      t1as: true
-                      edited_tag: <!DOCTYPE html>...
-                      click_through_url: click
-                      approval_status: PENDING
-                      media_type: display
-                      is_mraid: false
-                      sizmek_tag_status: NOT_USED
-                      sizmek_creative_status: NOT_USED
-                    meta:
-                      status: success
-                      count: 2
-                      total_count: 2
-                      offset: 0
-                      next_page: https://api.mediamath.com/creative_upload?page_offset=0
+        '201':
+          $ref: '#/components/responses/creative_upload'
         '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type:
-                    - object
-                    - 'null'
-                  meta:
-                    type: object
-                    properties:
-                      status:
-                        type: string
-                      error:
-                        type: string
-              examples:
-                validation_error:
-                  summary: Validation failed
-                  value:
-                    data: null
-                    meta:
-                      status: error
-                      error: 'Invalid metadata: submissions array cannot be empty'
-                invalid_concept:
-                  summary: Invalid concept ID
-                  value:
-                    data: null
-                    meta:
-                      status: error
-                      error: Concept ID 999 not found for advertiser 100212
-                file_processing_error:
-                  summary: File processing failed
-                  value:
-                    data: null
-                    meta:
-                      status: error
-                      error: 'Failed to process file: corrupted zip archive'
-                unauthorized_advertiser:
-                  summary: Unauthorized advertiser access
-                  value:
-                    data: null
-                    meta:
-                      status: error
-                      error: User does not have access to advertiser 100212
+          $ref: '#/components/responses/creative_validation_errors'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/creative_not_authorized'
   /atomic_creatives:
     get:
       operationId: list-atomic-creatives
@@ -929,305 +349,87 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/atomic_creative_bulk'
 components:
-  responses:
-    atomic_creative:
-      description: Atomic creative response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                anyOf:
-                - $ref: '#/components/schemas/atomic_creative_response'
-                - $ref: '#/components/schemas/atomic_creative_response_extended'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    atomic_creative_healthcheck:
-      description: Atomic creative healthcheck response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/atomic_creative_healthcheck_response'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    atomic_creative_collection:
-      description: Atomic creative collection response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  anyOf:
-                  - $ref: '#/components/schemas/atomic_creative_response'
-                  - $ref: '#/components/schemas/atomic_creative_response_extended'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    atomic_creative_bulk:
-      description: Atomic creative bulk response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  anyOf:
-                  - $ref: '#/components/schemas/atomic_creative_response'
-                  - $ref: '#/components/schemas/atomic_creative_response_extended'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-              errors:
-                $ref: '#/components/schemas/bulk_errors'
-    audit_log:
-      description: Audit log response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    tool_name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
-  requestBodies:
-    atomic_creative_update:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/atomic_creative_update'
-            - $ref: '#/components/schemas/atomic_creative_vendor'
-    atomic_creative_create:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/atomic_creative_create'
-            - $ref: '#/components/schemas/atomic_creative_vendor'
-    atomic_creative_bulk:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              atomic_creatives:
-                type: object
-                properties:
-                  create:
-                    type: array
-                    items:
-                      allOf:
-                      - $ref: '#/components/schemas/atomic_creative_create'
-                      - $ref: '#/components/schemas/atomic_creative_vendor'
-                  update:
-                    type: array
-                    items:
-                      allOf:
-                      - type: object
-                        properties:
-                          id:
-                            type: integer
-                            format: int32
-                            example: 11
-                      - $ref: '#/components/schemas/atomic_creative_update'
-                      - $ref: '#/components/schemas/atomic_creative_vendor'
   schemas:
-    atomic_creative_response:
-      title: atomic_creative_response
+    creative_collection_created_metadata:
       type: object
       properties:
-        id:
-          type: integer
-        version:
-          type: integer
-        entity_type:
+        status:
           type: string
-        advertiser_id:
+          example: success
+        count:
           type: integer
-        concept_id:
-          type: integer
-        concept_name:
-          type: string
+          example: 1
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/creative_warning'
+      required:
+      - status
+      - count
+    creative_asset_submission_draft:
+      type: object
+      required:
+      - name
+      - click_through_url
+      properties:
         name:
           type: string
-        width:
-          type: integer
-        height:
-          type: integer
-        creative_import_file_id:
-          type: integer
-        file_type:
-          type: string
-        is_https:
-          type: boolean
-        is_multi_creative:
-          type: boolean
-        has_sound:
-          type: boolean
-        rich_media:
-          type: boolean
-        rich_media_provider:
-          type: string
-        status:
-          type: boolean
-        archived:
-          type: boolean
-        built:
-          type: boolean
-        build_date:
-          type: string
-        built_by_user_id:
-          type:
-          - integer
-          - 'null'
-        build_errors:
-          type: string
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        last_modified:
-          type: string
-        external_identifier:
-          type: string
-        tpas_ad_tag_name:
-          type: string
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        expand:
-          type: string
-        click_url:
-          type: string
-        ad_format:
-          type: string
-        expansion_direction:
-          type: string
-          maxLength: 19
-          default: NONRESTRICTED
-        expansion_trigger:
-          type: string
-          enum:
-          - AUTOMATIC
-          - MOUSEOVER
-          - CLICK
-          default: MOUSEOVER
-        ad_server_type:
-          type: string
-        t1as:
-          type: boolean
-        tpas_ad_tag:
-          type: string
-        edited_tag:
-          type: string
+          example: banner_300x250.jpg
+          description: 'The creative file name. For loose/non-ZIP uploads this is the uploaded
+
+            filename. For regular ZIPs this is a file inside the ZIP. For HTML5
+
+            packages this is the inner ZIP filename, such as `interactive_ad.zip`.
+
+            '
         click_through_url:
           type: string
-        rejected_reason:
+          format: uri
+          example: https://example.com/click
+        landing_page:
           type: string
-        approval_status:
+          format: uri
+          example: https://example.com/landing
+        concept_id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 123
+        backup:
           type: string
-        start_date:
+          example: backup_image.jpg
+          description: 'Optional backup image filename for HTML5 creatives. Backup images must be
+
+            inside the HTML5 ZIP package. If omitted, the API attempts to find an
+
+            image with the same base filename as the HTML5 package.
+
+            '
+        mraid_type:
           type: string
-        end_date:
+          enum:
+          - static
+          - expandable
+          - interstitial
+          description: 'Optional MRAID type. `expandable` requires the `expandable` image field;
+
+            `expandable` must not be supplied for other MRAID types.
+
+            '
+        expandable:
           type: string
-        media_type:
-          type: string
-        is_mraid:
-          type: boolean
-        vast_version:
-          type:
-          - number
-          - 'null'
-          format: float
-          minimum: 0
-          maximum: 9.9
-        sizmek_tag_status:
-          type: string
-        sizmek_creative_status:
-          type: string
-        last_payload_modified:
-          type: string
-        is_audio:
-          type: boolean
-        tag:
-          type: string
-        tag_type:
-          type: string
+          example: expandable_image.jpg
+          description: Required when `mraid_type` is `expandable`; otherwise invalid.
+    creative_draft_request:
+      type: object
       required:
-      - id
-      - version
-      - entity_type
-      - advertiser_id
-      - name
-      - width
-      - height
-      - file_type
-      - is_https
-      - is_multi_creative
-      - has_sound
-      - rich_media
-      - built
-      - created_on
-      - last_modified
-      - tpas_ad_tag_name
-      - updated_on
-      - ad_format
-      - expansion_trigger
-      - expansion_direction
-      - t1as
-      - approval_status
-      - media_type
-      - is_mraid
-      - sizmek_tag_status
-      - sizmek_creative_status
+      - filename
+      - metadata
+      properties:
+        filename:
+          $ref: '#/components/schemas/creative_upload_filename'
+        metadata:
+          $ref: '#/components/schemas/creative_upload_metadata_draft'
     atomic_creative_response_extended:
       title: atomic_creative_response_extended
       type: object
@@ -1482,105 +684,237 @@ components:
       - is_mraid
       - sizmek_tag_status
       - sizmek_creative_status
-    list_metadata:
-      title: pagination metadata
+    atomic_creative_response:
+      title: atomic_creative_response
       type: object
       properties:
+        id:
+          type: integer
+        version:
+          type: integer
+        entity_type:
+          type: string
+        advertiser_id:
+          type: integer
+        concept_id:
+          type: integer
+        concept_name:
+          type: string
+        name:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        creative_import_file_id:
+          type: integer
+        file_type:
+          type: string
+        is_https:
+          type: boolean
+        is_multi_creative:
+          type: boolean
+        has_sound:
+          type: boolean
+        rich_media:
+          type: boolean
+        rich_media_provider:
+          type: string
         status:
+          type: boolean
+        archived:
+          type: boolean
+        built:
+          type: boolean
+        build_date:
           type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
+        built_by_user_id:
+          type:
+          - integer
+          - 'null'
+        build_errors:
           type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
+        created_on:
           type: string
-          description: The URL to fetch the previous page of results.
+          format: date-time
+          readOnly: true
+        last_modified:
+          type: string
+        external_identifier:
+          type: string
+        tpas_ad_tag_name:
+          type: string
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        expand:
+          type: string
+        click_url:
+          type: string
+        ad_format:
+          type: string
+        expansion_direction:
+          type: string
+          maxLength: 19
+          default: NONRESTRICTED
+        expansion_trigger:
+          type: string
+          enum:
+          - AUTOMATIC
+          - MOUSEOVER
+          - CLICK
+          default: MOUSEOVER
+        ad_server_type:
+          type: string
+        t1as:
+          type: boolean
+        tpas_ad_tag:
+          type: string
+        edited_tag:
+          type: string
+        click_through_url:
+          type: string
+        rejected_reason:
+          type: string
+        approval_status:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+        media_type:
+          type: string
+        is_mraid:
+          type: boolean
+        vast_version:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          maximum: 9.9
+        sizmek_tag_status:
+          type: string
+        sizmek_creative_status:
+          type: string
+        last_payload_modified:
+          type: string
+        is_audio:
+          type: boolean
+        tag:
+          type: string
+        tag_type:
+          type: string
       required:
-      - status
-      - count
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
+      - id
+      - version
+      - entity_type
+      - advertiser_id
+      - name
+      - width
+      - height
+      - file_type
+      - is_https
+      - is_multi_creative
+      - has_sound
+      - rich_media
+      - built
+      - created_on
+      - last_modified
+      - tpas_ad_tag_name
+      - updated_on
+      - ad_format
+      - expansion_trigger
+      - expansion_direction
+      - t1as
+      - approval_status
+      - media_type
+      - is_mraid
+      - sizmek_tag_status
+      - sizmek_creative_status
     atomic_creative_healthcheck_response:
       title: atomic_creative_healthcheck_response
       type: object
       properties:
-        AdxOpenAuction:
-          type: string
-        AtomicCreativeID:
+        atomic_creative_id:
           type: integer
-        Freakout:
+          description: ID of the atomic creative.
+        creative_name:
           type: string
-        MicrosoftAdExchange:
-          type: string
-        AdxDeals:
-          type: string
-        MoPubDirect:
-          type: string
-        RightMediaExchange:
-          type: string
-        BrightrollForDisplay:
-          type: string
-        AppNexus:
-          type: string
-        EntityType:
-          type: string
-        NetStatus:
-          type: string
-        CreativeName:
-          type: string
-        AdvertiserID:
+          description: Name of the atomic creative.
+        advertiser_id:
           type: integer
-        AdvertiserName:
+          description: ID of the advertiser the creative belongs to.
+        advertiser_name:
           type: string
-    atomic_creative_vendor:
-      title: atomic_creative_vendor
-      type: object
-      properties:
-        vendor_ids:
-          type: array
-          example:
-          - 3
-          - 56
-          items:
-            type: integer
-            format: int32
+          description: Name of the advertiser the creative belongs to.
+        entity_type:
+          type: string
+          description: Always `creative_healthcheck`.
+        net_status:
+          type: string
+          description: Overall status across all exchanges. `REJECTED` if any exchange rejected the creative, otherwise the most severe pending state across exchanges. `N/A` when the creative has no approval records on any exchange.
+          enum:
+          - APPROVED
+          - REJECTED
+          - PENDING
+          - PENDING > 48 Hours
+          - N/A
+        adx_open_auction:
+          type: string
+          description: Approval status on Google AdX (open auction). `N/A` when no approval record exists; a `PENDING` status becomes `PENDING > 48 Hours` when unchanged for more than 48 hours.
+        adx_deals:
+          type: string
+          description: Approval status on Google AdX (deals). Same values as `adx_open_auction`.
+        app_nexus:
+          type: string
+          description: Approval status on AppNexus (Xandr). Same values as `adx_open_auction`.
+        microsoft_ad_exchange:
+          type: string
+          description: Approval status on Microsoft Ad Exchange. Same values as `adx_open_auction`.
+        right_media_exchange:
+          type: string
+          description: Approval status on Right Media Exchange. Same values as `adx_open_auction`.
+        brightroll_for_display:
+          type: string
+          description: Approval status on BrightRoll for Display. Same values as `adx_open_auction`.
+        mopub_direct:
+          type: string
+          description: Approval status on MoPub Direct. Same values as `adx_open_auction`.
+        freakout:
+          type: string
+          description: Approval status on FreakOut. Same values as `adx_open_auction`.
+        freewheel:
+          type: string
+          description: Approval status on FreeWheel. Same values as `adx_open_auction`.
+        adx_open_auction_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on Google AdX (open auction). Only present when `adx_open_auction` is `REJECTED`.
+        adx_deals_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on Google AdX (deals). Only present when `adx_deals` is `REJECTED`.
+        app_nexus_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on AppNexus (Xandr). Only present when `app_nexus` is `REJECTED`.
+        microsoft_ad_exchange_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on Microsoft Ad Exchange. Only present when `microsoft_ad_exchange` is `REJECTED`.
+        right_media_exchange_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on Right Media Exchange. Only present when `right_media_exchange` is `REJECTED`.
+        brightroll_for_display_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on BrightRoll for Display. Only present when `brightroll_for_display` is `REJECTED`.
+        mopub_direct_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on MoPub Direct. Only present when `mopub_direct` is `REJECTED`.
+        freakout_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on FreakOut. Only present when `freakout` is `REJECTED`.
+        freewheel_rejected_reason:
+          type: string
+          description: Reason the creative was rejected on FreeWheel. Only present when `freewheel` is `REJECTED`.
     atomic_creative_create:
       title: atomic_creative_create
       type: object
@@ -1788,6 +1122,206 @@ components:
           example: success
       required:
       - status
+    creative_asset_submission_base:
+      type: object
+      properties:
+        name:
+          type: string
+          example: banner_300x250.jpg
+          description: 'The creative file name. For loose/non-ZIP uploads this is the uploaded
+
+            filename. For regular ZIPs this is a file inside the ZIP. For HTML5
+
+            packages this is the inner ZIP filename, such as `interactive_ad.zip`.
+
+            '
+        click_through_url:
+          type: string
+          format: uri
+          example: https://example.com/click
+        landing_page:
+          type: string
+          format: uri
+          example: https://example.com/landing
+        concept_id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 123
+        backup:
+          type: string
+          example: backup_image.jpg
+          description: 'Optional backup image filename for HTML5 creatives. Backup images must be
+
+            inside the HTML5 ZIP package. If omitted, the API attempts to find an
+
+            image with the same base filename as the HTML5 package.
+
+            '
+        mraid_type:
+          type: string
+          enum:
+          - static
+          - expandable
+          - interstitial
+          description: 'Optional MRAID type. `expandable` requires the `expandable` image field;
+
+            `expandable` must not be supplied for other MRAID types.
+
+            '
+        expandable:
+          type: string
+          example: expandable_image.jpg
+          description: Required when `mraid_type` is `expandable`; otherwise invalid.
+    bulk_errors:
+      title: bulk errors
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          action:
+            type: string
+          entity_type:
+            type: string
+          index:
+            type: integer
+          errors:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                code:
+                  type: string
+                field:
+                  type: string
+                message:
+                  type: string
+    creative_upload_metadata_draft:
+      type: object
+      description: 'JSON metadata for the preview request. `submissions` is optional for draft:
+
+        when omitted, the API attempts to infer submission entries from the uploaded
+
+        files.
+
+        '
+      required:
+      - advertiser_id
+      properties:
+        advertiser_id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 123
+        is_https:
+          type: boolean
+          default: true
+        submissions:
+          type: array
+          description: Optional submission details for uploaded files.
+          items:
+            $ref: '#/components/schemas/creative_asset_submission_draft'
+    creative_single_metadata_with_warnings:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        warnings:
+          type: array
+          items:
+            $ref: '#/components/schemas/creative_warning'
+      required:
+      - status
+    creative_upload_metadata_upload:
+      type: object
+      description: JSON metadata for the upload request.
+      required:
+      - advertiser_id
+      - submissions
+      properties:
+        advertiser_id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 123
+        is_https:
+          type: boolean
+          default: true
+        submissions:
+          type: array
+          description: Submission details for files being uploaded or ZIP/HTML5 package entries.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/creative_asset_submission_upload'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    creative_draft_response_data:
+      type: object
+      properties:
+        uploaded_files:
+          type: array
+          items:
+            $ref: '#/components/schemas/creative_uploaded_file'
+        metadata:
+          type: object
+          properties:
+            advertiser_id:
+              type: integer
+              format: int32
+            is_https:
+              type: boolean
+            submissions:
+              type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/creative_asset_submission_base'
+    creative_uploaded_file:
+      type: object
+      properties:
+        name:
+          type: string
+    creative_upload_request:
+      type: object
+      required:
+      - filename
+      - metadata
+      properties:
+        filename:
+          $ref: '#/components/schemas/creative_upload_filename'
+        metadata:
+          $ref: '#/components/schemas/creative_upload_metadata_upload'
     atomic_creative_update:
       title: atomic_creative_update
       type: object
@@ -1935,44 +1469,686 @@ components:
           - IFRAME
           - IMG
           - VIDEO
-    bulk_errors:
-      title: bulk errors
+    creative_warning:
+      type: object
+      properties:
+        code:
+          type: string
+          example: warning
+        sub_code:
+          type: string
+          example: html5-noscript-tag
+        message:
+          type: string
+        field:
+          type: string
+    atomic_creative_vendor:
+      title: atomic_creative_vendor
+      type: object
+      properties:
+        vendor_ids:
+          type: array
+          example:
+          - 3
+          - 56
+          items:
+            type: integer
+            format: int32
+    creative_upload_filename:
       type: array
+      description: 'Creative files to upload. Send all files in a request as either `filename`
+
+        or the legacy `filename[]` field name; do not mix both field names in the
+
+        same request.
+
+
+        Loose/non-ZIP uploads are limited to 500KB per file. Uploaded ZIP packages are
+
+        limited to 10MB per ZIP. Direct files in the uploaded outer ZIP are limited to
+
+        500KB. Assets inside an inner HTML5 package ZIP over 500KB are accepted with a
+
+        warning unless the `html5-file-too-large` sub_code is promoted to an error. If
+
+        multiple ZIP files are uploaded, ZIP structural/content validation preserves the
+
+        legacy behavior of validating the first ZIP selected by the request.
+
+        '
+      minItems: 1
+      maxItems: 10
       items:
-        type: object
-        properties:
-          id:
-            type: integer
-          action:
-            type: string
-          entity_type:
-            type: string
-          index:
-            type: integer
-          errors:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  type: integer
-                code:
-                  type: string
-                field:
-                  type: string
-                message:
-                  type: string
+        type: string
+        format: binary
+        x-allowed-extensions:
+        - .gif
+        - .jpg
+        - .jpeg
+        - .png
+        - .tiff
+        - .tif
+        - .svg
+        - .swf
+        - .htm
+        - .html
+        - .css
+        - .js
+        - .woff
+        - .woff2
+        - .ttf
+        - .otf
+        - .zip
+        x-max-file-size: 10485760
+        x-max-zip-file-size: 10485760
+        x-max-non-zip-file-size: 512000
+        x-recommended-inner-html5-asset-size: 512000
+        x-zip-inner-allowed-extensions:
+        - .gif
+        - .jpg
+        - .jpeg
+        - .png
+        - .tiff
+        - .tif
+        - .svg
+        - .htm
+        - .html
+        - .css
+        - .js
+        - .woff
+        - .woff2
+        - .ttf
+        - .otf
+        - .mp4
+        - .webm
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    creative_asset_submission_upload:
+      type: object
+      required:
+      - name
+      - click_through_url
+      - concept_id
+      properties:
+        name:
+          type: string
+          maxLength: 256
+          example: banner_300x250.jpg
+          description: 'The creative file name. For loose/non-ZIP uploads this is the uploaded
+
+            filename. For regular ZIPs this is a file inside the ZIP. For HTML5
+
+            packages this is the inner ZIP filename, such as `interactive_ad.zip`.
+
+            '
+        click_through_url:
+          type: string
+          format: uri
+          example: https://example.com/click
+        landing_page:
+          type: string
+          format: uri
+          example: https://example.com/landing
+        concept_id:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 123
+        backup:
+          type: string
+          example: backup_image.jpg
+          description: 'Optional backup image filename for HTML5 creatives. Backup images must be
+
+            inside the HTML5 ZIP package. If omitted, the API attempts to find an
+
+            image with the same base filename as the HTML5 package.
+
+            '
+        mraid_type:
+          type: string
+          enum:
+          - static
+          - expandable
+          - interstitial
+          description: 'Optional MRAID type. `expandable` requires the `expandable` image field;
+
+            `expandable` must not be supplied for other MRAID types.
+
+            '
+        expandable:
+          type: string
+          example: expandable_image.jpg
+          description: Required when `mraid_type` is `expandable`; otherwise invalid.
+        creative_name:
+          type: string
+          maxLength: 256
+          example: My Custom Creative Name
+          description: 'Optional display name for the created atomic creative. When provided,
+
+            this overrides the default name derived from the submission filename.
+
+            '
+  responses:
+    atomic_creative_healthcheck:
+      description: Atomic creative healthcheck response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/atomic_creative_healthcheck_response'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+          example:
+            data:
+            - atomic_creative_id: 11884513
+              creative_name: Example Creative 300x250
+              advertiser_id: 123456
+              advertiser_name: Example Advertiser
+              entity_type: creative_healthcheck
+              net_status: REJECTED
+              adx_open_auction: REJECTED
+              adx_deals: APPROVED
+              app_nexus: APPROVED
+              microsoft_ad_exchange: PENDING
+              right_media_exchange: N/A
+              brightroll_for_display: N/A
+              mopub_direct: N/A
+              freakout: N/A
+              freewheel: PENDING > 48 Hours
+              adx_open_auction_rejected_reason: Landing page does not match creative
+            meta:
+              status: success
+              count: 1
+              offset: 0
+              total_count: 1
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    creative_draft:
+      description: Preview generated successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/creative_draft_response_data'
+              meta:
+                $ref: '#/components/schemas/creative_single_metadata_with_warnings'
+          examples:
+            single_image:
+              summary: Single image preview
+              value:
+                data:
+                  uploaded_files:
+                  - name: banner_300x250.jpg
+                  metadata:
+                    advertiser_id: 100212
+                    is_https: true
+                    submissions:
+                    - name: banner_300x250.jpg
+                      landing_page: https://example.com/landing
+                      click_through_url: https://example.com/click
+                      concept_id: 4157184
+                meta:
+                  status: success
+            html5_creative_with_warnings:
+              summary: HTML5 creative preview with non-blocking warnings
+              value:
+                data:
+                  uploaded_files:
+                  - name: interactive_ad.zip
+                  metadata:
+                    advertiser_id: 100212
+                    is_https: true
+                    submissions:
+                    - name: interactive_ad.zip
+                      landing_page: https://brand.example.com/products
+                      click_through_url: https://brand.example.com/click
+                      concept_id: 3001
+                meta:
+                  status: success
+                  warnings:
+                  - code: warning
+                    sub_code: html5-noscript-tag
+                    field: /metadata/submissions/0
+                    message: The root HTML document 'index.html' contains a <noscript> tag, which is not recommended in HTML5 asset packages. Consider removing the <noscript> tag and its contents.
+                  - code: warning
+                    sub_code: html5-file-too-large
+                    field: /metadata/submissions/0
+                    message: file 'hero.png' in zip is 620KB, which exceeds the recommended maximum file size of 500KB, and was accepted as-is. Consider compressing it to keep the creative light.
+    atomic_creative_collection:
+      description: Atomic creative collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/atomic_creative_response'
+                  - $ref: '#/components/schemas/atomic_creative_response_extended'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    creative_not_authorized:
+      description: Not authorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+          example:
+            meta:
+              status: error
+            errors:
+            - code: not-authorized
+              field: /metadata/advertiser_id
+              message: MCP access for this organization is read-only
+    atomic_creative:
+      description: Atomic creative response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                anyOf:
+                - $ref: '#/components/schemas/atomic_creative_response'
+                - $ref: '#/components/schemas/atomic_creative_response_extended'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    creative_upload:
+      description: Upload completed successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/atomic_creative_response'
+              meta:
+                $ref: '#/components/schemas/creative_collection_created_metadata'
+          examples:
+            single_image_upload:
+              summary: Single image creative uploaded
+              value:
+                data:
+                - id: 11990780
+                  version: 0
+                  entity_type: atomic_creative
+                  advertiser_id: 100212
+                  concept_id: 4253705
+                  concept_name: Concept A
+                  name: banner_300x250.jpg
+                  width: 300
+                  height: 250
+                  file_type: jpg
+                  is_https: true
+                  is_multi_creative: false
+                  has_sound: false
+                  rich_media: false
+                  status: true
+                  archived: false
+                  built: false
+                  created_on: '2025-12-12T19:17:31Z'
+                  last_modified: '2025-12-12T19:17:31Z'
+                  tpas_ad_tag_name: banner_300x250.jpg
+                  updated_on: '2025-12-12T19:17:31Z'
+                  ad_format: DISPLAY
+                  expansion_trigger: MOUSEOVER
+                  expansion_direction: NONRESTRICTED
+                  t1as: true
+                  approval_status: PENDING
+                  media_type: display
+                  is_mraid: false
+                  sizmek_tag_status: NOT_USED
+                  sizmek_creative_status: NOT_USED
+                meta:
+                  status: success
+                  count: 1
+    creative_validation_errors:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+          examples:
+            loose_file_too_large:
+              summary: Loose uploaded file over 500KB
+              value:
+                meta:
+                  status: error
+                errors:
+                - code: invalid-request
+                  field: /filename
+                  message: file 'large_image1.jpg' exceeds maximum size of 500KB
+            zip_too_large:
+              summary: Uploaded ZIP over 10MB
+              value:
+                meta:
+                  status: error
+                errors:
+                - code: invalid-request
+                  sub_code: zip-too-large
+                  field: /filename
+                  message: file 'creative.zip' is 10.1MB, which exceeds the maximum zip size of 10.0MB
+            direct_zip_entry_too_large:
+              summary: Direct outer-ZIP entry over 500KB
+              value:
+                meta:
+                  status: error
+                errors:
+                - code: invalid-request
+                  sub_code: html5-file-too-large
+                  field: /filename
+                  message: file 'backup.png' in zip is 620KB, which exceeds the maximum file size of 500KB
+            html5_multiple_violations:
+              summary: HTML5 package with multiple blocking violations
+              value:
+                meta:
+                  status: error
+                errors:
+                - code: invalid-request
+                  sub_code: html5-missing-click-tracker
+                  field: /metadata/submissions/0
+                  message: No MediaMath click tracker macro was found in any HTML or JS file. Add one of [UNENCODED_CLICK_REDIRECT], [ENCODED_CLICK_REDIRECT], or [DBL_ENCODED_CLICK_REDIRECT] to your click-through URL so clicks can be tracked.
+                - code: invalid-request
+                  sub_code: html5-unsupported-file-type
+                  field: /filename
+                  message: unsupported file type '.mov' for file 'promo.mov' in zip
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    atomic_creative_bulk:
+      description: Atomic creative bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/atomic_creative_response'
+                  - $ref: '#/components/schemas/atomic_creative_response_extended'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+              errors:
+                $ref: '#/components/schemas/bulk_errors'
+  requestBodies:
+    atomic_creative_update:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/atomic_creative_update'
+            - $ref: '#/components/schemas/atomic_creative_vendor'
+    atomic_creative_bulk:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              atomic_creatives:
+                type: object
+                properties:
+                  create:
+                    type: array
+                    items:
+                      allOf:
+                      - $ref: '#/components/schemas/atomic_creative_create'
+                      - $ref: '#/components/schemas/atomic_creative_vendor'
+                  update:
+                    type: array
+                    items:
+                      allOf:
+                      - type: object
+                        properties:
+                          id:
+                            type: integer
+                            format: int32
+                            example: 11
+                      - $ref: '#/components/schemas/atomic_creative_update'
+                      - $ref: '#/components/schemas/atomic_creative_vendor'
+    creative_draft:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/creative_draft_request'
+          encoding:
+            metadata:
+              contentType: application/json
+          examples:
+            single_image:
+              summary: Single image preview request
+              value:
+                filename:
+                - banner_300x250.jpg
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: banner_300x250.jpg
+                    click_through_url: https://example.com/click
+                    landing_page: https://example.com/landing
+                    concept_id: 4157184
+            multiple_images:
+              summary: Multiple images preview request
+              value:
+                filename:
+                - medium_image8.jpg
+                - medium_image10.jpg
+                metadata:
+                  advertiser_id: 100212
+                  is_https: false
+                  submissions:
+                  - name: medium_image8.jpg
+                    click_through_url: https://example.com/click1
+                    landing_page: https://example1.com
+                    concept_id: 4157184
+                  - name: medium_image10.jpg
+                    click_through_url: https://example.com/click2
+                    landing_page: https://example2.com
+                    concept_id: 4157184
+            html5_creative:
+              summary: HTML5 creative ZIP preview request
+              value:
+                filename:
+                - html5_wrap_file.zip
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: interactive_ad.zip
+                    click_through_url: https://brand.example.com/click
+                    landing_page: https://brand.example.com/products
+                    concept_id: 3001
+            mraid_expandable:
+              summary: MRAID expandable preview request
+              value:
+                filename:
+                - banner_300x250.jpg
+                - banner_300x250_expandable.jpg
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: banner_300x250.jpg
+                    click_through_url: https://example.com/click
+                    landing_page: https://example.com/landing
+                    concept_id: 4157184
+                    mraid_type: expandable
+                    expandable: banner_300x250_expandable.jpg
+    creative_upload:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/creative_upload_request'
+          encoding:
+            metadata:
+              contentType: application/json
+          examples:
+            single_upload:
+              summary: Single creative upload request
+              value:
+                filename:
+                - holiday_banner_728x90.jpg
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: holiday_banner_728x90.jpg
+                    click_through_url: https://shop.example.com/holiday-sale
+                    landing_page: https://shop.example.com/landing/holiday
+                    concept_id: 1001
+            multiple_images:
+              summary: Multiple image upload request
+              value:
+                filename:
+                - medium_image8.jpg
+                - medium_image10.jpg
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: medium_image8.jpg
+                    click_through_url: https://example.com/click1
+                    landing_page: https://example.com/landing1
+                    concept_id: 4253705
+                  - name: medium_image10.jpg
+                    click_through_url: https://example.com/click2
+                    landing_page: https://example.com/landing2
+                    concept_id: 4253705
+            html5_creative_upload:
+              summary: HTML5 creative ZIP upload request
+              value:
+                filename:
+                - html5_wrap_file.zip
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: interactive_ad.zip
+                    click_through_url: https://brand.example.com/click
+                    landing_page: https://brand.example.com/products
+                    concept_id: 3001
+            html5_creative_upload_with_backup:
+              summary: HTML5 creative ZIP upload request with explicit backup image
+              value:
+                filename:
+                - html5_wrap_file.zip
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: interactive_ad.zip
+                    click_through_url: https://brand.example.com/click
+                    landing_page: https://brand.example.com/products
+                    concept_id: 3001
+                    backup: interactive_ad_backup.jpg
+            mraid_expandable:
+              summary: MRAID expandable upload request
+              value:
+                filename:
+                - banner_300x250.jpg
+                - banner_300x250_expandable.jpg
+                metadata:
+                  advertiser_id: 100212
+                  is_https: true
+                  submissions:
+                  - name: banner_300x250.jpg
+                    click_through_url: https://example.com/click
+                    landing_page: https://example.com/landing
+                    concept_id: 4157184
+                    mraid_type: expandable
+                    expandable: banner_300x250_expandable.jpg
+    atomic_creative_create:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/atomic_creative_create'
+            - $ref: '#/components/schemas/atomic_creative_vendor'
   parameters:
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
     page_limit:
       in: query
       name: page_limit
@@ -1983,6 +2159,16 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
     extended:
       in: query
       name: extended
@@ -2010,6 +2196,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -2019,6 +2206,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -2032,6 +2220,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

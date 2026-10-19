@@ -15,7 +15,100 @@ info:
 
     {% admonition type="warning" name="Notice about authentication with cookie adama_session" %}
 
-    The use of cookie adama_session for authentication has been discontinued and it''s not supported in Reporting API V2.'
+    The use of cookie adama_session for authentication has been discontinued and it''s not supported in Reporting API V2. We ask all of our clients who have not yet migrated to OAuth2 Authentication to do so as soon as possible. {% /admonition %}
+
+
+    The Reports API on MediaMath Platform allows advertisers to access, query and aggregate reporting data. It is also the API that powers all reporting seen on our MediaMath Platform flagship UI. The Reports API offers a number of reports. Each report offers its own pre-aggregated, time-based metrics on entities that users can query. A query can filter, aggregate, sort, paginate, and format this data. It is a read-only system meaning no request against it can alter the data in any way. It is also a metadata-driven system. The supported reports are described in a human- and machine-readable format. This ensures easy one-off and repeatable programmatic data querying. It also provides a way for clients to adapt to changes in reports programmatically. This gives client-developers the ability to create UIs that provide useful operational feedback in a navigable and understandable way. The $API_BASE for the V1 version of Reports API is `https://api.mediamath.com/reporting/v1/std`
+
+
+    ## Authentication
+
+
+    {% admonition type="danger" name="This API is deprecated and will be removed in July 2026" %}
+
+    The new API docs can be found here: https://apidocs.mediamath.com/apis/reporting-api
+
+    {% /admonition %}
+
+
+    See OAuth Authentication
+
+
+    ## Fields
+
+
+    {% admonition type="danger" name="This API is deprecated and will be removed in July 2026" %}
+
+    The new API docs can be found here: https://apidocs.mediamath.com/apis/reporting-api
+
+    {% /admonition %}
+
+
+    Report data is stored and output in a tabular format. This means that the output consists of rows and columns. Every row has a value for every column. The `structure` object can be used to determine the columns a report can output. Its fields are divided among three mappings - `time_field`, `dimensions`, and `metrics`. ```json
+
+    {
+
+
+    "time_rollups" : [ "by_day", "by_week", "by_month", "all" ],
+
+    "time_windows" : [ "yesterday", "last_X_days", "month_to_date", "campaign_to_date" ],
+
+    "timezone" : "campaign timezone",
+
+    "time_aggregation" : "by_day",
+
+    "structure" : {
+
+    "time_field" : {
+
+    "date" : {
+
+    "name" : "Date",
+
+    "type" : "datetime"
+
+    }
+
+    },
+
+    "dimensions" : {
+
+    "campaign_id" : { ... },
+
+    "campaign_name" : { ... },
+
+    "strategy_id" : { ... },
+
+    "strategy_name" : { ... }
+
+    },
+
+    "metrics" : {
+
+    "clicks" : { ... },
+
+    "impressions" : { ... }
+
+    }
+
+    }
+
+    ... }
+
+    ```
+
+
+    ---
+
+    **Time Field**
+
+
+    The time field represents the time-component of the report''s metrics. There is (currently) only one time field for each report. It can be of one of these data types: `datetime` or `interval`. Its data type determines the type of report (**datetime** or **interval** based report). **Note:** The type of report is not to be confused with the `Type` attribute. The `Type` attribute is purely informational. The time field was distinguished from the dimension fields to allow its use in grouping and filtering rows easier to understand. It gets its own set of parameters and language. ---
+
+    **datetime-typed Time Fields**
+
+
+    Datetime-typed time fields contains a combination of year, month, day, and possibly down to hour, minute and second. The `time_aggregation` property indicates the field''s finest grain (by_hour, by_day, etc). The `time_rollups` property indicates the available grouping options that can go beyond the `time_aggregation` of the report.'
   license:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
     name: Apache 2.0
@@ -795,7 +888,35 @@ paths:
         ### Background
 
 
-        The Brain Feature Summary report provides transparency into how the Brain optimizes.'
+        The Brain Feature Summary report provides transparency into how the Brain optimizes. The Brain Feature Summary Report centralizes impression features, such as Exchange, Site, Creative Size or Day of Week, that have the largest predictive impact. Features are a column of dataset used as an input to the model. For example; device_model, day_of_week or browser. Descriptions of Current Brain Features are available here. Feature values are not listed in the report. This report gives you transparency into the importance of each Brain Feature at the aggregated level. The information in this report is provided when a new Brain model is generated, but some days in the reporting period may be missing (which is normal). Depending on the training data, we may not always generate a new model so you may see gaps (not all days will generate the report). The report time rollups are updated daily, typically before 18:00 UTC. The data contained for the date in the report will be for the latest model picked up on that day and loaded into reporting. Retention is on a rolling 30 days, with a date range therefore of up to 30 days. T1 continues to train Brain models just in case the campaign is set live again, maximizing your opportunity to take advantage of the Brain Optimization on spend. Once there is no more training data (after 23 days of no activity) T1 will stop generating new models until spend recommences. The information included in the Brain Feature Summary report is not relevant in the following circumstances:
+
+        * Campaigns powered by a Custom Brain
+
+        * CPA/ROI strategies within a campaign using 3rd-party attribution
+
+        * CPA strategies within a campaign with post-view attribution discounted below 100%
+
+
+        ### How to run a Brain Feature Summary report via T1 instead of by API:
+
+        1. Navigate to the Reports module
+
+        2. Click on the Data Export tab
+
+        3. Type the name of the report in the File Name field
+
+        4. Select the Brain Feature Summary report from the Report Type drop-down list
+
+        5. Select the date range you want your report to cover
+
+        6. Select Agency, Advertiser and Campaign from the relevant drop-down lists
+
+        7. Select your preferred Dimensions
+
+
+        ### The Brain Feature Summary report itself
+
+        This report exports multiple campaigns and Goal Types at once.'
       operationId: Generate-Brain-Feature-Summary-report
       tags:
       - Reports
@@ -828,7 +949,35 @@ paths:
 
         ### Background
 
-        The Brain Feature Value report gives you transparency into the top 100 and bottom 100 feature values (e.g.'
+        The Brain Feature Value report gives you transparency into the top 100 and bottom 100 feature values (e.g. site A, creative 123, exchange 1) that impact predictions for each optimization Goal Type (for example, ROI, CPA, VCR). This shows how each Brain Feature Value directly influences and informs impression prediction and pricing. Descriptions of Current Brain Features themselves are available here. When T1 generates a Brain, there can be 200K+ predictions for Feature Values. To make these predictions more accessible, T1 selects the top 100 and bottom 100 Feature Values (which can vary daily) generated for that day for your viewing per optimization goal. The information in this report is provided when a new Brain model is generated, but some days in the reporting period may be missing (which is normal). Depending on the training data, we may not always generate a new model so you may see gaps (not all days will generate the report). The report time rollups are updated daily, typically before 18:00 UTC. The data contained for the date in the report will be for the latest model picked up on that day and loaded into reporting. Retention is on a rolling 30 days, with a date range therefore of up to 30 days. T1 continues to train Brain models just in case the campaign is set live again, maximizing your opportunity to take advantage of the Brain Optimization on spend. Once there is no more training data (after 23 days of no activity) T1 will stop generating new models until spend recommences. The information included in the Brain Feature Value report is not relevant in the following circumstances:
+
+        * Campaigns powered by a Custom Brain (for more on Custom Brain see here)
+
+        * CPA/ROI strategies within a campaign using 3rd-party attribution
+
+        * CPA strategies within a campaign with post-view attribution discounted below 100%
+
+
+        ### How to run a Brain Feature Value report via T1 instead of by API:
+
+        1. Navigate to the Reports module
+
+        2. Click on the Data Export tab
+
+        3. Type the name of the report in the File Name field
+
+        4. Select the Brain Feature Value report from the Report Type drop-down list
+
+        5. Select the date range you want your report to cover
+
+        6. Select Agency, Advertiser and Campaign from the relevant drop-down lists
+
+        7. Select your preferred Dimensions
+
+
+        ### The Brain Feature Value report itself
+
+        This report exports multiple campaigns and Goal Types at once.'
   /by_hour:
     get:
       operationId: GET_by_hour
@@ -1963,17 +2112,11 @@ paths:
                 $ref: '#/components/schemas/full-report-description'
 components:
   parameters:
-    trait_requestsCustomTimeWindow_order:
-      name: order
+    trait_requestsCustomTimeWindow_time_rollup:
+      name: time_rollup
       in: query
-      description: 'Controls the sorting of the groups.
-
-
-        This should be a comma-separated list of field names.  Each field name may optionally be prefixed with a minus sign to indicate descending order.  Otherwise, ascending order is assumed.
-
-
-        The first field has the most significance in sorting.'
-      required: false
+      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
       schema:
         type: string
     trait_requestsCustomTimeWindow_If-Modified-Since:
@@ -1986,21 +2129,6 @@ components:
       schema:
         type: string
         format: date-time
-    trait_requestsCustomTimeWindow_end_date:
-      name: end_date
-      in: query
-      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: false
-      schema:
-        type: string
-        default: yesterday
-    trait_requestsCustomTimeWindow_start_date:
-      name: start_date
-      in: query
-      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
-      schema:
-        type: string
     trait_requestsCustomTimeWindow_page_offset:
       name: page_offset
       in: query
@@ -2009,26 +2137,6 @@ components:
       schema:
         type: integer
         minimum: 0
-    trait_requestsCustomTimeWindow_page_limit:
-      name: page_limit
-      in: query
-      description: 'Controls the maximum number of rows of data.
-
-
-        This parameter is required, if page_offset is one or greater.'
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 100
-    trait_cookieAuth_Cookie:
-      name: Cookie
-      description: _
-      in: header
-      required: true
-      schema:
-        type: string
-        default: adama_session=<<sessionid>>
     trait_requestsCustomTimeWindow_Accept-Encoding_:
       name: 'Accept-Encoding:'
       in: header
@@ -2037,25 +2145,46 @@ components:
         type: string
         enum:
         - gzip,deflate
-    trait_requestsCustomTimeWindow_filter:
-      name: filter
-      in: query
-      description: Controls filtering against dimension fields.  The filtering is performed before row grouping.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
-      required: true
-      schema:
-        type: string
-    trait_requestsCustomTimeWindow_time_rollup:
-      name: time_rollup
-      in: query
-      description: The allowed values are specified by the time_rollups report meta property.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
-      schema:
-        type: string
     trait_requestsCustomTimeWindow_having:
       name: having
       in: query
       description: Controls filtering against metric and dimension fields.  The filtering is performed after row grouping and metric calculation.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
       required: false
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_start_date:
+      name: start_date
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_dimensions:
+      name: dimensions
+      in: query
+      description: 'Selects the dimension fields to use in grouping rows.
+
+
+        This should be a comma-separated list of dimension field names.
+
+
+        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
+      required: true
+      schema:
+        type: string
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      description: _
+      in: header
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
+    trait_requestsCustomTimeWindow_time_window:
+      name: time_window
+      in: query
+      description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
+      required: true
       schema:
         type: string
     trait_requestsCustomTimeWindow_metrics:
@@ -2084,141 +2213,47 @@ components:
         minimum: 0
         maximum: 8
         default: 8
-    trait_requestsCustomTimeWindow_time_window:
-      name: time_window
+    trait_requestsCustomTimeWindow_order:
+      name: order
+      in: query
+      description: 'Controls the sorting of the groups.
+
+
+        This should be a comma-separated list of field names.  Each field name may optionally be prefixed with a minus sign to indicate descending order.  Otherwise, ascending order is assumed.
+
+
+        The first field has the most significance in sorting.'
+      required: false
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_filter:
+      name: filter
+      in: query
+      description: Controls filtering against dimension fields.  The filtering is performed before row grouping.  See the Predicate Parameters section of <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> for more information about interpretation and accepted formats.
+      required: true
+      schema:
+        type: string
+    trait_requestsCustomTimeWindow_end_date:
+      name: end_date
       in: query
       description: Controls filtering against the time field for the report.  See the Time Field section of <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> for more information.
-      required: true
+      required: false
       schema:
         type: string
-    trait_requestsCustomTimeWindow_dimensions:
-      name: dimensions
+        default: yesterday
+    trait_requestsCustomTimeWindow_page_limit:
+      name: page_limit
       in: query
-      description: 'Selects the dimension fields to use in grouping rows.
+      description: 'Controls the maximum number of rows of data.
 
 
-        This should be a comma-separated list of dimension field names.
-
-
-        The position of the fields in the output is not guaranteed to match the parameter value.  Always use the header line from the response body to identify the position of each column in the output.'
-      required: true
+        This parameter is required, if page_offset is one or greater.'
+      required: false
       schema:
-        type: string
-  responses:
-    trait_requestsCustomTimeWindow_304:
-      description: ''
-    trait_requestsCustomTimeWindow_401:
-      description: ''
-    trait_requestsCustomTimeWindow_404:
-      description: ''
-    trait_requestsCustomTimeWindow_200:
-      description: ''
-    trait_requestsCustomTimeWindow_403:
-      description: ''
-    trait_requestsCustomTimeWindow_400:
-      description: ''
+        type: integer
+        minimum: 1
+        default: 100
   schemas:
-    field-description:
-      title: Field Description
-      type: object
-      properties:
-        name:
-          type: string
-          description: This is the human-readable name of the field.
-        type:
-          type: string
-          enum:
-          - float
-          - money
-          - percent
-          - ratio
-          - integer
-          - count
-          - rank
-          - datetime
-          - string
-          - interval
-          - id
-          - bool
-          - boolean
-        access:
-          type: boolean
-          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
-        description:
-          type: string
-        maxLength:
-          type: number
-          description: This property describes the allowable length for string-typed fields.
-        values:
-          type: array
-          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
-          items:
-            type: string
-      required:
-      - name
-      - type
-      x-stoplight:
-        id: ay5bipqhvuzoi
-    brief-report-description:
-      title: Brief Report Description
-      type: object
-      properties:
-        Name:
-          type: string
-          description: This is the human-readable name of the report.  It is not recognized by any API input.
-        Version:
-          type: integer
-          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-        Description:
-          type: string
-        URI_Data:
-          type: string
-          format: uri
-          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
-        URI_Meta:
-          type: string
-          format: uri
-          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
-        Transition:
-          type: object
-          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-          properties:
-            replaced_by:
-              type: string
-              format: uri
-              description: The URL where the metadata for the next version of the report may be found.
-            transition_date:
-              type: string
-              format: date-time
-              description: After this GMT time the current version of the report will no longer be available.
-            next_version:
-              type: integer
-              description: The version replacing the current version of the report.
-          required:
-          - replaced_by
-          - transition_date
-          - next_version
-        Deprecation:
-          type: object
-          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-          properties:
-            superseded_by:
-              type: string
-              format: uri
-              description: Optionally provides the metadata URI for the superseding report.
-            deprecation_date:
-              type: string
-              format: date-time
-              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
-          required:
-          - deprecation_date
-      required:
-      - Name
-      - Version
-      - URI_Data
-      - URI_Meta
-      x-stoplight:
-        id: k6iyargwoudhr
     full-report-description:
       title: Full Report Description
       allOf:
@@ -2295,6 +2330,120 @@ components:
         - time_windows
       x-stoplight:
         id: 8plabb85jgk95
+    brief-report-description:
+      title: Brief Report Description
+      type: object
+      properties:
+        Name:
+          type: string
+          description: This is the human-readable name of the report.  It is not recognized by any API input.
+        Version:
+          type: integer
+          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+        Description:
+          type: string
+        URI_Data:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
+        URI_Meta:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+        Transition:
+          type: object
+          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            replaced_by:
+              type: string
+              format: uri
+              description: The URL where the metadata for the next version of the report may be found.
+            transition_date:
+              type: string
+              format: date-time
+              description: After this GMT time the current version of the report will no longer be available.
+            next_version:
+              type: integer
+              description: The version replacing the current version of the report.
+          required:
+          - replaced_by
+          - transition_date
+          - next_version
+        Deprecation:
+          type: object
+          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            superseded_by:
+              type: string
+              format: uri
+              description: Optionally provides the metadata URI for the superseding report.
+            deprecation_date:
+              type: string
+              format: date-time
+              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
+          required:
+          - deprecation_date
+      required:
+      - Name
+      - Version
+      - URI_Data
+      - URI_Meta
+      x-stoplight:
+        id: k6iyargwoudhr
+    field-description:
+      title: Field Description
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the human-readable name of the field.
+        type:
+          type: string
+          enum:
+          - float
+          - money
+          - percent
+          - ratio
+          - integer
+          - count
+          - rank
+          - datetime
+          - string
+          - interval
+          - id
+          - bool
+          - boolean
+        access:
+          type: boolean
+          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
+        description:
+          type: string
+        maxLength:
+          type: number
+          description: This property describes the allowable length for string-typed fields.
+        values:
+          type: array
+          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
+          items:
+            type: string
+      required:
+      - name
+      - type
+      x-stoplight:
+        id: ay5bipqhvuzoi
+  responses:
+    trait_requestsCustomTimeWindow_400:
+      description: ''
+    trait_requestsCustomTimeWindow_403:
+      description: ''
+    trait_requestsCustomTimeWindow_404:
+      description: ''
+    trait_requestsCustomTimeWindow_401:
+      description: ''
+    trait_requestsCustomTimeWindow_304:
+      description: ''
+    trait_requestsCustomTimeWindow_200:
+      description: ''
   securitySchemes:
     API_Key_-_1:
       type: oauth2

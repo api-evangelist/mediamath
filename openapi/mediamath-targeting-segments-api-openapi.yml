@@ -49,51 +49,127 @@ paths:
           $ref: '#/components/responses/error'
         '404':
           $ref: '#/components/responses/error'
+  /targeting_segments/taxonomy_upload:
+    post:
+      operationId: targeting-segments-taxonomy-upload
+      summary: Dry-run Taxonomy Upload
+      description: 'Validates a CSV taxonomy file for the given targeting vendor and returns
+
+        an impact report (segment counts before/after, diff, affected strategies).
+
+        **Nothing is written to the database** — this is a dry-run only.'
+      tags:
+      - Targeting Segments
+      requestBody:
+        $ref: '#/components/requestBodies/taxonomy_upload'
+      responses:
+        '200':
+          $ref: '#/components/responses/taxonomy_upload_report'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /targeting_segments/taxonomy_upload/apply:
+    post:
+      operationId: targeting-segments-taxonomy-upload-apply
+      summary: Apply Taxonomy Upload
+      description: 'Validates a CSV taxonomy file for the given targeting vendor and, if valid,
+
+        commits all changes to the database (inserts, updates, retirements).
+
+        Returns the same impact report as the dry-run endpoint, with the header
+
+        message `THE FOLLOWING CHANGES HAVE BEEN APPLIED!`.'
+      tags:
+      - Targeting Segments
+      requestBody:
+        $ref: '#/components/requestBodies/taxonomy_upload'
+      responses:
+        '200':
+          $ref: '#/components/responses/taxonomy_upload_report'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
 components:
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
   schemas:
-    error_response:
-      title: error response
+    taxonomy_upload:
       type: object
       required:
-      - errors
-      - meta
+      - targeting_vendor
+      - file
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    targeting_segment_collection:
-      type: object
-      title: targeting_segment_collection
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              entity_type:
-                type: string
-              name:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
+        targeting_vendor:
+          type: string
+          minLength: 2
+          maxLength: 2
+          pattern: ^[A-Za-z0-9]{2}$
+          description: 'Two-character alphanumeric namespace code identifying the targeting vendor (e.g. `mm`). Must match an existing record in `targeting_vendors`.
+
+            '
+          example: mm
+        file:
+          type: string
+          format: binary
+          description: 'CSV taxonomy file. Expected columns (header row required):
+
+            `full_path`, `code`, `uniques`, `wholesale_cpm`, `retail_cpm`,
+
+            `buyable`, `objective`. Lines beginning with `#` are ignored.
+
+            '
     list_metadata:
       title: pagination metadata
       type: object
@@ -123,6 +199,35 @@ components:
       required:
       - status
       - count
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
     targeting_segment_full:
       allOf:
       - type: object
@@ -193,52 +298,30 @@ components:
             $ref: '#/components/schemas/targeting_segment_full'
         meta:
           $ref: '#/components/schemas/list_metadata'
-  parameters:
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
+    targeting_segment_collection:
+      type: object
+      title: targeting_segment_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+  requestBodies:
+    taxonomy_upload:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/taxonomy_upload'
   responses:
     error:
       description: Error response
@@ -246,6 +329,85 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/error_response'
+    taxonomy_upload_report:
+      description: 'CSV impact report. The same format is returned by both the dry-run and apply
+
+        endpoints. Response headers carry the numeric counts; the body is a CSV
+
+        attachment with two summary blocks followed by an optional affected-strategies
+
+        table.
+
+        '
+      headers:
+        Content-Disposition:
+          description: 'Attachment filename in the form `attachment; filename=<VendorName>_taxonomy_update_report.csv`.
+
+            '
+          schema:
+            type: string
+        X-Num-Targeting-Segments-Before:
+          description: Number of active targeting segments before this upload.
+          schema:
+            type: integer
+        X-Num-Targeting-Segments-After:
+          description: Number of active targeting segments after this upload.
+          schema:
+            type: integer
+        X-Num-Retired-Targeting-Segments-Before:
+          description: Number of retired targeting segments before this upload.
+          schema:
+            type: integer
+        X-Num-Retired-Targeting-Segments-After:
+          description: Number of retired targeting segments after this upload.
+          schema:
+            type: integer
+        X-Num-Strategy-Targeting-Segments-Before:
+          description: Number of strategy-targeting-segment links before this upload.
+          schema:
+            type: integer
+        X-Num-Strategy-Targeting-Segments-After:
+          description: Number of strategy-targeting-segment links after this upload.
+          schema:
+            type: integer
+        X-Num-Retired-Strategy-Targeting-Segments-Before:
+          description: Number of retired strategy-targeting-segment links before this upload.
+          schema:
+            type: integer
+        X-Num-Retired-Strategy-Targeting-Segments-After:
+          description: Number of retired strategy-targeting-segment links after this upload.
+          schema:
+            type: integer
+        X-Num-Segments-Updated:
+          description: Number of existing segments whose fields would be/were updated.
+          schema:
+            type: integer
+        X-Num-Segments-Added:
+          description: Number of new segments that would be/were inserted.
+          schema:
+            type: integer
+        X-Num-Segments-Removed:
+          description: Number of segments that would be/were retired.
+          schema:
+            type: integer
+        X-Num-Strategies-Migrated:
+          description: 'Number of distinct strategies that target at least one segment present in the uploaded taxonomy (i.e. segments being kept or updated).
+
+            '
+          schema:
+            type: integer
+        X-Num-Strategies-Targeting-Retired-Segments:
+          description: 'Number of distinct strategies that were targeting at least one segment being retired.
+
+            '
+          schema:
+            type: integer
+      content:
+        text/csv:
+          schema:
+            type: string
+            format: binary
+            description: "CRLF-terminated CSV with three sections separated by blank lines:\n\n1. **Header message** — one of:\n   - `THE SYSTEM HAS NOT BEEN CHANGED, BUT THIS WOULD BE THE RESULT!` (dry-run)\n   - `THE FOLLOWING CHANGES HAVE BEEN APPLIED!` (apply)\n\n2. **Count summary** — two-column rows, key and value:\n   ```\n   X-Num-Targeting-Segments-Before,<n>\n   X-Num-Targeting-Segments-After,<n>\n   X-Num-Strategy-Targeting-Segments-Before,<n>\n   X-Num-Strategy-Targeting-Segments-After,<n>\n   X-Num-Retired-Targeting-Segments-Before,<n>\n   X-Num-Retired-Targeting-Segments-After,<n>\n   X-Num-Retired-Strategy-Targeting-Segments-Before,<n>\n   X-Num-Retired-Strategy-Targeting-Segments-After,<n>\n   ```\n\n3. **Diff summary** — two-column rows, key and value:\n   ```\n   X-Num-Segments-Updated,<n>\n   X-Num-Segments-Added,<n>\n   X-Num-Segments-Removed,<n>\n   X-Num-Strategies-Migrated,<n>\n   X-Num-Strategies-Targeting-Retired-Segments,<n>\n   ```\n\n4. **Affected strategies table** (only present when at least one strategy targets a segment being retired) —\n   header row followed by one data row per affected strategy/segment pair:\n   ```\n   organization_name,agency_name,advertiser_name,campaign_name,strategy_name,\n   strategy_id,strategy_status,strategy_start_date,strategy_end_date,\n   targeting_segment_full_path,targeting_segment_external_code\n   ```\n"
   securitySchemes:
     Auth0:
       type: oauth2
@@ -266,6 +428,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -275,6 +438,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -288,6 +452,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

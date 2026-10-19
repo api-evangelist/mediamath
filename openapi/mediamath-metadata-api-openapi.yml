@@ -15,7 +15,100 @@ info:
 
     {% admonition type="warning" name="Notice about authentication with cookie adama_session" %}
 
-    The use of cookie adama_session for authentication has been discontinued and it''s not supported in Reporting API V2.'
+    The use of cookie adama_session for authentication has been discontinued and it''s not supported in Reporting API V2. We ask all of our clients who have not yet migrated to OAuth2 Authentication to do so as soon as possible. {% /admonition %}
+
+
+    The Reports API on MediaMath Platform allows advertisers to access, query and aggregate reporting data. It is also the API that powers all reporting seen on our MediaMath Platform flagship UI. The Reports API offers a number of reports. Each report offers its own pre-aggregated, time-based metrics on entities that users can query. A query can filter, aggregate, sort, paginate, and format this data. It is a read-only system meaning no request against it can alter the data in any way. It is also a metadata-driven system. The supported reports are described in a human- and machine-readable format. This ensures easy one-off and repeatable programmatic data querying. It also provides a way for clients to adapt to changes in reports programmatically. This gives client-developers the ability to create UIs that provide useful operational feedback in a navigable and understandable way. The $API_BASE for the V1 version of Reports API is `https://api.mediamath.com/reporting/v1/std`
+
+
+    ## Authentication
+
+
+    {% admonition type="danger" name="This API is deprecated and will be removed in July 2026" %}
+
+    The new API docs can be found here: https://apidocs.mediamath.com/apis/reporting-api
+
+    {% /admonition %}
+
+
+    See OAuth Authentication
+
+
+    ## Fields
+
+
+    {% admonition type="danger" name="This API is deprecated and will be removed in July 2026" %}
+
+    The new API docs can be found here: https://apidocs.mediamath.com/apis/reporting-api
+
+    {% /admonition %}
+
+
+    Report data is stored and output in a tabular format. This means that the output consists of rows and columns. Every row has a value for every column. The `structure` object can be used to determine the columns a report can output. Its fields are divided among three mappings - `time_field`, `dimensions`, and `metrics`. ```json
+
+    {
+
+
+    "time_rollups" : [ "by_day", "by_week", "by_month", "all" ],
+
+    "time_windows" : [ "yesterday", "last_X_days", "month_to_date", "campaign_to_date" ],
+
+    "timezone" : "campaign timezone",
+
+    "time_aggregation" : "by_day",
+
+    "structure" : {
+
+    "time_field" : {
+
+    "date" : {
+
+    "name" : "Date",
+
+    "type" : "datetime"
+
+    }
+
+    },
+
+    "dimensions" : {
+
+    "campaign_id" : { ... },
+
+    "campaign_name" : { ... },
+
+    "strategy_id" : { ... },
+
+    "strategy_name" : { ... }
+
+    },
+
+    "metrics" : {
+
+    "clicks" : { ... },
+
+    "impressions" : { ... }
+
+    }
+
+    }
+
+    ... }
+
+    ```
+
+
+    ---
+
+    **Time Field**
+
+
+    The time field represents the time-component of the report''s metrics. There is (currently) only one time field for each report. It can be of one of these data types: `datetime` or `interval`. Its data type determines the type of report (**datetime** or **interval** based report). **Note:** The type of report is not to be confused with the `Type` attribute. The `Type` attribute is purely informational. The time field was distinguished from the dimension fields to allow its use in grouping and filtering rows easier to understand. It gets its own set of parameters and language. ---
+
+    **datetime-typed Time Fields**
+
+
+    Datetime-typed time fields contains a combination of year, month, day, and possibly down to hour, minute and second. The `time_aggregation` property indicates the field''s finest grain (by_hour, by_day, etc). The `time_rollups` property indicates the available grouping options that can go beyond the `time_aggregation` of the report.'
   license:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
     name: Apache 2.0
@@ -44,7 +137,116 @@ paths:
         `$API_BASE/meta`
 
 
-        All metadata in Reports API is represented in JSON format (content-type: application/json; charset=UTF-8).'
+        All metadata in Reports API is represented in JSON format (content-type: application/json; charset=UTF-8). The schema for the response follows the example. ## Reports Meta
+
+
+        The example has been formatted for easy reading. ``` json
+
+        {
+
+        "reports": {
+
+        "app_transparency": {
+
+        "Description": "Standard performance metrics broken out by App ID. Non-app inventory shown as N/A app_id",
+
+        "Name": "App Transparency Report",
+
+        "URI_Data": "https://api.mediamath.com/reporting/v1/std/app_transparency",
+
+        "URI_Meta": "https://api.mediamath.com/reporting/v1/std/app_transparency/meta",
+
+        "Version": 1
+
+        },
+
+        "audience_index": {
+
+        "Description": "Special index metrics for comparing your ads'' viewers to 3rd party segments. Broken out by audience name, as well as standard dimensions down to campaign and strategy. Currently available in one interval: last 14 days.",
+
+        "Name": "Audience Index Report",
+
+        "URI_Data": "https://api.mediamath.com/reporting/v1/std/audience_index",
+
+        "URI_Meta": "https://api.mediamath.com/reporting/v1/std/audience_index/meta",
+
+        "Version": 1
+
+        },
+
+        "audience_index_pixel": {
+
+        "Description": "Special index metrics for comparing your site visitors to 3rd party segments. Broken out by audience name and pixel. Currently available in one interval: last 14 days.",
+
+        "Name": "Audience Index Pixel Report",
+
+        "URI_Data": "https://api.mediamath.com/reporting/v1/std/audience_index_pixel",
+
+        "URI_Meta": "https://api.mediamath.com/reporting/v1/std/audience_index_pixel/meta",
+
+        "Version": 1
+
+        },
+
+        "by_hour": {
+
+        "Description": "Standard performance metrics broken out by standard dimensions, available in precise time windows - down to the hour - with the option to aggregate by hour or day.",
+
+        "Name": "By Hour Report",
+
+        "URI_Data": "https://api.mediamath.com/reporting/v1/std/by_hour",
+
+        "URI_Meta": "https://api.mediamath.com/reporting/v1/std/by_hour/meta",
+
+        "Version": 1
+
+        },
+
+        "contextual_insights": {
+
+        "Description": "Standard performance metrics broken out by contextual categories that strategies are targeting",
+
+        "Name": "Contextual Insights",
+
+        "URI_Data": "https://api.mediamath.com/reporting/v1/std/contextual_insights",
+
+        "URI_Meta": "https://api.mediamath.com/reporting/v1/std/contextual_insights/meta",
+
+        "Version": 1
+
+        },
+
+        "data_pixel_loads": {
+
+        "Description": "Loads and Uniques metrics for data pixels, broken out by referrer and referrer rank, available by day.",
+
+        "Name": "Data Pixel Loads Report",
+
+        "URI_Data": "https://api.mediamath.com/reporting/v1/std/data_pixel_loads",
+
+        "URI_Meta": "https://api.mediamath.com/reporting/v1/std/data_pixel_loads/meta",
+
+        "Version": 1
+
+        },
+
+        "day_part": {
+
+        "Description": "Standard performance metrics broken out by time of day and day of week. Available in standard intervals.",
+
+        "Name": "Day Part Report",
+
+        "URI_Data": "https://api.mediamath.com/reporting/v1/std/day_part",
+
+        "URI_Meta": "https://api.mediamath.com/reporting/v1/std/day_part/meta",
+
+        "Version": 2
+
+        },
+
+        "device_technology": {
+
+        "Description": "Standard performance metrics broken out by technology dimensions including browser, operating system, and connection type.'
       parameters:
       - $ref: '#/components/parameters/trait_cookieAuth_Cookie'
       responses:
@@ -91,48 +293,76 @@ paths:
               schema:
                 $ref: '#/components/schemas/full-report-description'
 components:
+  parameters:
+    trait_cookieAuth_Cookie:
+      name: Cookie
+      description: _
+      in: header
+      required: true
+      schema:
+        type: string
+        default: adama_session=<<sessionid>>
   schemas:
-    field-description:
-      title: Field Description
+    brief-report-description:
+      title: Brief Report Description
       type: object
       properties:
-        name:
+        Name:
           type: string
-          description: This is the human-readable name of the field.
-        type:
+          description: This is the human-readable name of the report.  It is not recognized by any API input.
+        Version:
+          type: integer
+          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+        Description:
           type: string
-          enum:
-          - float
-          - money
-          - percent
-          - ratio
-          - integer
-          - count
-          - rank
-          - datetime
-          - string
-          - interval
-          - id
-          - bool
-          - boolean
-        access:
-          type: boolean
-          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
-        description:
+        URI_Data:
           type: string
-        maxLength:
-          type: number
-          description: This property describes the allowable length for string-typed fields.
-        values:
-          type: array
-          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
-          items:
-            type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
+        URI_Meta:
+          type: string
+          format: uri
+          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
+        Transition:
+          type: object
+          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            replaced_by:
+              type: string
+              format: uri
+              description: The URL where the metadata for the next version of the report may be found.
+            transition_date:
+              type: string
+              format: date-time
+              description: After this GMT time the current version of the report will no longer be available.
+            next_version:
+              type: integer
+              description: The version replacing the current version of the report.
+          required:
+          - replaced_by
+          - transition_date
+          - next_version
+        Deprecation:
+          type: object
+          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
+          properties:
+            superseded_by:
+              type: string
+              format: uri
+              description: Optionally provides the metadata URI for the superseding report.
+            deprecation_date:
+              type: string
+              format: date-time
+              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
+          required:
+          - deprecation_date
       required:
-      - name
-      - type
+      - Name
+      - Version
+      - URI_Data
+      - URI_Meta
       x-stoplight:
-        id: ay5bipqhvuzoi
+        id: k6iyargwoudhr
     reports-list:
       title: Reports List
       type: object
@@ -220,75 +450,47 @@ components:
         - time_windows
       x-stoplight:
         id: 8plabb85jgk95
-    brief-report-description:
-      title: Brief Report Description
+    field-description:
+      title: Field Description
       type: object
       properties:
-        Name:
+        name:
           type: string
-          description: This is the human-readable name of the report.  It is not recognized by any API input.
-        Version:
-          type: integer
-          description: This is the version of the report.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-        Description:
+          description: This is the human-readable name of the field.
+        type:
           type: string
-        URI_Data:
+          enum:
+          - float
+          - money
+          - percent
+          - ratio
+          - integer
+          - count
+          - rank
+          - datetime
+          - string
+          - interval
+          - id
+          - bool
+          - boolean
+        access:
+          type: boolean
+          description: This property is applicable to dimension fields only.  Every request must have at least one filter or having predicate against a field with this property set.
+        description:
           type: string
-          format: uri
-          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/data-retrieval/get_report> endpoint.
-        URI_Meta:
-          type: string
-          format: uri
-          description: This is the URI for the report's <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.
-        Transition:
-          type: object
-          description: Reports may change over time.  This object will be present if the report will undergo a breaking change.  See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-          properties:
-            replaced_by:
-              type: string
-              format: uri
-              description: The URL where the metadata for the next version of the report may be found.
-            transition_date:
-              type: string
-              format: date-time
-              description: After this GMT time the current version of the report will no longer be available.
-            next_version:
-              type: integer
-              description: The version replacing the current version of the report.
-          required:
-          - replaced_by
-          - transition_date
-          - next_version
-        Deprecation:
-          type: object
-          description: Reports may be deprecated all together, or superseded by another report.  This object will be present if the report is scheduled for deprecation.   See the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta> section for more details.
-          properties:
-            superseded_by:
-              type: string
-              format: uri
-              description: Optionally provides the metadata URI for the superseding report.
-            deprecation_date:
-              type: string
-              format: date-time
-              description: The GMT time when the report will no longer be available.  When a report is past its `deprecation_date` it will no longer appear in the <https://apidocs.mediamath.com/apis/reporting-api-v1/metadata/get_report-meta>.  All endpoints having to do specifically with that report will return a 410 GONE response.
-          required:
-          - deprecation_date
+        maxLength:
+          type: number
+          description: This property describes the allowable length for string-typed fields.
+        values:
+          type: array
+          description: Enumerates the possible values that this field may represent.  When using an equality predicate, all predicate values must match one of the enumerated entries.
+          items:
+            type: string
       required:
-      - Name
-      - Version
-      - URI_Data
-      - URI_Meta
+      - name
+      - type
       x-stoplight:
-        id: k6iyargwoudhr
-  parameters:
-    trait_cookieAuth_Cookie:
-      name: Cookie
-      description: _
-      in: header
-      required: true
-      schema:
-        type: string
-        default: adama_session=<<sessionid>>
+        id: ay5bipqhvuzoi
   securitySchemes:
     API_Key_-_1:
       type: oauth2

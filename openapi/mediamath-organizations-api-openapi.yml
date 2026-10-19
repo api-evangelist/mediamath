@@ -318,7 +318,99 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/organization_update-2'
 components:
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
   schemas:
+    settings_organization:
+      type: object
+      properties:
+        settings:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                example: attribute3
+              value:
+                type: string
+                example: value3
+        entity:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            settings_total:
+              type: integer
+            type:
+              type: string
+    organization_update:
+      title: organization_update
+      allOf:
+      - $ref: '#/components/schemas/organization_base'
+      - type: object
+        properties:
+          terminated:
+            type: boolean
+          version:
+            type: integer
+            format: int32
+            example: 2
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
     organization_response:
       title: organization_response
       type: object
@@ -372,51 +464,6 @@ components:
             status:
               type: string
               example: success
-    organization_collection:
-      title: organization_collection
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-              entity_type:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    permission_organization:
-      allOf:
-      - type: object
-        properties:
-          organization_id:
-            type: integer
-      - $ref: '#/components/schemas/permission_flags'
-    organization_create:
-      title: organization_create
-      allOf:
-      - $ref: '#/components/schemas/organization_base'
-      - type: object
-        required:
-        - name
-        - status
-        - mm_contact_name
-        - adx_seat_account_id
-        - connected_id_type
-        - contact_name
-        - address_1
-        - city
-        - state
-        - zip
-        - country
-        - phone
-        - currency_code
-        - billing_country_code
-        - dmp_enabled
     permission_flags:
       type: object
       properties:
@@ -459,39 +506,30 @@ components:
       required:
       - status
       - count
-    organization_update:
-      title: organization_update
-      allOf:
-      - $ref: '#/components/schemas/organization_base'
-      - type: object
-        properties:
-          terminated:
-            type: boolean
-          version:
-            type: integer
-            format: int32
-            example: 2
-    exchange_seat_extended:
-      title: exchange_seat_extended
+    settings_organization_update:
       type: object
       properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/exchange_seat'
-          - type: object
+        settings:
+          type: array
+          items:
+            type: object
             properties:
-              id:
-                type: integer
-              version:
-                type: integer
-              created_on:
+              key:
                 type: string
-                format: date-time
-                readOnly: true
-              updated_on:
-                type: string
-                format: date-time
-                readOnly: true
+                example: attribute3
+              value:
+                type:
+                - string
+                - 'null'
+                example: value3
+                description: Setting with `value = null` will be removed.
+    permission_organization:
+      allOf:
+      - type: object
+        properties:
+          organization_id:
+            type: integer
+      - $ref: '#/components/schemas/permission_flags'
     organization_base:
       type: object
       properties:
@@ -687,6 +725,9 @@ components:
             properties:
               code:
                 type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
               field:
                 description: Optional when it is a schema error
                 type: string
@@ -699,6 +740,44 @@ components:
           properties:
             status:
               type: string
+    organization_create:
+      title: organization_create
+      allOf:
+      - $ref: '#/components/schemas/organization_base'
+      - type: object
+        required:
+        - name
+        - status
+        - mm_contact_name
+        - adx_seat_account_id
+        - connected_id_type
+        - contact_name
+        - address_1
+        - city
+        - state
+        - zip
+        - country
+        - phone
+        - currency_code
+        - billing_country_code
+        - dmp_enabled
+    organization_collection:
+      title: organization_collection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     exchange_seat:
       title: exchange_seat
       type: object
@@ -741,146 +820,28 @@ components:
           - boolean
           - 'null'
           default: true
-    settings_organization_update:
+    exchange_seat_extended:
+      title: exchange_seat_extended
       type: object
       properties:
-        settings:
-          type: array
-          items:
-            type: object
+        data:
+          allOf:
+          - $ref: '#/components/schemas/exchange_seat'
+          - type: object
             properties:
-              key:
+              id:
+                type: integer
+              version:
+                type: integer
+              created_on:
                 type: string
-                example: attribute3
-              value:
-                type:
-                - string
-                - 'null'
-                example: value3
-                description: Setting with `value = null` will be removed.
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    settings_organization:
-      type: object
-      properties:
-        settings:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
+                format: date-time
+                readOnly: true
+              updated_on:
                 type: string
-                example: attribute3
-              value:
-                type: string
-                example: value3
-        entity:
-          type: object
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-            settings_total:
-              type: integer
-            type:
-              type: string
-  parameters:
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
+                format: date-time
+                readOnly: true
   responses:
-    audit_log_bulk:
-      description: Audit log bulk response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    tool_name:
-                      type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
     audit_log:
       description: Audit log response
       content:
@@ -923,6 +884,48 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
+    audit_log_bulk:
+      description: Audit log bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    tool_name:
+                      type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
     error:
       description: Error response
       content:
@@ -930,6 +933,12 @@ components:
           schema:
             $ref: '#/components/schemas/error_response'
   requestBodies:
+    organization_update-2:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/settings_organization_update'
     id_list:
       content:
         application/json:
@@ -948,12 +957,6 @@ components:
                   format: int32
             required:
             - id
-    organization_update-2:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/settings_organization_update'
   securitySchemes:
     Auth0:
       type: oauth2
@@ -974,6 +977,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -983,6 +987,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -996,6 +1001,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

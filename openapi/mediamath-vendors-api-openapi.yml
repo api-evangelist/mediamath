@@ -96,44 +96,37 @@ paths:
         in: path
         required: true
         description: Numeric ID of the vendor to get
+  /vendors/taxonomies:
+    get:
+      operationId: list-vendor-taxonomies
+      summary: List Vendor Taxonomies
+      description: Returns taxonomy root nodes grouped by vendor for the provided advertiser.
+      tags:
+      - Vendors
+      parameters:
+      - name: advertiser_id
+        in: query
+        required: true
+        description: Numeric ID of the advertiser.
+        schema:
+          $ref: '#/components/schemas/advertiser_id'
+      responses:
+        '200':
+          description: Vendor taxonomies response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vendor_taxonomies_collection'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
 components:
   schemas:
-    vendor_collection_full:
-      type: object
-      title: vendor_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/vendor_base'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
     single_metadata:
       title: single_metadata
       type: object
@@ -143,6 +136,21 @@ components:
           example: success
       required:
       - status
+    vendor_collection:
+      type: object
+      title: vendor_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     list_metadata:
       title: pagination metadata
       type: object
@@ -172,6 +180,84 @@ components:
       required:
       - status
       - count
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    vendor_taxonomy_group:
+      title: vendor_taxonomy_group
+      type: object
+      properties:
+        vendor_id:
+          type: integer
+        name:
+          type: string
+        preferred:
+          type: integer
+        tax_flag:
+          type: boolean
+        taxonomies:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendor_taxonomy_item'
+      required:
+      - vendor_id
+      - name
+      - preferred
+      - tax_flag
+      - taxonomies
+    advertiser_id:
+      type: integer
+      minimum: 1
+      format: int32
+    vendor_taxonomies_collection:
+      title: vendor_taxonomies_collection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendor_taxonomy_group'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+      required:
+      - data
+      - meta
+    vendor_collection_full:
+      type: object
+      title: vendor_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendor_base'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
     vendor_base:
       title: vendor
       type: object
@@ -258,21 +344,17 @@ components:
           maximum: 999999.999999
         set_by:
           type: string
-    vendor_collection:
+    vendor_taxonomy_item:
+      title: vendor_taxonomy_item
       type: object
-      title: vendor_collection
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
+        name:
+          type: string
+        audience_segment_id:
+          type: integer
+      required:
+      - name
+      - audience_segment_id
   parameters:
     sort_by:
       in: query
@@ -282,16 +364,6 @@ components:
         type: string
         example: id, -id, name, -name
       required: false
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
     page_limit:
       in: query
       name: page_limit
@@ -308,7 +380,7 @@ components:
       schema:
         type: string
       required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
     full:
       in: query
       name: full
@@ -319,6 +391,16 @@ components:
       description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
 
         '
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
   responses:
     error:
       description: Error response
@@ -346,6 +428,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -355,6 +438,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -368,6 +452,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

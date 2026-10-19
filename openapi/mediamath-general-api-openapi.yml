@@ -96,57 +96,8 @@ paths:
           $ref: '#/components/responses/error'
         '403':
           $ref: '#/components/responses/error'
-  /target_values:
-    get:
-      operationId: list-target-values
-      summary: List Target Values
-      description: Get list of target values
-      tags:
-      - General
-      parameters:
-      - in: query
-        name: name
-        schema:
-          type: string
-        required: false
-        description: Search name
-      responses:
-        '200':
-          $ref: '#/components/responses/list_target_values'
-        '400':
-          $ref: '#/components/responses/error'
-        '401':
-          $ref: '#/components/responses/error'
-        '403':
-          $ref: '#/components/responses/error'
 components:
   schemas:
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -176,6 +127,35 @@ components:
       required:
       - status
       - count
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
     search_result:
       type: object
       properties:
@@ -186,36 +166,6 @@ components:
         name:
           type: string
   responses:
-    list_roles:
-      description: List roles response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                    entity_type:
-                      type: string
-                    name:
-                      type: string
-                    must_include:
-                      type: array
-                      items:
-                        type: number
-                    must_exclude:
-                      type: array
-                      items:
-                        type: number
-              meta:
-                $ref: '#/components/schemas/list_metadata'
     search_result:
       description: Search result
       content:
@@ -270,8 +220,14 @@ components:
                 type: integer
               node_total_cons:
                 type: integer
-    list_target_values:
-      description: List target values response
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+    list_roles:
+      description: List roles response
       content:
         application/json:
           schema:
@@ -286,30 +242,20 @@ components:
                   properties:
                     id:
                       type: number
-                    dimension_id:
-                      type: number
-                    dimension_code:
+                    entity_type:
                       type: string
-                    parent_value_id:
-                      type: number
                     name:
                       type: string
-                    value:
-                      type: number
-                    code:
-                      type: string
-                    is_targetable:
-                      type: boolean
-                    full_path:
-                      type: string
+                    must_include:
+                      type: array
+                      items:
+                        type: number
+                    must_exclude:
+                      type: array
+                      items:
+                        type: number
               meta:
                 $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     health_check_503:
       description: Health check response if code is 503
       content:
@@ -348,6 +294,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -357,6 +304,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -370,6 +318,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

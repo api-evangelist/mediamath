@@ -19,147 +19,6 @@ tags:
 - name: Targeting
   description: Targeting
 paths:
-  /target:
-    get:
-      operationId: list-targets-legacy
-      summary: (Legacy) List Targets
-      description: Get a list of targets
-      tags:
-      - Targeting
-      parameters:
-      - $ref: '#/components/parameters/page_limit'
-      - $ref: '#/components/parameters/page_offset'
-      - $ref: '#/components/parameters/sort_by'
-      - $ref: '#/components/parameters/q'
-      responses:
-        '200':
-          $ref: '#/components/responses/collection'
-        '400':
-          $ref: '#/components/responses/error'
-        '401':
-          $ref: '#/components/responses/error'
-        '403':
-          $ref: '#/components/responses/error'
-    post:
-      operationId: create-target-legacy
-      summary: (Legacy) Create a Target
-      description: Create a target
-      tags:
-      - Targeting
-      responses:
-        '201':
-          $ref: '#/components/responses/target'
-        '400':
-          $ref: '#/components/responses/error'
-        '401':
-          $ref: '#/components/responses/error'
-        '403':
-          $ref: '#/components/responses/error'
-      requestBody:
-        $ref: '#/components/requestBodies/target_create'
-  /target/{target_id}:
-    get:
-      operationId: get-target-legacy
-      summary: (Legacy) Get a Target
-      description: Get a target by ID
-      tags:
-      - Targeting
-      responses:
-        '200':
-          $ref: '#/components/responses/target'
-        '400':
-          $ref: '#/components/responses/error'
-        '401':
-          $ref: '#/components/responses/error'
-        '403':
-          $ref: '#/components/responses/error'
-        '404':
-          $ref: '#/components/responses/error'
-      parameters:
-      - schema:
-          type: integer
-        name: target_id
-        in: path
-        required: true
-        description: Numeric ID of the target to get
-    post:
-      operationId: update-target-legacy
-      summary: (Legacy) Update a Target
-      description: Update a target by ID
-      tags:
-      - Targeting
-      responses:
-        '200':
-          $ref: '#/components/responses/target'
-        '400':
-          $ref: '#/components/responses/error'
-        '401':
-          $ref: '#/components/responses/error'
-        '403':
-          $ref: '#/components/responses/error'
-        '404':
-          $ref: '#/components/responses/error'
-      requestBody:
-        $ref: '#/components/requestBodies/target_update'
-      parameters:
-      - schema:
-          type: integer
-        name: target_id
-        in: path
-        required: true
-        description: Numeric ID of the target to update
-    delete:
-      operationId: delete-target-legacy
-      summary: (Legacy) Delete a Target
-      description: Delete a target by ID
-      tags:
-      - Targeting
-      responses:
-        '200':
-          $ref: '#/components/responses/target_deleted'
-        '400':
-          $ref: '#/components/responses/error'
-        '401':
-          $ref: '#/components/responses/error'
-        '403':
-          $ref: '#/components/responses/error'
-        '404':
-          $ref: '#/components/responses/error'
-      parameters:
-      - schema:
-          type: integer
-        name: target_id
-        in: path
-        required: true
-        description: Numeric ID of the target to delete
-    put:
-      operationId: put-update-target-legacy
-      summary: (Legacy) Update a Target
-      description: Update a target by ID
-      tags:
-      - Targeting
-      responses:
-        '200':
-          $ref: '#/components/responses/target'
-        '400':
-          $ref: '#/components/responses/error'
-        '401':
-          $ref: '#/components/responses/error'
-        '403':
-          $ref: '#/components/responses/error'
-        '404':
-          $ref: '#/components/responses/error'
-        '409':
-          $ref: '#/components/responses/error'
-      requestBody:
-        $ref: '#/components/requestBodies/target_update'
-      parameters:
-      - schema:
-          type: integer
-        name: target_id
-        in: path
-        required: true
-        description: Numeric ID of the target to update
   /targets:
     get:
       operationId: list-targets
@@ -512,6 +371,189 @@ paths:
           $ref: '#/components/responses/error'
         '404':
           $ref: '#/components/responses/error'
+  /audience_taxonomies:
+    get:
+      operationId: get-audience-taxonomies
+      summary: List Audience Segment Taxonomies
+      description: 'Returns a paginated list of audience segment taxonomies. By default each item
+
+        contains only the root node of its taxonomy (`taxonomy.children` is an empty
+
+        array); pass `full=true` (or `full=1` / `full=*`) to also return the complete
+
+        nested segment tree under each root. Results can be filtered with `q=` and
+
+        sorted with `sort_by=`.
+
+
+        **Filterable / sortable fields:**
+
+        | Field | Source table |
+
+        |---|---|
+
+        | `id` | audience_segments |
+
+        | `taxonomy_id` | audience_segments |
+
+        | `audience_vendor_id` | audience_segments |
+
+        | `name` | audience_segments |
+
+        | `code` | audience_segments |
+
+        | `buyable` | audience_segments |
+
+        | `retail_cpm` | audience_segments |
+
+        | `wholesale_cpm` | audience_segments |
+
+        | `uniques` | audience_segments |
+
+        | `visibility` | audience_taxonomies |
+
+
+        Pagination is at the **taxonomy** level: `page_limit=1` returns one taxonomy
+
+        (with its complete tree when `full` is set, potentially many segments).
+
+        Filtering on segment fields (for example `q=name=:*X*`) still selects taxonomies
+
+        that contain a matching segment, regardless of `full`.'
+      tags:
+      - Targeting
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: Paginated list of audience segment taxonomies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceTaxonomiesCollectionResponse'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: post-audience-taxonomies-create
+      summary: Create Audience Segment Taxonomy
+      description: 'Creates a new audience segment taxonomy with nested hierarchical structure.
+
+        Access is scoped to the vendor''s owning organization; `visibility=GLOBAL` and `revenue_share_pct` may be set only by global admins.'
+      tags:
+      - Targeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudienceTaxonomiesCreateRequest'
+      responses:
+        '201':
+          description: Audience segment taxonomy created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AudienceTaxonomiesCreateResponse'
+                  meta:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+        '400':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
+  /audience_taxonomies/{taxonomy_id}:
+    get:
+      operationId: get-audience-taxonomy
+      summary: Get a Single Audience Segment Taxonomy
+      description: Returns a single audience segment taxonomy by ID with its full nested segment tree.
+      tags:
+      - Targeting
+      parameters:
+      - schema:
+          type: integer
+          format: int32
+        name: taxonomy_id
+        in: path
+        required: true
+        description: Numeric ID of the taxonomy to retrieve
+      responses:
+        '200':
+          description: Single audience segment taxonomy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceTaxonomySingleResponse'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: post-audience-taxonomy-update
+      summary: Update Audience Segment Taxonomy
+      description: 'Updates metadata and replaces the taxonomy tree for an existing audience segment taxonomy.
+
+        Access is scoped to the vendor''s owning organization; `visibility=GLOBAL` and `revenue_share_pct` may be set only by global admins.'
+      tags:
+      - Targeting
+      parameters:
+      - schema:
+          type: integer
+          format: int32
+        name: taxonomy_id
+        in: path
+        required: true
+        description: Numeric ID of the taxonomy to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudienceTaxonomiesUpdateRequest'
+      responses:
+        '200':
+          description: Audience segment taxonomy updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AudienceTaxonomiesUpdateResponse'
+                  meta:
+                    $ref: '#/components/schemas/single_metadata'
+        '400':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
   /audience_segments/frequently_used:
     get:
       operationId: get-audience-segments-frequently-used
@@ -558,6 +600,124 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/audience_segments_cpm_estimate'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /vendor/audience_configs:
+    get:
+      operationId: get-vendor-audience-config
+      summary: Get All Vendor Audience Configs
+      description: Retrieves all vendor audience configurations. Only accessible to global admins.
+      tags:
+      - Targeting
+      responses:
+        '200':
+          $ref: '#/components/responses/vendor_audience_configs_collection'
+        '400':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: post-vendor-audience_configs
+      summary: Create Vendor Audience Config
+      description: Creates or updates a vendor audience configuration. Only accessible to global admins.
+      tags:
+      - Targeting
+      requestBody:
+        $ref: '#/components/requestBodies/vendor_audience_config'
+      responses:
+        '200':
+          $ref: '#/components/responses/vendor_audience_config'
+        '400':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
+  /vendor/{vendor_id}/audience_configs:
+    get:
+      operationId: get-vendor-audience-config-vendor-id
+      summary: Get Vendor Audience Config by Vendor ID
+      description: Retrieves a vendor audience configuration by vendor ID. Only accessible to global admins.
+      tags:
+      - Targeting
+      parameters:
+      - in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: integer
+          format: int32
+        description: Numeric ID of the vendor
+      responses:
+        '200':
+          $ref: '#/components/responses/vendor_audience_config'
+        '400':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: put-vendor-audience-config-vendor-id
+      summary: Update Vendor Audience Config by Vendor ID
+      description: Updates a vendor audience configuration by vendor ID. Only accessible to global admins.
+      tags:
+      - Targeting
+      parameters:
+      - in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: integer
+          format: int32
+        description: Numeric ID of the vendor
+      requestBody:
+        $ref: '#/components/requestBodies/vendor_audience_config_update'
+      responses:
+        '200':
+          $ref: '#/components/responses/vendor_audience_config'
+        '400':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '500':
+          $ref: '#/components/responses/error'
+  /target_values:
+    get:
+      operationId: list-target-values
+      summary: List Target Values
+      description: Get list of target values
+      tags:
+      - Targeting
+      parameters:
+      - in: query
+        name: dimension
+        schema:
+          type: string
+        required: false
+        description: Target dimension code
+      - in: query
+        name: name
+        schema:
+          type: string
+        required: false
+        description: Search name
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      responses:
+        '200':
+          $ref: '#/components/responses/list_target_values'
         '400':
           $ref: '#/components/responses/error'
         '401':
@@ -789,291 +949,222 @@ paths:
         '404':
           $ref: '#/components/responses/error'
 components:
-  responses:
-    target_deleted:
-      description: Target deleted response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    targeting_segment_friendly_name:
-      description: Targeting segment friendly name response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                    external_code:
-                      type: string
-                    friendly_name:
-                      type: string
-                    vendor_id:
-                      type: number
-                    vendor_name:
-                      type: string
-                    dimension_id:
-                      type: number
-                    code:
-                      type: string
-                    frequency:
-                      type: number
-                    name:
-                      type: string
-                    retail_cpm:
-                      type: number
-                    objective_id:
-                      type: number
-                    targeting_vendor_id:
-                      type: number
-                    segment_objective_name:
-                      type: string
-              meta:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-    contextual_segment_estimate:
-      description: CPM estimate response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  cpm:
-                    type: object
-                    required:
-                    - value
-                    - contextual_cpm_min
-                    - contextual_cpm_max
-                    properties:
-                      currency_code:
-                        type: string
-                        minLength: 3
-                        maxLength: 3
-                      value:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 999999999999.99
-                      includes_taxed_segments:
-                        type: boolean
-                      contextual_cpm_min:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 999999999999.99
-                      contextual_cpm_max:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 999999999999.99
-                  segments:
-                    type: array
-                    description: available only when extended
-                    items:
-                      $ref: '#/components/schemas/contextual_segment_short'
-              meta:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-    collection:
-      description: Collection response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    target:
-      description: Target response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/target_base'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    list_technology_target_values:
-      description: List technology target values
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                    dimension:
-                      type: string
-                    name:
-                      type: string
-                    sortable_name:
-                      type: string
-                      description: "Field equals formatted name for `OSXX, DVMD` dimensions and `name` for other dimensions. \nExample: `name=WURFL/OS/Android/OS Version/2.0, dimension=OSXX` then `sortable_name=Android » 2.0`.\n"
-                    full_path:
-                      type: string
-                    value:
-                      type: number
-                    code:
-                      type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    audience_segments_cpm_estimate:
-      description: Audience segments CPM estimate response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  cpm:
-                    type: object
-                    required:
-                    - audience_cpm_min
-                    - audience_cpm_max
-                    properties:
-                      currency_code:
-                        type: string
-                        minLength: 3
-                        maxLength: 3
-                      includes_taxed_segments:
-                        type: boolean
-                      audience_cpm_min:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 999999999999.99
-                      audience_cpm_max:
-                        type: number
-                        format: double
-                        minimum: 0
-                        maximum: 999999999999.99
-                  segments:
-                    type: array
-                    description: available only when extended
-                    items:
-                      $ref: '#/components/schemas/audience_segment_short'
-              meta:
-                $ref: '#/components/schemas/single_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    q_required:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: true
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5%26status==true` to find all active entities with id greater than 5.\n"
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
   schemas:
-    day_part:
+    AudienceTaxonomiesNodeResponse:
       type: object
       required:
-      - start_hour
-      - end_hour
-      - days
+      - id
+      - name
+      - buyable
       properties:
-        user_time:
-          type: boolean
-          default: true
-        start_hour:
-          type: integer
-          minimum: 0
-          maximum: 23
-          example: 1
-        end_hour:
-          type: integer
-          minimum: 0
-          maximum: 23
-          example: 5
-        days:
-          type: array
-          items:
-            type: string
-            enum:
-            - M
-            - T
-            - W
-            - R
-            - F
-            - S
-            - U
-          example:
-          - M
-          - T
-          - W
-          - S
-          - U
-    target_update:
-      type: object
-      properties:
-        parent_id:
+        id:
           type: integer
           format: int32
-          example: 5
+          description: ID of the created audience_segment row
         name:
           type: string
-          minLength: 1
-        factual_id:
+          description: Display name of the taxonomy node
+        code:
           type: string
-        mediamath_organization_id:
-          type: integer
-          format: int32
-          example: 55
-        target_inet:
-          type: string
-          minLength: 1
-        visible:
+          description: Stored segment code (raw or CRC32-hashed depending on use_hash)
+        buyable:
           type: boolean
-        visible_overridden:
-          type: boolean
-        bidder_frequency:
+          description: Whether this segment can be purchased/targeted
+        retail_cpm:
+          type: number
+          format: double
+          description: Retail cost per thousand impressions
+        wholesale_cpm:
+          type: number
+          format: double
+          description: Wholesale cost per thousand impressions
+        uniques:
           type: integer
           format: int32
-          example: 3
-        dimension_code:
-          type: string
-          minLength: 1
-        version:
+          description: Estimated number of unique users in this segment
+        children:
+          type: array
+          description: Nested child nodes, mirroring the request tree
+          items:
+            $ref: '#/components/schemas/AudienceTaxonomiesNodeResponse'
+    path_audience_segments_collection_full:
+      type: object
+      title: path_audience_segments_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/path_audience_segment'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    contextual_segment_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          parent_targeting_segment_id:
+            type:
+            - integer
+            - 'null'
+          full_path:
+            type: string
+          cpm:
+            type: number
+            format: double
+          targeting_vendor_id:
+            type: integer
+          vendor_name:
+            type: string
+          external_code:
+            type: string
+          segment_objective_name:
+            type: string
+          segment_objective_id:
+            type: integer
+          buyable:
+            type: boolean
+          has_children:
+            type: boolean
+    AudienceTaxonomiesCreateResponse:
+      type: object
+      required:
+      - taxonomy_id
+      - audience_vendor_id
+      - permissions
+      - taxonomy
+      - created_by
+      - updated_by
+      - created_on
+      - updated_on
+      properties:
+        taxonomy_id:
           type: integer
           format: int32
-          example: 2
+          description: ID of the created audience_taxonomies row
+        created_by:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: ID of the user who created the taxonomy (audience_taxonomies.created_by)
+        updated_by:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: ID of the user who last updated the taxonomy (audience_taxonomies.updated_by)
+        created_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the taxonomy was created (audience_taxonomies.created_on)
+        updated_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the taxonomy was last updated (audience_taxonomies.updated_on)
+        audience_vendor_id:
+          type: integer
+          format: int32
+          description: ID of the audience_vendors row associated with this taxonomy
+        revenue_share_pct:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Revenue share percentage
+        permissions:
+          type: object
+          description: Access permissions scoped to specific entities
+          required:
+          - organizations
+          - agencies
+          - advertisers
+          properties:
+            organizations:
+              type: array
+              items:
+                type: integer
+                format: int32
+            agencies:
+              type: array
+              items:
+                type: integer
+                format: int32
+            advertisers:
+              type: array
+              items:
+                type: integer
+                format: int32
+        taxonomy:
+          description: Root node of the created taxonomy tree, with IDs populated
+          allOf:
+          - $ref: '#/components/schemas/AudienceTaxonomiesNodeResponse'
     audience_segments_group:
       type: object
       properties:
@@ -1096,23 +1187,35 @@ components:
                 format: double
                 minimum: 0
                 description: if provided value will be used instead of segment cpm (value in USD).
-    contextual_segment_collection:
+    audience_vendor:
       type: object
-      title: contextual_segment_collection
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-              entity_type:
-                type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        vendor_id:
+          type: integer
+        mma_free_cm:
+          type: boolean
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        provides_batch_segments:
+          type: boolean
+        campaign_brain_enabled:
+          type: boolean
+        pin_top_search:
+          type: boolean
+        bidder_code:
+          type: string
+        namespace_code:
+          type: string
     location_response:
       type: object
       properties:
@@ -1175,62 +1278,204 @@ components:
           target_value_code: Target Value 1
           strategy_count: 2
       title: ''
-    list_metadata:
-      title: pagination metadata
+    AudienceTaxonomiesNode:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name of the taxonomy node
+        description:
+          type: string
+          description: Human-readable description of the taxonomy node
+        code:
+          type: string
+          description: Vendor-defined segment code identifier
+        buyable:
+          type: boolean
+          description: Whether this segment can be purchased/targeted
+          default: false
+        retail_cpm:
+          type: number
+          format: double
+          description: Retail cost per thousand impressions
+          minimum: 0
+        wholesale_cpm:
+          type: number
+          format: double
+          description: Wholesale cost per thousand impressions
+          minimum: 0
+        uniques:
+          type: integer
+          format: int32
+          description: Estimated number of unique users in this segment
+          minimum: 0
+        children:
+          type: array
+          description: Nested child taxonomy nodes (supports arbitrary depth)
+          items:
+            $ref: '#/components/schemas/AudienceTaxonomiesNode'
+    contextual_segment_collection_full:
+      type: object
+      title: contextual_segment_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/contextual_segment_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    path_audience_segment:
+      title: path_audience_segment
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        parent_audience_segment_id:
+          type:
+          - integer
+          - 'null'
+        full_path:
+          type: string
+        uniques:
+          type: integer
+        retail_cpm:
+          type: array
+          items:
+            $ref: '#/components/schemas/cpm'
+        audience_vendor_id:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
+        buyable:
+          type: boolean
+        child_count:
+          type: integer
+        wholesale_cpm:
+          type: array
+          items:
+            $ref: '#/components/schemas/cpm'
+        type:
+          type: string
+        taxonomy_id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_on:
+          type: string
+          format: date-time
+        audience_vendor:
+          description: available with parameter `with=audience_vendor`
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/audience_vendor'
+    target_base:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+          format: int32
+          example: 10
+        name:
+          type: string
+          minLength: 1
+        factual_id:
+          type: string
+        mediamath_organization_id:
+          type: integer
+          format: int32
+          example: 20
+        target_inet:
+          type: string
+          minLength: 1
+        visible:
+          type: boolean
+        visible_overridden:
+          type: boolean
+        bidder_frequency:
+          type: integer
+          format: int32
+          example: 5
+        dimension_code:
+          type: string
+          minLength: 1
+      required:
+      - name
+    single_metadata:
+      title: single_metadata
       type: object
       properties:
         status:
           type: string
           example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
       required:
       - status
-      - count
-    path_audience_segments_collection_full:
+    AudienceTaxonomiesCollectionResponse:
       type: object
-      title: path_audience_segments_full
       properties:
         data:
           type: array
+          description: List of audience segment taxonomy items for the current page
           items:
-            $ref: '#/components/schemas/path_audience_segment'
+            $ref: '#/components/schemas/AudienceTaxonomiesCollectionItem'
         meta:
           $ref: '#/components/schemas/list_metadata'
-    target_create:
-      allOf:
-      - $ref: '#/components/schemas/target_base'
-      - type: object
-    audience_segment_short:
+    audience_target:
+      type: object
+      properties:
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        audience_segment_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 32
+    target_dimension_include:
+      type: object
+      properties:
+        code:
+          type: string
+          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
+        operator:
+          type: string
+          enum:
+          - AND
+          - OR
+        target_value_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+            example: 33
+      required:
+      - code
+      - operator
+      - target_value_ids
+    contextual_segment_short:
       type: object
       properties:
         id:
           type: integer
           format: int32
-          example: 11
+          example: 3
         name:
           type: string
-          example: Name3
         full_path:
           type: string
-          example: Name1 - Name2 - Name3
         cpm:
           type: number
           format: double
@@ -1239,42 +1484,95 @@ components:
           - number
           - 'null'
           format: double
+        segment_objective_name:
+          type: string
         uniques:
           type:
           - integer
           - 'null'
           format: int32
           example: 12345
-        code:
+    target_create:
+      allOf:
+      - $ref: '#/components/schemas/target_base'
+      - type: object
+    AudienceTaxonomiesUpdateResponse:
+      type: object
+      required:
+      - taxonomy_id
+      - audience_vendor_id
+      - permissions
+      - taxonomy
+      - created_by
+      - updated_by
+      - created_on
+      - updated_on
+      properties:
+        taxonomy_id:
+          type: integer
+          format: int32
+          description: ID of the audience_taxonomies row
+        created_by:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: ID of the user who created the taxonomy (audience_taxonomies.created_by)
+        updated_by:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: ID of the user who last updated the taxonomy (audience_taxonomies.updated_by)
+        created_on:
           type:
           - string
           - 'null'
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
+          format: date-time
+          description: Timestamp when the taxonomy was created (audience_taxonomies.created_on)
+        updated_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the taxonomy was last updated (audience_taxonomies.updated_on)
+        audience_vendor_id:
+          type: integer
+          format: int32
+          description: ID of the audience_vendors row associated with this taxonomy
+        revenue_share_pct:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Revenue share percentage
+        permissions:
           type: object
+          description: Entity-scoped access permissions
           required:
-          - status
+          - organizations
+          - agencies
+          - advertisers
           properties:
-            status:
-              type: string
+            organizations:
+              type: array
+              items:
+                type: integer
+                format: int32
+            agencies:
+              type: array
+              items:
+                type: integer
+                format: int32
+            advertisers:
+              type: array
+              items:
+                type: integer
+                format: int32
+        taxonomy:
+          description: Root node of the updated segment tree, with IDs populated
+          allOf:
+          - $ref: '#/components/schemas/AudienceTaxonomiesNodeResponse'
     targeting_base:
       type: object
       properties:
@@ -1361,23 +1659,42 @@ components:
         value:
           type: number
           format: double
-    contextual_segment_collection_full:
+    list_metadata:
+      title: pagination metadata
       type: object
-      title: contextual_segment_collection_full
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/contextual_segment_full'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    target_base:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    target_update:
       type: object
       properties:
         parent_id:
           type: integer
           format: int32
-          example: 10
+          example: 5
         name:
           type: string
           minLength: 1
@@ -1386,7 +1703,7 @@ components:
         mediamath_organization_id:
           type: integer
           format: int32
-          example: 20
+          example: 55
         target_inet:
           type: string
           minLength: 1
@@ -1397,12 +1714,262 @@ components:
         bidder_frequency:
           type: integer
           format: int32
-          example: 5
+          example: 3
         dimension_code:
           type: string
           minLength: 1
+        version:
+          type: integer
+          format: int32
+          example: 2
+    AudienceTaxonomiesUpdateRequest:
+      type: object
+      required:
+      - taxonomy
+      - permissions
+      properties:
+        visibility:
+          type: string
+          description: Visibility scope of the audience segment
+          enum:
+          - GLOBAL
+          - RESTRICTED
+        use_hash:
+          type: boolean
+          description: Whether to use hashed identifiers for this segment
+        revenue_share_pct:
+          type: number
+          format: double
+          description: Revenue share percentage for this segment
+          minimum: 0
+          maximum: 100
+        is_clearing_house:
+          type: boolean
+          description: Whether this segment is managed through a clearing house
+        permissions:
+          type: object
+          description: Access permissions scoped to specific entities
+          properties:
+            organizations:
+              type: array
+              description: Organization IDs granted access
+              items:
+                type: integer
+                format: int32
+                minimum: 1
+            agencies:
+              type: array
+              description: Agency IDs granted access
+              items:
+                type: integer
+                format: int32
+                minimum: 1
+            advertisers:
+              type: array
+              description: Advertiser IDs granted access
+              items:
+                type: integer
+                format: int32
+                minimum: 1
+        taxonomy:
+          description: Root node of the hierarchical taxonomy tree (replaces existing tree)
+          allOf:
+          - $ref: '#/components/schemas/AudienceTaxonomiesUpdateNode'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    contextual_segment_collection:
+      type: object
+      title: contextual_segment_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              entity_type:
+                type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    AudienceTaxonomiesCollectionNodeResponse:
+      type: object
+      required:
+      - id
+      - name
+      - buyable
+      - children
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: ID of the audience_segments row for this node
+        name:
+          type: string
+          description: Display name of this segment node
+        code:
+          type:
+          - string
+          - 'null'
+          description: Vendor-defined segment code (raw or CRC32-hashed)
+        buyable:
+          type: boolean
+          description: Whether this segment can be purchased/targeted
+        retail_cpm:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Retail cost per thousand impressions
+        wholesale_cpm:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Wholesale cost per thousand impressions
+        uniques:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: Estimated number of unique users in this segment
+        children:
+          type: array
+          description: Nested child segment nodes (may be empty)
+          items:
+            $ref: '#/components/schemas/AudienceTaxonomiesCollectionNodeResponse'
+    AudienceTaxonomiesUpdateNode:
+      type: object
       required:
       - name
+      description: A taxonomy node in an update request. Carry id to identify an existing segment (omit for new nodes).
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: ID of the existing audience_segments row. Omit for new nodes.
+        name:
+          type: string
+          description: Display name of the taxonomy node
+        description:
+          type: string
+          description: Human-readable description of the taxonomy node
+        code:
+          type: string
+          description: Vendor-defined segment code identifier
+        buyable:
+          type: boolean
+          description: Whether this segment can be purchased/targeted
+          default: false
+        retail_cpm:
+          type: number
+          format: double
+          description: Retail cost per thousand impressions
+          minimum: 0
+        wholesale_cpm:
+          type: number
+          format: double
+          description: Wholesale cost per thousand impressions
+          minimum: 0
+        uniques:
+          type: integer
+          format: int32
+          description: Estimated number of unique users in this segment
+          minimum: 0
+        children:
+          type: array
+          description: Nested child taxonomy nodes (supports arbitrary depth)
+          items:
+            $ref: '#/components/schemas/AudienceTaxonomiesUpdateNode'
+    AudienceTaxonomiesCreateRequest:
+      type: object
+      required:
+      - vendor_id
+      - taxonomy
+      properties:
+        vendor_id:
+          type: integer
+          format: int32
+          description: ID of the vendor owning this audience segment taxonomy
+          minimum: 1
+        visibility:
+          type: string
+          description: Visibility scope of the audience segment
+          enum:
+          - GLOBAL
+          - RESTRICTED
+        use_hash:
+          type: boolean
+          description: Whether to use hashed identifiers for this segment
+          default: false
+        revenue_share_pct:
+          type: number
+          format: double
+          description: Revenue share percentage for this segment
+          minimum: 0
+          maximum: 100
+        is_clearing_house:
+          type: boolean
+          description: Whether this segment is managed through a clearing house
+          default: false
+        permissions:
+          type: object
+          description: Access permissions scoped to specific entities
+          properties:
+            organizations:
+              type: array
+              description: Organization IDs granted access
+              items:
+                type: integer
+                format: int32
+                minimum: 1
+            agencies:
+              type: array
+              description: Agency IDs granted access
+              items:
+                type: integer
+                format: int32
+                minimum: 1
+            advertisers:
+              type: array
+              description: Advertiser IDs granted access
+              items:
+                type: integer
+                format: int32
+                minimum: 1
+        taxonomy:
+          description: Root node of the hierarchical taxonomy tree
+          allOf:
+          - $ref: '#/components/schemas/AudienceTaxonomiesNode'
     target_dimension_exclude:
       type: object
       properties:
@@ -1422,174 +1989,19 @@ components:
             example: 3
       required:
       - target_value_ids
-    audience_vendor:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        version:
-          type: integer
-        vendor_id:
-          type: integer
-        mma_free_cm:
-          type: boolean
-        created_on:
-          type: string
-          format: date-time
-        updated_on:
-          type: string
-          format: date-time
-        provides_batch_segments:
-          type: boolean
-        campaign_brain_enabled:
-          type: boolean
-        pin_top_search:
-          type: boolean
-        bidder_code:
-          type: string
-        namespace_code:
-          type: string
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    contextual_segment_full:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-          name:
-            type: string
-          parent_targeting_segment_id:
-            type:
-            - integer
-            - 'null'
-          full_path:
-            type: string
-          cpm:
-            type: number
-            format: double
-          targeting_vendor_id:
-            type: integer
-          vendor_name:
-            type: string
-          external_code:
-            type: string
-          segment_objective_name:
-            type: string
-          segment_objective_id:
-            type: integer
-          buyable:
-            type: boolean
-          has_children:
-            type: boolean
-    path_audience_segment:
-      title: path_audience_segment
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        version:
-          type: integer
-        parent_audience_segment_id:
-          type:
-          - integer
-          - 'null'
-        full_path:
-          type: string
-        uniques:
-          type: integer
-        retail_cpm:
-          type: array
-          items:
-            $ref: '#/components/schemas/cpm'
-        audience_vendor_id:
-          type: integer
-        code:
-          type:
-          - string
-          - 'null'
-        buyable:
-          type: boolean
-        child_count:
-          type: integer
-        wholesale_cpm:
-          type: array
-          items:
-            $ref: '#/components/schemas/cpm'
-        type:
-          type: string
-        taxonomy_id:
-          type: integer
-        created_on:
-          type: string
-          format: date-time
-        updated_on:
-          type: string
-          format: date-time
-        audience_vendor:
-          description: available with parameter `with=audience_vendor`
-          type:
-          - object
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/audience_vendor'
-    target_dimension_include:
-      type: object
-      properties:
-        code:
-          type: string
-          description: valid location codes - DMAX, REGN, USZC | valid technology codes -  BSER, CSPD, DVCE, ISPX, OSXX, INVT, DVMD | valid contextual codes -  SFTY
-        operator:
-          type: string
-          enum:
-          - AND
-          - OR
-        target_value_ids:
-          type: array
-          items:
-            type: integer
-            format: int32
-            example: 33
-      required:
-      - code
-      - operator
-      - target_value_ids
-    audience_target:
-      type: object
-      properties:
-        operator:
-          type: string
-          enum:
-          - AND
-          - OR
-        audience_segment_ids:
-          type: array
-          items:
-            type: integer
-            format: int32
-            example: 32
-    contextual_segment_short:
+    audience_segment_short:
       type: object
       properties:
         id:
           type: integer
           format: int32
-          example: 3
+          example: 11
         name:
           type: string
+          example: Name3
         full_path:
           type: string
+          example: Name1 - Name2 - Name3
         cpm:
           type: number
           format: double
@@ -1598,74 +2010,494 @@ components:
           - number
           - 'null'
           format: double
-        segment_objective_name:
-          type: string
         uniques:
           type:
           - integer
           - 'null'
           format: int32
           example: 12345
-  parameters:
-    sort_by:
-      in: query
-      name: sort_by
-      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
-      schema:
-        type: string
-        example: id, -id, name, -name
-      required: false
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
-    q_required:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: true
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5%26status==true` to find all active entities with id greater than 5.\n"
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    extended:
-      in: query
-      name: extended
-      schema:
-        type: boolean
-      required: false
-      description: Get extended properties in response
+        code:
+          type:
+          - string
+          - 'null'
+    AudienceTaxonomiesCollectionItem:
+      type: object
+      required:
+      - taxonomy_id
+      - audience_vendor_id
+      - vendor_id
+      - visibility
+      - taxonomy
+      - created_by
+      - updated_by
+      - created_on
+      - updated_on
+      properties:
+        taxonomy_id:
+          type: integer
+          format: int32
+          description: ID of the audience_taxonomies row
+        created_by:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: ID of the user who created the taxonomy (audience_taxonomies.created_by)
+        updated_by:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: ID of the user who last updated the taxonomy (audience_taxonomies.updated_by)
+        created_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the taxonomy was created (audience_taxonomies.created_on)
+        updated_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the taxonomy was last updated (audience_taxonomies.updated_on)
+        audience_vendor_id:
+          type: integer
+          format: int32
+          description: ID of the audience_vendors row associated with this taxonomy
+        vendor_id:
+          type: integer
+          format: int32
+          description: ID of the underlying vendor owning this taxonomy
+        revenue_share_pct:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Revenue share percentage
+        visibility:
+          type: string
+          description: Visibility scope of the taxonomy
+          enum:
+          - GLOBAL
+          - RESTRICTED
+        permissions:
+          type: object
+          description: Entity-scoped access permissions. Included only when the caller is authorized to view permissions for this taxonomy.
+          required:
+          - organizations
+          - agencies
+          - advertisers
+          properties:
+            organizations:
+              type: array
+              items:
+                type: integer
+                format: int32
+            agencies:
+              type: array
+              items:
+                type: integer
+                format: int32
+            advertisers:
+              type: array
+              items:
+                type: integer
+                format: int32
+        taxonomy:
+          description: Root node of the nested segment tree
+          allOf:
+          - $ref: '#/components/schemas/AudienceTaxonomiesCollectionNodeResponse'
+    day_part:
+      type: object
+      required:
+      - start_hour
+      - end_hour
+      - days
+      properties:
+        user_time:
+          type: boolean
+          default: true
+        start_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 1
+        end_hour:
+          type: integer
+          minimum: 0
+          maximum: 23
+          example: 5
+        days:
+          type: array
+          items:
+            type: string
+            enum:
+            - M
+            - T
+            - W
+            - R
+            - F
+            - S
+            - U
+          example:
+          - M
+          - T
+          - W
+          - S
+          - U
+    AudienceTaxonomySingleResponse:
+      type: object
+      properties:
+        data:
+          description: Single audience segment taxonomy item
+          allOf:
+          - $ref: '#/components/schemas/AudienceTaxonomiesCollectionItem'
+        meta:
+          $ref: '#/components/schemas/single_metadata'
+  responses:
+    collection:
+      description: Collection response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    vendor_audience_configs_collection:
+      description: Collection of Vendor Audience Configs
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    vendor_id:
+                      type: integer
+                      format: int32
+                    organization_id:
+                      type: integer
+                      format: int32
+                    bidder_code:
+                      type: string
+                    default_revenue_share:
+                      type: number
+                      format: double
+                    creation_limit:
+                      type: integer
+                    enabled:
+                      type: boolean
+                    global_taxonomy_enabled:
+                      type: boolean
+                    created_on:
+                      type: string
+                      format: date-time
+                    updated_on:
+                      type: string
+                      format: date-time
+              meta:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  count:
+                    type: integer
+                  total_count:
+                    type: integer
+                  offset:
+                    type: integer
+                  next_page:
+                    type: string
+                  prev_page:
+                    type: string
+    list_target_values:
+      description: List target values response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    dimension_id:
+                      type: number
+                    dimension_code:
+                      type: string
+                    parent_value_id:
+                      type: number
+                    name:
+                      type: string
+                    value:
+                      type: number
+                    code:
+                      type: string
+                    is_targetable:
+                      type: boolean
+                    full_path:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    target:
+      description: Target response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/target_base'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    vendor_audience_config:
+      description: Vendor Audience Config response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  vendor_id:
+                    type: integer
+                    format: int32
+                  organization_id:
+                    type: integer
+                    format: int32
+                  bidder_code:
+                    type: string
+                  default_revenue_share:
+                    type: number
+                    format: double
+                  creation_limit:
+                    type: integer
+                  enabled:
+                    type: boolean
+                  global_taxonomy_enabled:
+                    type: boolean
+                  created_on:
+                    type: string
+                    format: date-time
+                  updated_on:
+                    type: string
+                    format: date-time
+                required:
+                - vendor_id
+                - organization_id
+                - bidder_code
+                - default_revenue_share
+                - enabled
+                - global_taxonomy_enabled
+                - created_on
+                - updated_on
+              meta:
+                type: object
+                properties:
+                  status:
+                    type: string
+    target_deleted:
+      description: Target deleted response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    list_technology_target_values:
+      description: List technology target values
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    dimension:
+                      type: string
+                    name:
+                      type: string
+                    sortable_name:
+                      type: string
+                      description: "Field equals formatted name for `OSXX, DVMD` dimensions and `name` for other dimensions. \nExample: `name=WURFL/OS/Android/OS Version/2.0, dimension=OSXX` then `sortable_name=Android » 2.0`.\n"
+                    full_path:
+                      type: string
+                    value:
+                      type: number
+                    code:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    targeting_segment_friendly_name:
+      description: Targeting segment friendly name response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    external_code:
+                      type: string
+                    friendly_name:
+                      type: string
+                    vendor_id:
+                      type: number
+                    vendor_name:
+                      type: string
+                    dimension_id:
+                      type: number
+                    code:
+                      type: string
+                    frequency:
+                      type: number
+                    name:
+                      type: string
+                    retail_cpm:
+                      type: number
+                    objective_id:
+                      type: number
+                    targeting_vendor_id:
+                      type: number
+                    segment_objective_name:
+                      type: string
+              meta:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+    audience_segments_cpm_estimate:
+      description: Audience segments CPM estimate response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  cpm:
+                    type: object
+                    required:
+                    - audience_cpm_min
+                    - audience_cpm_max
+                    properties:
+                      currency_code:
+                        type: string
+                        minLength: 3
+                        maxLength: 3
+                      includes_taxed_segments:
+                        type: boolean
+                      audience_cpm_min:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                      audience_cpm_max:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                  segments:
+                    type: array
+                    description: available only when extended
+                    items:
+                      $ref: '#/components/schemas/audience_segment_short'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    contextual_segment_estimate:
+      description: CPM estimate response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  cpm:
+                    type: object
+                    required:
+                    - value
+                    - contextual_cpm_min
+                    - contextual_cpm_max
+                    properties:
+                      currency_code:
+                        type: string
+                        minLength: 3
+                        maxLength: 3
+                      value:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                      includes_taxed_segments:
+                        type: boolean
+                      contextual_cpm_min:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                      contextual_cpm_max:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 999999999999.99
+                  segments:
+                    type: array
+                    description: available only when extended
+                    items:
+                      $ref: '#/components/schemas/contextual_segment_short'
+              meta:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
   requestBodies:
     contextual_segment_estimate:
       content:
@@ -1751,11 +2583,77 @@ components:
                   $ref: '#/components/schemas/audience_segments_group'
               exclude:
                 $ref: '#/components/schemas/audience_segments_group'
+    vendor_audience_config_update:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              bidder_code:
+                type: string
+                pattern: ^[A-Za-z]{2}$
+                description: Must be exactly 2 alphabetic characters
+                x-pattern-error-message: bidder_code must be exactly 2 alphabetic characters
+              default_revenue_share:
+                type: number
+                format: double
+                minimum: 0
+                maximum: 100
+                description: Decimal value for the default revenue share
+              creation_limit:
+                type: integer
+                minimum: 1
+                format: int32
+                description: Positive integer value for the creation limit
+              enabled:
+                type: boolean
+              global_taxonomy_enabled:
+                type: boolean
     target_update:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/target_update'
+    vendor_audience_config:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              vendor_id:
+                type: integer
+                format: int32
+              organization_id:
+                type: integer
+                format: int32
+              bidder_code:
+                type: string
+                pattern: ^[A-Za-z]{2}$
+                description: Must be exactly 2 alphabetic characters
+                x-pattern-error-message: bidder_code must be exactly 2 alphabetic characters
+              default_revenue_share:
+                type: number
+                format: double
+                minimum: 0
+                maximum: 100
+                description: Decimal value for the default revenue share
+              creation_limit:
+                type: integer
+                minimum: 1
+                format: int32
+                description: Positive integer value for the creation limit
+              enabled:
+                type: boolean
+              global_taxonomy_enabled:
+                type: boolean
+            required:
+            - vendor_id
+            - organization_id
+            - bidder_code
+            - default_revenue_share
+            - global_taxonomy_enabled
     target_create:
       content:
         application/json:
@@ -1781,6 +2679,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -1790,6 +2689,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -1803,6 +2703,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

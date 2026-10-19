@@ -1,0 +1,1053 @@
+openapi: 3.2.0
+info:
+  title: Campaigns Place Lists API
+  description: 'MediaMath Campaign Management API
+
+
+    Postman Collection'
+  version: 3.0.1807
+  contact:
+    url: https://support.infillion.com/
+servers:
+- url: https://api.mediamath.com/api/v3.0
+  description: Live Server
+security:
+- Auth0:
+  - offline_access
+  - manage:services
+tags:
+- name: Place Lists
+  description: Place Lists
+paths:
+  /place_lists:
+    get:
+      operationId: list-place-lists
+      summary: List Place Lists
+      description: 'Get a list of place lists.
+
+
+        Place lists can be sorted and queried by fields:
+
+        - `id`,
+
+        - `version`,
+
+        - `organization_id`,
+
+        - `name`,
+
+        - `filename`,
+
+        - `content_updated_on`,
+
+        - `places_count`,
+
+        - `created_on`,
+
+        - `updated_on`.'
+      tags:
+      - Place Lists
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - $ref: '#/components/parameters/sort_by'
+      - $ref: '#/components/parameters/q'
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          description: List place lists response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/place_list_collection'
+                - $ref: '#/components/schemas/place_list_collection_full'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: create-place-list
+      summary: Create Place List
+      description: 'Create a place list with inline circle places.
+
+
+        Only circle places are supported. API users must provide `latitude`,
+
+        `longitude`, and `radius_meters` for each place. `geometry_type` is
+
+        returned by the API and must not be supplied by users.
+
+
+        Before creating Place List locations through the API, API users must
+
+        accept the sensitive-location attestation by including
+
+        `sensitive_location_attestation: true` in the request body. Accepting
+
+        this field confirms the following attestation on behalf of the API
+
+        user for this request:
+
+
+        ```text
+
+        I represent and warrant that these locations are not being used to
+
+        target or identify individuals at sensitive locations, and that I have
+
+        the rights and consents necessary for this targeting, including consent
+
+        to share with third parties where required.
+
+        ```
+
+
+        For guidance on what qualifies as a sensitive location, see
+
+        Places attestation guidelines.
+
+
+        Requests submitted without `sensitive_location_attestation`, or with it
+
+        set to any value other than `true`, are rejected with a `400`
+
+        `invalid-request` error on `/sensitive_location_attestation`. This is a
+
+        per-request acknowledgment, not a one-time account-level setting.
+
+
+        The attestation language may be updated over time.'
+      tags:
+      - Place Lists
+      requestBody:
+        $ref: '#/components/requestBodies/place_list_create_body'
+      responses:
+        '201':
+          $ref: '#/components/responses/place_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /place_lists/upload:
+    post:
+      operationId: upload-create-place-list
+      summary: Upload New Place List
+      description: 'Create a place list from a CSV file.
+
+
+        The CSV upload is atomic: if any row is invalid, the API returns `400`
+
+        with validation errors and no place list or places are created. The CSV
+
+        header must be exactly `name,latitude,longitude,radius_meters,external_id`.
+
+        `sensitive_location_attestation` is required and must be `"true"`.
+
+
+        Before uploading Place List locations through the API, API users must
+
+        accept the sensitive-location attestation. Accepting this field confirms
+
+        the following attestation on behalf of the API user for this request:
+
+
+        ```text
+
+        I represent and warrant that these locations are not being used to
+
+        target or identify individuals at sensitive locations, and that I have
+
+        the rights and consents necessary for this targeting, including consent
+
+        to share with third parties where required.
+
+        ```
+
+
+        For guidance on what qualifies as a sensitive location, see
+
+        Places attestation guidelines.
+
+
+        Requests submitted without `sensitive_location_attestation`, or with it
+
+        set to any value other than `"true"`, are rejected with a `400`
+
+        `invalid-request` error on `/sensitive_location_attestation`. This is a
+
+        per-request acknowledgment, not a one-time account-level setting.
+
+
+        The attestation language may be updated over time.'
+      tags:
+      - Place Lists
+      requestBody:
+        $ref: '#/components/requestBodies/place_list_create_upload_body'
+      responses:
+        '201':
+          $ref: '#/components/responses/place_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+  /place_lists/{place_list_id}:
+    get:
+      operationId: get-place-list
+      summary: Get Place List
+      description: 'Get a place list by ID.
+
+
+        Single GET returns the full Place List by default, including nested
+
+        `places[]`.'
+      tags:
+      - Place Lists
+      parameters:
+      - in: path
+        name: place_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the place list to get
+      - $ref: '#/components/parameters/full'
+      responses:
+        '200':
+          $ref: '#/components/responses/place_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+    post:
+      operationId: update-place-list
+      summary: Update Place List
+      description: 'Update a place list by ID.
+
+
+        List-level fields (`name`, `description`) are partially updated. If
+
+        `places[]` is present, it is treated as the desired full set: omitted
+
+        places are deleted, matching places are updated in place, and new places
+
+        are inserted. An empty `places[]` clears the list.
+
+        `sensitive_location_attestation` may be omitted for metadata-only
+
+        updates and for no-op `places[]` resubmissions. If the submitted
+
+        `places[]` content changes geographic Place content by adding a place,
+
+        removing a place, or changing an existing place''s `latitude`,
+
+        `longitude`, or `radius_meters`, the API requires
+
+        `sensitive_location_attestation: true`; otherwise, the request is
+
+        rejected. Matched-place `name` and `external_id` edits are metadata
+
+        edits that persist without requiring or recording attestation. `version`
+
+        is optional and enables optimistic locking when present.
+
+
+        When changing Place List locations through the API, accepting
+
+        `sensitive_location_attestation: true` confirms the following
+
+        attestation on behalf of the API user for this request:
+
+
+        ```text
+
+        I represent and warrant that these locations are not being used to
+
+        target or identify individuals at sensitive locations, and that I have
+
+        the rights and consents necessary for this targeting, including consent
+
+        to share with third parties where required.
+
+        ```
+
+
+        For guidance on what qualifies as a sensitive location, see
+
+        Places attestation guidelines.
+
+
+        Geographic-content-changing requests submitted without
+
+        `sensitive_location_attestation`, or with it set to any value other than
+
+        `true`, are rejected with a `400` `invalid-request` error on
+
+        `/sensitive_location_attestation`. Metadata-only matched-place edits
+
+        and no-op resubmissions of unchanged Place content do not require or
+
+        record a new attestation. This is a per-request acknowledgment for
+
+        actual geographic content changes, not a one-time account-level setting.
+
+
+        The attestation language may be updated over time.'
+      tags:
+      - Place Lists
+      parameters:
+      - in: path
+        name: place_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the place list to update
+      requestBody:
+        $ref: '#/components/requestBodies/place_list_update_body'
+      responses:
+        '200':
+          $ref: '#/components/responses/place_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+  /place_lists/{place_list_id}/upload:
+    post:
+      operationId: upload-update-place-list
+      summary: Upload Updated Place List
+      description: 'Update a place list from a CSV file.
+
+
+        If `file` is present, the CSV is treated as the desired full set of
+
+        places: omitted places are deleted, matching places are updated in place,
+
+        and new places are inserted. Metadata fields are optional. The upload is
+
+        atomic: if any row is invalid, the API returns `400` with validation
+
+        errors and no changes are persisted. If the uploaded CSV changes
+
+        geographic Place content by adding a place, removing a place, or
+
+        changing an existing place''s `latitude`, `longitude`, or
+
+        `radius_meters`, `sensitive_location_attestation` is required and must
+
+        be `"true"`. Matched-place `name` and `external_id` edits are metadata
+
+        edits that persist without requiring or recording attestation. A no-op
+
+        CSV resubmission of unchanged Place content does not require or record a
+
+        new attestation. The CSV header must be exactly
+
+        `name,latitude,longitude,radius_meters,external_id`.
+
+
+        When changing Place List locations through the API, accepting
+
+        `sensitive_location_attestation: "true"` confirms the following
+
+        attestation on behalf of the API user for this request:
+
+
+        ```text
+
+        I represent and warrant that these locations are not being used to
+
+        target or identify individuals at sensitive locations, and that I have
+
+        the rights and consents necessary for this targeting, including consent
+
+        to share with third parties where required.
+
+        ```
+
+
+        For guidance on what qualifies as a sensitive location, see
+
+        Places attestation guidelines.
+
+
+        Geographic-content-changing uploads submitted without
+
+        `sensitive_location_attestation`, or with it set to any value other than
+
+        `"true"`, are rejected with a `400` `invalid-request` error on
+
+        `/sensitive_location_attestation`. Metadata-only matched-place edits
+
+        and no-op resubmissions of unchanged Place content do not require or
+
+        record a new attestation. This is a per-request acknowledgment for
+
+        actual geographic content changes, not a one-time account-level setting.
+
+
+        The attestation language may be updated over time.'
+      tags:
+      - Place Lists
+      parameters:
+      - in: path
+        name: place_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the place list to update
+      requestBody:
+        $ref: '#/components/requestBodies/place_list_update_upload_body'
+      responses:
+        '200':
+          $ref: '#/components/responses/place_list'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+        '409':
+          $ref: '#/components/responses/error'
+  /place_lists/{place_list_id}/history:
+    get:
+      operationId: place-list-audit-log
+      summary: Place List Audit Log
+      description: Get a list of changes to this place list.
+      tags:
+      - Place Lists
+      parameters:
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/page_offset'
+      - in: path
+        name: place_list_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the place list
+      responses:
+        '200':
+          $ref: '#/components/responses/audit_log'
+        '400':
+          $ref: '#/components/responses/error'
+        '401':
+          $ref: '#/components/responses/error'
+        '403':
+          $ref: '#/components/responses/error'
+        '404':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    sort_by:
+      in: query
+      name: sort_by
+      description: "The field to sort by. You can use any field name in ascending or descending order.\nFor ascending order, use the field name directly, e.g., `id`. \nFor descending order, prefix the field name with a hyphen (`-`), e.g., `-id`.\n"
+      schema:
+        type: string
+        example: id, -id, name, -name
+      required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+  requestBodies:
+    place_list_update_body:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/place_list_update'
+    place_list_update_upload_body:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            additionalProperties: false
+            properties:
+              file:
+                type: string
+                format: binary
+                description: CSV file with header `name,latitude,longitude,radius_meters,external_id`.
+                x-allowed-extensions:
+                - .csv
+                x-max-file-size: 5242880
+              name:
+                type: string
+                maxLength: 255
+                example: Starbucks Stores - New York
+                description: Optional updated place list name.
+              description:
+                type: string
+                description: Optional updated place list description.
+              version:
+                type: string
+                description: Optional optimistic-lock version. It is a string because this is a form upload.
+              sensitive_location_attestation:
+                type: string
+                description: Optional for metadata-only updates and no-op CSV resubmissions. If the uploaded CSV changes geographic Place content by adding a place, removing a place, or changing an existing place's latitude, longitude, or radius_meters, this field must be `"true"`. Matched-place name and external_id edits do not require or record attestation.
+    place_list_create_body:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/place_list_create'
+    place_list_create_upload_body:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            additionalProperties: false
+            properties:
+              file:
+                type: string
+                format: binary
+                description: CSV file with header `name,latitude,longitude,radius_meters,external_id`.
+                x-allowed-extensions:
+                - .csv
+                x-max-file-size: 5242880
+              organization_id:
+                type: string
+                description: The ID of the owning organization. It is a string because this is a form upload.
+              name:
+                type: string
+                maxLength: 255
+                example: Starbucks Stores - New York
+                description: The name of the place list being uploaded.
+              description:
+                type: string
+                description: Optional place list description.
+              sensitive_location_attestation:
+                type: string
+                enum:
+                - 'true'
+                description: Required and must be `"true"` for Place List content writes.
+            required:
+            - file
+            - organization_id
+            - name
+            - sensitive_location_attestation
+  responses:
+    place_list:
+      description: Place list response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/place_list_full'
+              meta:
+                $ref: '#/components/schemas/single_metadata'
+    audit_log:
+      description: Audit log response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    tool_name:
+                      type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error_response'
+  schemas:
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    place_list_collection:
+      type: object
+      title: place_list_collection
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              entity_type:
+                type: string
+              name:
+                type: string
+              organization_id:
+                type: integer
+              filename:
+                type:
+                - string
+                - 'null'
+              content_updated_on:
+                type:
+                - string
+                - 'null'
+                format: date-time
+              places_count:
+                type: integer
+              strategy_count:
+                type: integer
+                format: int64
+              created_on:
+                type: string
+                format: date-time
+              updated_on:
+                type: string
+                format: date-time
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    place_list_full:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            format: int32
+            example: 126
+          entity_type:
+            type: string
+            example: place_list
+          version:
+            type: integer
+            format: int32
+            example: 2
+          organization_id:
+            type: integer
+            format: int32
+            example: 100048
+          name:
+            type: string
+            maxLength: 255
+            example: Starbucks Stores - New York
+          description:
+            type:
+            - string
+            - 'null'
+            example: NYC flagship + competitor zones
+          filename:
+            type:
+            - string
+            - 'null'
+            maxLength: 255
+            example: starbucks_new_york.csv
+          content_updated_on:
+            type:
+            - string
+            - 'null'
+            format: date-time
+            readOnly: true
+          places_count:
+            type: integer
+            format: int32
+            example: 42
+          strategy_count:
+            type: integer
+            format: int64
+            readOnly: true
+            description: Number of strategies currently assigned to this Place List through PLCS geofence targeting.
+          created_on:
+            type: string
+            format: date-time
+            readOnly: true
+          updated_on:
+            type: string
+            format: date-time
+            readOnly: true
+          places:
+            type: array
+            description: Nested places — returned on create/update and single GET responses
+            readOnly: true
+            items:
+              $ref: '#/components/schemas/place'
+    place_list_create:
+      type: object
+      title: place_list_create
+      additionalProperties: false
+      properties:
+        organization_id:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 2147483647
+          example: 100048
+        name:
+          type: string
+          maxLength: 255
+          example: Starbucks Stores - New York
+        description:
+          type:
+          - string
+          - 'null'
+          example: NYC flagship + competitor zones
+        sensitive_location_attestation:
+          type: boolean
+          enum:
+          - true
+          description: Required and must be `true` for Place List content writes.
+        places:
+          type: array
+          description: 'Circle places to create. Within one place list, nonblank external_id values
+
+            must be unique and circle geometry (latitude, longitude, radius_meters)
+
+            must be unique after coordinate truncation to four decimal places.
+
+            '
+          minItems: 1
+          maxItems: 10000
+          items:
+            $ref: '#/components/schemas/place_create'
+      required:
+      - organization_id
+      - name
+      - sensitive_location_attestation
+      - places
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    place_list_collection_full:
+      type: object
+      title: place_list_collection_full
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/place_list_full'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    place_list_update:
+      type: object
+      title: place_list_update
+      additionalProperties: false
+      properties:
+        version:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+          example: 2
+          description: Optional optimistic-lock version. When present, it must match the current Place List version.
+        name:
+          type: string
+          maxLength: 255
+          example: Starbucks Stores - New York
+        description:
+          type:
+          - string
+          - 'null'
+          example: NYC flagship + competitor zones
+        sensitive_location_attestation:
+          type: boolean
+          description: Optional for metadata-only updates and no-op content resubmissions. If submitted `places` content changes geographic Place content by adding a place, removing a place, or changing an existing place's `latitude`, `longitude`, or `radius_meters`, this field must be `true`. Matched-place `name` and `external_id` edits do not require or record attestation.
+        places:
+          type: array
+          description: 'Desired full set of circle places. When present, omitted existing places
+
+            are deleted, matching places are updated in place to preserve stable
+
+            child place IDs, and new places are inserted. An empty array clears all
+
+            places from the list. Within one place list, nonblank external_id values
+
+            must be unique and circle geometry (latitude, longitude, radius_meters)
+
+            must be unique after coordinate truncation to four decimal places.
+
+            '
+          maxItems: 10000
+          items:
+            $ref: '#/components/schemas/place_create'
+    place_create:
+      type: object
+      title: place_create
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Times Square
+        external_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: STORE-001
+        latitude:
+          type: number
+          minimum: -90
+          maximum: 90
+          description: JSON number using standard JSON syntax; do not include leading zeroes (use `40.7589`, not `040.7589`).
+          example: 40.7589
+        longitude:
+          type: number
+          minimum: -180
+          maximum: 180
+          description: JSON number using standard JSON syntax; do not include leading zeroes (use `-73.9851`, not `-073.9851`).
+          example: -73.9851
+        radius_meters:
+          type: integer
+          minimum: 1000
+          maximum: 30000
+          example: 1000
+      required:
+      - latitude
+      - longitude
+      - radius_meters
+    place:
+      type: object
+      title: place
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 5001
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Times Square
+        external_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: STORE-001
+        geometry_type:
+          type: string
+          enum:
+          - circle
+          example: circle
+          readOnly: true
+          description: Returned by the API and must not be supplied by users
+        latitude:
+          type:
+          - number
+          - 'null'
+          minimum: -90
+          maximum: 90
+          example: 40.7589
+        longitude:
+          type:
+          - number
+          - 'null'
+          minimum: -180
+          maximum: 180
+          example: -73.9851
+        radius_meters:
+          type:
+          - integer
+          - 'null'
+          minimum: 1000
+          maximum: 30000
+          example: 1000
+  securitySchemes:
+    Auth0:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.mediamath.com/authorize
+          scopes:
+            offline_access: for refresh tokens
+            manage:services: normal access
+          tokenUrl: https://auth.mediamath.com/oauth/token
+          refreshUrl: https://auth.mediamath.com/authorize?scope=offline_access
+x-tagGroups:
+- name: Hierarchy
+  tags:
+  - Advertisers
+  - Agencies
+  - Campaign Plans
+  - Campaigns
+  - Campaigns Budget Flights
+  - New Strategy Plans
+  - New Strategy Groups
+  - Organizations
+  - Strategies
+  - Strategy Parameters
+  - Strategy Templates
+- name: Targeting
+  tags:
+  - Segment Groups
+  - Targeting
+  - Targeting Attachments
+  - Place Lists
+  - Targeting Segment Objectives
+  - Targeting Segments
+- name: Creatives
+  tags:
+  - Atomic Creatives
+  - Concepts
+  - Creatives
+  - Pixel Bundles
+  - Pixel Providers
+- name: Vendors & Contracts
+  tags:
+  - Audience Vendors
+  - Contracts
+  - Internal Fees
+  - Marketplaces
+  - Vendor Contracts
+  - Vendors
+- name: Users & Access
+  tags:
+  - Enterprise Controls
+  - User Permissions
+  - Users
+- name: Reference Data
+  tags:
+  - Ad Servers
+  - Currency Rates
+  - General
+  - Sidekick Usage Logs
+  - Site Lists
+  - Supply Sources
+  - Timezones
+  - Verticals

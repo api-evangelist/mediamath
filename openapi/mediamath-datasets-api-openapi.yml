@@ -25,7 +25,232 @@ tags:
 paths:
   /all-dimensions-and-metrics:
     post:
-      description: Standard performance metrics in campaign currency and broken out by our widest array of dimensions.
+      description: 'Standard performance metrics in campaign currency and broken out by our widest array of dimensions. Available in custom date ranges or intervals with the option to aggregate by day, week, or month. ### Fields
+
+
+        | Field | Time Windows | Rollups |
+
+        |-------|---------------|-----------|
+
+        |**Dimensions**|
+
+        |`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`|`by_day`, `by_week`, `by_month`|
+
+        |`ads_txt_type`
+
+        Ads.txt Type|Any|Any|
+
+        |`ads_txt_verified`
+
+        Ads.txt Verified|Any|Any|
+
+        |`advertiser_id`
+
+        |Any|Any|
+
+        |`advertiser_name`
+
+        |Any|Any|
+
+        |`agency_id`
+
+        |Any|Any|
+
+        |`agency_name`
+
+        |Any|Any|
+
+        |`app_id`
+
+        |Any|Any|
+
+        |`app_name`
+
+        |Any|Any|
+
+        |`app_store`
+
+        |Any|Any|
+
+        |`auction_type`
+
+        |Any|Any|
+
+        |`bid_price_impact`
+
+        |Any|Any|
+
+        |`browser`
+
+        |Any|Any|
+
+        |`browser_version`
+
+        |Any|Any|
+
+        |`campaign_archived`
+
+        |Any|Any|
+
+        |`campaign_conversion_type`
+
+        |Any|Any|
+
+        |`campaign_conversion_variable_minutes`
+
+        |Any|Any|
+
+        |`campaign_created_on`
+
+        Campaign Creation Time|Any|Any|
+
+        |`campaign_currency_code`
+
+        Campaign Currency Code|Any|Any|
+
+        |`campaign_custom_attribution_source`
+
+        |Any|Any|
+
+        |`campaign_dynamic_budget_allocation_type`
+
+        |Any|Any|
+
+        |`campaign_end_date`
+
+        (GMT) Campaign End Date|Any|Any|
+
+        |`campaign_end_date_campaign_tz`
+
+        (CTZ) Campaign End Date|Any|Any|
+
+        |`campaign_frequency_amount`
+
+        Campaign Frequency Amount|Any|Any|
+
+        |`campaign_frequency_interval`
+
+        Campaign Frequency Interval|Any|Any|
+
+        |`campaign_frequency_optimization`
+
+        Campaign Frequency Optimization|Any|Any|
+
+        |`campaign_frequency_type`
+
+        Campaign Frequency Type|Any|Any|
+
+        |`campaign_goal_type`
+
+        |Any|Any|
+
+        |`campaign_goal_value`
+
+        |Any|Any|
+
+        |`campaign_has_custom_attribution`
+
+        |Any|Any|
+
+        |`campaign_id`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_amount`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_automatic`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_type`
+
+        |Any|Any|
+
+        |`campaign_initial_start_date`
+
+        (GMT) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_initial_start_date_campaign_tz`
+
+        (CTZ) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_io_name`
+
+        |Any|Any|
+
+        |`campaign_io_reference_num`
+
+        |Any|Any|
+
+        |`campaign_is_programmatic_guaranteed`
+
+        Campaign Is Programmatic Guaranteed|Any|Any|
+
+        |`campaign_merit_pixel_created_on`
+
+        Pixel Creation Time|Any|Any|
+
+        |`campaign_merit_pixel_eligible`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_external_identifier`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_name`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_provider_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_status`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tag_type`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tags`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_updated_on`
+
+        Pixel Update Time|Any|Any|
+
+        |`campaign_name`
+
+        |Any|Any|
+
+        |`campaign_pc_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_political`
+
+        |Any|Any|
+
+        |`campaign_pv_pct`
+
+        |Any|Any|
+
+        |`campaign_pv_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_service_type`
+
+        Campaign Service Type, a.k.a.'
       requestBody:
         content:
           application/json:
@@ -1045,7 +1270,196 @@ paths:
       x-operation-id-source: derived
   /day-part:
     post:
-      description: Standard performance metrics broken out by time of day and day of week.
+      description: 'Standard performance metrics broken out by time of day and day of week. Available in standard intervals. ### Fields
+
+
+        | Field | Time Windows | Rollups |
+
+        |-------|---------------|-----------|
+
+        |**Dimensions**|
+
+        |`agg_timestamp`|`current_day`, `yesterday`, `last_X_days`, `month_to_date`, `campaign_to_date`|`by_day`, `by_week`, `by_month`|
+
+        |`advertiser_id`
+
+        |Any|Any|
+
+        |`advertiser_name`
+
+        |Any|Any|
+
+        |`agency_id`
+
+        |Any|Any|
+
+        |`agency_name`
+
+        |Any|Any|
+
+        |`campaign_archived`
+
+        |Any|Any|
+
+        |`campaign_conversion_type`
+
+        |Any|Any|
+
+        |`campaign_conversion_variable_minutes`
+
+        |Any|Any|
+
+        |`campaign_created_on`
+
+        Campaign Creation Time|Any|Any|
+
+        |`campaign_currency_code`
+
+        Campaign Currency Code|Any|Any|
+
+        |`campaign_custom_attribution_source`
+
+        |Any|Any|
+
+        |`campaign_dynamic_budget_allocation_type`
+
+        |Any|Any|
+
+        |`campaign_end_date`
+
+        (GMT) Campaign End Date|Any|Any|
+
+        |`campaign_end_date_campaign_tz`
+
+        (CTZ) Campaign End Date|Any|Any|
+
+        |`campaign_frequency_amount`
+
+        Campaign Frequency Amount|Any|Any|
+
+        |`campaign_frequency_interval`
+
+        Campaign Frequency Interval|Any|Any|
+
+        |`campaign_frequency_optimization`
+
+        Campaign Frequency Optimization|Any|Any|
+
+        |`campaign_frequency_type`
+
+        Campaign Frequency Type|Any|Any|
+
+        |`campaign_goal_type`
+
+        |Any|Any|
+
+        |`campaign_goal_value`
+
+        |Any|Any|
+
+        |`campaign_has_custom_attribution`
+
+        |Any|Any|
+
+        |`campaign_id`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_amount`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_automatic`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_type`
+
+        |Any|Any|
+
+        |`campaign_initial_start_date`
+
+        (GMT) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_initial_start_date_campaign_tz`
+
+        (CTZ) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_io_name`
+
+        |Any|Any|
+
+        |`campaign_io_reference_num`
+
+        |Any|Any|
+
+        |`campaign_is_programmatic_guaranteed`
+
+        Campaign Is Programmatic Guaranteed|Any|Any|
+
+        |`campaign_merit_pixel_created_on`
+
+        Pixel Creation Time|Any|Any|
+
+        |`campaign_merit_pixel_eligible`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_external_identifier`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_name`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_provider_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_status`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tag_type`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tags`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_updated_on`
+
+        Pixel Update Time|Any|Any|
+
+        |`campaign_name`
+
+        |Any|Any|
+
+        |`campaign_pc_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_political`
+
+        |Any|Any|
+
+        |`campaign_pv_pct`
+
+        |Any|Any|
+
+        |`campaign_pv_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_service_type`
+
+        Campaign Service Type, a.k.a.'
       requestBody:
         content:
           application/json:
@@ -3140,7 +3554,194 @@ paths:
       x-operation-id-source: derived
   /reach-frequency:
     post:
-      description: Basic performance metrics as well as the "uniques" metric, broken out by frequency of ad exposure.
+      description: 'Basic performance metrics as well as the "uniques" metric, broken out by frequency of ad exposure. Available in standard intervals. ### Fields
+
+
+        | Field | Time Windows | Rollups |
+
+        |-------|---------------|-----------|
+
+        |**Dimensions**|
+
+        |`advertiser_id`
+
+        |Any|Any|
+
+        |`advertiser_name`
+
+        |Any|Any|
+
+        |`agency_id`
+
+        |Any|Any|
+
+        |`agency_name`
+
+        |Any|Any|
+
+        |`campaign_archived`
+
+        |Any|Any|
+
+        |`campaign_conversion_type`
+
+        |Any|Any|
+
+        |`campaign_conversion_variable_minutes`
+
+        |Any|Any|
+
+        |`campaign_created_on`
+
+        Campaign Creation Time|Any|Any|
+
+        |`campaign_currency_code`
+
+        Campaign Currency Code|Any|Any|
+
+        |`campaign_custom_attribution_source`
+
+        |Any|Any|
+
+        |`campaign_dynamic_budget_allocation_type`
+
+        |Any|Any|
+
+        |`campaign_end_date`
+
+        (GMT) Campaign End Date|Any|Any|
+
+        |`campaign_end_date_campaign_tz`
+
+        (CTZ) Campaign End Date|Any|Any|
+
+        |`campaign_frequency_amount`
+
+        Campaign Frequency Amount|Any|Any|
+
+        |`campaign_frequency_interval`
+
+        Campaign Frequency Interval|Any|Any|
+
+        |`campaign_frequency_optimization`
+
+        Campaign Frequency Optimization|Any|Any|
+
+        |`campaign_frequency_type`
+
+        Campaign Frequency Type|Any|Any|
+
+        |`campaign_goal_type`
+
+        |Any|Any|
+
+        |`campaign_goal_value`
+
+        |Any|Any|
+
+        |`campaign_has_custom_attribution`
+
+        |Any|Any|
+
+        |`campaign_id`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_amount`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_automatic`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_type`
+
+        |Any|Any|
+
+        |`campaign_initial_start_date`
+
+        (GMT) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_initial_start_date_campaign_tz`
+
+        (CTZ) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_io_name`
+
+        |Any|Any|
+
+        |`campaign_io_reference_num`
+
+        |Any|Any|
+
+        |`campaign_is_programmatic_guaranteed`
+
+        Campaign Is Programmatic Guaranteed|Any|Any|
+
+        |`campaign_merit_pixel_created_on`
+
+        Pixel Creation Time|Any|Any|
+
+        |`campaign_merit_pixel_eligible`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_external_identifier`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_name`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_provider_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_status`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tag_type`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tags`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_updated_on`
+
+        Pixel Update Time|Any|Any|
+
+        |`campaign_name`
+
+        |Any|Any|
+
+        |`campaign_pc_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_political`
+
+        |Any|Any|
+
+        |`campaign_pv_pct`
+
+        |Any|Any|
+
+        |`campaign_pv_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_service_type`
+
+        Campaign Service Type, a.k.a.'
       requestBody:
         content:
           application/json:
@@ -3408,7 +4009,196 @@ paths:
       x-operation-id-source: derived
   /win-loss:
     post:
-      description: Metrics describe the auction before a win or even a bid has taken place.
+      description: 'Metrics describe the auction before a win or even a bid has taken place. Broken out by strategy, exchange, and deal dimensions and available by hour. ### Fields
+
+
+        | Field | Time Windows | Rollups |
+
+        |-------|---------------|-----------|
+
+        |**Dimensions**|
+
+        |`agg_timestamp`|`current_day`, `last_X_hours`, `yesterday`, `last_X_days`, `month_to_date`|`by_hour`, `by_day`, `by_week`, `by_month`|
+
+        |`advertiser_id`
+
+        |Any|Any|
+
+        |`advertiser_name`
+
+        |Any|Any|
+
+        |`agency_id`
+
+        |Any|Any|
+
+        |`agency_name`
+
+        |Any|Any|
+
+        |`campaign_archived`
+
+        |Any|Any|
+
+        |`campaign_conversion_type`
+
+        |Any|Any|
+
+        |`campaign_conversion_variable_minutes`
+
+        |Any|Any|
+
+        |`campaign_created_on`
+
+        Campaign Creation Time|Any|Any|
+
+        |`campaign_currency_code`
+
+        Campaign Currency Code|Any|Any|
+
+        |`campaign_custom_attribution_source`
+
+        |Any|Any|
+
+        |`campaign_dynamic_budget_allocation_type`
+
+        |Any|Any|
+
+        |`campaign_end_date`
+
+        (GMT) Campaign End Date|Any|Any|
+
+        |`campaign_end_date_campaign_tz`
+
+        (CTZ) Campaign End Date|Any|Any|
+
+        |`campaign_frequency_amount`
+
+        Campaign Frequency Amount|Any|Any|
+
+        |`campaign_frequency_interval`
+
+        Campaign Frequency Interval|Any|Any|
+
+        |`campaign_frequency_optimization`
+
+        Campaign Frequency Optimization|Any|Any|
+
+        |`campaign_frequency_type`
+
+        Campaign Frequency Type|Any|Any|
+
+        |`campaign_goal_type`
+
+        |Any|Any|
+
+        |`campaign_goal_value`
+
+        |Any|Any|
+
+        |`campaign_has_custom_attribution`
+
+        |Any|Any|
+
+        |`campaign_id`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_amount`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_automatic`
+
+        |Any|Any|
+
+        |`campaign_impression_cap_type`
+
+        |Any|Any|
+
+        |`campaign_initial_start_date`
+
+        (GMT) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_initial_start_date_campaign_tz`
+
+        (CTZ) Campaign Initial Start Date|Any|Any|
+
+        |`campaign_io_name`
+
+        |Any|Any|
+
+        |`campaign_io_reference_num`
+
+        |Any|Any|
+
+        |`campaign_is_programmatic_guaranteed`
+
+        Campaign Is Programmatic Guaranteed|Any|Any|
+
+        |`campaign_merit_pixel_created_on`
+
+        Pixel Creation Time|Any|Any|
+
+        |`campaign_merit_pixel_eligible`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_external_identifier`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_name`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_provider_id`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_status`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tag_type`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_tags`
+
+        |Any|Any|
+
+        |`campaign_merit_pixel_updated_on`
+
+        Pixel Update Time|Any|Any|
+
+        |`campaign_name`
+
+        |Any|Any|
+
+        |`campaign_pc_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_political`
+
+        |Any|Any|
+
+        |`campaign_pv_pct`
+
+        |Any|Any|
+
+        |`campaign_pv_window_minutes`
+
+        |Any|Any|
+
+        |`campaign_service_type`
+
+        Campaign Service Type, a.k.a.'
       requestBody:
         content:
           application/json:
@@ -3690,19 +4480,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    StreamingResponse:
-      description: Documentation available at https://apidocs.mediamath.com/docs/reporting-api-v2
-      example: '{"fields":[{"name":"agg_timestamp"},{"name":"campaign_id"},{"name":"impressions"}],"total_items_count":14}
-
-        {"campaign_id":1,"impressions":93283,"agg_timestamp":"2023-07-27T12:00:00Z"}
-
-        {"campaign_id":2,"impressions":474,"agg_timestamp":"2023-07-27T12:00:00Z"}
-
-        {"meta":{}}
-
-        {"campaign_id":3,"impressions":45775,"agg_timestamp":"2023-07-27T12:00:00Z"}'
-      title: Streaming Response
-      type: string
     Error:
       example:
         error_code: BadRequest
@@ -3716,6 +4493,19 @@ components:
         request_id:
           type: string
       type: object
+    StreamingResponse:
+      description: Documentation available at https://apidocs.mediamath.com/docs/reporting-api-v2
+      example: '{"fields":[{"name":"agg_timestamp"},{"name":"campaign_id"},{"name":"impressions"}],"total_items_count":14}
+
+        {"campaign_id":1,"impressions":93283,"agg_timestamp":"2023-07-27T12:00:00Z"}
+
+        {"campaign_id":2,"impressions":474,"agg_timestamp":"2023-07-27T12:00:00Z"}
+
+        {"meta":{}}
+
+        {"campaign_id":3,"impressions":45775,"agg_timestamp":"2023-07-27T12:00:00Z"}'
+      title: Streaming Response
+      type: string
   securitySchemes:
     Auth0:
       flows:

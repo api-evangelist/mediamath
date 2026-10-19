@@ -271,7 +271,61 @@ paths:
                   type:
                   - integer
                   - 'null'
-                  description: "Will be deprecated soon. \nIf `merit_pixel_id` is updated then `merit_pixels` will be synchronized with it. \nIf `merit_pixels` is updated then `merit_pixel_id` will be synchronized with it. \nUpdate both fields at the same time is not supported.\n"
+                  deprecated: true
+                  description: 'Deprecated. Use `merit_pixels` instead.
+
+                    If `merit_pixel_id` is updated then `merit_pixels` will be synchronized with it.
+
+                    If `merit_pixels` is updated then `merit_pixel_id` will be synchronized with it.
+
+                    Update both fields at the same time is not supported.
+
+                    '
+                merit_pixels:
+                  type: array
+                  maxItems: 10
+                  description: 'Merit pixels for multi-merit attribution (up to 10 per campaign).
+
+                    If `merit_pixel_id` is updated then `merit_pixels` will be synchronized with it.
+
+                    If `merit_pixels` is updated then `merit_pixel_id` will be synchronized with it.
+
+                    Update both fields at the same time is not supported.
+
+
+                    Validation rules:
+
+                    - Each `pixel_id` must reference an event pixel that belongs to the campaign''s advertiser.
+
+                    - `pixel_id` values must be unique within the array.
+
+                    - `weight` accepts values from 0.00 to 10.00 with at most 2 decimal places; at least one pixel must have a weight greater than 0.
+
+                    - `funnel_position` values must be unique; if any pixel has a funnel position then all pixels must have one, with no gaps (1 to N).
+
+                    '
+                  items:
+                    type: object
+                    properties:
+                      pixel_id:
+                        type: integer
+                        format: int32
+                        minimum: 1
+                      weight:
+                        type: number
+                        minimum: 0
+                        maximum: 10
+                        multipleOf: 0.01
+                        default: 1
+                      funnel_position:
+                        type:
+                        - integer
+                        - 'null'
+                        format: int32
+                        minimum: 1
+                        maximum: 10
+                    required:
+                    - pixel_id
                 status:
                   type: boolean
                   default: true
@@ -462,136 +516,72 @@ components:
         dynamic_budget_allocation_available:
           type: string
           format: date-time
-    campaign_bulk:
+    campaign_collection:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/campaign_base'
-      - type: object
-        required:
-        - id
-        properties:
-          id:
-            type: integer
-            minimum: 1
-            format: int32
-            example: 67
-          version:
-            type: integer
-            format: int32
-            example: 1
-          goals:
-            $ref: '#/components/schemas/campaign_goals'
-          duration:
-            $ref: '#/components/schemas/campaign_duration'
-          budget:
+      title: campaign_collection
+      properties:
+        data:
+          type: array
+          items:
             allOf:
-            - $ref: '#/components/schemas/campaign_budget'
             - type: object
               properties:
-                flights:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/campaign_budget_flights'
-          frequency:
-            $ref: '#/components/schemas/campaign_frequency'
-          inventory:
-            $ref: '#/components/schemas/campaign_inventory'
-    campaign_budget_flights:
+                id:
+                  type: integer
+                entity_type:
+                  type: string
+                name:
+                  type: string
+            - $ref: '#/components/schemas/campaign_with'
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    roles:
+      type: array
+      example:
+      - 4
+      - 6
+      description: "Possible values:\n- 2: \"admin\", \n- 3: \"manager\", \n- 4: \"reporter\", \n- 5: \"internal\", \n- 6: \"agency\" ,\n- 7: \"edit_data_definition\", \n- 8: \"view_data_definition\", \n- 9: \"edit_segments\", \n- 10: \"view_segments\", \n- 11: \"edit_campaigns\", \n- 13: \"edit_margins_and_performance\", \n- 14: \"view_organizations\", \n- 15: \"view_dmp_reports\", \n- 16: \"manage_contracts\", \n- 17: \"view_contracts\".\nSome values can't be used with each other, for example 3 and 4. For more information use \"/roles\" request.\n"
+      items:
+        type: integer
+        format: int16
+        minimum: 1
+        maximum: 32767
+    campaign_frequency:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-          example: 77
-        start_date:
+        frequency_type:
           type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-          description: The latest end date of flight must be no more than 36 months after the earliest start date
-        total_budget:
-          type: number
-          format: float
-        total_impression_budget:
+          enum:
+          - even
+          - asap
+          - no-limit
+          - t1-optimized
+          - frequency_goal
+        frequency_interval:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          enum:
+          - hour
+          - day
+          - week
+          - month
+          - not-applicable
+          default: not-applicable
+        frequency_amount:
           type:
           - integer
           - 'null'
-          format: int64
-          minimum: 1
-          maximum: 9223372036854776000
-          example: 12345
-        is_relevant:
+          format: int32
+          example: 10
+        use_mm_freq:
           type: boolean
-          readOnly: true
-    campaign_custom_brain_selection:
-      type: object
-      properties:
-        id:
-          type: integer
-        version:
-          type: integer
-        campaign_id:
-          type: integer
-        selection_id:
-          type: integer
-        selection_type:
-          type: string
-        active:
+          deprecated: true
+          default: false
+        frequency_optimization:
           type: boolean
-        enable_mm_audiences_in_brain:
-          type: boolean
-        is_retired:
-          type: boolean
-        full_path:
-          type: string
-        owner_name:
-          type: string
-        selection_name:
-          type: string
-        child_count:
-          type: integer
-        parent_audience_segment_id:
-          type: integer
-        retail_cpm:
-          type: number
-          format: float
-        uniques:
-          type: integer
-        wholesale_cpm:
-          type: number
-          format: float
-    campaign_full-2:
-      title: campaign_response
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/campaign_full_with_inherited'
-        meta:
-          $ref: '#/components/schemas/single_metadata'
-    campaign_full_extended-2:
-      title: campaign_response_extended
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/campaign_full_extended'
-        meta:
-          $ref: '#/components/schemas/single_metadata'
-    campaign_dba_collection:
-      type: object
-      title: campaign_dba_collection
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: integer
-            entity_type:
-              type: string
-            name:
-              type: string
-        meta:
-          $ref: '#/components/schemas/list_metadata'
+          default: false
     campaign_update:
       type: object
       allOf:
@@ -650,97 +640,58 @@ components:
                   - Event Pixel
                   - Segment
                   - Dynamic
-    dba:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: integer
-            description: campaign id
-          dynamic_budget_allocation_applied:
-            type:
-            - string
-            - 'null'
-            format: date-time
-          dynamic_budget_allocation_available:
-            type:
-            - string
-            - 'null'
-            format: date-time
-        required:
-        - id
-    campaign_ad_server:
+    campaign_budget_flights_create:
       type: object
       properties:
-        ad_server_id:
-          type: integer
-          format: int32
-          example: 19
-        ad_server_username:
+        start_date:
           type: string
-          maxLength: 64
-        ad_server_password:
+          format: date-time
+        end_date:
           type: string
-          maxLength: 64
-        use_default_ad_server:
-          type: boolean
-          default: true
-        ad_server_fee:
+          format: date-time
+          description: The latest end date of flight must be no more than 36 months after the earliest start date
+        total_budget:
           type: number
           format: float
-          minimum: 0
-          maximum: 9999999.99
-    permission_flags:
-      type: object
-      properties:
-        create:
-          type: boolean
-        read:
-          type: boolean
-        update:
-          type: boolean
-        delete:
-          type: boolean
-        inherited_from:
-          type: string
-    campaign_dba_collection_full:
-      type: object
-      title: campaign_dba_collection_full
-      properties:
-        data:
-          $ref: '#/components/schemas/campaign_full'
-        meta:
-          $ref: '#/components/schemas/single_metadata'
-    list_metadata:
-      title: pagination metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-          description: The status of the response, indicating success or failure.
-        count:
-          type: integer
-          example: 10
-          description: The number of items returned in the current response.
-        total_count:
-          type: integer
-          example: 100
-          description: The total number of items available in the dataset.
-        offset:
-          type: integer
-          example: 0
-          description: The offset from the start of the dataset, used for pagination.
-        next_page:
-          type: string
-          description: The URL to fetch the next page of results.
-        prev_page:
-          type: string
-          description: The URL to fetch the previous page of results.
+        total_impression_budget:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          minimum: 1
+          maximum: 9223372036854776000
+          example: 12345
       required:
-      - status
-      - count
+      - start_date
+      - end_date
+      - total_budget
+    campaign_full_with_inherited:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/campaign_full'
+      - type: object
+        properties:
+          inherited_mfa_avoidance:
+            type: string
+            description: available if mfa_avoidance = INHERIT
+            enum:
+            - INHERIT
+            - ALLOW_ALL
+            - EXCLUDE_MFA
+          inherited_mfa_from:
+            type: string
+            description: available if mfa_avoidance = INHERIT
+            enum:
+            - Organization
+            - Agency
+            - Advertiser
+            - Campaign
+          inherited_targeting_identity_level:
+            type: string
+            description: available if targeting_identity_level = INHERIT
+            enum:
+            - INDIVIDUAL
+            - HOUSEHOLD
     permission_user_output:
       type: object
       properties:
@@ -835,45 +786,6 @@ components:
           type: string
         zone_name:
           type: string
-    permission_campaign_with_user:
-      allOf:
-      - type: object
-        properties:
-          permission:
-            $ref: '#/components/schemas/permission_flags'
-      - $ref: '#/components/schemas/permission_user_output'
-    campaign_inventory:
-      type: object
-      properties:
-        ads_txt_verified:
-          type:
-          - string
-          - 'null'
-          enum:
-          - ANY
-          - AUTHORIZED_ONLY
-          - AUTHORIZED_DIRECT_ONLY
-          - NONE
-        minimize_multi_ads:
-          type: boolean
-          default: false
-        override_suspicious_traffic_filter:
-          type: boolean
-          default: false
-        suspicious_traffic_filter_level:
-          type: integer
-          default: 25
-          minimum: 0
-          maximum: 100
-        dcs_data_is_campaign_level:
-          type: boolean
-          default: false
-        restrict_targeting_to_deterministic_id:
-          deprecated: true
-          type: boolean
-          default: true
-        restrict_targeting_to_same_device_id:
-          type: boolean
     vendor_contract_base:
       type: object
       required:
@@ -898,275 +810,6 @@ components:
           enum:
           - CPM
           - FIXED
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    campaign_duration:
-      type: object
-      description: Duration of campaigns must not exceed 36 months
-      properties:
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-    campaign_collection_full:
-      type: object
-      title: campaign_collection_full
-      properties:
-        data:
-          type: array
-          items:
-            allOf:
-            - $ref: '#/components/schemas/campaign_full'
-            - $ref: '#/components/schemas/campaign_with'
-        meta:
-          $ref: '#/components/schemas/list_metadata'
-    campaign_goals:
-      type: object
-      properties:
-        goal_type:
-          type: string
-          enum:
-          - spend
-          - reach
-          - cpc
-          - cpe
-          - cpa
-          - roi
-          - ctr
-          - vcr
-          - viewability_rate
-          - vcpm
-          - cpcv
-        goal_alert:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 999.99
-        goal_value:
-          type: number
-          format: float
-          minimum: 0.0001
-          maximum: 9999999.9999
-        goal_category:
-          type:
-          - string
-          - 'null'
-          enum:
-          - audience
-          - engagement
-          - response
-    campaign_viewability:
-      type:
-      - object
-      - 'null'
-      required:
-      - vendor_id
-      - sample_rate
-      - type
-      properties:
-        vendor_id:
-          type: integer
-          format: int32
-          example: 34
-        type:
-          type: string
-          enum:
-          - AUTO_TAG
-          - BYOV
-        sample_rate:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-    campaign_with:
-      type: object
-      properties:
-        advertiser:
-          type: object
-          description: available only if `with=advertiser`
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-        agency:
-          type: object
-          description: available only if `with=agency`
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-    campaign_identity:
-      type: object
-      properties:
-        device_graph_only:
-          type: boolean
-          default: false
-        bid_min_devices:
-          type: integer
-          format: int16
-          minimum: -32768
-          maximum: 32767
-          default: 1
-        connected_id_type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - DETERMINISTIC_FIRST
-    campaign_full_with_inherited:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/campaign_full'
-      - type: object
-        properties:
-          inherited_mfa_avoidance:
-            type: string
-            description: available if mfa_avoidance = INHERIT
-            enum:
-            - INHERIT
-            - ALLOW_ALL
-            - EXCLUDE_MFA
-          inherited_mfa_from:
-            type: string
-            description: available if mfa_avoidance = INHERIT
-            enum:
-            - Organization
-            - Agency
-            - Advertiser
-            - Campaign
-          inherited_targeting_identity_level:
-            type: string
-            description: available if targeting_identity_level = INHERIT
-            enum:
-            - INDIVIDUAL
-            - HOUSEHOLD
-    campaign_attribution:
-      type: object
-      properties:
-        has_custom_attribution:
-          type: boolean
-          default: false
-        custom_attribution_source:
-          type:
-          - string
-          - 'null'
-          enum:
-          - 3rd Party Attribution
-          - T1 MTA via Neustar
-        pc_window_minutes:
-          type: integer
-          format: int32
-          example: 5
-        pv_window_minutes:
-          type: integer
-          format: int32
-          example: 6
-        pv_pct:
-          type: number
-          format: float
-          default: 100
-          minimum: 0
-          maximum: 100
-        merit_pixel_id:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          example: 17
-          description: "Will be deprecated soon. \nIf `merit_pixel_id` is set while create or updated then `merit_pixels` will be synchronized with it. \nIf `merit_pixels` is set while create or updated then `merit_pixel_id` will be synchronized with it. \nSet up (update) both fields at the same time is not supported.\n"
-        conversion_type:
-          type: string
-          enum:
-          - every
-          - variable
-          default: variable
-        conversion_variable_minutes:
-          type: integer
-          default: 1
-          format: int32
-          example: 1
-          description: 'Deduplication window in minutes. Must be 1 or greater when conversion_type is variable. To attribute all merit events without a deduplication window, use conversion_type: every (in which case this value is ignored).'
-    campaign_site_list:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        version:
-          type: integer
-        status:
-          type: boolean
-        organization_id:
-          type: integer
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        restriction:
-          type: string
-        filename:
-          type: string
-        campaign_id:
-          type: integer
-        assigned:
-          type: boolean
-        sites_count:
-          type: integer
-        sites_count_app:
-          type: integer
-        sites_count_domain:
-          type: integer
-        sites_count_primary_seller_id:
-          type: integer
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    campaign_goals_create:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/campaign_goals'
-      - required:
-        - goal_type
-        - goal_value
     campaign_pacing:
       type: object
       properties:
@@ -1214,117 +857,49 @@ components:
           type: boolean
           default: false
         spend_pace_ahead:
-          description: feature still in development
           type: boolean
           default: false
+          description: Boosts automatic spend pacing early in the flight. May be true only when spend_cap_automatic is true.
         impression_pace_ahead:
-          description: feature still in development
           type: boolean
           default: false
-    campaign_full_extended:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/campaign_full'
-      - type: object
-        properties:
-          inherited_mfa_avoidance:
-            type: string
-            enum:
-            - INHERIT
-            - ALLOW_ALL
-            - EXCLUDE_MFA
-          inherited_mfa_from:
-            type: string
-            enum:
-            - Organization
-            - Agency
-            - Advertiser
-            - Campaign
-          inherited_targeting_identity_level:
-            type: string
-            enum:
-            - INDIVIDUAL
-            - HOUSEHOLD
-    campaign_create:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/campaign_base'
-      - type: object
-        required:
-        - advertiser_id
-        - name
-        - service_type
-        - budget
-        - goals
-        properties:
-          advertiser_id:
-            type: integer
-            minimum: 1
-            format: int32
-            example: 8
-          goals:
-            $ref: '#/components/schemas/campaign_goals_create'
-          budget:
-            allOf:
-            - $ref: '#/components/schemas/campaign_budget'
-            - required:
-              - currency_code
-              - flights
-              properties:
-                flights:
-                  type: array
-                  minItems: 1
-                  items:
-                    $ref: '#/components/schemas/campaign_budget_flights_create'
-          frequency:
-            $ref: '#/components/schemas/campaign_frequency'
-          inventory:
-            $ref: '#/components/schemas/campaign_inventory'
-          site_lists:
-            type: array
-            items:
-              type: object
-              required:
-              - id
-              - assigned
-              properties:
-                id:
-                  type: integer
-                  format: int32
-                  example: 55
-                assigned:
-                  type: boolean
-          custom_brain_selections:
-            type: array
-            items:
-              type: object
-              properties:
-                selection_id:
-                  type: integer
-                  format: int32
-                  example: 23
-                selection_type:
-                  enum:
-                  - Audience Target
-                  - Data Pixel
-                  - Event Pixel
-                  - Segment
-                  - Dynamic
-    permission:
+          description: Boosts automatic impression pacing early in the flight. May be true only when impression_cap_automatic is true.
+    campaign_full-2:
+      title: campaign_response
       type: object
       properties:
-        id:
-          type: integer
-        create:
-          type: boolean
-        read:
-          type: boolean
-        update:
-          type: boolean
-        delete:
-          type: boolean
-        propogate:
-          type: boolean
+        data:
+          $ref: '#/components/schemas/campaign_full_with_inherited'
+        meta:
+          $ref: '#/components/schemas/single_metadata'
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    campaign_with:
+      type: object
+      properties:
+        advertiser:
+          type: object
+          description: available only if `with=advertiser`
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+        agency:
+          type: object
+          description: available only if `with=agency`
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
     campaign_base:
       type: object
       properties:
@@ -1390,9 +965,130 @@ components:
           - INDIVIDUAL
           - HOUSEHOLD
           default: INHERIT
-    campaign_budget_flights_create:
+    campaign_site_list:
       type: object
       properties:
+        id:
+          type: integer
+        name:
+          type: string
+        version:
+          type: integer
+        status:
+          type: boolean
+        organization_id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        restriction:
+          type: string
+        filename:
+          type: string
+        campaign_id:
+          type: integer
+        assigned:
+          type: boolean
+        sites_count:
+          type: integer
+        sites_count_app:
+          type: integer
+        sites_count_domain:
+          type: integer
+        sites_count_primary_seller_id:
+          type: integer
+    campaign_dba_collection:
+      type: object
+      title: campaign_dba_collection
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+            entity_type:
+              type: string
+            name:
+              type: string
+        meta:
+          $ref: '#/components/schemas/list_metadata'
+    campaign_create:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/campaign_base'
+      - type: object
+        required:
+        - advertiser_id
+        - name
+        - service_type
+        - budget
+        - goals
+        properties:
+          advertiser_id:
+            type: integer
+            minimum: 1
+            format: int32
+            example: 8
+          goals:
+            $ref: '#/components/schemas/campaign_goals_create'
+          budget:
+            allOf:
+            - $ref: '#/components/schemas/campaign_budget'
+            - required:
+              - currency_code
+              - flights
+              properties:
+                flights:
+                  type: array
+                  minItems: 1
+                  items:
+                    $ref: '#/components/schemas/campaign_budget_flights_create'
+          frequency:
+            $ref: '#/components/schemas/campaign_frequency'
+          inventory:
+            $ref: '#/components/schemas/campaign_inventory'
+          site_lists:
+            type: array
+            items:
+              type: object
+              required:
+              - id
+              - assigned
+              properties:
+                id:
+                  type: integer
+                  format: int32
+                  example: 55
+                assigned:
+                  type: boolean
+          custom_brain_selections:
+            type: array
+            items:
+              type: object
+              properties:
+                selection_id:
+                  type: integer
+                  format: int32
+                  example: 23
+                selection_type:
+                  enum:
+                  - Audience Target
+                  - Data Pixel
+                  - Event Pixel
+                  - Segment
+                  - Dynamic
+    campaign_budget_flights:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 77
         start_date:
           type: string
           format: date-time
@@ -1411,10 +1107,9 @@ components:
           minimum: 1
           maximum: 9223372036854776000
           example: 12345
-      required:
-      - start_date
-      - end_date
-      - total_budget
+        is_relevant:
+          type: boolean
+          readOnly: true
     campaign_full:
       allOf:
       - $ref: '#/components/schemas/campaign_base'
@@ -1422,6 +1117,9 @@ components:
         properties:
           id:
             type: integer
+          entity_type:
+            type: string
+            readOnly: true
           version:
             type: integer
           advertiser_id:
@@ -1511,7 +1209,6 @@ components:
                   - vcr
                   - viewability_rate
                   - vcpm
-                  - cpcv
           strategy_groups:
             type: object
             properties:
@@ -1521,72 +1218,503 @@ components:
                 type: array
                 items:
                   type: string
-    campaign_collection:
+    campaign_goals_create:
       type: object
-      title: campaign_collection
+      allOf:
+      - $ref: '#/components/schemas/campaign_goals'
+      - required:
+        - goal_type
+        - goal_value
+    permission:
+      type: object
+      properties:
+        id:
+          type: integer
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+        propogate:
+          type: boolean
+    campaign_bulk:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/campaign_base'
+      - type: object
+        required:
+        - id
+        properties:
+          id:
+            type: integer
+            minimum: 1
+            format: int32
+            example: 67
+          version:
+            type: integer
+            format: int32
+            example: 1
+          goals:
+            $ref: '#/components/schemas/campaign_goals'
+          duration:
+            $ref: '#/components/schemas/campaign_duration'
+          budget:
+            allOf:
+            - $ref: '#/components/schemas/campaign_budget'
+            - type: object
+              properties:
+                flights:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/campaign_budget_flights'
+          frequency:
+            $ref: '#/components/schemas/campaign_frequency'
+          inventory:
+            $ref: '#/components/schemas/campaign_inventory'
+    permission_flags:
+      type: object
+      properties:
+        create:
+          type: boolean
+        read:
+          type: boolean
+        update:
+          type: boolean
+        delete:
+          type: boolean
+        inherited_from:
+          type: string
+    campaign_full_extended-2:
+      title: campaign_response_extended
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/campaign_full_extended'
+        meta:
+          $ref: '#/components/schemas/single_metadata'
+    list_metadata:
+      title: pagination metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          description: The status of the response, indicating success or failure.
+        count:
+          type: integer
+          example: 10
+          description: The number of items returned in the current response.
+        total_count:
+          type: integer
+          example: 100
+          description: The total number of items available in the dataset.
+        offset:
+          type: integer
+          example: 0
+          description: The offset from the start of the dataset, used for pagination.
+        next_page:
+          type: string
+          description: The URL to fetch the next page of results.
+        prev_page:
+          type: string
+          description: The URL to fetch the previous page of results.
+      required:
+      - status
+      - count
+    campaign_collection_full:
+      type: object
+      title: campaign_collection_full
       properties:
         data:
           type: array
           items:
             allOf:
-            - type: object
-              properties:
-                id:
-                  type: integer
-                entity_type:
-                  type: string
-                name:
-                  type: string
+            - $ref: '#/components/schemas/campaign_full'
             - $ref: '#/components/schemas/campaign_with'
         meta:
           $ref: '#/components/schemas/list_metadata'
-    roles:
-      type: array
-      example:
-      - 4
-      - 6
-      description: "Possible values:\n- 2: \"admin\", \n- 3: \"manager\", \n- 4: \"reporter\", \n- 5: \"internal\", \n- 6: \"agency\" ,\n- 7: \"edit_data_definition\", \n- 8: \"view_data_definition\", \n- 9: \"edit_segments\", \n- 10: \"view_segments\", \n- 11: \"edit_campaigns\", \n- 13: \"edit_margins_and_performance\", \n- 14: \"view_organizations\", \n- 15: \"view_dmp_reports\", \n- 16: \"manage_contracts\", \n- 17: \"view_contracts\".\nSome values can't be used with each other, for example 3 and 4. For more information use \"/roles\" request.\n"
-      items:
-        type: integer
-        format: int16
-        minimum: 1
-        maximum: 32767
-    campaign_frequency:
+    campaign_inventory:
       type: object
       properties:
-        frequency_type:
-          type: string
-          enum:
-          - even
-          - asap
-          - no-limit
-          - t1-optimized
-          - frequency_goal
-        frequency_interval:
+        ads_txt_verified:
           type:
           - string
           - 'null'
-          minLength: 1
           enum:
-          - hour
-          - day
-          - week
-          - month
-          - not-applicable
-          default: not-applicable
-        frequency_amount:
+          - ANY
+          - AUTHORIZED_ONLY
+          - AUTHORIZED_DIRECT_ONLY
+          - NONE
+        minimize_multi_ads:
+          type: boolean
+          default: false
+        override_suspicious_traffic_filter:
+          type: boolean
+          default: false
+        suspicious_traffic_filter_level:
+          type: integer
+          default: 25
+          minimum: 0
+          maximum: 100
+        dcs_data_is_campaign_level:
+          type: boolean
+          default: false
+        restrict_targeting_to_deterministic_id:
+          deprecated: true
+          type: boolean
+          default: true
+        restrict_targeting_to_same_device_id:
+          type: boolean
+    campaign_viewability:
+      type:
+      - object
+      - 'null'
+      required:
+      - vendor_id
+      - sample_rate
+      - type
+      properties:
+        vendor_id:
+          type: integer
+          format: int32
+          example: 34
+        type:
+          type: string
+          enum:
+          - AUTO_TAG
+          - BYOV
+        sample_rate:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+    campaign_custom_brain_selection:
+      type: object
+      properties:
+        id:
+          type: integer
+        version:
+          type: integer
+        campaign_id:
+          type: integer
+        selection_id:
+          type: integer
+        selection_type:
+          type: string
+        active:
+          type: boolean
+        enable_mm_audiences_in_brain:
+          type: boolean
+        is_retired:
+          type: boolean
+        full_path:
+          type: string
+        owner_name:
+          type: string
+        selection_name:
+          type: string
+        child_count:
+          type: integer
+        parent_audience_segment_id:
+          type: integer
+        retail_cpm:
+          type: number
+          format: float
+        uniques:
+          type: integer
+        wholesale_cpm:
+          type: number
+          format: float
+    dba:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: campaign id
+          dynamic_budget_allocation_applied:
+            type:
+            - string
+            - 'null'
+            format: date-time
+          dynamic_budget_allocation_available:
+            type:
+            - string
+            - 'null'
+            format: date-time
+        required:
+        - id
+    permission_campaign_with_user:
+      allOf:
+      - type: object
+        properties:
+          permission:
+            $ref: '#/components/schemas/permission_flags'
+      - $ref: '#/components/schemas/permission_user_output'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    campaign_goals:
+      type: object
+      properties:
+        goal_type:
+          type: string
+          enum:
+          - spend
+          - reach
+          - cpc
+          - cpe
+          - cpa
+          - roi
+          - ctr
+          - vcr
+          - viewability_rate
+          - vcpm
+        goal_alert:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 999.99
+        goal_value:
+          type: number
+          format: float
+          minimum: 0.0001
+          maximum: 9999999.9999
+        goal_category:
+          type:
+          - string
+          - 'null'
+          enum:
+          - audience
+          - engagement
+          - response
+    campaign_identity:
+      type: object
+      properties:
+        device_graph_only:
+          type: boolean
+          default: false
+        bid_min_devices:
+          type: integer
+          format: int16
+          minimum: -32768
+          maximum: 32767
+          default: 1
+        connected_id_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - DETERMINISTIC_FIRST
+    campaign_full_extended:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/campaign_full'
+      - type: object
+        properties:
+          inherited_mfa_avoidance:
+            type: string
+            enum:
+            - INHERIT
+            - ALLOW_ALL
+            - EXCLUDE_MFA
+          inherited_mfa_from:
+            type: string
+            enum:
+            - Organization
+            - Agency
+            - Advertiser
+            - Campaign
+          inherited_targeting_identity_level:
+            type: string
+            enum:
+            - INDIVIDUAL
+            - HOUSEHOLD
+    campaign_dba_collection_full:
+      type: object
+      title: campaign_dba_collection_full
+      properties:
+        data:
+          $ref: '#/components/schemas/campaign_full'
+        meta:
+          $ref: '#/components/schemas/single_metadata'
+    campaign_attribution:
+      type: object
+      properties:
+        has_custom_attribution:
+          type: boolean
+          default: false
+        custom_attribution_source:
+          type:
+          - string
+          - 'null'
+          enum:
+          - 3rd Party Attribution
+          - T1 MTA via Neustar
+        pc_window_minutes:
           type:
           - integer
           - 'null'
           format: int32
-          example: 10
-        use_mm_freq:
-          type: boolean
+          minimum: 0
+          maximum: 43200
+          example: 5
+          description: Post-click attribution window in minutes. Use null to disable the window; 0 is accepted as a legacy disabled sentinel. When merit_pixel_id is non-null/non-zero or merit_pixels contains at least one pixel, at least one of pc_window_minutes or pv_window_minutes must be greater than 0.
+        pv_window_minutes:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 0
+          maximum: 43200
+          example: 6
+          description: Post-view attribution window in minutes. Use null to disable the window; 0 is accepted as a legacy disabled sentinel. When merit_pixel_id is non-null/non-zero or merit_pixels contains at least one pixel, at least one of pc_window_minutes or pv_window_minutes must be greater than 0.
+        pv_pct:
+          type: number
+          format: float
+          default: 100
+          minimum: 0
+          maximum: 100
+        merit_pixel_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          example: 17
           deprecated: true
-          default: false
-        frequency_optimization:
+          description: 'Deprecated. Use `merit_pixels` instead.
+
+            If `merit_pixel_id` is set on create or update then `merit_pixels` will be synchronized with it.
+
+            If `merit_pixels` is set on create or update then `merit_pixel_id` will be synchronized with it.
+
+            Set up (update) both fields at the same time is not supported.
+
+            '
+        merit_pixels:
+          type: array
+          maxItems: 10
+          description: 'Merit pixels for multi-merit attribution (up to 10 per campaign).
+
+            If `merit_pixel_id` is set on create or update then `merit_pixels` will be synchronized with it.
+
+            If `merit_pixels` is set on create or update then `merit_pixel_id` will be synchronized with it.
+
+            Set up (update) both fields at the same time is not supported.
+
+            Send empty array to remove all pixels. Send only pixel id for element to reset other fields to default.
+
+
+            Validation rules:
+
+            - Each `pixel_id` must reference an event pixel that belongs to the campaign''s advertiser.
+
+            - `pixel_id` values must be unique within the array.
+
+            - `weight` accepts values from 0.00 to 10.00 with at most 2 decimal places; at least one pixel must have a weight greater than 0.
+
+            - `funnel_position` values must be unique; if any pixel has a funnel position then all pixels must have one, with no gaps (1 to N).
+
+            '
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int32
+                readOnly: true
+              pixel_id:
+                type: integer
+                format: int32
+                minimum: 1
+              weight:
+                type: number
+                minimum: 0
+                maximum: 10
+                multipleOf: 0.01
+                default: 1
+              funnel_position:
+                type:
+                - integer
+                - 'null'
+                format: int32
+                minimum: 1
+                maximum: 10
+            required:
+            - pixel_id
+        conversion_type:
+          type: string
+          enum:
+          - every
+          - variable
+          default: variable
+        conversion_variable_minutes:
+          type: integer
+          default: 1
+          format: int32
+          example: 1
+          description: 'Deduplication window in minutes. Must be 1 or greater when conversion_type is variable. To attribute all merit events without a deduplication window, use conversion_type: every (in which case this value is ignored).'
+    campaign_duration:
+      type: object
+      description: Duration of campaigns must not exceed 36 months
+      properties:
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+    campaign_ad_server:
+      type: object
+      properties:
+        ad_server_id:
+          type: integer
+          format: int32
+          example: 19
+        ad_server_username:
+          type: string
+          maxLength: 64
+        ad_server_password:
+          type: string
+          maxLength: 64
+        use_default_ad_server:
           type: boolean
-          default: false
+          default: true
+        ad_server_fee:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 9999999.99
   parameters:
     sort_by:
       in: query
@@ -1596,13 +1724,40 @@ components:
         type: string
         example: id, -id, name, -name
       required: false
+    page_limit:
+      in: query
+      name: page_limit
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        example: 100
+      required: false
+      description: Number of elements in the collection to retrieve
     q:
       in: query
       name: q
       schema:
         type: string
       required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
+    campaign_with:
+      in: query
+      name: with
+      schema:
+        type: string
+        enum:
+        - advertiser
+        - agency
+      required: false
+      description: 'Get related property in response, values can be combined via `,` (example: `agency,advertiser`)'
+    extended:
+      in: query
+      name: extended
+      schema:
+        type: boolean
+      required: false
+      description: Get extended properties in response
     full:
       in: query
       name: full
@@ -1623,76 +1778,55 @@ components:
         example: 0
       required: false
       description: Index of the first element in the collection to retrieve
-    page_limit:
-      in: query
-      name: page_limit
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-        example: 100
-      required: false
-      description: Number of elements in the collection to retrieve
-    campaign_with:
-      in: query
-      name: with
-      schema:
-        type: string
-        enum:
-        - advertiser
-        - agency
-      required: false
-      description: 'Get related property in response, values can be combined via `,` (example: `agency,advertiser`)'
-    extended:
-      in: query
-      name: extended
-      schema:
-        type: boolean
-      required: false
-      description: Get extended properties in response
-  responses:
-    audit_log_bulk:
-      description: Audit log bulk response
+  requestBodies:
+    campaign_bulk_update:
       content:
         application/json:
           schema:
             type: object
             properties:
-              data:
-                type:
-                - array
-                - 'null'
+              update:
+                type: array
+                uniqueItems: true
+                minItems: 1
                 items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    tool_name:
-                      type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
+                  $ref: '#/components/schemas/campaign_bulk'
+            required:
+            - update
+    campaign_create:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/campaign_create'
+    dba:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/dba'
+    campaign_update:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/campaign_update'
+    id_list:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: array
+                example:
+                - 8
+                - 98
+                - 7
+                minItems: 1
+                items:
+                  type: integer
+                  format: int32
+            required:
+            - id
+  responses:
     campaign:
       description: Campaign response
       content:
@@ -1704,23 +1838,6 @@ components:
                 $ref: '#/components/schemas/campaign_full_with_inherited'
               meta:
                 $ref: '#/components/schemas/single_metadata'
-    dba_bulk:
-      description: Dba bulk response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                $ref: '#/components/schemas/dba'
-              meta:
-                $ref: '#/components/schemas/list_metadata'
-    error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error_response'
     audit_log:
       description: Audit log response
       content:
@@ -1763,6 +1880,48 @@ components:
                       type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
+    audit_log_bulk:
+      description: Audit log bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    tool_name:
+                      type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
     campaign_bulk:
       description: Campaign bulk response
       content:
@@ -1776,54 +1935,23 @@ components:
                   $ref: '#/components/schemas/campaign_bulk'
               meta:
                 $ref: '#/components/schemas/list_metadata'
-  requestBodies:
-    id_list:
+    dba_bulk:
+      description: Dba bulk response
       content:
         application/json:
           schema:
             type: object
             properties:
-              id:
-                type: array
-                example:
-                - 8
-                - 98
-                - 7
-                minItems: 1
-                items:
-                  type: integer
-                  format: int32
-            required:
-            - id
-    dba:
+              data:
+                $ref: '#/components/schemas/dba'
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    error:
+      description: Error response
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/dba'
-    campaign_create:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/campaign_create'
-    campaign_bulk_update:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              update:
-                type: array
-                uniqueItems: true
-                minItems: 1
-                items:
-                  $ref: '#/components/schemas/campaign_bulk'
-            required:
-            - update
-    campaign_update:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/campaign_update'
+            $ref: '#/components/schemas/error_response'
   securitySchemes:
     Auth0:
       type: oauth2
@@ -1844,6 +1972,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -1853,6 +1982,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -1866,6 +1996,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

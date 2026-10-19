@@ -1,7 +1,33 @@
 openapi: 3.2.0
 info:
   title: Component Creatives Creatives - Native API
-  description: The terms creative components and native components may be used interchangeably.
+  description: 'The terms creative components and native components may be used interchangeably.
+
+    Component Creatives are uploaded in the "Creatives Tab" within the Creatives Module, and is where creatives for native campaigns are uploaded.
+
+
+    ## Component Creatives API v3.0 (current)
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v3.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v3.0/`
+
+
+    v3.0 endpoints use Bearer (JWT) authentication via the `Authorization` header.
+
+
+    ## Component Creatives API v1.0 (deprecated)
+
+
+    > **Deprecated:** The v1.0 endpoints are deprecated. Please migrate to v3.0.
+
+
+    QA API Base: `https://t1qa1.mediamath.com/component_creatives/v1.0/` (or whichever QA server is being used)
+
+
+    Prod API Base: `https://api.mediamath.com/component_creatives/v1.0`'
   contact:
     name: API Support
     url: https://support.infillion.com/
@@ -310,67 +336,33 @@ paths:
       - Creatives - Native
 components:
   schemas:
-    models.ComponentCreativeApiResponse:
-      description: Standard component creative API response for create, update, and get operations
+    models.PlacementEligibility:
       properties:
-        data:
-          $ref: '#/components/schemas/models.ComponentCreativeData'
-        meta:
-          $ref: '#/components/schemas/models.MetaInfo'
-      type: object
-    models.ComponentCreativeRequest:
-      properties:
-        assets:
-          description: JSON string of AssetRequest array
-          type: string
-        body:
-          type: string
-        brandName:
-          type: string
-        clickThroughUrl:
-          type: string
-        clickTrackingUrl:
-          type: string
-        concept_id:
-          type: integer
-        description:
-          type: string
-        destinationUrl:
-          type: string
-        displayUrl:
-          type: string
-        end_date:
-          type: string
-        external_identifier:
-          type: string
-        height:
-          type: integer
-        impressionTrackingTag:
-          type: string
-        impressionTrackingUrl:
-          type: string
-        start_date:
-          type: string
-        status:
+        ad_format:
+          $ref: '#/components/schemas/models.AdFormat'
+        eligible:
           type: boolean
-        title:
-          type: string
-        tpas_ad_tag_name:
-          type: string
-        viewabilityTrackingTag:
-          type: string
-        width:
-          type: integer
-      type: object
-    models.ComponentCreativeListResponse:
-      description: Component creative list API response
-      properties:
-        data:
+        optional_components:
           items:
-            $ref: '#/components/schemas/models.ComponentCreativeData'
+            $ref: '#/components/schemas/models.EligibleComponent'
           type: array
-        meta:
-          $ref: '#/components/schemas/models.MetaInfo'
+        required_components:
+          items:
+            $ref: '#/components/schemas/models.EligibleComponent'
+          type: array
+        supplier:
+          type: string
+        supplier_platform:
+          type: string
+      type: object
+    models.EligibleComponent:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        present:
+          type: boolean
       type: object
     models.Asset:
       description: Asset associated with a creative
@@ -404,14 +396,32 @@ components:
         video_url:
           type: string
       type: object
-    models.AdFormat:
+    httputil.Response:
       properties:
-        external_id:
+        data: {}
+        error:
           type: string
-        name:
+        message:
           type: string
-        simple_name:
+      type: object
+    models.ValidationMeta:
+      properties:
+        code:
+          type: integer
+        message:
           type: string
+        status:
+          type: string
+      type: object
+    models.ComponentCreativeListResponse:
+      description: Component creative list API response
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/models.ComponentCreativeData'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
       type: object
     models.ComponentCreativeUpdateRequest:
       properties:
@@ -461,24 +471,42 @@ components:
         width:
           type: integer
       type: object
-    models.PlacementEligibility:
+    models.ComponentCreativeApiResponse:
+      description: Standard component creative API response for create, update, and get operations
       properties:
-        ad_format:
-          $ref: '#/components/schemas/models.AdFormat'
-        eligible:
-          type: boolean
-        optional_components:
-          items:
-            $ref: '#/components/schemas/models.EligibleComponent'
-          type: array
-        required_components:
-          items:
-            $ref: '#/components/schemas/models.EligibleComponent'
-          type: array
-        supplier:
+        data:
+          $ref: '#/components/schemas/models.ComponentCreativeData'
+        meta:
+          $ref: '#/components/schemas/models.MetaInfo'
+      type: object
+    models.MetaInfo:
+      description: Response metadata
+      properties:
+        code:
+          type: integer
+        count:
+          type: integer
+        next_page:
           type: string
-        supplier_platform:
+        offset:
+          type: integer
+        prev_page:
           type: string
+        status:
+          type: string
+        total_count:
+          type: integer
+        type:
+          type: string
+      type: object
+    models.ValidationError:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/models.ValidationDetail'
+          type: array
+        meta:
+          $ref: '#/components/schemas/models.ValidationMeta'
       type: object
     models.ComponentCreativeData:
       description: Component Creative object with assets and metadata
@@ -526,47 +554,49 @@ components:
         unpublished:
           type: boolean
       type: object
-    models.ValidationDetail:
+    models.ComponentCreativeRequest:
       properties:
-        msg:
+        assets:
+          description: JSON string of AssetRequest array
           type: string
-        param:
+        body:
           type: string
-      type: object
-    httputil.Response:
-      properties:
-        data: {}
-        error:
+        brandName:
           type: string
-        message:
+        clickThroughUrl:
           type: string
-      type: object
-    models.ValidationError:
-      properties:
-        errors:
-          items:
-            $ref: '#/components/schemas/models.ValidationDetail'
-          type: array
-        meta:
-          $ref: '#/components/schemas/models.ValidationMeta'
-      type: object
-    models.ValidationMeta:
-      properties:
-        code:
+        clickTrackingUrl:
+          type: string
+        concept_id:
           type: integer
-        message:
+        description:
+          type: string
+        destinationUrl:
+          type: string
+        displayUrl:
+          type: string
+        end_date:
+          type: string
+        external_identifier:
+          type: string
+        height:
+          type: integer
+        impressionTrackingTag:
+          type: string
+        impressionTrackingUrl:
+          type: string
+        start_date:
           type: string
         status:
-          type: string
-      type: object
-    models.EligibleComponent:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        present:
           type: boolean
+        title:
+          type: string
+        tpas_ad_tag_name:
+          type: string
+        viewabilityTrackingTag:
+          type: string
+        width:
+          type: integer
       type: object
     models.EligibilityResponse:
       properties:
@@ -577,24 +607,20 @@ components:
         meta:
           $ref: '#/components/schemas/models.MetaInfo'
       type: object
-    models.MetaInfo:
-      description: Response metadata
+    models.ValidationDetail:
       properties:
-        code:
-          type: integer
-        count:
-          type: integer
-        next_page:
+        msg:
           type: string
-        offset:
-          type: integer
-        prev_page:
+        param:
           type: string
-        status:
+      type: object
+    models.AdFormat:
+      properties:
+        external_id:
           type: string
-        total_count:
-          type: integer
-        type:
+        name:
+          type: string
+        simple_name:
           type: string
       type: object
   securitySchemes:

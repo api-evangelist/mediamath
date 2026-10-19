@@ -259,37 +259,6 @@ paths:
                   zone_name: America/New_York
 components:
   schemas:
-    campaign_plan_update:
-      type: object
-      properties:
-        version:
-          type: integer
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
     single_metadata:
       title: single_metadata
       type: object
@@ -299,6 +268,40 @@ components:
           example: success
       required:
       - status
+    campaign_plan:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/campaign_plan_update'
+      - $ref: '#/components/schemas/campaign_plan_create'
+      - $ref: '#/components/schemas/campaign_plan_common'
+    campaign_plan_common:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: integer
+        duration:
+          type: object
+          properties:
+            start_date:
+              type: string
+              format: date-time
+            end_date:
+              type: string
+              format: date-time
+        budget:
+          type: object
+          properties:
+            total_budget:
+              type: number
+              format: float
+              minimum: 1
+              maximum: 99999999999999.98
+            currency_code:
+              type: string
+        zone_name:
+          type: string
     list_metadata:
       title: pagination metadata
       type: object
@@ -328,12 +331,40 @@ components:
       required:
       - status
       - count
-    campaign_plan:
+    campaign_plan_update:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/campaign_plan_update'
-      - $ref: '#/components/schemas/campaign_plan_create'
-      - $ref: '#/components/schemas/campaign_plan_common'
+      properties:
+        version:
+          type: integer
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
     campaign_plan_create:
       type: object
       properties:
@@ -347,34 +378,6 @@ components:
         updated_on:
           type: string
           format: date-time
-    campaign_plan_common:
-      type: object
-      properties:
-        name:
-          type: string
-        version:
-          type: integer
-        duration:
-          type: object
-          properties:
-            start_date:
-              type: string
-              format: date-time
-            end_date:
-              type: string
-              format: date-time
-        budget:
-          type: object
-          properties:
-            total_budget:
-              type: number
-              format: float
-              minimum: 1
-              maximum: 99999999999999.98
-            currency_code:
-              type: string
-        zone_name:
-          type: string
   responses:
     error:
       description: Error response
@@ -402,6 +405,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -411,6 +415,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -424,6 +429,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors

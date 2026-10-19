@@ -268,23 +268,6 @@ components:
         type: string
         example: id, -id, name, -name
       required: false
-    q:
-      in: query
-      name: q
-      schema:
-        type: string
-      required: false
-      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
-    full:
-      in: query
-      name: full
-      schema:
-        type: string
-        example: '*'
-      required: false
-      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
-
-        '
     advertisers_with:
       in: query
       name: with
@@ -294,16 +277,6 @@ components:
         - agency
       required: false
       description: Get related property in response
-    page_offset:
-      in: query
-      name: page_offset
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 1000
-        example: 0
-      required: false
-      description: Index of the first element in the collection to retrieve
     page_limit:
       in: query
       name: page_limit
@@ -314,6 +287,13 @@ components:
         example: 100
       required: false
       description: Number of elements in the collection to retrieve
+    q:
+      in: query
+      name: q
+      schema:
+        type: string
+      required: false
+      description: "Query search for filtering. This parameter can be used to filter results based on various fields.\nSupported operators:\n- `==` - numeric equality or case-sensitive string identity, \n- `==(1,2,3)` - IN query (only works for integers),\n- `!=` - numeric inequality or case-sensitive string non-identity,\n- `=:` - case-insensitive match, allows substring using * wildcards,\n- `!:` - case-insensitive non-match (\"does not contain\"), allows substring using * wildcards; rows where the field is NULL are excluded,\n- `<` - less than,\n- `<=` - less than or equal to,\n- `>` - greater than,\n- `>=` - greater than or equal to.\nExamples: \n- `q=name=:{search}*` to find all results with names starting with {search}.\n- Numeric `q=id=:*123*` searches are treated as exact primary-key matches, equivalent to `q=id==123`; likewise `q=id!:*123*` is equivalent to `q=id!=123`.\n- `q=name!:*promo*` to exclude all results whose name contains \"promo\".\n- `q=status==true` to find all active entities.\n- `q=id>=1000` to find all entities with id greater than or equal to 1000.\n- `q=id==(1,2,3)` to find specific entities by ID.\n- `q=created_on>1999-02-02` or `q=created_on>1999-02-02T00:00:00Z` to find entities created later than date.\n- `q=id>5&status==true` to find all active entities with id greater than 5.\n"
     extended:
       in: query
       name: extended
@@ -321,49 +301,27 @@ components:
         type: boolean
       required: false
       description: Get extended properties in response
+    full:
+      in: query
+      name: full
+      schema:
+        type: string
+        example: '*'
+      required: false
+      description: 'To return all fields, set the value to `*`. For example, `full=*` will include all properties.
+
+        '
+    page_offset:
+      in: query
+      name: page_offset
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1000
+        example: 0
+      required: false
+      description: Index of the first element in the collection to retrieve
   responses:
-    audit_log_bulk:
-      description: Audit log bulk response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: object
-                  properties:
-                    action:
-                      type: string
-                    date:
-                      type: string
-                      format: date-time
-                    tool_name:
-                      type: string
-                    user_name:
-                      type: string
-                    user_id:
-                      type: integer
-                    collection:
-                      type: string
-                    entity_id:
-                      type: integer
-                    fields:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          field_name:
-                            type: string
-                          old_value:
-                            type: string
-                          new_value:
-                            type: string
-              meta:
-                $ref: '#/components/schemas/list_metadata'
     audit_log:
       description: Audit log response
       content:
@@ -404,6 +362,48 @@ components:
                       type: integer
                     tool_name:
                       type: string
+              meta:
+                $ref: '#/components/schemas/list_metadata'
+    audit_log_bulk:
+      description: Audit log bulk response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: object
+                  properties:
+                    action:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                    tool_name:
+                      type: string
+                    user_name:
+                      type: string
+                    user_id:
+                      type: integer
+                    collection:
+                      type: string
+                    entity_id:
+                      type: integer
+                    fields:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field_name:
+                            type: string
+                          old_value:
+                            type: string
+                          new_value:
+                            type: string
               meta:
                 $ref: '#/components/schemas/list_metadata'
     error:
@@ -468,6 +468,47 @@ components:
                     type: string
         meta:
           $ref: '#/components/schemas/list_metadata'
+    permission_advertiser:
+      allOf:
+      - $ref: '#/components/schemas/permission_flags'
+      - type: object
+        properties:
+          advertiser_id:
+            type: integer
+    single_metadata:
+      title: single_metadata
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+      required:
+      - status
+    advertiser_response:
+      title: advertiser_response
+      type: object
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/advertiser_response_base'
+          - type: object
+            properties:
+              inherited_mfa_avoidance:
+                type: string
+                description: available if mfa_avoidance = INHERIT
+                enum:
+                - INHERIT
+                - ALLOW_ALL
+                - EXCLUDE_MFA
+              inherited_mfa_from:
+                type: string
+                description: available if mfa_avoidance = INHERIT
+                enum:
+                - Organization
+                - Agency
+                - Advertiser
+        meta:
+          $ref: '#/components/schemas/single_metadata'
     permission_flags:
       type: object
       properties:
@@ -510,6 +551,32 @@ components:
       required:
       - status
       - count
+    advertiser_update:
+      allOf:
+      - $ref: '#/components/schemas/advertiser_base'
+      - type: object
+        properties:
+          version:
+            type: integer
+            format: int32
+            example: 1
+            minimum: 0
+    advertiser_create:
+      allOf:
+      - $ref: '#/components/schemas/advertiser_base'
+      - type: object
+        properties:
+          agency_id:
+            type: integer
+            format: int32
+            example: 125
+            minimum: 1
+        required:
+        - name
+        - agency_id
+        - vertical_id
+        - ad_server_id
+        - domain
     advertiser_collection:
       title: advertiser_collection
       type: object
@@ -538,6 +605,57 @@ components:
                     type: string
         meta:
           $ref: '#/components/schemas/list_metadata'
+    error_response:
+      title: error response
+      type: object
+      required:
+      - errors
+      - meta
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              sub_code:
+                description: Optional identifier that refines the generic `code` category (e.g. `html5-noscript-tag`). Present on HTML5 upload/preview validation errors; absent otherwise.
+                type: string
+              field:
+                description: Optional when it is a schema error
+                type: string
+              message:
+                type: string
+        meta:
+          type: object
+          required:
+          - status
+          properties:
+            status:
+              type: string
+    advertiser_response_extended:
+      title: advertiser_response_extended
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/advertiser_response_base'
+          - type: object
+            properties:
+              inherited_mfa_avoidance:
+                type: string
+                enum:
+                - INHERIT
+                - ALLOW_ALL
+                - EXCLUDE_MFA
+              inherited_mfa_from:
+                type: string
+                enum:
+                - Organization
+                - Agency
+                - Advertiser
+        meta:
+          $ref: '#/components/schemas/single_metadata'
     advertiser_base:
       title: advertiser
       type: object
@@ -648,102 +766,6 @@ components:
                 example: 18
               impression_pixel:
                 type: string
-    advertiser_response:
-      title: advertiser_response
-      type: object
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/advertiser_response_base'
-          - type: object
-            properties:
-              inherited_mfa_avoidance:
-                type: string
-                description: available if mfa_avoidance = INHERIT
-                enum:
-                - INHERIT
-                - ALLOW_ALL
-                - EXCLUDE_MFA
-              inherited_mfa_from:
-                type: string
-                description: available if mfa_avoidance = INHERIT
-                enum:
-                - Organization
-                - Agency
-                - Advertiser
-        meta:
-          $ref: '#/components/schemas/single_metadata'
-    advertiser_create:
-      allOf:
-      - $ref: '#/components/schemas/advertiser_base'
-      - type: object
-        properties:
-          agency_id:
-            type: integer
-            format: int32
-            example: 125
-            minimum: 1
-        required:
-        - name
-        - agency_id
-        - vertical_id
-        - ad_server_id
-        - domain
-    error_response:
-      title: error response
-      type: object
-      required:
-      - errors
-      - meta
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-              field:
-                description: Optional when it is a schema error
-                type: string
-              message:
-                type: string
-        meta:
-          type: object
-          required:
-          - status
-          properties:
-            status:
-              type: string
-    permission_advertiser:
-      allOf:
-      - $ref: '#/components/schemas/permission_flags'
-      - type: object
-        properties:
-          advertiser_id:
-            type: integer
-    advertiser_response_extended:
-      title: advertiser_response_extended
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/advertiser_response_base'
-          - type: object
-            properties:
-              inherited_mfa_avoidance:
-                type: string
-                enum:
-                - INHERIT
-                - ALLOW_ALL
-                - EXCLUDE_MFA
-              inherited_mfa_from:
-                type: string
-                enum:
-                - Organization
-                - Agency
-                - Advertiser
-        meta:
-          $ref: '#/components/schemas/single_metadata'
     advertiser_response_base:
       allOf:
       - $ref: '#/components/schemas/advertiser_base'
@@ -793,25 +815,6 @@ components:
                 type: string
               rel:
                 type: string
-    single_metadata:
-      title: single_metadata
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-      required:
-      - status
-    advertiser_update:
-      allOf:
-      - $ref: '#/components/schemas/advertiser_base'
-      - type: object
-        properties:
-          version:
-            type: integer
-            format: int32
-            example: 1
-            minimum: 0
   requestBodies:
     id_list:
       content:
@@ -851,6 +854,7 @@ x-tagGroups:
   - Campaigns
   - Campaigns Budget Flights
   - New Strategy Plans
+  - New Strategy Groups
   - Organizations
   - Strategies
   - Strategy Parameters
@@ -860,6 +864,7 @@ x-tagGroups:
   - Segment Groups
   - Targeting
   - Targeting Attachments
+  - Place Lists
   - Targeting Segment Objectives
   - Targeting Segments
 - name: Creatives
@@ -873,6 +878,7 @@ x-tagGroups:
   tags:
   - Audience Vendors
   - Contracts
+  - Internal Fees
   - Marketplaces
   - Vendor Contracts
   - Vendors
